@@ -1,0 +1,11 @@
+.idea/.gitignore
+.idea/modules.xml
+.idea/TP-Final-Dune-Grupo-1.iml
+.idea/vcs.xml
+server
+server_celda.o
+server_main.o
+server_mapa.o
+server_navegador.o
+.idea/misc.xml
+.vscode/settings.json
