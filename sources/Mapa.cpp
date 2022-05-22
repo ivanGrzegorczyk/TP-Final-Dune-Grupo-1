@@ -1,13 +1,13 @@
 #include <vector>
 #include <cmath>
 
-#include "Mapa.h"
-#include "Celda.h"
-#include "Navegador.h"
+#include "../headers/Mapa.h"
+#include "../headers/Celda.h"
+#include "../headers/Navegador.h"
 
 Mapa::Mapa(int filas, int columnas) :
-    mapa(filas, std::vector<Celda>(columnas)),
-    filas(filas), columnas(columnas) {
+        mapa(filas, std::vector<Celda>(columnas)),
+        filas(filas), columnas(columnas) {
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < columnas; j++) {
             mapa[i][j].f_value = INFINITY;

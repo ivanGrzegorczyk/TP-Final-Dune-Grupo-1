@@ -21,7 +21,7 @@ private:
 
 public:
     explicit Navegador(
-        std::vector<std::vector<Celda>> &mapa, int filas, int columnas);
+            std::vector<std::vector<Celda>> &mapa, int filas, int columnas);
 
     std::vector<Celda> navegar(const Celda &pos_actual, const Celda &destino);
 };

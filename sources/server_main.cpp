@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Mapa.h"
+#include "../headers/Mapa.h"
 
 void mostrar(const std::vector<Celda>& recorrido) {
     std::cout << "RECORRIDO" << std::endl;

@@ -9,3 +9,4 @@ server_mapa.o
 server_navegador.o
 .idea/misc.xml
 .vscode/settings.json
+.idea/.name

@@ -3,12 +3,12 @@
 #include <complex>
 #include <stack>
 
-#include "Navegador.h"
+#include "../headers/Navegador.h"
 
 Navegador::Navegador(
-std::vector<std::vector<Celda>> &mapa, int filas, int columnas) : 
-    filas(filas), columnas(columnas), mapa(mapa),
-    cerrado(filas, std::vector<bool>(columnas)) {
+        std::vector<std::vector<Celda>> &mapa, int filas, int columnas) :
+        filas(filas), columnas(columnas), mapa(mapa),
+        cerrado(filas, std::vector<bool>(columnas)) {
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < columnas; j++) {
             cerrado[i][j] = false;
@@ -19,7 +19,7 @@ std::vector<std::vector<Celda>> &mapa, int filas, int columnas) :
 bool Navegador::coordenadaValida(
         const Celda &celda) const {
     if (celda.id.first >= columnas || celda.id.second >= filas
-    || celda.id.first < 0 || celda.id.second < 0) {
+        || celda.id.first < 0 || celda.id.second < 0) {
         return false;
     } else {
         return true;
@@ -28,7 +28,7 @@ bool Navegador::coordenadaValida(
 
 double Navegador::calcularH(coordenada_t coordenada) const {
     return std::sqrt(std::pow(objetivo.id.first - coordenada.first, 2)
-    + std::pow(objetivo.id.second - coordenada.second, 2) * 1.0);
+                     + std::pow(objetivo.id.second - coordenada.second, 2) * 1.0);
 }
 
 std::vector<Celda> Navegador::armarCamino() {
@@ -39,8 +39,8 @@ std::vector<Celda> Navegador::armarCamino() {
     std::vector<Celda> usablePath;
 
     while (!(mapa[x][y].id_anterior.first == x
-        && mapa[x][y].id_anterior.second == y)
-        && mapa[x][y].id.first != -1 && mapa[x][y].id.second != -1)
+             && mapa[x][y].id_anterior.second == y)
+           && mapa[x][y].id.first != -1 && mapa[x][y].id.second != -1)
     {
         camino.push(mapa[x][y]);
         int tempX = mapa[x][y].id_anterior.first;

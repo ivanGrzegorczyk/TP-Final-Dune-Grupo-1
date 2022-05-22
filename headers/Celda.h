@@ -9,7 +9,7 @@ class Celda {
 public:
     coordenada_t id;
     coordenada_t id_anterior;
-    
+
     // A* : f_value = g_value + h_value
     float f_value{}, g_value{}, h_value{};
 

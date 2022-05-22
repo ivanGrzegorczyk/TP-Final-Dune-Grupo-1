@@ -8,7 +8,7 @@ class Mapa {
 private:
     std::vector<std::vector<Celda>> mapa;
     int filas, columnas;
-    
+
 public:
     Mapa(int columnas, int filas);
 
