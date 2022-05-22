@@ -8,16 +8,11 @@ class Navegador {
 private:
     int filas;
     int columnas;
-    Celda objetivo{};
     std::vector<std::vector<Celda>> mapa;
-    // Vector con las celdas que hay que evaluar
-    std::vector<Celda> abierto;
-    // Vector con las celdas que fueron evaluadas
-    std::vector<std::vector<bool>> cerrado;
 
     bool coordenadaValida(const Celda &unidad) const;
-    double calcularH(coordenada_t coordenada) const;
-    std::vector<Celda> armarCamino();
+    double calcularH(coordenada_t coordenada, const Celda &destino) const;
+    std::vector<Celda> armarCamino(const Celda &destino);
 
 public:
     explicit Navegador(

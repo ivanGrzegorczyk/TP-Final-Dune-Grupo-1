@@ -7,14 +7,7 @@
 
 Navegador::Navegador(
         std::vector<std::vector<Celda>> &mapa, int filas, int columnas) :
-        filas(filas), columnas(columnas), mapa(mapa),
-        cerrado(filas, std::vector<bool>(columnas)) {
-    for (int i = 0; i < filas; i++) {
-        for (int j = 0; j < columnas; j++) {
-            cerrado[i][j] = false;
-        }
-    }
-}
+        filas(filas), columnas(columnas), mapa(mapa) {}
 
 bool Navegador::coordenadaValida(
         const Celda &celda) const {
@@ -26,15 +19,15 @@ bool Navegador::coordenadaValida(
     }
 }
 
-double Navegador::calcularH(coordenada_t coordenada) const {
-    return std::sqrt(std::pow(objetivo.id.first - coordenada.first, 2)
-                     + std::pow(objetivo.id.second - coordenada.second, 2) * 1.0);
+double Navegador::calcularH(coordenada_t coordenada, const Celda &destino) const {
+    return std::sqrt(std::pow(destino.id.first - coordenada.first, 2)
+                     + std::pow(destino.id.second - coordenada.second, 2) * 1.0);
 }
 
-std::vector<Celda> Navegador::armarCamino() {
+std::vector<Celda> Navegador::armarCamino(const Celda &destino) {
     std::cout << "Found a camino" << std::endl;
-    int x = objetivo.id.first;
-    int y = objetivo.id.second;
+    int x = destino.id.first;
+    int y = destino.id.second;
     std::stack<Celda> camino;
     std::vector<Celda> usablePath;
 
@@ -60,7 +53,13 @@ std::vector<Celda> Navegador::armarCamino() {
 }
 
 std::vector<Celda> Navegador::navegar(const Celda& pos_actual, const Celda& destino) {
-    objetivo = destino;
+    // Vector con las celdas que fueron evaluadas
+    std::vector<std::vector<bool>>  cerrado(filas, std::vector<bool>(columnas));
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
+            cerrado[i][j] = false;
+        }
+    }
     if (!coordenadaValida(pos_actual) ||
         !coordenadaValida(destino) || pos_actual == destino) {
         std::cout << "Coordenada invalida" << std::endl;
@@ -73,7 +72,7 @@ std::vector<Celda> Navegador::navegar(const Celda& pos_actual, const Celda& dest
     mapa[x][y].h_value = 0;
     mapa[x][y].id_anterior.first = x;
     mapa[x][y].id_anterior.second = y;
-
+    std::vector<Celda> abierto;
     abierto.emplace_back(mapa[x][y]);
 
     while (!abierto.empty() && (int)abierto.size() < filas * columnas) {
@@ -101,16 +100,16 @@ std::vector<Celda> Navegador::navegar(const Celda& pos_actual, const Celda& dest
             for (int j = -1; j <= 1; j++) {
                 double g_aux, h_aux, f_aux;
                 if (coordenadaValida(Celda {x + i, y + j})) {
-                    if (objetivo == Celda {x + i, y + j}) {
+                    if (destino == Celda {x + i, y + j}) {
                         //Destination found - make path
                         mapa[x + i][y + j].id_anterior.first = x;
                         mapa[x + i][y + j].id_anterior.second = y;
 
-                        return armarCamino();
+                        return armarCamino(destino);
                     } else if (!cerrado[x + i][y + j]) {
                         g_aux = celda.g_value + 1.0;
                         coordenada_t coord{x + i, y + j};
-                        h_aux = calcularH(coord);
+                        h_aux = calcularH(coord, destino);
                         f_aux = g_aux + h_aux;
                         // Check if this path is better than the one already present
                         if (mapa[x + i][y + j].f_value == INFINITY ||
