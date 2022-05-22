@@ -2,34 +2,43 @@
 #include <algorithm>
 #include <complex>
 #include <stack>
-
+#include <array>
 #include "../headers/Navegador.h"
 
-Navegador::Navegador(
-        std::vector<std::vector<Celda>> &mapa, int filas, int columnas) :
-        filas(filas), columnas(columnas), mapa(mapa) {}
+Navegador::Navegador(const size_t filas, const size_t columnas) :
+        filas(filas), columnas(columnas), mapa(filas, std::vector<CeldaAStar>(columnas)) {
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
+            mapa[i][j].f_value = INFINITY;
+            mapa[i][j].g_value = INFINITY;
+            mapa[i][j].h_value = INFINITY;
+            mapa[i][j].id_anterior = {-1, -1};
+            mapa[i][j].id = {i, j};
+        }
+    }
+}
 
 bool Navegador::coordenadaValida(
-        const Celda &celda) const {
-    if (celda.id.first >= columnas || celda.id.second >= filas
-        || celda.id.first < 0 || celda.id.second < 0) {
+        const CeldaAStar &CeldaAStar) const {
+    if (CeldaAStar.id.first >= columnas || CeldaAStar.id.second >= filas
+        || CeldaAStar.id.first < 0 || CeldaAStar.id.second < 0) {
         return false;
     } else {
         return true;
     }
 }
 
-double Navegador::calcularH(coordenada_t coordenada, const Celda &destino) const {
+double Navegador::calcularH(coordenada_t coordenada, const CeldaAStar &destino) const {
     return std::sqrt(std::pow(destino.id.first - coordenada.first, 2)
                      + std::pow(destino.id.second - coordenada.second, 2) * 1.0);
 }
 
-std::vector<Celda> Navegador::armarCamino(const Celda &destino) {
+std::vector<CeldaAStar> Navegador::armarCamino(const CeldaAStar &destino) {
     std::cout << "Found a camino" << std::endl;
     int x = destino.id.first;
     int y = destino.id.second;
-    std::stack<Celda> camino;
-    std::vector<Celda> usablePath;
+    std::stack<CeldaAStar> camino;
+    std::vector<CeldaAStar> usablePath;
 
     while (!(mapa[x][y].id_anterior.first == x
              && mapa[x][y].id_anterior.second == y)
@@ -45,15 +54,17 @@ std::vector<Celda> Navegador::armarCamino(const Celda &destino) {
     camino.push(mapa[x][y]);
 
     while (!camino.empty()) {
-        Celda top = camino.top();
+        CeldaAStar top = camino.top();
         camino.pop();
         usablePath.emplace_back(top);
     }
     return usablePath;
 }
 
-std::vector<Celda> Navegador::navegar(const Celda& pos_actual, const Celda& destino) {
-    // Vector con las celdas que fueron evaluadas
+std::vector<CeldaAStar> Navegador::navegar(const coordenada_t& _pos_actual, const coordenada_t& _destino) {
+    CeldaAStar pos_actual(_pos_actual);
+    CeldaAStar destino(_destino);
+    // Vector con las CeldaAStars que fueron evaluadas
     std::vector<std::vector<bool>>  cerrado(filas, std::vector<bool>(columnas));
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < columnas; j++) {
@@ -72,42 +83,43 @@ std::vector<Celda> Navegador::navegar(const Celda& pos_actual, const Celda& dest
     mapa[x][y].h_value = 0;
     mapa[x][y].id_anterior.first = x;
     mapa[x][y].id_anterior.second = y;
-    std::vector<Celda> abierto;
+    std::vector<CeldaAStar> abierto;
     abierto.emplace_back(mapa[x][y]);
 
     while (!abierto.empty() && (int)abierto.size() < filas * columnas) {
-        Celda celda;
+        CeldaAStar c;
         do {
             float temp = INFINITY;
-            std::vector<Celda>::iterator itCelda;
+            std::vector<CeldaAStar>::iterator itCeldaAStar;
             for (auto it = abierto.begin();
                  it != abierto.end(); it = next(it)) {
-                Celda n = *it;
+                CeldaAStar n = *it;
                 if (n.f_value < temp) {
                     temp = n.f_value;
-                    itCelda = it;
+                    itCeldaAStar = it;
                 }
             }
-            celda = *itCelda;
-            abierto.erase(itCelda);
-        } while (!coordenadaValida(celda));
+            c = *itCeldaAStar;
+            abierto.erase(itCeldaAStar);
+        } while (!coordenadaValida(c));
 
-        x = celda.id.first;
-        y = celda.id.second;
+        x = c.id.first;
+        y = c.id.second;
         cerrado[x][y] = true;
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 double g_aux, h_aux, f_aux;
-                if (coordenadaValida(Celda {x + i, y + j})) {
-                    if (destino == Celda {x + i, y + j}) {
+                CeldaAStar c(x + i, y + j);
+                if (coordenadaValida(c)) {
+                    if (destino == c) {
                         //Destination found - make path
                         mapa[x + i][y + j].id_anterior.first = x;
                         mapa[x + i][y + j].id_anterior.second = y;
 
                         return armarCamino(destino);
                     } else if (!cerrado[x + i][y + j]) {
-                        g_aux = celda.g_value + 1.0;
+                        g_aux = c.g_value + 1.0;
                         coordenada_t coord{x + i, y + j};
                         h_aux = calcularH(coord, destino);
                         f_aux = g_aux + h_aux;

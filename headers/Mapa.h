@@ -12,7 +12,7 @@ private:
 public:
     Mapa(int columnas, int filas);
 
-    std::vector<Celda> recorrer(const Celda &inicio, const Celda &objetivo);
+    std::vector<coordenada_t> recorrer(const coordenada_t &inicio, const coordenada_t &objetivo);
 
     Mapa(const Mapa&) = delete;
     Mapa& operator=(const Mapa&) = delete;
