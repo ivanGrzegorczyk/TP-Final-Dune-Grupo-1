@@ -11,4 +11,5 @@ class CeldaEditor {
     std::vector<std::string> propiedades;
     CeldaEditor(coordenada_t id);
     CeldaEditor(coordenada_t id, std::string textura);
+    std::string to_string();
 };

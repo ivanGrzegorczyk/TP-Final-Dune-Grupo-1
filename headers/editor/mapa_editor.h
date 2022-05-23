@@ -8,9 +8,10 @@ typedef std::vector<std::vector<CeldaEditor>> matriz_t;
 typedef std::vector<CeldaEditor> fila_t;
 class MapaEditor {
     matriz_t mapa;
+    int filas; int columnas;
     coordenada_t ubicacion_centro_construccion = {-1,-1};
     public:
-    MapaEditor(int filas, int columnas) {
+    MapaEditor(int filas, int columnas) : filas(filas), columnas(columnas) {
         for(int i = 0; i < filas; i++) {
             fila_t fila;
             for(int j = 0; j < columnas; j++) {
@@ -21,7 +22,14 @@ class MapaEditor {
         }
     }
     void imprimir() {
-        std::cout << "Hola soy el mapa!" << std::endl;
+        for(int i = 0; i < filas; i++) {
+            fila_t fila;
+            for(int j = 0; j < columnas; j++) {
+                std::cout << mapa[j][i].to_string();
+            }
+            std::cout << std::endl;
+        }
+        std::cout << std::endl;
     }
     void colocar_centro_construccion(coordenada_t& coordenada) {
         // coordenada es valida
@@ -38,5 +46,10 @@ class MapaEditor {
     std::string centro_construccion() {
         return mapa[ubicacion_centro_construccion.second][ubicacion_centro_construccion.first]
             .propiedades[0];
+    }
+    void poner_terreno(std::vector<coordenada_t> celdas, std::string terreno) {
+        for(coordenada_t celda : celdas) {
+            mapa[celda.second][celda.first].terreno = terreno;
+        }
     }
 };
