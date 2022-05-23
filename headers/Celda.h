@@ -7,7 +7,10 @@ typedef std::pair<int, int> coordenada_t;
 
 // Celda juego principal
 class Celda {
-public:
+    public:
+    coordenada_t id;
+    Celda(coordenada_t id);
+    Celda();
 //    Celda(const Celda&) = delete;
 //    Celda& operator=(const Celda&) = delete;
 //

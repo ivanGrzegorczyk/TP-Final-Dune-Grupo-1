@@ -7,6 +7,13 @@
 
 Mapa::Mapa(int filas, int columnas) :
         filas(filas), columnas(columnas) {
+    for (int i = 0; i < filas; i++) {
+        std::vector<Celda> fila;
+        for (int j = 0; j < columnas; j++) {
+            fila.push_back(Celda({i,j}));
+        }
+        mapa.push_back(fila);
+    }
 }
 
 Mapa::Mapa(Mapa&& other)  noexcept {
@@ -34,12 +41,12 @@ Mapa& Mapa::operator=(Mapa&& other)  noexcept {
     return *this;
 }
 
-std::vector<coordenada_t> Mapa::recorrer(const coordenada_t &inicio, const coordenada_t &objetivo) {
+std::vector<Celda> Mapa::recorrer(const coordenada_t &inicio, const coordenada_t &objetivo) {
     Navegador navegador(filas, columnas);
-    std::vector<CeldaAStar> recorrido = navegador.navegar(inicio, objetivo);
-    std::vector<coordenada_t> recorrido_coord;
-    for(CeldaAStar c : recorrido) {
-        recorrido_coord.push_back(c.id);
+    std::vector<CeldaAStar> recorrido_star = navegador.navegar(inicio, objetivo);
+    std::vector<Celda> recorrido;
+    for(CeldaAStar c : recorrido_star) {
+        recorrido.push_back(mapa[c.id.second][c.id.first]);
     }
-    return recorrido_coord;  
+    return recorrido;  
 }

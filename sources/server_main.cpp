@@ -2,10 +2,10 @@
 
 #include "../headers/Mapa.h"
 
-void mostrar(std::vector<coordenada_t>& recorrido) {
+void mostrar(std::vector<Celda>& recorrido) {
     std::cout << "RECORRIDO!" << std::endl;
-    for (const coordenada_t& celda: recorrido)
-        std::cout << celda.first << " " << celda.second << std::endl;
+    for (const Celda& celda: recorrido)
+        std::cout << celda.id.first << " " << celda.id.second << std::endl;
 }
 
 int main() {
@@ -13,7 +13,7 @@ int main() {
     coordenada_t inicio{1,1};
     coordenada_t objetivo{6,6};
 
-    std::vector<coordenada_t> recorrido = mapa.recorrer(inicio, objetivo);
+    std::vector<Celda> recorrido = mapa.recorrer(inicio, objetivo);
 
     mostrar(recorrido);
 

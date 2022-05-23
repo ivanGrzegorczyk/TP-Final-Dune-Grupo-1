@@ -1,5 +1,8 @@
 #include "../headers/Celda.h"
 
+Celda::Celda(coordenada_t id) : id(id) {}
+Celda::Celda() : id({-1,-1}) {}
+
 CeldaAStar::CeldaAStar(int fila, int columna) {
     id.first = fila;
     id.second = columna;
