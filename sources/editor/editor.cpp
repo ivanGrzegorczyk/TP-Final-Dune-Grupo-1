@@ -1,6 +1,51 @@
 #include <iostream>
 #include "../../headers/editor/mapa_editor.h"
+#include <SDL.h>
+#include <SDL_image.h>
+
+#include <SDL2pp/SDL.hh>
+#include <SDL2pp/SDLImage.hh>
+#include <SDL2pp/Window.hh>
+#include <SDL2pp/Renderer.hh>
+#include <SDL2pp/Texture.hh>
+#include <SDL2pp/Surface.hh>
+#include <string>
+using namespace SDL2pp;
+
+int sdl() {
+    SDL sdl(SDL_INIT_VIDEO);
+	SDLImage image(IMG_INIT_PNG); // optional
+	Window window("libSDL2pp demo: fill", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
+	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
+    Surface surf(std::string("crate.png"));
+	Texture sprite(render, std::string("crate.png"));
+    while (1) {
+		// Process input
+		SDL_Event event;
+		while (SDL_PollEvent(&event))
+			if (event.type == SDL_QUIT 
+            || (event.type == SDL_KEYDOWN 
+            && (event.key.keysym.sym == SDLK_ESCAPE 
+            || event.key.keysym.sym == SDLK_q)))
+				return 0;
+		// Clear screen
+		render.SetDrawColor(255, 255, 255);
+		render.Clear();
+		// offset
+		int offset[] = {300, 300};
+		render.FillCopy(
+            sprite, NullOpt, 
+            Rect(32, 32, window.GetWidth() - 64, window.GetHeight() - 64), 
+            SDL2pp::Point(offset[0], offset[1]), 
+            SDL_FLIP_HORIZONTAL);
+		render.Present();
+
+		// Frame limiter
+		SDL_Delay(1);
+	}
+}
 int main() {
+    sdl();
     MapaEditor m(5,5);
     m.imprimir();
     coordenada_t construccion = {1,3};
