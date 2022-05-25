@@ -43,11 +43,13 @@ int sdl() {
             offset.SetX(events[0].button.x);
             offset.SetY(events[0].button.y);
         }
-		render.FillCopy(
+		render.Copy(
             sprite, NullOpt, 
-            Rect(32, 32, window.GetWidth() - 64, window.GetHeight() - 64), 
-            offset, 
-            SDL_FLIP_HORIZONTAL);
+            Rect(
+                offset.GetX(), 
+                offset.GetY(), 
+                sprite.GetWidth(), 
+                sprite.GetHeight()));
 		render.Present();
 
 		// Frame limiter
