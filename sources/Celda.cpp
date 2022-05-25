@@ -1,27 +1,31 @@
 #include "../headers/Celda.h"
 
-Celda::Celda() = default;
+Celda::Celda(coordenada_t id) : id(id) {}
+Celda::Celda() : id({-1,-1}) {}
 
-Celda::Celda(int fila, int columna) {
+CeldaAStar::CeldaAStar(int fila, int columna) {
     id.first = fila;
     id.second = columna;
     id_anterior = {-1, -1};
 }
-
-Celda::Celda(coordenada_t coordenada) {
+CeldaAStar::CeldaAStar() {
+    id = {-1, -1};
+    id_anterior = {-1, -1};
+}
+CeldaAStar::CeldaAStar(coordenada_t coordenada) {
     id = coordenada;
     id_anterior = {-1, -1};
 }
 
-bool Celda::operator==(const Celda &other) const {
+bool CeldaAStar::operator==(const CeldaAStar &other) const {
     return (this->id == other.id);
 }
 
-bool Celda::operator<(const Celda &other) {
+bool CeldaAStar::operator<(const CeldaAStar &other) {
     return this->f_value < other.f_value;
 }
 
-bool Celda::operator>(const Celda &other) {
+bool CeldaAStar::operator>(const CeldaAStar &other) {
     return this->f_value > other.f_value;
 }
 

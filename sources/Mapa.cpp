@@ -6,23 +6,20 @@
 #include "../headers/Navegador.h"
 
 Mapa::Mapa(int filas, int columnas) :
-        mapa(filas, std::vector<Celda>(columnas)),
         filas(filas), columnas(columnas) {
     for (int i = 0; i < filas; i++) {
+        std::vector<Celda> fila;
         for (int j = 0; j < columnas; j++) {
-            mapa[i][j].f_value = INFINITY;
-            mapa[i][j].g_value = INFINITY;
-            mapa[i][j].h_value = INFINITY;
-            mapa[i][j].id_anterior = {-1, -1};
-            mapa[i][j].id = {i, j};
+            fila.push_back(Celda({i,j}));
         }
+        mapa.push_back(fila);
     }
 }
 
 Mapa::Mapa(Mapa&& other)  noexcept {
     this->columnas = other.columnas;
     this->filas = other.filas;
-    this->mapa = std::vector(other.mapa);
+    this->mapa = std::move(other.mapa);
 
     other.mapa.clear();
     other.filas = 0;
@@ -35,7 +32,7 @@ Mapa& Mapa::operator=(Mapa&& other)  noexcept {
 
     this->columnas = other.columnas;
     this->filas = other.filas;
-    this->mapa = std::vector(other.mapa);
+    this->mapa = std::move(other.mapa);
 
     other.mapa.clear();
     other.filas = 0;
@@ -44,8 +41,12 @@ Mapa& Mapa::operator=(Mapa&& other)  noexcept {
     return *this;
 }
 
-std::vector<Celda> Mapa::recorrer(const Celda &inicio, const Celda &objetivo) {
-    Navegador navegador(mapa, filas, columnas);
-
-    return navegador.navegar(inicio, objetivo);
+std::vector<Celda> Mapa::recorrer(const coordenada_t &inicio, const coordenada_t &objetivo) {
+    Navegador navegador(filas, columnas);
+    std::vector<CeldaAStar> recorrido_star = navegador.navegar(inicio, objetivo);
+    std::vector<Celda> recorrido;
+    for(CeldaAStar c : recorrido_star) {
+        recorrido.push_back(mapa[c.id.second][c.id.first]);
+    }
+    return recorrido;  
 }

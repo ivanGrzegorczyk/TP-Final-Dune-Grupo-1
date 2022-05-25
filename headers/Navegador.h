@@ -2,28 +2,22 @@
 #define NAVEGADOR_H_
 
 #include <vector>
-#include "Mapa.h"
+#include "Celda.h"
 
 class Navegador {
 private:
     int filas;
     int columnas;
-    Celda objetivo{};
-    std::vector<std::vector<Celda>> mapa;
-    // Vector con las celdas que hay que evaluar
-    std::vector<Celda> abierto;
-    // Vector con las celdas que fueron evaluadas
-    std::vector<std::vector<bool>> cerrado;
+    std::vector<std::vector<CeldaAStar>> mapa;
 
-    bool coordenadaValida(const Celda &unidad) const;
-    double calcularH(coordenada_t coordenada) const;
-    std::vector<Celda> armarCamino();
+    bool coordenadaValida(const CeldaAStar &unidad) const;
+    double calcularH(coordenada_t coordenada, const CeldaAStar &destino) const;
+    std::vector<CeldaAStar> armarCamino(const CeldaAStar &destino);
 
 public:
-    explicit Navegador(
-            std::vector<std::vector<Celda>> &mapa, int filas, int columnas);
+    explicit Navegador(const size_t filas, const size_t columnas);
 
-    std::vector<Celda> navegar(const Celda &pos_actual, const Celda &destino);
+    std::vector<CeldaAStar> navegar(const coordenada_t& pos_actual, const coordenada_t& destino);
 };
 
 
