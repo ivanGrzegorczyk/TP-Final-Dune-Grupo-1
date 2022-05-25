@@ -19,8 +19,7 @@ int sdl() {
 	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
     Surface surf(std::string("crate.png"));
 	Texture sprite(render, std::string("crate.png"));
-    // offset
-    SDL2pp::Point offset(0,0);
+    SDL2pp::Point position(0,0);
     while (1) { // TODO more RAII
 		SDL_Event event;
         std::vector<SDL_Event> events;
@@ -39,19 +38,29 @@ int sdl() {
 		render.SetDrawColor(255, 255, 255);
 		render.Clear();
         // if mouse click was detected
+        // offset
         if(!events.empty()) {
-            offset.SetX(events[0].button.x);
-            offset.SetY(events[0].button.y);
+            position.SetX(events[0].button.x);
+            position.SetY(events[0].button.y);
         }
-		render.Copy(
-            sprite, NullOpt, 
-            Rect(
-                offset.GetX(), 
-                offset.GetY(), 
-                sprite.GetWidth(), 
-                sprite.GetHeight()));
-		render.Present();
+        SDL2pp::Point map_center = sprite.GetSize() * 5 / 2;
+        for(int i = 0; i < 5; i++) {
+            for(int j = 0; j < 5; j++) {
+                SDL2pp::Point coordinate(i,j);
+                if(coordinate.GetX() % 2) {
+                    coordinate = position - map_center + coordinate * sprite.GetSize();
+                    render.Copy(
+                        sprite, NullOpt, 
+                        Rect(
+                            coordinate.GetX(), 
+                            coordinate.GetY(), 
+                            sprite.GetWidth(), 
+                            sprite.GetHeight()));
 
+                }
+            }
+        }
+        render.Present();
 		// Frame limiter
 		SDL_Delay(1);
 	}
