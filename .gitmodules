@@ -1,0 +1,3 @@
+[submodule "extern/libSDL2pp"]
+	path = extern/libSDL2pp
+	url = https://github.com/libSDL2pp/libSDL2pp.git
