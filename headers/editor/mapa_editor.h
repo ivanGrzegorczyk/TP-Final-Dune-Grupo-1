@@ -21,15 +21,8 @@ class MapaEditor {
             mapa.push_back(fila);
         }
     }
-    void imprimir() {
-        for(int i = 0; i < filas; i++) {
-            fila_t fila;
-            for(int j = 0; j < columnas; j++) {
-                std::cout << mapa[j][i].to_string();
-            }
-            std::cout << std::endl;
-        }
-        std::cout << std::endl;
+    const CeldaEditor& cell(coordenada_t coordinate) {
+        mapa[coordinate.second][coordinate.first];
     }
     void colocar_centro_construccion(coordenada_t& coordenada) {
         // coordenada es valida

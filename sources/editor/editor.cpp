@@ -12,7 +12,7 @@
 #include <string>
 using namespace SDL2pp;
 
-int sdl() {
+int sdl(MapaEditor& mapa) {
     SDL sdl(SDL_INIT_VIDEO);
 	SDLImage image(IMG_INIT_PNG); // optional
 	Window window("libSDL2pp demo: fill", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
@@ -47,38 +47,45 @@ int sdl() {
         for(int i = 0; i < 5; i++) {
             for(int j = 0; j < 5; j++) {
                 SDL2pp::Point coordinate(i,j);
-                if(coordinate.GetX() % 2) {
-                    coordinate = position - map_center + coordinate * sprite.GetSize();
-                    render.Copy(
+                const CeldaEditor& cell = mapa.cell({coordinate.x,coordinate.y});
+                coordinate = position - map_center + coordinate * sprite.GetSize();
+                if(cell.propiedades.empty()) {
+                    if(cell.terreno == "montania") {
+                        sprite.SetColorMod(50,50,100);
+                    } else {
+                        sprite.SetColorMod(255,255,255);
+                    }
+                } else {
+                    sprite.SetColorMod(100,255,0);
+                }
+                render.Copy(
                         sprite, NullOpt, 
                         Rect(
                             coordinate.GetX(), 
                             coordinate.GetY(), 
                             sprite.GetWidth(), 
                             sprite.GetHeight()));
-
-                }
+                
             }
         }
         render.Present();
 		// Frame limiter
 		SDL_Delay(1);
 	}
+    return 0;
 }
 int main() {
-    sdl();
     MapaEditor m(5,5);
-    m.imprimir();
     coordenada_t construccion = {1,3};
     m.colocar_centro_construccion(construccion);
     std::cout << m.centro_construccion();
 
-    coordenada_t construccion2 = {4,1};
+    coordenada_t construccion2 = {4,0};
     m.colocar_centro_construccion(construccion2);
     std::cout << m.centro_construccion() << std::endl;
     std::vector<coordenada_t> celdas_montania;
     celdas_montania.push_back({3,3});
     celdas_montania.push_back({3,4});
     m.poner_terreno(celdas_montania, "montania");
-    m.imprimir();
+    sdl(m);
 }
