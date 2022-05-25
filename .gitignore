@@ -11,7 +11,7 @@ server_navegador.o
 .vscode/settings.json
 .idea/.name
 CMakeFiles/*
-*.cmake
 CMakeCache.txt
 TP_Final_Dune_Grupo_1
 Makefile
+editor
