@@ -31,6 +31,25 @@ rule CXX_EXECUTABLE_LINKER__TP_Final_Dune_Grupo_1_Debug
 
 
 #############################################
+# Rule for compiling CXX files.
+
+rule CXX_COMPILER__editor_Debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = /usr/bin/c++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building CXX object $out
+
+
+#############################################
+# Rule for linking CXX executable.
+
+rule CXX_EXECUTABLE_LINKER__editor_Debug
+  command = $PRE_LINK && /usr/bin/c++ $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
+  description = Linking CXX executable $TARGET_FILE
+  restat = $RESTAT
+
+
+#############################################
 # Rule for running custom commands.
 
 rule CUSTOM_COMMAND
@@ -39,10 +58,29 @@ rule CUSTOM_COMMAND
 
 
 #############################################
+# Rule for compiling CXX files.
+
+rule CXX_COMPILER__SDL2pp_Debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = /usr/bin/c++ $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building CXX object $out
+
+
+#############################################
+# Rule for linking CXX static library.
+
+rule CXX_STATIC_LIBRARY_LINKER__SDL2pp_Debug
+  command = $PRE_LINK && /snap/clion/190/bin/cmake/linux/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
+  description = Linking CXX static library $TARGET_FILE
+  restat = $RESTAT
+
+
+#############################################
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /snap/clion/190/bin/cmake/linux/bin/cmake --regenerate-during-build -S"/mnt/hgfs/shared folder/TP-Final-Dune-Grupo-1" -B"/mnt/hgfs/shared folder/TP-Final-Dune-Grupo-1/cmake-build-debug"
+  command = /snap/clion/190/bin/cmake/linux/bin/cmake --regenerate-during-build -S/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1 -B/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug
   description = Re-running CMake...
   generator = 1
 

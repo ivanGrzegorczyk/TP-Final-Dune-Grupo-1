@@ -1,0 +1,15 @@
+/snap/clion/190/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/190/bin/ninja/linux/ninja -G Ninja -S /home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1 -B /home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug
+CMake Deprecation Warning at extern/libSDL2pp/CMakeLists.txt:4 (CMAKE_MINIMUM_REQUIRED):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+-- SDL2_mixer support disabled
+-- Checking for experimental/optional header: no
+-- libSDL2pp 0.16.2 bundled build
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug
