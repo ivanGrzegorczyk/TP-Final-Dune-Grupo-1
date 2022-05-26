@@ -91,5 +91,9 @@ MapaEditor setup() {
 }
 int main() {
     MapaEditor m(std::move(setup()));
+    for(auto it = m.begin(); it != m.end(); it++) {
+        CeldaEditor celda = *it;
+        std::cout << celda.terreno << std::endl;
+    }
     sdl(m);
 }

@@ -3,7 +3,6 @@
 #include <string>
 #pragma once
 #include "../../headers/editor/celda_editor.h"
-
 typedef std::vector<std::vector<CeldaEditor>> matriz_t;
 typedef std::vector<CeldaEditor> fila_t;
 class MapaEditor {
@@ -21,8 +20,8 @@ class MapaEditor {
             mapa.push_back(fila);
         }
     }
-    const CeldaEditor& cell(coordenada_t coordinate) {
-        mapa[coordinate.second][coordinate.first];
+    const CeldaEditor& cell(coordenada_t coordinate) const {
+        return mapa[coordinate.second][coordinate.first];
     }
     void colocar_centro_construccion(coordenada_t& coordenada) {
         // coordenada es valida
@@ -45,4 +44,49 @@ class MapaEditor {
             mapa[celda.second][celda.first].terreno = terreno;
         }
     }
+    class MapIterator {
+        const MapaEditor& _mapa;
+        int max;
+        public:
+        int32_t num = 0;
+        MapIterator(MapaEditor& mapa, int _num = 0) : 
+            _mapa(mapa), max(mapa.filas * mapa.columnas), num(_num) {}
+        MapIterator& operator++() {
+            if (num < max) num++;
+            return *this;
+        }
+        MapIterator operator++(int) {
+            MapIterator retval = *this; 
+            ++(*this); 
+            return retval;
+        }
+        bool operator==(MapIterator other) const {
+            return num == other.num;
+        }
+
+        bool operator!=(MapIterator other) const {
+            return !(*this == other);
+        }
+        const CeldaEditor& operator*() {
+            int y = int(num / _mapa.columnas);
+            int x = int(num % _mapa.columnas);
+            coordenada_t coord = {x,y};
+            return _mapa.cell(coord);
+        }
+        // MapIterator traits
+        using difference_type = long;
+        using value_type = long;
+        using pointer = const long*;
+        using reference = const long&;
+        using MapIterator_category = std::forward_iterator_tag;
+    };
+    MapIterator begin() {
+        return MapIterator(*this, 0);
+    }
+    MapIterator end() {
+        return MapIterator(*this, filas * columnas);
+    }
 };
+
+
+// MapIterator
