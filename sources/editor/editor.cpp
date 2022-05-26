@@ -11,6 +11,12 @@
 #include <SDL2pp/Surface.hh>
 #include <string>
 using namespace SDL2pp;
+/*
+Functionality:
+- move map with arrow keys
+- click to select blocks
+- drag with middle mouse
+*/
 
 int sdl(MapaEditor& mapa) {
     SDL sdl(SDL_INIT_VIDEO);
@@ -19,10 +25,14 @@ int sdl(MapaEditor& mapa) {
 	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
     Surface surf(std::string("crate.png"));
 	Texture sprite(render, std::string("crate.png"));
-    SDL2pp::Point position(0,0);
+    SDL2pp::Point mouse_pos(0,0);
+    SDL2pp::Point last_click(0,0);
+    SDL2pp::Point screen_center(640/2, 480/2);
+    bool pressed = false;
     while (1) { // TODO more RAII
 		SDL_Event event;
         std::vector<SDL_Event> events;
+        SDL2pp:Point click = {-1,-1};
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT 
                 || (event.type == SDL_KEYDOWN 
@@ -31,24 +41,35 @@ int sdl(MapaEditor& mapa) {
 				return 0;
             if(event.type == SDL_MOUSEBUTTONDOWN) {
                 events.push_back(event);
+                mouse_pos.SetX(event.button.x);
+                mouse_pos.SetY(event.button.y);
+                if(!pressed) {
+                    pressed = true;
+                    last_click = mouse_pos;
+                }
+            }
+            if(event.type == SDL_MOUSEBUTTONUP) {
+                pressed = false;
+            }
+            if(pressed) {
+                mouse_pos.SetX(event.button.x);
+                mouse_pos.SetY(event.button.y);
             }
         }
-        //get click
 		// Clear screen
 		render.SetDrawColor(255, 255, 255);
 		render.Clear();
         // if mouse click was detected
         // offset
-        if(!events.empty()) {
-            position.SetX(events[0].button.x);
-            position.SetY(events[0].button.y);
-        }
         SDL2pp::Point map_center = sprite.GetSize() * 5 / 2;
         for(int i = 0; i < 5; i++) {
             for(int j = 0; j < 5; j++) {
                 SDL2pp::Point coordinate(i,j);
                 const CeldaEditor& cell = mapa.cell({coordinate.x,coordinate.y});
-                coordinate = position - map_center + coordinate * sprite.GetSize();
+                SDL2pp::Point delta = mouse_pos - last_click;
+                coordinate = coordinate * sprite.GetSize() + screen_center;
+                coordinate += delta;
+                coordinate -= map_center;
                 if(cell.propiedades.empty()) {
                     if(cell.terreno == "montania") {
                         sprite.SetColorMod(50,50,100);
