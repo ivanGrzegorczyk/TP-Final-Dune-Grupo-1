@@ -1,4 +1,4 @@
-# Install script for directory: /home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/extern/libSDL2pp
+# Install script for directory: /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/extern/libSDL2pp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

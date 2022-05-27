@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp/cmake_install.cmake")
+  include("/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/extern/libSDL2pp/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
