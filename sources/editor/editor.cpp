@@ -25,10 +25,12 @@ int sdl(MapaEditor& mapa) {
 	Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
     Surface surf(std::string("crate.png"));
 	Texture sprite(render, std::string("crate.png"));
-    SDL2pp::Point mouse_pos(0,0);
+    SDL2pp::Point current_mouse(0,0);
     SDL2pp::Point last_click(0,0);
-    SDL2pp::Point screen_center(640/2, 480/2);
+    SDL2pp::Point map_position_centered(640/2, 480/2);
     bool pressed = false;
+    SDL2pp::Point map_center = sprite.GetSize() * 5 / 2;
+    SDL2pp::Point delta = current_mouse - last_click;
     while (1) { // TODO more RAII
 		SDL_Event event;
         std::vector<SDL_Event> events;
@@ -41,35 +43,35 @@ int sdl(MapaEditor& mapa) {
 				return 0;
             if(event.type == SDL_MOUSEBUTTONDOWN) {
                 events.push_back(event);
-                mouse_pos.SetX(event.button.x);
-                mouse_pos.SetY(event.button.y);
+                current_mouse.SetX(event.button.x);
+                current_mouse.SetY(event.button.y);
                 if(!pressed) {
                     pressed = true;
-                    last_click = mouse_pos;
+                    last_click = current_mouse;
                 }
             }
             if(event.type == SDL_MOUSEBUTTONUP) {
                 pressed = false;
+                map_position_centered = map_position_centered + delta;
+                last_click = current_mouse;
             }
             if(pressed) {
-                mouse_pos.SetX(event.button.x);
-                mouse_pos.SetY(event.button.y);
+                current_mouse.SetX(event.button.x);
+                current_mouse.SetY(event.button.y);
             }
         }
+        delta = current_mouse - last_click;
 		// Clear screen
 		render.SetDrawColor(255, 255, 255);
 		render.Clear();
         // if mouse click was detected
         // offset
-        SDL2pp::Point map_center = sprite.GetSize() * 5 / 2;
         for(int i = 0; i < 5; i++) {
             for(int j = 0; j < 5; j++) {
                 SDL2pp::Point coordinate(i,j);
                 const CeldaEditor& cell = mapa.cell({coordinate.x,coordinate.y});
-                SDL2pp::Point delta = mouse_pos - last_click;
-                coordinate = coordinate * sprite.GetSize() + screen_center;
-                coordinate += delta;
-                coordinate -= map_center;
+                coordinate = coordinate * sprite.GetSize();
+                SDL2pp::Point cell_pos = coordinate + map_position_centered + delta - map_center;
                 if(cell.propiedades.empty()) {
                     if(cell.terreno == "montania") {
                         sprite.SetColorMod(50,50,100);
@@ -82,8 +84,8 @@ int sdl(MapaEditor& mapa) {
                 render.Copy(
                         sprite, NullOpt, 
                         Rect(
-                            coordinate.GetX(), 
-                            coordinate.GetY(), 
+                            cell_pos.GetX(), 
+                            cell_pos.GetY(), 
                             sprite.GetWidth(), 
                             sprite.GetHeight()));
                 
