@@ -10,8 +10,7 @@
 	{
 		"commands" : 
 		[
-			"add_executable",
-			"include_directories"
+			"add_executable"
 		],
 		"files" : 
 		[
@@ -25,13 +24,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 10,
-				"parent" : 0
-			},
-			{
-				"command" : 1,
-				"file" : 0,
-				"line" : 13,
+				"line" : 11,
 				"parent" : 0
 			}
 		]
@@ -46,25 +39,6 @@
 				},
 				{
 					"fragment" : "-std=gnu++17"
-				}
-			],
-			"includes" : 
-			[
-				{
-					"backtrace" : 2,
-					"path" : "/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/extern/libSDL2pp"
-				},
-				{
-					"backtrace" : 2,
-					"path" : "/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug/extern/libSDL2pp"
-				},
-				{
-					"backtrace" : 2,
-					"path" : "/usr/local/include/SDL2"
-				},
-				{
-					"backtrace" : 2,
-					"path" : "/usr/include/SDL2"
 				}
 			],
 			"language" : "CXX",

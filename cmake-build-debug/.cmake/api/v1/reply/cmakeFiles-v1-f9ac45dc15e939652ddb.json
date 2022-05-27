@@ -122,62 +122,24 @@
 			"path" : "/snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake"
 		},
 		{
-			"path" : "extern/libSDL2pp/CMakeLists.txt"
+			"path" : "libSDL2pp/CMakeLists.txt"
 		},
 		{
-			"path" : "extern/libSDL2pp/cmake/FindSDL2.cmake"
-		},
-		{
-			"isCMake" : true,
 			"isExternal" : true,
-			"path" : "/snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake"
+			"path" : "/usr/local/lib/cmake/SDL2/sdl2-config-version.cmake"
 		},
 		{
-			"isCMake" : true,
 			"isExternal" : true,
-			"path" : "/snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/FindPackageMessage.cmake"
+			"path" : "/usr/local/lib/cmake/SDL2/sdl2-config.cmake"
 		},
 		{
-			"path" : "extern/libSDL2pp/cmake/FindSDL2_image.cmake"
+			"path" : "libSDL2pp/cmake/FindSDL2_image.cmake"
 		},
 		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake"
+			"path" : "libSDL2pp/cmake/FindSDL2_ttf.cmake"
 		},
 		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/FindPackageMessage.cmake"
-		},
-		{
-			"path" : "extern/libSDL2pp/cmake/FindSDL2_ttf.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/FindPackageMessage.cmake"
-		},
-		{
-			"path" : "extern/libSDL2pp/cmake/CheckCompile.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CheckCXXSourceCompiles.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake"
-		},
-		{
-			"path" : "extern/libSDL2pp/SDL2pp/Config.hh.in"
+			"path" : "libSDL2pp/SDL2pp/Config.hh.in"
 		},
 		{
 			"isCMake" : true,
@@ -227,6 +189,11 @@
 		{
 			"isCMake" : true,
 			"isExternal" : true,
+			"path" : "/snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
 			"path" : "/snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Internal/CheckCompilerFlag.cmake"
 		},
 		{
@@ -238,8 +205,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug",
-		"source" : "/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1"
+		"build" : "/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug",
+		"source" : "/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1"
 	},
 	"version" : 
 	{

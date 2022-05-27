@@ -10,9 +10,7 @@
 	{
 		"commands" : 
 		[
-			"add_executable",
-			"target_link_libraries",
-			"include_directories"
+			"add_executable"
 		],
 		"files" : 
 		[
@@ -26,19 +24,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 11,
-				"parent" : 0
-			},
-			{
-				"command" : 1,
-				"file" : 0,
-				"line" : 14,
-				"parent" : 0
-			},
-			{
-				"command" : 2,
-				"file" : 0,
-				"line" : 13,
+				"line" : 12,
 				"parent" : 0
 			}
 		]
@@ -53,25 +39,6 @@
 				},
 				{
 					"fragment" : "-std=gnu++17"
-				}
-			],
-			"includes" : 
-			[
-				{
-					"backtrace" : 3,
-					"path" : "/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/extern/libSDL2pp"
-				},
-				{
-					"backtrace" : 3,
-					"path" : "/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug/extern/libSDL2pp"
-				},
-				{
-					"backtrace" : 3,
-					"path" : "/usr/local/include/SDL2"
-				},
-				{
-					"backtrace" : 3,
-					"path" : "/usr/include/SDL2"
 				}
 			],
 			"language" : "CXX",
@@ -90,13 +57,6 @@
 			]
 		}
 	],
-	"dependencies" : 
-	[
-		{
-			"backtrace" : 2,
-			"id" : "SDL2pp::@792ee594abd27bad36d8"
-		}
-	],
 	"id" : "editor::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
@@ -109,35 +69,6 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
-			},
-			{
-				"fragment" : "-Wl,-rpath,/usr/local/lib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 2,
-				"fragment" : "/usr/local/lib/libSDL2main.a",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 2,
-				"fragment" : "extern/libSDL2pp/libSDL2pp.a",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 2,
-				"fragment" : "/usr/local/lib/libSDL2.so",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 2,
-				"fragment" : "/usr/lib/x86_64-linux-gnu/libSDL2_image.so",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 2,
-				"fragment" : "/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so",
-				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"

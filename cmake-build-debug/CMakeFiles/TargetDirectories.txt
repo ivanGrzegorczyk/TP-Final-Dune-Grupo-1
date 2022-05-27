@@ -1,7 +1,7 @@
-/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug/CMakeFiles/TP_Final_Dune_Grupo_1.dir
-/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug/CMakeFiles/editor.dir
-/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug/extern/libSDL2pp/CMakeFiles/SDL2pp.dir
-/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug/extern/libSDL2pp/CMakeFiles/edit_cache.dir
-/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug/extern/libSDL2pp/CMakeFiles/rebuild_cache.dir
+/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/CMakeFiles/TP_Final_Dune_Grupo_1.dir
+/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/CMakeFiles/editor.dir
+/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp/CMakeFiles/SDL2pp.dir
+/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp/CMakeFiles/edit_cache.dir
+/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp/CMakeFiles/rebuild_cache.dir

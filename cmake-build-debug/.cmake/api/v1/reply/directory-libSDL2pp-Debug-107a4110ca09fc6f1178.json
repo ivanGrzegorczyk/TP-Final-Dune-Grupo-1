@@ -8,7 +8,7 @@
 	"installers" : [],
 	"paths" : 
 	{
-		"build" : "extern/libSDL2pp",
-		"source" : "extern/libSDL2pp"
+		"build" : "libSDL2pp",
+		"source" : "libSDL2pp"
 	}
 }

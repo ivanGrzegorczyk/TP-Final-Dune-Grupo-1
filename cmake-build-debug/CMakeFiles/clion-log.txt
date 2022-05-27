@@ -1,15 +1,13 @@
-/snap/clion/190/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/190/bin/ninja/linux/ninja -G Ninja -S /home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1 -B /home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug
-CMake Deprecation Warning at extern/libSDL2pp/CMakeLists.txt:4 (CMAKE_MINIMUM_REQUIRED):
-  Compatibility with CMake < 2.8.12 will be removed from a future version of
-  CMake.
-
-  Update the VERSION argument <min> value or use a ...<max> suffix to tell
-  CMake that the project does not need compatibility with older versions.
-
-
+/snap/clion/190/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/190/bin/ninja/linux/ninja -G Ninja -S /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1 -B /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug
+-- Found SDL2_image: /usr/lib/x86_64-linux-gnu/libSDL2_image.so
+-- Found SDL2_ttf: /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so
 -- SDL2_mixer support disabled
--- Checking for experimental/optional header: no
--- libSDL2pp 0.16.2 bundled build
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR - Success
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug
+-- Build files have been written to: /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug

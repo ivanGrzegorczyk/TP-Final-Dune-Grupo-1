@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug"
+			"value" : "/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -591,7 +591,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1"
+			"value" : "/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -832,6 +832,66 @@
 			],
 			"type" : "STATIC",
 			"value" : "TP_Final_Dune_Grupo_1"
+		},
+		{
+			"name" : "CMAKE_PROJECT_VERSION",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "0.17.0"
+		},
+		{
+			"name" : "CMAKE_PROJECT_VERSION_MAJOR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "0"
+		},
+		{
+			"name" : "CMAKE_PROJECT_VERSION_MINOR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "17"
+		},
+		{
+			"name" : "CMAKE_PROJECT_VERSION_PATCH",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "0"
+		},
+		{
+			"name" : "CMAKE_PROJECT_VERSION_TWEAK",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : ""
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1162,89 +1222,21 @@
 			"value" : "1"
 		},
 		{
-			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_SDL2",
+			"name" : "SDL2_DIR",
 			"properties" : 
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "Details about finding SDL2"
+					"value" : "The directory containing a CMake configuration file for SDL2."
 				}
 			],
-			"type" : "INTERNAL",
-			"value" : "[/usr/local/lib/libSDL2.so][/usr/local/include/SDL2][v()]"
-		},
-		{
-			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_SDL2_image",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Details about finding SDL2_image"
-				}
-			],
-			"type" : "INTERNAL",
-			"value" : "[/usr/lib/x86_64-linux-gnu/libSDL2_image.so][/usr/include/SDL2][v()]"
-		},
-		{
-			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_SDL2_ttf",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Details about finding SDL2_ttf"
-				}
-			],
-			"type" : "INTERNAL",
-			"value" : "[/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so][/usr/include/SDL2][v()]"
-		},
-		{
-			"name" : "SDL2MAIN_LIBRARY",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "Path to a library."
-				}
-			],
-			"type" : "FILEPATH",
-			"value" : "/usr/local/lib/libSDL2main.a"
-		},
-		{
-			"name" : "SDL2PP_CXXSTD",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Used c++ standard"
-				}
-			],
-			"type" : "STRING",
-			"value" : "c++11"
-		},
-		{
-			"name" : "SDL2PP_WITH_EXPERIMENTAL_OPTIONAL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Test SDL2PP_WITH_EXPERIMENTAL_OPTIONAL"
-				}
-			],
-			"type" : "INTERNAL",
-			"value" : ""
+			"type" : "PATH",
+			"value" : "/usr/local/lib/cmake/SDL2"
 		},
 		{
 			"name" : "SDL2_IMAGE_INCLUDE_DIR",
 			"properties" : 
 			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
 				{
 					"name" : "HELPSTRING",
 					"value" : "Path to a file."
@@ -1258,10 +1250,6 @@
 			"properties" : 
 			[
 				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
 					"name" : "HELPSTRING",
 					"value" : "Path to a library."
 				}
@@ -1270,45 +1258,9 @@
 			"value" : "/usr/lib/x86_64-linux-gnu/libSDL2_image.so"
 		},
 		{
-			"name" : "SDL2_INCLUDE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "Path to a file."
-				}
-			],
-			"type" : "PATH",
-			"value" : "/usr/local/include/SDL2"
-		},
-		{
-			"name" : "SDL2_LIBRARY",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "Path to a library."
-				}
-			],
-			"type" : "FILEPATH",
-			"value" : "/usr/local/lib/libSDL2.so"
-		},
-		{
 			"name" : "SDL2_TTF_INCLUDE_DIR",
 			"properties" : 
 			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
 				{
 					"name" : "HELPSTRING",
 					"value" : "Path to a file."
@@ -1321,10 +1273,6 @@
 			"name" : "SDL2_TTF_LIBRARY",
 			"properties" : 
 			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
 				{
 					"name" : "HELPSTRING",
 					"value" : "Path to a library."
@@ -1343,7 +1291,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug"
+			"value" : "/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug"
 		},
 		{
 			"name" : "TP_Final_Dune_Grupo_1_IS_TOP_LEVEL",
@@ -1367,7 +1315,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1"
+			"value" : "/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1"
 		},
 		{
 			"name" : "libSDL2pp_BINARY_DIR",
@@ -1379,7 +1327,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/cmake-build-debug/extern/libSDL2pp"
+			"value" : "/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp"
 		},
 		{
 			"name" : "libSDL2pp_IS_TOP_LEVEL",
@@ -1403,7 +1351,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/adrian/Documentos/taller/Sdl/TP-Final-Dune-Grupo-1/extern/libSDL2pp"
+			"value" : "/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp"
 		}
 	],
 	"kind" : "cache",
