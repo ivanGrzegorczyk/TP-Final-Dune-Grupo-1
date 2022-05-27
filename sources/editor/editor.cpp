@@ -28,7 +28,7 @@ int sdl(MapaEditor& mapa) {
     SDL2pp::Point current_mouse(0,0);
     SDL2pp::Point last_click(0,0);
     SDL2pp::Point map_position_centered(640/2, 480/2);
-    bool pressed = false;
+    bool draggin = false;
     SDL2pp::Point map_center = sprite.GetSize() * 5 / 2;
     SDL2pp::Point delta = current_mouse - last_click;
     while (1) { // TODO more RAII
@@ -42,20 +42,24 @@ int sdl(MapaEditor& mapa) {
                         || event.key.keysym.sym == SDLK_q)))
 				return 0;
             if(event.type == SDL_MOUSEBUTTONDOWN) {
-                events.push_back(event);
-                current_mouse.SetX(event.button.x);
-                current_mouse.SetY(event.button.y);
-                if(!pressed) {
-                    pressed = true;
-                    last_click = current_mouse;
+                if(event.button.button == SDL_BUTTON_RIGHT || event.button.button == SDL_BUTTON_MIDDLE) {
+                    events.push_back(event);
+                    current_mouse.SetX(event.button.x);
+                    current_mouse.SetY(event.button.y);
+                    if(!draggin) {
+                        draggin = true;
+                        last_click = current_mouse;
+                    }
                 }
             }
             if(event.type == SDL_MOUSEBUTTONUP) {
-                pressed = false;
-                map_position_centered = map_position_centered + delta;
-                last_click = current_mouse;
+                if(event.button.button == SDL_BUTTON_RIGHT || event.button.button == SDL_BUTTON_MIDDLE) {
+                    draggin = false;
+                    map_position_centered = map_position_centered + delta;
+                    last_click = current_mouse;
+                }
             }
-            if(pressed) {
+            if(draggin) {
                 current_mouse.SetX(event.button.x);
                 current_mouse.SetY(event.button.y);
             }
@@ -114,9 +118,5 @@ MapaEditor setup() {
 }
 int main() {
     MapaEditor m(std::move(setup()));
-    for(auto it = m.begin(); it != m.end(); it++) {
-        CeldaEditor celda = *it;
-        std::cout << celda.terreno << std::endl;
-    }
     sdl(m);
 }
