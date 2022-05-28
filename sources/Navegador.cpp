@@ -59,7 +59,6 @@ std::vector<CeldaAStar> Navegador::armarCamino(const CeldaAStar &destino) {
     }
     return usablePath;
 }
-
 std::vector<CeldaAStar> Navegador::navegar(const coordenada_t& _pos_actual, const coordenada_t& _destino) {
     CeldaAStar pos_actual(_pos_actual);
     CeldaAStar destino(_destino);
@@ -109,29 +108,26 @@ std::vector<CeldaAStar> Navegador::navegar(const coordenada_t& _pos_actual, cons
             for (int j = -1; j <= 1; j++) {
                 double g_aux, h_aux, f_aux;
                 CeldaAStar c(x + i, y + j);
-                if (coordenadaValida(c)) {
-                    if (destino == c) {
-                        //Destination found - make path
+                if (!coordenadaValida(c))  break;
+                if (destino == c) {
+                    //Destination found - make path
+                    mapa[x + i][y + j].id_anterior.first = x;
+                    mapa[x + i][y + j].id_anterior.second = y;
+                    return armarCamino(destino);
+                } else if (!cerrado[x + i][y + j]) {
+                    g_aux = c.g_value + 1.0;
+                    coordenada_t coord{x + i, y + j};
+                    h_aux = calcularH(coord, destino);
+                    f_aux = g_aux + h_aux;
+                    // Check if this path is better than the one already present
+                    if (mapa[x + i][y + j].f_value > f_aux) {
+                        // Update the details of this neighbour node
+                        mapa[x + i][y + j].f_value = f_aux;
+                        mapa[x + i][y + j].g_value = g_aux;
+                        mapa[x + i][y + j].h_value = h_aux;
                         mapa[x + i][y + j].id_anterior.first = x;
                         mapa[x + i][y + j].id_anterior.second = y;
-
-                        return armarCamino(destino);
-                    } else if (!cerrado[x + i][y + j]) {
-                        g_aux = c.g_value + 1.0;
-                        coordenada_t coord{x + i, y + j};
-                        h_aux = calcularH(coord, destino);
-                        f_aux = g_aux + h_aux;
-                        // Check if this path is better than the one already present
-                        if (mapa[x + i][y + j].f_value == INFINITY ||
-                            mapa[x + i][y + j].f_value > f_aux) {
-                            // Update the details of this neighbour node
-                            mapa[x + i][y + j].f_value = f_aux;
-                            mapa[x + i][y + j].g_value = g_aux;
-                            mapa[x + i][y + j].h_value = h_aux;
-                            mapa[x + i][y + j].id_anterior.first = x;
-                            mapa[x + i][y + j].id_anterior.second = y;
-                            abierto.emplace_back(mapa[x + i][y + j]);
-                        }
+                        abierto.emplace_back(mapa[x + i][y + j]);
                     }
                 }
             }
