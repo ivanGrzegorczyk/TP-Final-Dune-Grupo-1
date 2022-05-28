@@ -2,7 +2,7 @@
 #define MAPA_H_
 
 #include <vector>
-#include "Celda.h"
+#include "CeldaServidor.h"
 
 class Mapa {
 private:

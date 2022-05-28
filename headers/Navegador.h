@@ -2,7 +2,7 @@
 #define NAVEGADOR_H_
 
 #include <vector>
-#include "Celda.h"
+#include "CeldaAStar.h"
 
 class Navegador {
 private:

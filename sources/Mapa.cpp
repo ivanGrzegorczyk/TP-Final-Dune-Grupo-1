@@ -2,7 +2,7 @@
 #include <cmath>
 
 #include "../headers/Mapa.h"
-#include "../headers/Celda.h"
+#include "../headers/CeldaServidor.h"
 #include "../headers/Navegador.h"
 
 Mapa::Mapa(int filas, int columnas) :
@@ -12,7 +12,7 @@ Mapa::Mapa(int filas, int columnas) :
         for (int j = 0; j < columnas; j++) {
             fila.push_back(Celda({i,j}));
         }
-        mapa.push_back(fila);
+        mapa.push_back(std::move(fila));
     }
 }
 
@@ -46,7 +46,7 @@ std::vector<Celda> Mapa::recorrer(const coordenada_t &inicio, const coordenada_t
     std::vector<CeldaAStar> recorrido_star = navegador.navegar(inicio, objetivo);
     std::vector<Celda> recorrido;
     for(CeldaAStar c : recorrido_star) {
-        recorrido.push_back(mapa[c.id.second][c.id.first]);
+        recorrido.push_back(std::move(mapa[c.id.second][c.id.first]));
     }
     return recorrido;  
 }

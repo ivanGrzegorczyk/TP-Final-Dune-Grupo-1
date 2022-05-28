@@ -1,5 +1,5 @@
-#ifndef CELDA_H_
-#define CELDA_H_
+#ifndef CELDA_A_H_
+#define CELDA_A_H_
 
 #include <vector>
 
@@ -9,19 +9,7 @@ typedef std::pair<int, int> coordenada_t;
 /*
 Celda contiene información relevante a la lógica del juego, como el terreno.
 */
-class Celda {
-    public:
-    coordenada_t id;
-    Celda(coordenada_t id);
-    Celda();
-    
-//    Celda(const Celda&) = delete;
-//    Celda& operator=(const Celda&) = delete;
-//
-//    // Constructor por movimiento
-//    Celda(Celda&&) noexcept;
-//    Celda& operator=(Celda&&) noexcept;
-};
+
 // Celda usada en el algoritmo
 class CeldaAStar{
     public:
@@ -31,7 +19,7 @@ class CeldaAStar{
     // A* : f_value = g_value + h_value
     float f_value{}, g_value{}, h_value{};
 
-    std::vector<Celda> vecinos;
+    std::vector<CeldaAStar> vecinos;
 
     CeldaAStar();
     CeldaAStar(int fila, int columna);
@@ -41,4 +29,7 @@ class CeldaAStar{
     bool operator<(const CeldaAStar &other);
     bool operator>(const CeldaAStar &other);
 };
-#endif  // CELDA_H_
+
+#endif  // CELDA_A_H_
+
+

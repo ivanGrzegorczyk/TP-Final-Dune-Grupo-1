@@ -1,7 +1,4 @@
-#include "../headers/Celda.h"
-
-Celda::Celda(coordenada_t id) : id(id) {}
-Celda::Celda() : id({-1,-1}) {}
+#include "../headers/CeldaAStar.h"
 
 CeldaAStar::CeldaAStar(int fila, int columna) {
     id.first = fila;
