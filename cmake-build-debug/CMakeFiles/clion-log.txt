@@ -1,0 +1,13 @@
+/snap/clion/190/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/190/bin/ninja/linux/ninja -G Ninja -S /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1 -B /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug
+-- Found SDL2_image: /usr/lib/x86_64-linux-gnu/libSDL2_image.so
+-- Found SDL2_ttf: /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so
+-- SDL2_mixer support disabled
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR - Success
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug

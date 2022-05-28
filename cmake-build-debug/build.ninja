@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /mnt/hgfs/shared$ folder/TP-Final-Dune-Grupo-1/cmake-build-debug/
+cmake_ninja_workdir = /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target TP_Final_Dune_Grupo_1
 
@@ -49,27 +49,27 @@ cmake_ninja_workdir = /mnt/hgfs/shared$ folder/TP-Final-Dune-Grupo-1/cmake-build
 
 build cmake_object_order_depends_target_TP_Final_Dune_Grupo_1: phony || CMakeFiles/TP_Final_Dune_Grupo_1.dir
 
-build CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/server_main.cpp.o: CXX_COMPILER__TP_Final_Dune_Grupo_1_Debug /mnt/hgfs/shared$ folder/TP-Final-Dune-Grupo-1/sources/server_main.cpp || cmake_object_order_depends_target_TP_Final_Dune_Grupo_1
+build CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/server_main.cpp.o: CXX_COMPILER__TP_Final_Dune_Grupo_1_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/sources/server_main.cpp || cmake_object_order_depends_target_TP_Final_Dune_Grupo_1
   DEP_FILE = CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/server_main.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -g -std=gnu++17
   OBJECT_DIR = CMakeFiles/TP_Final_Dune_Grupo_1.dir
   OBJECT_FILE_DIR = CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources
 
-build CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Celda.cpp.o: CXX_COMPILER__TP_Final_Dune_Grupo_1_Debug /mnt/hgfs/shared$ folder/TP-Final-Dune-Grupo-1/sources/Celda.cpp || cmake_object_order_depends_target_TP_Final_Dune_Grupo_1
+build CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Celda.cpp.o: CXX_COMPILER__TP_Final_Dune_Grupo_1_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/sources/Celda.cpp || cmake_object_order_depends_target_TP_Final_Dune_Grupo_1
   DEP_FILE = CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Celda.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -g -std=gnu++17
   OBJECT_DIR = CMakeFiles/TP_Final_Dune_Grupo_1.dir
   OBJECT_FILE_DIR = CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources
 
-build CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Mapa.cpp.o: CXX_COMPILER__TP_Final_Dune_Grupo_1_Debug /mnt/hgfs/shared$ folder/TP-Final-Dune-Grupo-1/sources/Mapa.cpp || cmake_object_order_depends_target_TP_Final_Dune_Grupo_1
+build CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Mapa.cpp.o: CXX_COMPILER__TP_Final_Dune_Grupo_1_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/sources/Mapa.cpp || cmake_object_order_depends_target_TP_Final_Dune_Grupo_1
   DEP_FILE = CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Mapa.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -g -std=gnu++17
   OBJECT_DIR = CMakeFiles/TP_Final_Dune_Grupo_1.dir
   OBJECT_FILE_DIR = CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources
 
-build CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Navegador.cpp.o: CXX_COMPILER__TP_Final_Dune_Grupo_1_Debug /mnt/hgfs/shared$ folder/TP-Final-Dune-Grupo-1/sources/Navegador.cpp || cmake_object_order_depends_target_TP_Final_Dune_Grupo_1
+build CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Navegador.cpp.o: CXX_COMPILER__TP_Final_Dune_Grupo_1_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/sources/Navegador.cpp || cmake_object_order_depends_target_TP_Final_Dune_Grupo_1
   DEP_FILE = CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Navegador.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -g -std=gnu++17
   OBJECT_DIR = CMakeFiles/TP_Final_Dune_Grupo_1.dir
   OBJECT_FILE_DIR = CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources
 
@@ -82,19 +82,56 @@ build CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Navegador.cpp.o: CXX_COMPILER
 # Link the executable TP_Final_Dune_Grupo_1
 
 build TP_Final_Dune_Grupo_1: CXX_EXECUTABLE_LINKER__TP_Final_Dune_Grupo_1_Debug CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/server_main.cpp.o CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Celda.cpp.o CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Mapa.cpp.o CMakeFiles/TP_Final_Dune_Grupo_1.dir/sources/Navegador.cpp.o
-  FLAGS = -g
+  FLAGS = -g -g
   OBJECT_DIR = CMakeFiles/TP_Final_Dune_Grupo_1.dir
   POST_BUILD = :
   PRE_LINK = :
   TARGET_FILE = TP_Final_Dune_Grupo_1
   TARGET_PDB = TP_Final_Dune_Grupo_1.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target editor
+
+
+#############################################
+# Order-only phony target for editor
+
+build cmake_object_order_depends_target_editor: phony || CMakeFiles/editor.dir
+
+build CMakeFiles/editor.dir/sources/editor/editor.cpp.o: CXX_COMPILER__editor_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/sources/editor/editor.cpp || cmake_object_order_depends_target_editor
+  DEP_FILE = CMakeFiles/editor.dir/sources/editor/editor.cpp.o.d
+  FLAGS = -g -g -std=gnu++17
+  OBJECT_DIR = CMakeFiles/editor.dir
+  OBJECT_FILE_DIR = CMakeFiles/editor.dir/sources/editor
+
+build CMakeFiles/editor.dir/sources/editor/celda_editor.cpp.o: CXX_COMPILER__editor_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/sources/editor/celda_editor.cpp || cmake_object_order_depends_target_editor
+  DEP_FILE = CMakeFiles/editor.dir/sources/editor/celda_editor.cpp.o.d
+  FLAGS = -g -g -std=gnu++17
+  OBJECT_DIR = CMakeFiles/editor.dir
+  OBJECT_FILE_DIR = CMakeFiles/editor.dir/sources/editor
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target editor
+
+
+#############################################
+# Link the executable editor
+
+build editor: CXX_EXECUTABLE_LINKER__editor_Debug CMakeFiles/editor.dir/sources/editor/editor.cpp.o CMakeFiles/editor.dir/sources/editor/celda_editor.cpp.o
+  FLAGS = -g -g
+  OBJECT_DIR = CMakeFiles/editor.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = editor
+  TARGET_PDB = editor.dbg
+
 
 #############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/mnt/hgfs/shared folder/TP-Final-Dune-Grupo-1/cmake-build-debug" && /snap/clion/190/bin/cmake/linux/bin/ccmake -S"/mnt/hgfs/shared folder/TP-Final-Dune-Grupo-1" -B"/mnt/hgfs/shared folder/TP-Final-Dune-Grupo-1/cmake-build-debug"
+  COMMAND = cd /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug && /snap/clion/190/bin/cmake/linux/bin/ccmake -S/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1 -B/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug
   DESC = Running CMake cache editor...
   pool = console
   restat = 1
@@ -106,7 +143,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/mnt/hgfs/shared folder/TP-Final-Dune-Grupo-1/cmake-build-debug" && /snap/clion/190/bin/cmake/linux/bin/cmake --regenerate-during-build -S"/mnt/hgfs/shared folder/TP-Final-Dune-Grupo-1" -B"/mnt/hgfs/shared folder/TP-Final-Dune-Grupo-1/cmake-build-debug"
+  COMMAND = cd /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug && /snap/clion/190/bin/cmake/linux/bin/cmake --regenerate-during-build -S/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1 -B/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -114,7 +151,227 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for SHARED_LIBRARY target SDL2pp
+
+
+#############################################
+# Order-only phony target for SDL2pp
+
+build cmake_object_order_depends_target_SDL2pp: phony || libSDL2pp/CMakeFiles/SDL2pp.dir
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/AudioDevice.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/AudioDevice.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/AudioDevice.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/AudioLock.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/AudioLock.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/AudioLock.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/AudioSpec.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/AudioSpec.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/AudioSpec.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Color.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/Color.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Color.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Exception.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/Exception.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Exception.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Point.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/Point.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Point.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/RWops.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/RWops.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/RWops.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Rect.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/Rect.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Rect.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Renderer.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/Renderer.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Renderer.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/SDL.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/SDL.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/SDL.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Surface.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/Surface.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Surface.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/SurfaceLock.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/SurfaceLock.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/SurfaceLock.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Texture.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/Texture.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Texture.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/TextureLock.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/TextureLock.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/TextureLock.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Wav.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/Wav.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Wav.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Window.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/Window.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Window.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/SDLTTF.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/SDLTTF.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/SDLTTF.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Font.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/Font.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Font.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+build libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/SDLImage.cc.o: CXX_COMPILER__SDL2pp_Debug /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp/SDL2pp/SDLImage.cc || cmake_object_order_depends_target_SDL2pp
+  DEFINES = -DSDL2pp_EXPORTS
+  DEP_FILE = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/SDLImage.cc.o.d
+  FLAGS = -g  -g -fPIC -std=c++17
+  INCLUDES = -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/libSDL2pp -I/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp -isystem /usr/local/include/SDL2 -isystem /usr/include/SDL2
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  OBJECT_FILE_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp
+
+
+# =============================================================================
+# Link build statements for SHARED_LIBRARY target SDL2pp
+
+
+#############################################
+# Link the shared library libSDL2pp/libSDL2pp.so.8.3.0
+
+build libSDL2pp/libSDL2pp.so.8.3.0: CXX_SHARED_LIBRARY_LINKER__SDL2pp_Debug libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/AudioDevice.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/AudioLock.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/AudioSpec.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Color.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Exception.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Point.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/RWops.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Rect.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Renderer.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/SDL.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Surface.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/SurfaceLock.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Texture.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/TextureLock.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Wav.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Window.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/SDLTTF.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/Font.cc.o libSDL2pp/CMakeFiles/SDL2pp.dir/SDL2pp/SDLImage.cc.o | /usr/local/lib/libSDL2.so /usr/local/lib/libSDL2main.a /usr/lib/x86_64-linux-gnu/libSDL2_image.so /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so
+  LANGUAGE_COMPILE_FLAGS = -g  -g
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib  /usr/local/lib/libSDL2.so  /usr/local/lib/libSDL2main.a  /usr/lib/x86_64-linux-gnu/libSDL2_image.so  /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so  -Wl,-rpath,/usr/local/lib -Wl,--enable-new-dtags
+  OBJECT_DIR = libSDL2pp/CMakeFiles/SDL2pp.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  SONAME = libSDL2pp.so.8
+  SONAME_FLAG = -Wl,-soname,
+  TARGET_FILE = libSDL2pp/libSDL2pp.so.8.3.0
+  TARGET_PDB = SDL2pp.so.dbg
+
+
+#############################################
+# Create library symlink libSDL2pp/libSDL2pp.so
+
+build libSDL2pp/libSDL2pp.so.8 libSDL2pp/libSDL2pp.so: CMAKE_SYMLINK_LIBRARY libSDL2pp/libSDL2pp.so.8.3.0
+  POST_BUILD = :
+
+
+#############################################
+# Utility command for edit_cache
+
+build libSDL2pp/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp && /snap/clion/190/bin/cmake/linux/bin/ccmake -S/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1 -B/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build libSDL2pp/edit_cache: phony libSDL2pp/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build libSDL2pp/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp && /snap/clion/190/bin/cmake/linux/bin/cmake --regenerate-during-build -S/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1 -B/home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build libSDL2pp/rebuild_cache: phony libSDL2pp/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
 # Target aliases.
+
+build SDL2pp: phony libSDL2pp/libSDL2pp.so
+
+build libSDL2pp.so: phony libSDL2pp/libSDL2pp.so
 
 # =============================================================================
 # Folder targets.
@@ -122,9 +379,16 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /mnt/hgfs/shared folder/TP-Final-Dune-Grupo-1/cmake-build-debug
+# Folder: /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug
 
-build all: phony TP_Final_Dune_Grupo_1
+build all: phony TP_Final_Dune_Grupo_1 editor libSDL2pp/all
+
+# =============================================================================
+
+#############################################
+# Folder: /home/adrian/Escritorio/tpfinal/TP-Final-Dune-Grupo-1/cmake-build-debug/libSDL2pp
+
+build libSDL2pp/all: phony libSDL2pp/libSDL2pp.so
 
 # =============================================================================
 # Built-in targets
@@ -133,14 +397,14 @@ build all: phony TP_Final_Dune_Grupo_1
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/GNU.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.22.3/CMakeCCompiler.cmake CMakeFiles/3.22.3/CMakeCXXCompiler.cmake CMakeFiles/3.22.3/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../libSDL2pp/CMakeLists.txt ../libSDL2pp/SDL2pp/Config.hh.in ../libSDL2pp/cmake/FindSDL2_image.cmake ../libSDL2pp/cmake/FindSDL2_ttf.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CheckCCompilerFlag.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CheckCXXCompilerFlag.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CheckCXXSourceCompiles.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/GNU.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/GenerateExportHeader.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Internal/CheckCompilerFlag.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/exportheader.cmake.in /usr/local/lib/cmake/SDL2/sdl2-config-version.cmake /usr/local/lib/cmake/SDL2/sdl2-config.cmake CMakeCache.txt CMakeFiles/3.22.3/CMakeCCompiler.cmake CMakeFiles/3.22.3/CMakeCXXCompiler.cmake CMakeFiles/3.22.3/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/GNU.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.22.3/CMakeCCompiler.cmake CMakeFiles/3.22.3/CMakeCXXCompiler.cmake CMakeFiles/3.22.3/CMakeSystem.cmake: phony
+build ../CMakeLists.txt ../libSDL2pp/CMakeLists.txt ../libSDL2pp/SDL2pp/Config.hh.in ../libSDL2pp/cmake/FindSDL2_image.cmake ../libSDL2pp/cmake/FindSDL2_ttf.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CheckCCompilerFlag.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CheckCXXCompilerFlag.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/CheckCXXSourceCompiles.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Compiler/GNU.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/GenerateExportHeader.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Internal/CheckCompilerFlag.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/Linux.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /snap/clion/190/bin/cmake/linux/share/cmake-3.22/Modules/exportheader.cmake.in /usr/local/lib/cmake/SDL2/sdl2-config-version.cmake /usr/local/lib/cmake/SDL2/sdl2-config.cmake CMakeCache.txt CMakeFiles/3.22.3/CMakeCCompiler.cmake CMakeFiles/3.22.3/CMakeCXXCompiler.cmake CMakeFiles/3.22.3/CMakeSystem.cmake: phony
 
 
 #############################################

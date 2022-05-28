@@ -3,12 +3,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
-#include <SDL2pp/SDL.hh>
-#include <SDL2pp/SDLImage.hh>
-#include <SDL2pp/Window.hh>
-#include <SDL2pp/Renderer.hh>
-#include <SDL2pp/Texture.hh>
-#include <SDL2pp/Surface.hh>
+#include <SDL2pp/SDL2pp.hh>
 #include <string>
 using namespace SDL2pp;
 /*
