@@ -14,8 +14,16 @@ int main() {
     coordenada_t objetivo{6,6};
 
     std::vector<Celda> recorrido = mapa.recorrer(inicio, objetivo);
-
     mostrar(recorrido);
+
+    // test exception
+    inicio = {1,1};
+    objetivo = {11, 11};
+    try {
+        std::vector<Celda> recorrido = mapa.recorrer(inicio, objetivo);
+    } catch(std::exception e) {
+        std::cout << "Testing exception: " << e.what() << std::endl;
+    }
 
     return 0;
 }

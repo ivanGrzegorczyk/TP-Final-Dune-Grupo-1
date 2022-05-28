@@ -3,6 +3,7 @@
 #include <complex>
 #include <stack>
 #include <array>
+#include <stdexcept>
 #include "../headers/Navegador.h"
 
 Navegador::Navegador(const size_t filas, const size_t columnas) :
@@ -73,8 +74,7 @@ std::vector<CeldaAStar> Navegador::navegar(const coordenada_t& _pos_actual, cons
     }
     if (!coordenadaValida(pos_actual) ||
         !coordenadaValida(destino) || pos_actual == destino) {
-        std::cout << "Coordenada invalida" << std::endl;
-        return {};
+        throw std::invalid_argument("Invalid coordinate!");
     }
 
     int x = pos_actual.id.first, y = pos_actual.id.second;
@@ -139,7 +139,5 @@ std::vector<CeldaAStar> Navegador::navegar(const coordenada_t& _pos_actual, cons
             }
         }
     }
-
-    std::cout << "No se encontro un camino valido" << std::endl;
-    return {};
+    throw std::invalid_argument("No valid path found");
 }
