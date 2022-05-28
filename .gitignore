@@ -10,7 +10,6 @@ server_navegador.o
 .idea/misc.xml
 .vscode/settings.json
 .idea/.name
-CMakeFiles/*
 CMakeCache.txt
 TP_Final_Dune_Grupo_1
 Makefile

@@ -1,0 +1,7 @@
+/home/osboxes/Documents/Cpp/grupal/TP-Final-Dune-Grupo-1/CMakeFiles/TP_Final_Dune_Grupo_1.dir
+/home/osboxes/Documents/Cpp/grupal/TP-Final-Dune-Grupo-1/CMakeFiles/editor.dir
+/home/osboxes/Documents/Cpp/grupal/TP-Final-Dune-Grupo-1/CMakeFiles/edit_cache.dir
+/home/osboxes/Documents/Cpp/grupal/TP-Final-Dune-Grupo-1/CMakeFiles/rebuild_cache.dir
+/home/osboxes/Documents/Cpp/grupal/TP-Final-Dune-Grupo-1/extern/libSDL2pp/CMakeFiles/SDL2pp.dir
+/home/osboxes/Documents/Cpp/grupal/TP-Final-Dune-Grupo-1/extern/libSDL2pp/CMakeFiles/edit_cache.dir
+/home/osboxes/Documents/Cpp/grupal/TP-Final-Dune-Grupo-1/extern/libSDL2pp/CMakeFiles/rebuild_cache.dir
