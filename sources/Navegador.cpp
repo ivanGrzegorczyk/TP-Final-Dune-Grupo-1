@@ -62,7 +62,7 @@ std::vector<CeldaAStar> Navegador::armarCamino(const CeldaAStar &destino) {
 std::vector<CeldaAStar> Navegador::navegar(const coordenada_t& _pos_actual, const coordenada_t& _destino) {
     CeldaAStar pos_actual(_pos_actual);
     CeldaAStar destino(_destino);
-    // Vector con las CeldaAStars que fueron evaluadas
+    // Vector with evaluated cells
     std::vector<std::vector<bool>>  cerrado(filas, std::vector<bool>(columnas));
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < columnas; j++) {
@@ -78,8 +78,7 @@ std::vector<CeldaAStar> Navegador::navegar(const coordenada_t& _pos_actual, cons
     mapa[x][y].f_value = 0;
     mapa[x][y].g_value = 0;
     mapa[x][y].h_value = 0;
-    mapa[x][y].id_anterior.first = x;
-    mapa[x][y].id_anterior.second = y;
+    mapa[x][y].id_anterior = {x,y};
     std::vector<CeldaAStar> abierto;
     abierto.emplace_back(mapa[x][y]);
 
@@ -111,8 +110,7 @@ std::vector<CeldaAStar> Navegador::navegar(const coordenada_t& _pos_actual, cons
                 if (!coordenadaValida(c))  break;
                 if (destino == c) {
                     //Destination found - make path
-                    mapa[x + i][y + j].id_anterior.first = x;
-                    mapa[x + i][y + j].id_anterior.second = y;
+                    mapa[x + i][y + j].id_anterior = {x,y};
                     return armarCamino(destino);
                 } else if (!cerrado[x + i][y + j]) {
                     g_aux = c.g_value + 1.0;
@@ -125,8 +123,7 @@ std::vector<CeldaAStar> Navegador::navegar(const coordenada_t& _pos_actual, cons
                         mapa[x + i][y + j].f_value = f_aux;
                         mapa[x + i][y + j].g_value = g_aux;
                         mapa[x + i][y + j].h_value = h_aux;
-                        mapa[x + i][y + j].id_anterior.first = x;
-                        mapa[x + i][y + j].id_anterior.second = y;
+                        mapa[x + i][y + j].id_anterior = {x,y};
                         abierto.emplace_back(mapa[x + i][y + j]);
                     }
                 }
