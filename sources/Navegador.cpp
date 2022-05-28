@@ -21,12 +21,10 @@ Navegador::Navegador(const size_t filas, const size_t columnas) :
 
 bool Navegador::coordenadaValida(
         const CeldaAStar &CeldaAStar) const {
-    if (CeldaAStar.id.first >= columnas || CeldaAStar.id.second >= filas
-        || CeldaAStar.id.first < 0 || CeldaAStar.id.second < 0) {
-        return false;
-    } else {
-        return true;
-    }
+    return !(CeldaAStar.id.first >= columnas 
+        || CeldaAStar.id.second >= filas
+        || CeldaAStar.id.first < 0 
+        || CeldaAStar.id.second < 0);
 }
 
 double Navegador::calcularH(coordenada_t coordenada, const CeldaAStar &destino) const {
