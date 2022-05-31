@@ -12,8 +12,8 @@ include_directories(${PROJECT_SOURCE_DIR}/extern)
 include_directories(${SDL2PP_INCLUDE_DIRS})
 
 FILE(GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/headers/*.h)
+FILE(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/sources/*.cpp)
 FILE(GLOB HEADER_EDITOR_FILES ${PROJECT_SOURCE_DIR}/headers/editor/*.h)
-FILE(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/sources/editor/*.cpp)
 FILE(GLOB SRC_EDITOR_FILES ${PROJECT_SOURCE_DIR}/sources/editor/*.cpp)
 
 add_executable(Server ${HEADER_FILES} ${SRC_FILES})
