@@ -7,10 +7,16 @@ set(CMAKE_CXX_FLAGS -g) #hack, reemplazar por configs Debug y Release
 set(SDL2PP_WITH_IMAGE ON)
 set(SDL2PP_WITH_TTF ON)
 add_subdirectory(extern/libSDL2pp)
+
 include_directories(${PROJECT_SOURCE_DIR}/extern)
 include_directories(${SDL2PP_INCLUDE_DIRS})
 
-add_executable(TP_Final_Dune_Grupo_1 sources/server_main.cpp sources/Celda.cpp headers/Celda.h sources/server_main.cpp sources/Mapa.cpp headers/Mapa.h sources/Navegador.cpp headers/Navegador.h)
-add_executable(editor headers/editor/celda_editor.h headers/editor/mapa_editor.h sources/editor/editor.cpp sources/editor/celda_editor.cpp)
-#include_directories(${SDL2PP_INCLUDE_DIRS})
-target_link_libraries(editor ${SDL2PP_LIBRARIES})
+FILE(GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/headers/*.h)
+FILE(GLOB HEADER_EDITOR_FILES ${PROJECT_SOURCE_DIR}/headers/editor/*.h)
+FILE(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/sources/editor/*.cpp)
+FILE(GLOB SRC_EDITOR_FILES ${PROJECT_SOURCE_DIR}/sources/editor/*.cpp)
+
+add_executable(Server ${HEADER_FILES} ${SRC_FILES})
+add_executable(Editor ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES})
+
+target_link_libraries(Editor ${SDL2PP_LIBRARIES})
