@@ -7,12 +7,15 @@
 #include <algorithm>
 #include <stack>
 
-typedef std::pair<int, int> coordenada_t;
+#include "Building.h"
+#include "Unity.h"
 
 class ServerCell {
 public:
     coordenada_t id;
     char ground;  // Temporal para simular celdas ocupadas
+    Building *building;
+    std::vector<Unity> unities;
 
     // Unidades en la celda
     // Edificios en la celda

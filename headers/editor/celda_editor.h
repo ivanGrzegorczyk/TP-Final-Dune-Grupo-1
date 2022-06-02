@@ -1,9 +1,11 @@
+#ifndef CELDA_EDITOR_H_
+#define CELDA_EDITOR_H_
 
 #include <vector>
 #include <string>
-#pragma once
-//TODO codigo repetido
-typedef std::pair<int, int> coordenada_t;
+
+#include "../../headers/Entity.h"
+
 class CeldaEditor {
     public:
     coordenada_t id;
@@ -13,3 +15,5 @@ class CeldaEditor {
     CeldaEditor(coordenada_t id, std::string textura);
     std::string to_string();
 };
+
+#endif  // CELDA_EDITOR_H_

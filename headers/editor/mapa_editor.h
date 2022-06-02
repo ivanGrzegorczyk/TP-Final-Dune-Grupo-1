@@ -1,10 +1,14 @@
+#ifndef MAPA_EDITOR_H_
+#define MAPA_EDITOR_H_
 
 #include <vector>
 #include <string>
-#pragma once
+
 #include "../../headers/editor/celda_editor.h"
+
 typedef std::vector<std::vector<CeldaEditor>> matriz_t;
 typedef std::vector<CeldaEditor> fila_t;
+
 class MapaEditor {
     matriz_t mapa;
     int filas; int columnas;
@@ -88,5 +92,6 @@ class MapaEditor {
     }
 };
 
-
 // MapIterator
+
+#endif  // MAPA_EDITOR_H_

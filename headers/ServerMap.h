@@ -7,6 +7,7 @@
 class ServerMap {
 private:
     int filas, columnas;
+    std::vector<Building> buildings;  // TODO: Quizas lo podemos poner en un diccionario con clave el id (consultar)
 
     void mostrar();
     void mostrar(std::stack<coordenada_t> path);
