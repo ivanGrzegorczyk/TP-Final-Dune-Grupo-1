@@ -1,0 +1,66 @@
+1
+2
+3
+name: My cool map
+num_players: 12345
+map:
+  rows: 3
+  columns: 3
+  cells:
+    - terrain: sand
+      buildings:
+        []
+      pos:
+        - 0
+        - 0
+    - terrain: sand
+      buildings:
+        []
+      pos:
+        - 0
+        - 1
+    - terrain: sand
+      buildings:
+        []
+      pos:
+        - 0
+        - 2
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 1
+        - 0
+    - terrain: rock
+      buildings:
+        - name: Construction Center
+          size:
+            - 2
+            - 2
+      pos:
+        - 1
+        - 1
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 1
+        - 2
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 2
+        - 0
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 2
+        - 1
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 2
+        - 2
