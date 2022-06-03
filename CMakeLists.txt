@@ -46,6 +46,6 @@ FILE(GLOB HEADER_EDITOR_FILES ${PROJECT_SOURCE_DIR}/headers/editor/*.h)
 FILE(GLOB SRC_EDITOR_FILES ${PROJECT_SOURCE_DIR}/sources/editor/*.cpp)
 
 add_executable(Server ${HEADER_FILES} ${SRC_FILES})
-add_executable(Editor ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES} ${UIS_HEADERS})
+add_executable(Editor ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES} ${UIS_HEADERS} resources/resources.qrc)
 
 target_link_libraries(Editor ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core)
