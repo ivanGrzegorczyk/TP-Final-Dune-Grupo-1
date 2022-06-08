@@ -1416,10 +1416,15 @@ CMakeFiles/Editor.dir/sources/editor/editor.cpp.o: sources/editor/editor.cpp \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qkeysequence.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qicon.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QVBoxLayout \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayout.h \
@@ -2183,7 +2188,12 @@ CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o: sources/editor/mainwindow
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractscrollarea.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QVBoxLayout \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayout.h \
@@ -2203,6 +2213,12 @@ sources/editor/gamescene.cpp:
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayout.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h:
 
@@ -2718,6 +2734,8 @@ Editor_autogen/mocs_compilation.cpp:
 
 /usr/include/SDL2/SDL_main.h:
 
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/clzerointrin.h:
@@ -3189,6 +3207,8 @@ sources/editor/editor.cpp:
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h:
 
 /usr/include/c++/11/tr1/ell_integral.tcc:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls.h:
 
