@@ -15,7 +15,7 @@ GameScene::GameScene()
 }
 
 void GameScene::set_active_texture(std::string& texture) {
-    //todo
+    this->active_texture = texture;
 }
 
 void GameScene::keyPressEvent(QKeyEvent *event)

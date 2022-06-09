@@ -856,7 +856,14 @@ CMakeFiles/Editor.dir/sources/editor/cell.cpp.o: sources/editor/cell.cpp \
   /usr/include/c++/11/bits/basic_ios.tcc \
   /usr/include/c++/11/bits/ostream.tcc \
   /usr/include/c++/11/istream \
-  /usr/include/c++/11/bits/istream.tcc
+  /usr/include/c++/11/bits/istream.tcc \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainter.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextoption.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qbrush.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontinfo.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qfont.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontmetrics.h
 
 CMakeFiles/Editor.dir/sources/editor/editor.cpp.o: sources/editor/editor.cpp \
   /usr/include/stdc-predef.h \
@@ -2270,6 +2277,10 @@ extern/libSDL2pp/SDL2pp/AudioSpec.hh:
 
 extern/libSDL2pp/SDL2pp/Optional.hh:
 
+extern/libSDL2pp/SDL2pp/Exception.hh:
+
+extern/libSDL2pp/SDL2pp/Export.hh:
+
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringliteral.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/avxintrin.h:
@@ -2526,10 +2537,6 @@ headers/Entity.h:
 
 /usr/include/c++/11/bits/ptr_traits.h:
 
-/usr/include/x86_64-linux-gnu/qt5/QtGui/qtextoption.h:
-
-/usr/include/x86_64-linux-gnu/qt5/QtGui/qregion.h:
-
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qiterator.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsPixmapItem:
@@ -2754,6 +2761,10 @@ Editor_autogen/mocs_compilation.cpp:
 
 /usr/include/c++/11/ext/string_conversions.h:
 
+/usr/include/x86_64-linux-gnu/qt5/QtGui/qregion.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtGui/qtextoption.h:
+
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
 
 /usr/include/c++/11/bits/cxxabi_forced.h:
@@ -2847,10 +2858,6 @@ Editor_autogen/mocs_compilation.cpp:
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
-
-/usr/include/x86_64-linux-gnu/qt5/QtGui/qpainter.h:
-
-/usr/include/x86_64-linux-gnu/qt5/QtCore/qline.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/fxsrintrin.h:
 
@@ -3182,6 +3189,14 @@ headers/editor/celda_editor.h:
 
 /usr/include/c++/11/bits/istream.tcc:
 
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qline.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtGui/qpainter.h:
+
+/usr/include/SDL2/SDL_misc.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqvlintrin.h:
+
 sources/editor/editor.cpp:
 
 /usr/include/c++/11/tr1/legendre_function.tcc:
@@ -3322,10 +3337,6 @@ Editor_autogen/3YJK5W5UP7/qrc_resources.cpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vnniintrin.h:
 
-/usr/include/SDL2/SDL_misc.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqvlintrin.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h:
 
 /usr/include/c++/11/bits/specfun.h:
@@ -3379,7 +3390,3 @@ extern/libSDL2pp/SDL2pp/Config.hh:
 /usr/include/SDL2/SDL_image.h:
 
 extern/libSDL2pp/SDL2pp/SDL2pp.hh:
-
-extern/libSDL2pp/SDL2pp/Export.hh:
-
-extern/libSDL2pp/SDL2pp/Exception.hh:

@@ -9,6 +9,8 @@ class Cell : public QGraphicsPixmapItem
 {
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 public:
     Cell();
     virtual ~Cell() = default;
@@ -17,7 +19,7 @@ public:
 private:
     QList<QPixmap> pixmaps;
     int currentPixmap;
-    bool flipImage;
+    bool hovering;
     qreal xOffset = 0;
 };
 

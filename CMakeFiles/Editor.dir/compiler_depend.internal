@@ -861,6 +861,13 @@ CMakeFiles/Editor.dir/sources/editor/cell.cpp.o
  /usr/include/c++/11/bits/ostream.tcc
  /usr/include/c++/11/istream
  /usr/include/c++/11/bits/istream.tcc
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainter.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextoption.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qbrush.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontinfo.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qfont.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontmetrics.h
 
 CMakeFiles/Editor.dir/sources/editor/editor.cpp.o
  /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/editor.cpp
