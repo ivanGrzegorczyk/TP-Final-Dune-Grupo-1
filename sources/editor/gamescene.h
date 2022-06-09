@@ -12,6 +12,7 @@ class GameScene : public QGraphicsScene
 public:
     GameScene();
     virtual ~GameScene() = default;
+    void set_active_texture(std::string& texture);
 
 private slots:
 	// Método polimorfico definido por QWidget. Por default no hace nada
@@ -19,6 +20,7 @@ private slots:
     void keyPressEvent(QKeyEvent *event) override;
 
 private:
+    std::string active_texture;
     Cell c;
 };
 

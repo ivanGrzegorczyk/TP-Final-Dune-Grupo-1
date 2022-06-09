@@ -13,7 +13,9 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::toggle_button() {
-    ui->edit_button->setText("Editing");
+    ui->edit_button->setText("Mountain");
+    std::string txt("mountain");
+    scene.set_active_texture(txt);
 }
 
 MainWindow::~MainWindow()
