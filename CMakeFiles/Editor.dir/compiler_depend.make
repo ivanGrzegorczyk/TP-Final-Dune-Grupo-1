@@ -863,7 +863,9 @@ CMakeFiles/Editor.dir/sources/editor/cell.cpp.o: sources/editor/cell.cpp \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qbrush.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontinfo.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qfont.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontmetrics.h
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontmetrics.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/QBitmap \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qbitmap.h
 
 CMakeFiles/Editor.dir/sources/editor/editor.cpp.o: sources/editor/editor.cpp \
   /usr/include/stdc-predef.h \
@@ -2281,6 +2283,8 @@ extern/libSDL2pp/SDL2pp/Exception.hh:
 
 extern/libSDL2pp/SDL2pp/Export.hh:
 
+extern/libSDL2pp/SDL2pp/SDL.hh:
+
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringliteral.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/avxintrin.h:
@@ -2341,9 +2345,11 @@ extern/libSDL2pp/SDL2pp/Export.hh:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qchar.h:
 
-/usr/include/x86_64-linux-gnu/qt5/QtCore/qobjectdefs_impl.h:
-
 /usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h:
+
+extern/libSDL2pp/SDL2pp/Config.hh:
+
+/usr/include/SDL2/SDL_clipboard.h:
 
 /usr/include/c++/11/stdlib.h:
 
@@ -3149,8 +3155,6 @@ sources/editor/mainwindow.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontmetrics.h:
 
-extern/libSDL2pp/SDL2pp/SDL.hh:
-
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h:
 
 sources/editor/celda_editor.cpp:
@@ -3196,6 +3200,18 @@ headers/editor/celda_editor.h:
 /usr/include/SDL2/SDL_misc.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqvlintrin.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtGui/QBitmap:
+
+/usr/include/SDL2/SDL_video.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtCore/qobjectdefs_impl.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtGui/qbitmap.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmiintrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/sgxintrin.h:
 
 sources/editor/editor.cpp:
 
@@ -3283,10 +3299,6 @@ sources/editor/editor.cpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/rdseedintrin.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmiintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/sgxintrin.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/11/include/xsavesintrin.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qlogging.h:
@@ -3349,15 +3361,9 @@ Editor_autogen/3YJK5W5UP7/qrc_resources.cpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/amxbf16intrin.h:
 
-/usr/include/SDL2/SDL_clipboard.h:
-
-extern/libSDL2pp/SDL2pp/Config.hh:
-
 /usr/lib/gcc/x86_64-linux-gnu/11/include/keylockerintrin.h:
 
 /usr/include/SDL2/SDL_events.h:
-
-/usr/include/SDL2/SDL_video.h:
 
 /usr/include/SDL2/SDL_rect.h:
 

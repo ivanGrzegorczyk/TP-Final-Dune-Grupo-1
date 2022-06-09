@@ -1,6 +1,7 @@
 #include "cell.h"
 #include <iostream>
 #include <qpainter.h>
+#include <QBitmap>
 Cell::Cell(): currentPixmap(0), hovering(false)
 {
     QImage img;
@@ -15,30 +16,29 @@ Cell::Cell(): currentPixmap(0), hovering(false)
     auto painter = QPainter();
     painter.setPen(QColor(0, 0, 255));
     painter.drawPixmap(pix.rect(), pix, pix.rect());
-
-    this->setPixmap(pix);
+    pixmaps.push_back(pix);
+    currentTexture = pixmaps[0];
+    this->setPixmap(currentTexture);
 }
 
 void Cell::update()
 {
-    auto current = pixmaps[0];
-    if (hovering){
-        this->setPixmap(current.transformed(QTransform().scale(1.05, 1.05)));
-    } else {
-        this->setPixmap(current);
-    }
+
 }
 
 void Cell::hoverEnterEvent(QGraphicsSceneHoverEvent *event) {
-    auto current = pixmaps[0];
+    auto current = currentTexture;
     this->setPixmap(current.transformed(QTransform().scale(1.05, 1.05)));
 }
 
 void Cell::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)  {
-    auto current = pixmaps[0];
+    auto current = currentTexture;
     this->setPixmap(current);
 }
 
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    this->update();
+    QPixmap mask = QPixmap(pixmaps[1]);
+    mask.fill(Qt::red);
+    currentTexture = mask;
+    this->setPixmap(mask);
 }

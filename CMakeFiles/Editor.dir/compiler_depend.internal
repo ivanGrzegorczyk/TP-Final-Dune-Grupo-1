@@ -868,6 +868,8 @@ CMakeFiles/Editor.dir/sources/editor/cell.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontinfo.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qfont.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontmetrics.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QBitmap
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qbitmap.h
 
 CMakeFiles/Editor.dir/sources/editor/editor.cpp.o
  /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/editor.cpp
