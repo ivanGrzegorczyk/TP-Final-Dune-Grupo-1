@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.16)
 project(TP_Final_Dune_Grupo_1)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS -g) #hack, reemplazar por configs Debug y Release
 set(SDL2PP_WITH_IMAGE ON)
 set(SDL2PP_WITH_TTF ON)
 add_subdirectory(extern/libSDL2pp)
-
+ADD_DEFINITIONS(-DDATA_PATH="${PROJECT_SOURCE_DIR}/game/assets/")
 include_directories(extern)
 include_directories(${SDL2PP_INCLUDE_DIRS})
 
@@ -26,7 +26,7 @@ find_package (Threads)
 
 add_executable(Server ${HEADER_COMMON_FILES} ${SRC_COMMON_FILES} ${HEADER_SERVER_FILES} ${SRC_SERVER_FILES})
 add_executable(Editor ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES})
-add_executable(Client ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES})
+add_executable(Client ${HEADER_CLIENT_FILES} ${SRC_CLIENT_FILES})
 
 target_link_libraries (Server Threads::Threads)
 target_link_libraries(Editor ${SDL2PP_LIBRARIES})

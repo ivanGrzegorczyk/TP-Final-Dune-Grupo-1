@@ -11,10 +11,10 @@ void Protocol::_serializeAndSend(int currentX, int currentY, int dstX, int dstY)
     uint16_t desX = htons((uint16_t)dstX);
     uint16_t desY = htons((uint16_t)dstY);
 
-    skt.sendAll(&command, sizeof(command), );
+    /*skt.sendAll(&command, sizeof(command), );
     skt.sendAll(&currtX, sizeof(currtX), );
     skt.sendAll(&desX, sizeof(desX));
-    skt.sendAll(&desY, sizeof(desY));
+    skt.sendAll(&desY, sizeof(desY));*/
 }
 
 void Protocol::sendUbication(std::pair<coordenada_t, coordenada_t> ubication) {
@@ -28,7 +28,7 @@ void Protocol::sendUbication(std::pair<coordenada_t, coordenada_t> ubication) {
 std::vector<coordenada_t> Protocol::receivePath() {
     std::vector<coordenada_t> path;
     uint8_t length;
-    skt.recvAll(&length, sizeof(length), );
+    //skt.recvAll(&length, sizeof(length), );
 
     path.resize(int(length));
     for (int i = 0; i < int(length); i++) {
@@ -40,7 +40,7 @@ std::vector<coordenada_t> Protocol::receivePath() {
 void Protocol::_fillVector(std::vector<coordenada_t> &v) {
     uint16_t posX;
     uint16_t posY;
-    skt.recvAll(&posX, sizeof(posX), );
+    //skt.recvAll(&posX, sizeof(posX), );
     coordenada_t coord {(int) ntohs(posX), (int) ntohs(posY)};
     v.push_back(coord);
 }

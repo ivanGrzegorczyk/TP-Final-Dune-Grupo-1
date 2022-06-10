@@ -18,7 +18,7 @@ void Character::update() {
     int y;
     if(pos < path.size()) {
         std::pair<int, int> cell = path[pos];
-        x = cell.first; /
+        x = cell.first;
         y = cell.second;
         //if (isMoving) {
             current.SetX(x);

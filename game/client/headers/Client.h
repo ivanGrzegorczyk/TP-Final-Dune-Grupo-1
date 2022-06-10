@@ -2,7 +2,7 @@
 #define TP_FINAL_DUNE_GRUPO_1_CLIENT_H
 #include <unistd.h>
 #include <thread>
-#include "../../headers/EventsQueue.h"
+
 
 class Client {
 private:

@@ -5,8 +5,8 @@
 using namespace SDL2pp;
 
 int main(int argc, char* argv[]) { //run()
-    thread1(&Client::sendToClient, this);
-    thread2(&Client::receiveOfClient, this);
+    //thread1(&Client::sendToClient, this);
+    //thread2(&Client::receiveOfClient, this);
     SDL sdl(SDL_INIT_VIDEO);
     Window window("Client", SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED,640, 480, SDL_WINDOW_RESIZABLE);

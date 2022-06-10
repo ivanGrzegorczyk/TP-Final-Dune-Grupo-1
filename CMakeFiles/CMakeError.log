@@ -1,0 +1,249 @@
+Performing C++ SOURCE FILE Test SDL2PP_WITH_EXPERIMENTAL_OPTIONAL failed with the following output:
+Change Dir: /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_8650f/fast && /usr/bin/make -f CMakeFiles/cmTC_8650f.dir/build.make CMakeFiles/cmTC_8650f.dir/build
+make[1]: se entra en el directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_8650f.dir/src.cxx.o
+/usr/bin/c++    -g -std=c++11 -DSDL2PP_WITH_EXPERIMENTAL_OPTIONAL   -o CMakeFiles/cmTC_8650f.dir/src.cxx.o -c /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx
+/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx: In function ‘int main()’:
+/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx:2:19: error: ‘std::experimental’ has not been declared
+    2 | int main() { std::experimental::optional<int> o; return !o; }
+      |                   ^~~~~~~~~~~~
+/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx:2:42: error: expected primary-expression before ‘int’
+    2 | int main() { std::experimental::optional<int> o; return !o; }
+      |                                          ^~~
+/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx:2:58: error: ‘o’ was not declared in this scope
+    2 | int main() { std::experimental::optional<int> o; return !o; }
+      |                                                          ^
+make[1]: *** [CMakeFiles/cmTC_8650f.dir/build.make:66: CMakeFiles/cmTC_8650f.dir/src.cxx.o] Error 1
+make[1]: se sale del directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_8650f/fast] Error 2
+
+
+Source file was:
+#include <experimental/optional>
+int main() { std::experimental::optional<int> o; return !o; }
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_94e6a/fast && /usr/bin/make -f CMakeFiles/cmTC_94e6a.dir/build.make CMakeFiles/cmTC_94e6a.dir/build
+make[1]: se entra en el directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_94e6a.dir/src.c.o
+/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_94e6a.dir/src.c.o   -c /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_94e6a
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_94e6a.dir/link.txt --verbose=1
+/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD    -rdynamic CMakeFiles/cmTC_94e6a.dir/src.c.o  -o cmTC_94e6a 
+/usr/bin/ld: CMakeFiles/cmTC_94e6a.dir/src.c.o: en la función `main':
+src.c:(.text+0x46): referencia a `pthread_create' sin definir
+/usr/bin/ld: src.c:(.text+0x52): referencia a `pthread_detach' sin definir
+/usr/bin/ld: src.c:(.text+0x63): referencia a `pthread_join' sin definir
+collect2: error: ld returned 1 exit status
+make[1]: *** [CMakeFiles/cmTC_94e6a.dir/build.make:87: cmTC_94e6a] Error 1
+make[1]: se sale del directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_94e6a/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_66a82/fast && /usr/bin/make -f CMakeFiles/cmTC_66a82.dir/build.make CMakeFiles/cmTC_66a82.dir/build
+make[1]: se entra en el directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_66a82.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_66a82.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_66a82
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_66a82.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_66a82.dir/CheckFunctionExists.c.o  -o cmTC_66a82  -lpthreads 
+/usr/bin/ld: no se puede encontrar -lpthreads
+collect2: error: ld returned 1 exit status
+make[1]: *** [CMakeFiles/cmTC_66a82.dir/build.make:87: cmTC_66a82] Error 1
+make[1]: se sale del directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_66a82/fast] Error 2
+
+
+
+Performing C++ SOURCE FILE Test SDL2PP_WITH_EXPERIMENTAL_OPTIONAL failed with the following output:
+Change Dir: /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_d7fba/fast && /usr/bin/make -f CMakeFiles/cmTC_d7fba.dir/build.make CMakeFiles/cmTC_d7fba.dir/build
+make[1]: se entra en el directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_d7fba.dir/src.cxx.o
+/usr/bin/c++    -g -std=c++11 -DSDL2PP_WITH_EXPERIMENTAL_OPTIONAL   -o CMakeFiles/cmTC_d7fba.dir/src.cxx.o -c /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx
+/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx: In function ‘int main()’:
+/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx:2:19: error: ‘std::experimental’ has not been declared
+    2 | int main() { std::experimental::optional<int> o; return !o; }
+      |                   ^~~~~~~~~~~~
+/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx:2:42: error: expected primary-expression before ‘int’
+    2 | int main() { std::experimental::optional<int> o; return !o; }
+      |                                          ^~~
+/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx:2:58: error: ‘o’ was not declared in this scope
+    2 | int main() { std::experimental::optional<int> o; return !o; }
+      |                                                          ^
+make[1]: *** [CMakeFiles/cmTC_d7fba.dir/build.make:66: CMakeFiles/cmTC_d7fba.dir/src.cxx.o] Error 1
+make[1]: se sale del directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_d7fba/fast] Error 2
+
+
+Source file was:
+#include <experimental/optional>
+int main() { std::experimental::optional<int> o; return !o; }
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_88249/fast && /usr/bin/make -f CMakeFiles/cmTC_88249.dir/build.make CMakeFiles/cmTC_88249.dir/build
+make[1]: se entra en el directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_88249.dir/src.c.o
+/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_88249.dir/src.c.o   -c /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_88249
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_88249.dir/link.txt --verbose=1
+/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD    -rdynamic CMakeFiles/cmTC_88249.dir/src.c.o  -o cmTC_88249 
+/usr/bin/ld: CMakeFiles/cmTC_88249.dir/src.c.o: en la función `main':
+src.c:(.text+0x46): referencia a `pthread_create' sin definir
+/usr/bin/ld: src.c:(.text+0x52): referencia a `pthread_detach' sin definir
+/usr/bin/ld: src.c:(.text+0x63): referencia a `pthread_join' sin definir
+collect2: error: ld returned 1 exit status
+make[1]: *** [CMakeFiles/cmTC_88249.dir/build.make:87: cmTC_88249] Error 1
+make[1]: se sale del directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_88249/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_e1573/fast && /usr/bin/make -f CMakeFiles/cmTC_e1573.dir/build.make CMakeFiles/cmTC_e1573.dir/build
+make[1]: se entra en el directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e1573.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_e1573.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e1573
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e1573.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_e1573.dir/CheckFunctionExists.c.o  -o cmTC_e1573  -lpthreads 
+/usr/bin/ld: no se puede encontrar -lpthreads
+collect2: error: ld returned 1 exit status
+make[1]: *** [CMakeFiles/cmTC_e1573.dir/build.make:87: cmTC_e1573] Error 1
+make[1]: se sale del directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_e1573/fast] Error 2
+
+
+
+Performing C++ SOURCE FILE Test SDL2PP_WITH_EXPERIMENTAL_OPTIONAL failed with the following output:
+Change Dir: /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_272e1/fast && /usr/bin/make -f CMakeFiles/cmTC_272e1.dir/build.make CMakeFiles/cmTC_272e1.dir/build
+make[1]: se entra en el directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_272e1.dir/src.cxx.o
+/usr/bin/c++    -g -std=c++11 -DSDL2PP_WITH_EXPERIMENTAL_OPTIONAL   -o CMakeFiles/cmTC_272e1.dir/src.cxx.o -c /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx
+/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx: In function ‘int main()’:
+/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx:2:19: error: ‘std::experimental’ has not been declared
+    2 | int main() { std::experimental::optional<int> o; return !o; }
+      |                   ^~~~~~~~~~~~
+/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx:2:42: error: expected primary-expression before ‘int’
+    2 | int main() { std::experimental::optional<int> o; return !o; }
+      |                                          ^~~
+/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.cxx:2:58: error: ‘o’ was not declared in this scope
+    2 | int main() { std::experimental::optional<int> o; return !o; }
+      |                                                          ^
+make[1]: *** [CMakeFiles/cmTC_272e1.dir/build.make:66: CMakeFiles/cmTC_272e1.dir/src.cxx.o] Error 1
+make[1]: se sale del directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_272e1/fast] Error 2
+
+
+Source file was:
+#include <experimental/optional>
+int main() { std::experimental::optional<int> o; return !o; }
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_2e474/fast && /usr/bin/make -f CMakeFiles/cmTC_2e474.dir/build.make CMakeFiles/cmTC_2e474.dir/build
+make[1]: se entra en el directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_2e474.dir/src.c.o
+/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_2e474.dir/src.c.o   -c /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_2e474
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2e474.dir/link.txt --verbose=1
+/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD    -rdynamic CMakeFiles/cmTC_2e474.dir/src.c.o  -o cmTC_2e474 
+/usr/bin/ld: CMakeFiles/cmTC_2e474.dir/src.c.o: en la función `main':
+src.c:(.text+0x46): referencia a `pthread_create' sin definir
+/usr/bin/ld: src.c:(.text+0x52): referencia a `pthread_detach' sin definir
+/usr/bin/ld: src.c:(.text+0x63): referencia a `pthread_join' sin definir
+collect2: error: ld returned 1 exit status
+make[1]: *** [CMakeFiles/cmTC_2e474.dir/build.make:87: cmTC_2e474] Error 1
+make[1]: se sale del directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_2e474/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_6855e/fast && /usr/bin/make -f CMakeFiles/cmTC_6855e.dir/build.make CMakeFiles/cmTC_6855e.dir/build
+make[1]: se entra en el directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_6855e.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_6855e.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_6855e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6855e.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_6855e.dir/CheckFunctionExists.c.o  -o cmTC_6855e  -lpthreads 
+/usr/bin/ld: no se puede encontrar -lpthreads
+collect2: error: ld returned 1 exit status
+make[1]: *** [CMakeFiles/cmTC_6855e.dir/build.make:87: cmTC_6855e] Error 1
+make[1]: se sale del directorio '/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_6855e/fast] Error 2
+
+
+
