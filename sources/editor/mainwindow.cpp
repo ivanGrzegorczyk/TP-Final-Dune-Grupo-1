@@ -1,11 +1,12 @@
 // Code credit FIUBA: https://github.com/Taller-de-Programacion/clases/tree/feature/bibliotecas-gui/bibliotecas-gui/qt5
 
-#include "mainwindow.h"
+#include "editor/mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(MapaEditor&& core, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , scene(std::move(core))
 {
     ui->setupUi(this);
     ui->view->setScene(&this->scene);

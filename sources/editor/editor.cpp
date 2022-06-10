@@ -7,7 +7,7 @@
 #include <string>
 
 #include "ui_mainwindow.h"
-#include "mainwindow.h"
+#include "editor/mainwindow.h"
 #include <QApplication>
 using namespace SDL2pp;
 
@@ -30,7 +30,7 @@ MapaEditor setup() {
 int main(int argc, char* argv[]) {
     MapaEditor m(std::move(setup()));
     QApplication a(argc, argv);
-    MainWindow w;
+    MainWindow w(std::move(m));
     w.show();
     return a.exec();
 }

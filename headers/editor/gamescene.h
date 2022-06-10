@@ -4,14 +4,15 @@
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <QTimer>
-#include "cell.h"
 #include <memory>
+#include "mapa_editor.h"
+#include "cell.h"
 
 class GameScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    GameScene();
+    GameScene(MapaEditor&& mapa);
     virtual ~GameScene() = default;
     void set_active_texture(std::string& texture);
     std::shared_ptr<std::string> active_texture; //todo make readonly with method
