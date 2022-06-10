@@ -33,11 +33,12 @@ void Cell::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)  {
     Paints using the current texture the user is painting with.
 */
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    std:: cout << "texture is  " << *current_brush << std::endl;
     place_tile(*current_brush);
 }
 
 void Cell::place_tile(std::string terrain) {
     QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect;
-    effect->setColor((terrain == "sand") ? Qt::red : Qt::blue);
+    effect->setColor((terrain == "mountain") ? Qt::red : Qt::blue);
     this->setGraphicsEffect(effect);
 }
