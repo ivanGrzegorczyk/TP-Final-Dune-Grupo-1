@@ -3,9 +3,12 @@
 
 #include "Entity.h"
 
-class Unity: public Entity {
+class Unity: public Entity {  // abstracta
 private:
     coordenada_t id;
+
+public:
+    virtual ~Unity() = 0;
 };
 
 #endif  // UNITY_H_

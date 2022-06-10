@@ -3,9 +3,12 @@
 
 typedef std::pair<int, int> coordenada_t;
 
-class Entity {  // Va terminar siendo una clase virtual
+class Entity {  // Va terminar siendo una clase abstracta
 protected:
     double HP;
+
+public:
+    virtual ~Entity() = 0;
 };
 
 #endif  // ENTITY_H_
