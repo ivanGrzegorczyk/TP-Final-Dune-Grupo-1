@@ -4,7 +4,7 @@
 #include <atomic>
 #include <string>
 
-#include "Thread.h"
+#include "../../common/headers/Thread.h"
 #include "../../common/headers/Socket.h"
 
 class ThClient: public Thread {

@@ -4,7 +4,6 @@
 #include "SDL2pp/SDL2pp.hh"
 #include "MapUi.h"
 #include "Protocol.h"
-#include "yaml-cpp/yaml.h"
 
 using namespace SDL2pp;
 class Game {
