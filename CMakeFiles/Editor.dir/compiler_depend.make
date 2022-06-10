@@ -865,7 +865,14 @@ CMakeFiles/Editor.dir/sources/editor/cell.cpp.o: sources/editor/cell.cpp \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qfont.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontmetrics.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QBitmap \
-  /usr/include/x86_64-linux-gnu/qt5/QtGui/qbitmap.h
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qbitmap.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsSceneMouseEvent \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicssceneevent.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreevent.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtCore/qset.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsColorizeEffect \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicseffect.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsEffect
 
 CMakeFiles/Editor.dir/sources/editor/editor.cpp.o: sources/editor/editor.cpp \
   /usr/include/stdc-predef.h \
@@ -2285,6 +2292,14 @@ extern/libSDL2pp/SDL2pp/Export.hh:
 
 extern/libSDL2pp/SDL2pp/SDL.hh:
 
+extern/libSDL2pp/SDL2pp/SDL2pp.hh:
+
+/usr/include/SDL2/SDL_image.h:
+
+/usr/include/SDL2/SDL_locale.h:
+
+/usr/include/SDL2/SDL_version.h:
+
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringliteral.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/avxintrin.h:
@@ -2365,6 +2380,8 @@ extern/libSDL2pp/SDL2pp/Config.hh:
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasicatomic.h:
 
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicseffect.h:
+
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qatomic.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512pfintrin.h:
@@ -2430,6 +2447,8 @@ extern/libSDL2pp/SDL2pp/Config.hh:
 /usr/include/c++/11/new:
 
 /usr/include/x86_64-linux-gnu/qt5/QtGui/qtguiglobal.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicssceneevent.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h:
 
@@ -2541,8 +2560,6 @@ headers/Entity.h:
 
 /usr/include/c++/11/tr1/poly_laguerre.tcc:
 
-/usr/include/c++/11/bits/ptr_traits.h:
-
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qiterator.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsPixmapItem:
@@ -2552,8 +2569,6 @@ headers/Entity.h:
 /usr/include/c++/11/bits/erase_if.h:
 
 /usr/include/c++/11/bits/functexcept.h:
-
-/usr/include/SDL2/SDL_locale.h:
 
 /usr/include/c++/11/bits/uses_allocator.h:
 
@@ -3039,6 +3054,8 @@ Editor_autogen/mocs_compilation.cpp:
 
 /usr/include/c++/11/bits/parse_numbers.h:
 
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsSceneMouseEvent:
+
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qpoint.h:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
@@ -3212,6 +3229,12 @@ headers/editor/celda_editor.h:
 /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmiintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/sgxintrin.h:
+
+/usr/include/c++/11/bits/ptr_traits.h:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsColorizeEffect:
+
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsEffect:
 
 sources/editor/editor.cpp:
 
@@ -3390,9 +3413,3 @@ Editor_autogen/3YJK5W5UP7/qrc_resources.cpp:
 /usr/include/SDL2/SDL_messagebox.h:
 
 /usr/include/SDL2/SDL_shape.h:
-
-/usr/include/SDL2/SDL_version.h:
-
-/usr/include/SDL2/SDL_image.h:
-
-extern/libSDL2pp/SDL2pp/SDL2pp.hh:

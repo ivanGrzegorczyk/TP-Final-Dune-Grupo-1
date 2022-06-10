@@ -870,6 +870,13 @@ CMakeFiles/Editor.dir/sources/editor/cell.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontmetrics.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QBitmap
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qbitmap.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsSceneMouseEvent
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicssceneevent.h
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreevent.h
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qset.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsColorizeEffect
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicseffect.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsEffect
 
 CMakeFiles/Editor.dir/sources/editor/editor.cpp.o
  /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/editor.cpp

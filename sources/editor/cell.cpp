@@ -2,21 +2,16 @@
 #include <iostream>
 #include <qpainter.h>
 #include <QBitmap>
+#include <QGraphicsSceneMouseEvent>
+#include <QGraphicsColorizeEffect>
+#include <QGraphicsEffect>
 Cell::Cell(): currentPixmap(0), hovering(false)
 {
     QImage img;
     // qrc resource handling
     if(!img.load(":crate.png")) throw std::invalid_argument("bad filename");
-    int imageCount = 1;
-    int sideLength = img.width();
-
-    auto pix = QPixmap::fromImage(img);
-    pixmaps.push_back(pix);
-
-    auto painter = QPainter();
-    painter.setPen(QColor(0, 0, 255));
-    painter.drawPixmap(pix.rect(), pix, pix.rect());
-    pixmaps.push_back(pix);
+    QPixmap pm = QPixmap::fromImage(img);
+    pixmaps.push_back(pm);
     currentTexture = pixmaps[0];
     this->setPixmap(currentTexture);
 }
@@ -27,18 +22,20 @@ void Cell::update()
 }
 
 void Cell::hoverEnterEvent(QGraphicsSceneHoverEvent *event) {
-    auto current = currentTexture;
-    this->setPixmap(current.transformed(QTransform().scale(1.05, 1.05)));
+    this->setPixmap(currentTexture.transformed(QTransform().scale(1.05, 1.05)));
 }
 
 void Cell::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)  {
-    auto current = currentTexture;
-    this->setPixmap(current);
+    this->setPixmap(currentTexture);
 }
 
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    QPixmap mask = QPixmap(pixmaps[1]);
-    mask.fill(Qt::red);
-    currentTexture = mask;
-    this->setPixmap(mask);
+    place_tile("sand");
+}
+
+void Cell::place_tile(std::string terrain) {
+    current_terrain = terrain;
+    QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect;
+    effect->setColor((terrain == "sand") ? Qt::red : Qt::blue);
+    this->setGraphicsEffect(effect);
 }

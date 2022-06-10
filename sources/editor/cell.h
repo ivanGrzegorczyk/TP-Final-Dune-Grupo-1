@@ -15,10 +15,12 @@ public:
     Cell();
     virtual ~Cell() = default;
     void update();
+    void place_tile(std::string terrain);
 
 private:
     QList<QPixmap> pixmaps;
     QPixmap currentTexture; //unscaled current texture
+    std::string current_terrain;
     int currentPixmap;
     bool hovering;
     qreal xOffset = 0;
