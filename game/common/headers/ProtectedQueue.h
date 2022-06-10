@@ -6,20 +6,20 @@
 
 #include "Event.h"
 
-class EventsQueue {
+class ProtectedQueue {
 private:
     std::queue<Event> events;
     std::mutex mutex;
 
 public:
-    EventsQueue() = default;
+    ProtectedQueue() = default;
 
     void push(Event &&event);
     Event pop();
     bool empty();
 
-    EventsQueue(const EventsQueue&) = delete;
-    EventsQueue& operator=(const EventsQueue&) = delete;
+    ProtectedQueue(const ProtectedQueue&) = delete;
+    ProtectedQueue& operator=(const ProtectedQueue&) = delete;
 };
 
 #endif  // EVENTSQUEUE_H_

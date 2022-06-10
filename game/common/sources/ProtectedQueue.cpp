@@ -1,11 +1,11 @@
-#include "../headers/EventsQueue.h"
+#include "../headers/ProtectedQueue.h"
 
-void EventsQueue::push(Event &&event) {
+void ProtectedQueue::push(Event &&event) {
     std::lock_guard<std::mutex> lock(mutex);
     events.push(std::move(event));
 }
 
-Event EventsQueue::pop() {
+Event ProtectedQueue::pop() {
     std::lock_guard<std::mutex> lock(mutex);
 
     if (events.empty())
@@ -16,7 +16,7 @@ Event EventsQueue::pop() {
     return std::move(event);
 }
 
-bool EventsQueue::empty() {
+bool ProtectedQueue::empty() {
     std::lock_guard<std::mutex> lock(mutex);
     return events.empty();
 }

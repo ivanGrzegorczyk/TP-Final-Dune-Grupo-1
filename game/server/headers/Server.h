@@ -4,7 +4,7 @@
 #include <atomic>
 #include <list>
 
-#include "../../common/headers/EventsQueue.h"
+#include "../../common/headers/ProtectedQueue.h"
 #include "../../common/headers/Socket.h"
 #include "ThCLient.h"
 #include "ServerMap.h"
@@ -12,7 +12,7 @@
 class Server {
 private:
     ServerMap map;
-    EventsQueue events;
+    ProtectedQueue events;
     Socket socket;
     std::atomic<bool> keep_accepting;
     std::list<ThClient *> clients;
