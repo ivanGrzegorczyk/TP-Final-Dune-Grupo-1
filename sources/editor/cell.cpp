@@ -1,4 +1,4 @@
-#include "cell.h"
+#include "../../headers/editor/cell.h"
 #include <iostream>
 #include <qpainter.h>
 #include <QBitmap>

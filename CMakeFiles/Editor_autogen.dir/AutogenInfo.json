@@ -83,27 +83,27 @@
 			null
 		],
 		[
+			"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/cell.h",
+			"Mu",
+			"HVLD4MCOPM/moc_cell.cpp",
+			null
+		],
+		[
+			"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/gamescene.h",
+			"Mu",
+			"HVLD4MCOPM/moc_gamescene.cpp",
+			null
+		],
+		[
+			"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/mainwindow.h",
+			"Mu",
+			"HVLD4MCOPM/moc_mainwindow.cpp",
+			null
+		],
+		[
 			"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/mapa_editor.h",
 			"Mu",
 			"HVLD4MCOPM/moc_mapa_editor.cpp",
-			null
-		],
-		[
-			"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/cell.h",
-			"Mu",
-			"NCOAY74VWJ/moc_cell.cpp",
-			null
-		],
-		[
-			"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/gamescene.h",
-			"Mu",
-			"NCOAY74VWJ/moc_gamescene.cpp",
-			null
-		],
-		[
-			"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/mainwindow.h",
-			"Mu",
-			"NCOAY74VWJ/moc_mainwindow.cpp",
 			null
 		]
 	],

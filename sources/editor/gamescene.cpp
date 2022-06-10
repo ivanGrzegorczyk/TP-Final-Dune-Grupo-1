@@ -1,4 +1,4 @@
-#include "gamescene.h"
+#include "../../headers/editor/gamescene.h"
 #include <iostream>
 GameScene::GameScene()
 {

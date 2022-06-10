@@ -7,7 +7,7 @@
 #include <string>
 
 #include "ui_mainwindow.h"
-#include "mainwindow.h"
+#include "../../headers/editor/mainwindow.h"
 #include <QApplication>
 using namespace SDL2pp;
 
