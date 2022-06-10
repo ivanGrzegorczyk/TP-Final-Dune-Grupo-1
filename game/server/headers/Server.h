@@ -8,12 +8,13 @@
 #include "../../common/headers/Socket.h"
 #include "ThCLient.h"
 #include "ServerMap.h"
+#include "ServerProtocol.h"
 
 class Server {
 private:
     ServerMap map;
     ProtectedQueue events;
-    Socket socket;
+    ServerProtocol protocol;
     std::atomic<bool> keep_accepting;
     std::list<ThClient *> clients;
 

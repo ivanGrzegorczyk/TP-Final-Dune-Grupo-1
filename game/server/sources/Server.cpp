@@ -1,7 +1,7 @@
 #include "../headers/Server.h"
 
 Server::Server(const std::string &host, int rows, int columns) :
-    map(rows, columns), socket(host.c_str()) {}
+    map(rows, columns), protocol(host) {}
 
 void Server::run() {
 

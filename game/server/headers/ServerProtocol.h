@@ -2,6 +2,7 @@
 #define SERVERPROTOCOL_H_
 
 #include <utility>
+#include <string>
 
 #include "../../common/headers/Socket.h"
 #include "../../common/headers/Entity.h"
@@ -13,7 +14,7 @@ private:
     Socket socket;
 
 public:
-    ServerProtocol(Socket &&skt);
+    ServerProtocol(std::string host);
 
     /**
      * @brief Receives a command from the client.

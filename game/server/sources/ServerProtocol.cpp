@@ -4,7 +4,7 @@
 
 #include "../headers/ServerProtocol.h"
 
-ServerProtocol::ServerProtocol(Socket &&skt) : socket(std::move(skt)) {}
+ServerProtocol::ServerProtocol(std::string host) : socket(host.c_str()) {}
 
 int ServerProtocol::commandReceive() {
     uint8_t command;
