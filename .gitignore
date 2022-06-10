@@ -2,7 +2,6 @@
 .idea/modules.xml
 .idea/TP-Final-Dune-Grupo-1.iml
 .idea/vcs.xml
-game/server
 server_celda.o
 server_main.o
 server_mapa.o
@@ -13,5 +12,4 @@ server_navegador.o
 CMakeCache.txt
 TP_Final_Dune_Grupo_1
 Makefile
-game/editor
 cmake-build-debug/*
