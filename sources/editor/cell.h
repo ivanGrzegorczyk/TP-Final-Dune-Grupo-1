@@ -12,7 +12,7 @@ protected:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 public:
-    Cell();
+    Cell(const std::shared_ptr<std::string> active_texture);
     virtual ~Cell() = default;
     void update();
     void place_tile(std::string terrain);
@@ -20,7 +20,7 @@ public:
 private:
     QList<QPixmap> pixmaps;
     QPixmap currentTexture; //unscaled current texture
-    std::string current_terrain;
+    std::shared_ptr<std::string> current_brush;
     int currentPixmap;
     bool hovering;
     qreal xOffset = 0;

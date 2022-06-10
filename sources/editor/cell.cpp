@@ -5,20 +5,20 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsColorizeEffect>
 #include <QGraphicsEffect>
-Cell::Cell(): currentPixmap(0), hovering(false)
+Cell::Cell(std::shared_ptr<std::string> curr_terrain_brush): 
+    current_brush(curr_terrain_brush), currentPixmap(0), hovering(false)
 {
     QImage img;
     // qrc resource handling
     if(!img.load(":crate.png")) throw std::invalid_argument("bad filename");
     QPixmap pm = QPixmap::fromImage(img);
-    pixmaps.push_back(pm);
-    currentTexture = pixmaps[0];
+    currentTexture = pm;
     this->setPixmap(currentTexture);
 }
 
 void Cell::update()
 {
-
+    
 }
 
 void Cell::hoverEnterEvent(QGraphicsSceneHoverEvent *event) {
@@ -29,12 +29,14 @@ void Cell::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)  {
     this->setPixmap(currentTexture);
 }
 
+/*
+    Paints using the current texture the user is painting with.
+*/
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    place_tile("sand");
+    place_tile(*current_brush);
 }
 
 void Cell::place_tile(std::string terrain) {
-    current_terrain = terrain;
     QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect;
     effect->setColor((terrain == "sand") ? Qt::red : Qt::blue);
     this->setGraphicsEffect(effect);

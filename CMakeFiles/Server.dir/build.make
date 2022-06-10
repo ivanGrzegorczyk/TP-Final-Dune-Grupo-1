@@ -69,14 +69,10 @@ include CMakeFiles/Server.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Server.dir/flags.make
 
-ui_mainwindow.h: sources/mainwindow.ui
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Generating ui_mainwindow.h"
-	/usr/lib/qt5/bin/uic -o "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/ui_mainwindow.h" "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/mainwindow.ui"
-
 CMakeFiles/Server.dir/Server_autogen/mocs_compilation.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Server_autogen/mocs_compilation.cpp.o: Server_autogen/mocs_compilation.cpp
 CMakeFiles/Server.dir/Server_autogen/mocs_compilation.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Server.dir/Server_autogen/mocs_compilation.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Server.dir/Server_autogen/mocs_compilation.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/Server_autogen/mocs_compilation.cpp.o -MF CMakeFiles/Server.dir/Server_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/Server.dir/Server_autogen/mocs_compilation.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/Server_autogen/mocs_compilation.cpp"
 
 CMakeFiles/Server.dir/Server_autogen/mocs_compilation.cpp.i: cmake_force
@@ -90,7 +86,7 @@ CMakeFiles/Server.dir/Server_autogen/mocs_compilation.cpp.s: cmake_force
 CMakeFiles/Server.dir/sources/Navigator.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/sources/Navigator.cpp.o: sources/Navigator.cpp
 CMakeFiles/Server.dir/sources/Navigator.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Server.dir/sources/Navigator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Server.dir/sources/Navigator.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/sources/Navigator.cpp.o -MF CMakeFiles/Server.dir/sources/Navigator.cpp.o.d -o CMakeFiles/Server.dir/sources/Navigator.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/Navigator.cpp"
 
 CMakeFiles/Server.dir/sources/Navigator.cpp.i: cmake_force
@@ -104,7 +100,7 @@ CMakeFiles/Server.dir/sources/Navigator.cpp.s: cmake_force
 CMakeFiles/Server.dir/sources/Node.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/sources/Node.cpp.o: sources/Node.cpp
 CMakeFiles/Server.dir/sources/Node.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Server.dir/sources/Node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Server.dir/sources/Node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/sources/Node.cpp.o -MF CMakeFiles/Server.dir/sources/Node.cpp.o.d -o CMakeFiles/Server.dir/sources/Node.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/Node.cpp"
 
 CMakeFiles/Server.dir/sources/Node.cpp.i: cmake_force
@@ -118,7 +114,7 @@ CMakeFiles/Server.dir/sources/Node.cpp.s: cmake_force
 CMakeFiles/Server.dir/sources/ServerCell.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/sources/ServerCell.cpp.o: sources/ServerCell.cpp
 CMakeFiles/Server.dir/sources/ServerCell.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Server.dir/sources/ServerCell.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Server.dir/sources/ServerCell.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/sources/ServerCell.cpp.o -MF CMakeFiles/Server.dir/sources/ServerCell.cpp.o.d -o CMakeFiles/Server.dir/sources/ServerCell.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/ServerCell.cpp"
 
 CMakeFiles/Server.dir/sources/ServerCell.cpp.i: cmake_force
@@ -132,7 +128,7 @@ CMakeFiles/Server.dir/sources/ServerCell.cpp.s: cmake_force
 CMakeFiles/Server.dir/sources/ServerMap.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/sources/ServerMap.cpp.o: sources/ServerMap.cpp
 CMakeFiles/Server.dir/sources/ServerMap.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Server.dir/sources/ServerMap.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Server.dir/sources/ServerMap.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/sources/ServerMap.cpp.o -MF CMakeFiles/Server.dir/sources/ServerMap.cpp.o.d -o CMakeFiles/Server.dir/sources/ServerMap.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/ServerMap.cpp"
 
 CMakeFiles/Server.dir/sources/ServerMap.cpp.i: cmake_force
@@ -146,7 +142,7 @@ CMakeFiles/Server.dir/sources/ServerMap.cpp.s: cmake_force
 CMakeFiles/Server.dir/sources/server_main.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/sources/server_main.cpp.o: sources/server_main.cpp
 CMakeFiles/Server.dir/sources/server_main.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Server.dir/sources/server_main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Server.dir/sources/server_main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/sources/server_main.cpp.o -MF CMakeFiles/Server.dir/sources/server_main.cpp.o.d -o CMakeFiles/Server.dir/sources/server_main.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/server_main.cpp"
 
 CMakeFiles/Server.dir/sources/server_main.cpp.i: cmake_force
@@ -177,7 +173,7 @@ Server: CMakeFiles/Server.dir/sources/ServerMap.cpp.o
 Server: CMakeFiles/Server.dir/sources/server_main.cpp.o
 Server: CMakeFiles/Server.dir/build.make
 Server: CMakeFiles/Server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable Server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable Server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -188,7 +184,7 @@ CMakeFiles/Server.dir/clean:
 	$(CMAKE_COMMAND) -P CMakeFiles/Server.dir/cmake_clean.cmake
 .PHONY : CMakeFiles/Server.dir/clean
 
-CMakeFiles/Server.dir/depend: ui_mainwindow.h
+CMakeFiles/Server.dir/depend:
 	cd "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1" "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1" "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1" "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1" "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles/Server.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/Server.dir/depend
 
