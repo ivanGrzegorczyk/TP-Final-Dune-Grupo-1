@@ -1,8 +1,0 @@
-/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/rebuild_cache.dir
-/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/edit_cache.dir
-/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/Client.dir
-/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/Editor.dir
-/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/CMakeFiles/Server.dir
-/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/extern/libSDL2pp/CMakeFiles/rebuild_cache.dir
-/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/extern/libSDL2pp/CMakeFiles/edit_cache.dir
-/home/adrian/Escritorio/tpFinalTaller/TP-Final-Dune-Grupo-1/extern/libSDL2pp/CMakeFiles/SDL2pp.dir

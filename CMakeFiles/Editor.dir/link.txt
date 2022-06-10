@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.o CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.o  -o Editor  -Wl,-rpath,/usr/local/lib /usr/local/lib/libSDL2main.a extern/libSDL2pp/libSDL2pp.a /usr/local/lib/libSDL2.so /usr/lib/x86_64-linux-gnu/libSDL2_image.so /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so 
