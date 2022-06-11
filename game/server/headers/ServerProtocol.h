@@ -44,7 +44,7 @@ public:
      *
      * @param path
      */
-    void sendPath(std::vector<uint16_t> path);
+    void sendPath(const std::vector<uint16_t>& path);
 };
 
 #endif  // SERVERPROTOCOL_H_
