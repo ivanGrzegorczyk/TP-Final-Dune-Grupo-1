@@ -13,7 +13,7 @@ class GameScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    GameScene(MapaEditor&& mapa);
+    GameScene(MapaEditor&& map);
     virtual ~GameScene() = default;
     void set_active_texture(std::string& texture);
     std::shared_ptr<std::string> active_texture; //todo make readonly with method
@@ -25,6 +25,7 @@ private slots:
 
 private:
     std::vector<std::shared_ptr<Cell>> cells;
+    MapaEditor map;
 };
 
 #endif // GAMESCENE_H
