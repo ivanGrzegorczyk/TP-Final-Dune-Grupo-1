@@ -19,6 +19,7 @@ public:
 
     void push(Event &&event);
     Event pop();
+    bool empty();
 
     BlockingQueue(const BlockingQueue&) = delete;
     BlockingQueue& operator=(const BlockingQueue&) = delete;
