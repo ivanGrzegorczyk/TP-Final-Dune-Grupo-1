@@ -7,6 +7,7 @@
 #include "cell.h"
 #include "mapa_editor.h"
 #include <memory>
+#include "cell.h"
 
 class GameScene : public QGraphicsScene
 {
