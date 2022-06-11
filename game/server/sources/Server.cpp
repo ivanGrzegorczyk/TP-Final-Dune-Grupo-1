@@ -1,4 +1,5 @@
 #include "../headers/Server.h"
+#include "../../common/headers/Constantes.h"
 
 Server::Server(const std::string &host, int rows, int columns) :
     map(rows, columns), protocol(host), keep_accepting(true), active_game(true) {}
@@ -8,14 +9,32 @@ void Server::run() {
     std::thread broadcastThread(&Server::broadCast, this);
     std::thread finishThread(&Server::finish, this);
 
-    do {
-        manageEvents();
+    auto t1 = std::chrono::system_clock::now();
 
+    do {
+        auto t2 = std::chrono::system_clock::now();
+        auto delta = simDeltaTime(t1, t2);
+        manageEvents();
+        sleep(t1, t2, delta);
     } while (active_game);
 
     acceptingThread.join();
     broadcastThread.join();
     finishThread.join();
+}
+
+duration Server::simDeltaTime(chrono &t1, chrono &t2) {
+    t2= std::chrono::system_clock::now();
+    auto delta= t2 - t1;
+    t1 = t2;
+
+    return delta;
+}
+
+void Server::sleep(const chrono &t1, const chrono &t2, duration &delta) const {
+    delta = t2 - t1;
+    if (delta.count() < GAME_LOOP_RATE)
+        usleep(GAME_LOOP_RATE - delta.count());
 }
 
 void Server::finish() {
