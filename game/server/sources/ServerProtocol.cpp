@@ -4,7 +4,19 @@
 
 #include "../headers/ServerProtocol.h"
 
-ServerProtocol::ServerProtocol(std::string host) : socket(host.c_str()) {}
+ServerProtocol::ServerProtocol(const std::string& host) : socket(host.c_str()), socket_closed(false) {}
+
+ServerProtocol::ServerProtocol(Socket &&peer) : socket(std::move(peer)), socket_closed(false) {}
+
+Socket ServerProtocol::accept() {
+    return socket.accept();
+}
+
+void ServerProtocol::shutdown(int how) {
+    socket.shutdown(how);
+    socket.close();
+    socket_closed = true;
+}
 
 int ServerProtocol::commandReceive() {
     uint8_t command;
@@ -30,7 +42,7 @@ void ServerProtocol::requestPath
     goal.second = ntohs(goal_y);
 }
 
-void ServerProtocol::sendPath(std::stack<coordenada_t> path) {
+void ServerProtocol::sendPath(std::vector<uint16_t> path) {
     if (path.empty()) {
         // TODO Definir caso en el que no hay camino posible
         return;
@@ -39,13 +51,9 @@ void ServerProtocol::sendPath(std::stack<coordenada_t> path) {
         socket.sendall(&command, sizeof(command));
     }
 
-    while (!path.empty()) {
-        uint16_t x = path.top().first;
-        x = htons(x);
-        uint16_t y = path.top().second;
-        y = htons(y);
-        path.pop();
-        socket.sendall(&x, sizeof(x));
-        socket.sendall(&y, sizeof(y));
+    for (uint16_t coord : path) {
+        uint16_t aux;
+        aux = htons(coord);
+        socket.sendall(&aux, sizeof(aux));
     }
 }

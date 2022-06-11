@@ -3,6 +3,7 @@
 
 #include <utility>
 #include <string>
+#include <vector>
 
 #include "../../common/headers/Socket.h"
 #include "../../common/headers/Entity.h"
@@ -12,9 +13,14 @@
 class ServerProtocol {
 private:
     Socket socket;
+    bool socket_closed;
 
 public:
-    ServerProtocol(std::string host);
+    explicit ServerProtocol(const std::string& host);
+    explicit ServerProtocol(Socket &&peer);
+
+    Socket accept();
+    void shutdown(int how);
 
     /**
      * @brief Receives a command from the client.
@@ -38,7 +44,7 @@ public:
      *
      * @param path
      */
-    void sendPath(std::stack<coordenada_t> path);
+    void sendPath(std::vector<uint16_t> path);
 };
 
 #endif  // SERVERPROTOCOL_H_
