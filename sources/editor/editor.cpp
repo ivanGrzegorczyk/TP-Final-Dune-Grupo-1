@@ -30,6 +30,14 @@ MapaEditor setup() {
 }
 
 int main(int argc, char* argv[]) {
+    YAML::Emitter out;
+    out << YAML::BeginMap;
+        out << YAML::Key << "name";
+        out << YAML::Value << "My cool map";
+    out << YAML::EndMap;
+    
+    std::cout << out.c_str() <<std::endl;
+
     MapaEditor m(std::move(setup()));
     QApplication a(argc, argv);
     MainWindow w(std::move(m));
