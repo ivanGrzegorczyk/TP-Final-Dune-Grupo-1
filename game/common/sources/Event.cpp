@@ -1,7 +1,7 @@
 #include "../headers/Event.h"
 
 Event::Event(std::stack<coordenada_t> path) {
-    event.push_back(0x01);  // TODO Esto es temporal. Hace falta refactorizar
+    // TODO Esto es temporal. Hace falta refactorizar (ahora solo envia el camino)
     while (!path.empty()) {
         event.push_back(path.top().first);
         event.push_back(path.top().second);
