@@ -12,9 +12,9 @@ void Server::run() {
     auto t1 = std::chrono::system_clock::now();
 
     do {
+        manageEvents();
         auto t2 = std::chrono::system_clock::now();
         auto delta = simDeltaTime(t1, t2);
-        manageEvents();
         sleep(t1, t2, delta);
     } while (active_game);
 
@@ -53,9 +53,7 @@ void Server::broadCast() {
         Event event(blockingQueue.pop());
         if (!active_game)
             return;  // TODO Salida temporal
-        for (ThClient *client : clients) {
-            client->sendEvent(event);
-        }
+        clients.broadCast();
     }
 }
 
@@ -65,29 +63,15 @@ void Server::acceptClients() {
             Socket peer = protocol.accept();
             auto *client = new ThClient(std::move(peer), protectedQueue, map);
             client->start();
-            clients.push_back(client);
+            clients.push(client);
         }
     } catch(const std::exception &e) {
         // TODO Manejar excepcion
     }
-    cleanClients();
-}
-
-void Server::cleanClients() {
-    clients.erase(std::remove_if(
-            clients.begin(), clients.end(), cleanClient), clients.end());
-}
-
-bool Server::cleanClient(ThClient *client) {
-    if (client->isDead()) {
-        client->join();
-        delete client;
-        return true;
-    }
-    return false;
 }
 
 void Server::manageEvents() {
     Event event(protectedQueue.pop());
+    // Actualizo el modelo
     blockingQueue.push(std::move(event));
 }

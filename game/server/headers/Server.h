@@ -10,6 +10,7 @@
 #include "../../common/headers/Socket.h"
 #include "../../common/headers/BlockingQueue.h"
 #include "../../common/headers/ProtectedQueue.h"
+#include "ClientsMonitor.h"
 
 typedef std::chrono::time_point<std::chrono::system_clock> chrono;
 typedef std::chrono::duration<double, std::milli> duration;
@@ -22,15 +23,13 @@ private:
     ServerProtocol protocol;
     std::atomic<bool> keep_accepting;
     std::atomic<bool> active_game;
-    std::list<ThClient *> clients;
+    ClientsMonitor clients;
     Event event_to_send;
 
     void finish();
     void broadCast();
     void sleep(const chrono &t1, const chrono &t2, duration &delta) const;
     void acceptClients();
-    void cleanClients();
-    static bool cleanClient(ThClient *client);
 
 public:
     Server(const std::string &host, int rows, int columns);
