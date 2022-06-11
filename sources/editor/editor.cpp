@@ -4,8 +4,7 @@
 #include <SDL_image.h>
 
 #include <SDL2pp/SDL2pp.hh>
-#include <string>
-
+#include <fstream>
 #include "ui_mainwindow.h"
 #include "../../headers/editor/mainwindow.h"
 #include <QApplication>
@@ -31,9 +30,11 @@ MapaEditor setup() {
 int main(int argc, char* argv[]) {
 
     MapaEditor m(std::move(setup()));
-    m.to_yaml();
     QApplication a(argc, argv);
     MainWindow w(std::move(m));
     w.show();
-    return a.exec();
+    int return_val = a.exec();    
+    std::ofstream my_file("data.yaml");
+    my_file << m.to_yaml();
+    return return_val;
 }
