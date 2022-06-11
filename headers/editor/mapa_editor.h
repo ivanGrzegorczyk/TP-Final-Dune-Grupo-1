@@ -3,7 +3,8 @@
 
 #include <vector>
 #include <string>
-
+#include <iostream>
+#include "yaml-cpp/yaml.h"
 #include "../../headers/editor/celda_editor.h"
 
 typedef std::vector<std::vector<CeldaEditor>> matriz_t;
@@ -48,6 +49,55 @@ class MapaEditor {
             mapa[celda.second][celda.first].terreno = terreno;
         }
     }
+    std::string to_yaml() {
+        YAML::Emitter out;
+        out << YAML::BeginMap;
+            out << YAML::Key << "name";
+            out << YAML::Value << "My cool map";
+            out << YAML::Key << "num_players";
+            out << YAML::Value << "12345"; // TODO set in ui
+            out << YAML::Key << "map";
+            out << YAML::Value 
+                << YAML::BeginMap
+                << YAML::Key << "rows"
+                << YAML::Value << std::to_string(filas)
+                << YAML::Key << "columns"
+                << YAML::Value << std::to_string(columnas)
+                << YAML::Key << "cells"
+                << YAML::Value  
+                    << YAML::BeginSeq;
+        for(int i = 0; i < filas; i++) {
+            for(int j = 0; j < columnas; j++) {
+                out 
+                    << YAML::BeginMap
+                        << YAML::Key << "terrain"
+                        << YAML::Value <<  cell({i,j}).terreno
+                        << YAML::Key << "buildings"
+                        << YAML::BeginSeq
+                        // building is always defined at its rightmost position
+                            << YAML::BeginMap
+                                << YAML::Key << "name"
+                                << YAML::Value << "Construction Center"
+                                << YAML::Key << "size"
+                                << YAML::Value << YAML::BeginSeq << "2" << "2" << YAML::EndSeq //TODO Implemet buildings
+                            << YAML::EndMap
+                        << YAML::EndSeq
+                        << YAML::Key << "pos"
+                        << YAML::Value 
+                        << YAML::BeginSeq
+                            << std::to_string(i) << std::to_string(j)
+                        << YAML::EndSeq
+                    << YAML::EndMap;
+                // end cell
+            }
+        }
+        out << YAML::EndSeq 
+        << YAML::EndMap
+        << YAML::EndMap;
+        std::cout << out.c_str() <<std::endl;
+        return std::string(out.c_str());
+    }
+    
     class MapIterator {
         const MapaEditor& _mapa;
         int max;

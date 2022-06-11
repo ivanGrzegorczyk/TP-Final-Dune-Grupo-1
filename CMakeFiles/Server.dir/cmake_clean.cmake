@@ -16,6 +16,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Server.dir/sources/server_main.cpp.o.d"
   "Server"
   "Server.pdb"
+  "ui_mainwindow.h"
 )
 
 # Per-language clean rules from dependency scanning.
