@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 #include "../../headers/editor/cell.h"
-=======
-#include "editor/cell.h"
->>>>>>> a02fdbf27c3921a490e064cd2f9049e961605ce9
 #include <iostream>
 #include <qpainter.h>
 #include <QBitmap>

@@ -133,7 +133,6 @@
 	"MOC_INCLUDES" : 
 	[
 		"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources",
-		"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers",
 		"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1",
 		"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/extern",
 		"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/extern/libSDL2pp",

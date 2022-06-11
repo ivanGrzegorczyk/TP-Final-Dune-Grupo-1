@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/Server_autogen/include" -I"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources" -I"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers" -I"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1" -I"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/extern" -I"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/extern/libSDL2pp" -I/usr/include/SDL2
+CXX_INCLUDES = -I"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/Server_autogen/include" -I"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources" -I"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1" -I"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/extern" -I"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/extern/libSDL2pp" -I/usr/include/SDL2
 
 CXX_FLAGS = -g
 
