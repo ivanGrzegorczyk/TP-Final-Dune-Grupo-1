@@ -17,8 +17,3 @@ Event BlockingQueue::pop() {
 
     return event;
 }
-
-bool BlockingQueue::empty() {
-    std::lock_guard<std::mutex> lock(mutex);
-    return events.empty();
-}
