@@ -1,9 +1,10 @@
 #include "../headers/BlockingQueue.h"
 
-BlockingQueue::BlockingQueue() {}
+BlockingQueue::BlockingQueue() : closed(false) {}
 
 void BlockingQueue::stop() {
     std::unique_lock<std::mutex> uniqueLock(mutex);
+    closed = true;
     conditionVariable.notify_all();
 }
 
@@ -15,7 +16,9 @@ void BlockingQueue::push(Event &&event) {
 
 Event BlockingQueue::pop() {
     std::unique_lock<std::mutex> uniqueLock(mutex);
-    while (!events.empty()) {
+    while (events.empty()) {
+        if (closed)
+            return {};
         conditionVariable.wait(uniqueLock);
     }
 

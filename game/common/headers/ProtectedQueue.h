@@ -16,7 +16,6 @@ public:
 
     void push(Event &&event);
     Event pop();
-    bool empty();
 
     ProtectedQueue(const ProtectedQueue&) = delete;
     ProtectedQueue& operator=(const ProtectedQueue&) = delete;

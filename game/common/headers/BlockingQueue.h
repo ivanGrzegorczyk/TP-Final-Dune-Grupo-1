@@ -13,6 +13,7 @@ private:
     std::queue<Event> events;
     std::mutex mutex;
     std::condition_variable conditionVariable;
+    std::atomic<bool> closed;
 
     void stop();
 
