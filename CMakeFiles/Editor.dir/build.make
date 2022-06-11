@@ -205,6 +205,7 @@ Editor: /usr/lib/x86_64-linux-gnu/libSDL2.so
 Editor: /usr/lib/x86_64-linux-gnu/libSDL2_image.so
 Editor: /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so
 Editor: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.2
+Editor: /usr/local/lib/libyaml-cpp.a
 Editor: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.2
 Editor: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.2
 Editor: CMakeFiles/Editor.dir/link.txt

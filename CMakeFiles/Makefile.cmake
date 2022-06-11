@@ -83,6 +83,10 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake"
+  "/usr/local/lib/cmake/yaml-cpp/yaml-cpp-config-version.cmake"
+  "/usr/local/lib/cmake/yaml-cpp/yaml-cpp-config.cmake"
+  "/usr/local/lib/cmake/yaml-cpp/yaml-cpp-targets-release.cmake"
+  "/usr/local/lib/cmake/yaml-cpp/yaml-cpp-targets.cmake"
   )
 
 # The corresponding makefile is:

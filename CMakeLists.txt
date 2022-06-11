@@ -1,6 +1,9 @@
 
 cmake_minimum_required(VERSION 3.22)
 project(TP_Final_Dune_Grupo_1)
+#////////////////////////////// YAML //////////////
+find_package(yaml-cpp REQUIRED)
+include_directories(${YAML_CPP_INCLUDE_DIRS})
 # ////////////////////////////////////////////////
 # Find the QtWidgets library
 find_package(Qt5Widgets)
@@ -48,4 +51,4 @@ FILE(GLOB SRC_EDITOR_FILES ${PROJECT_SOURCE_DIR}/sources/editor/*.cpp)
 add_executable(Server ${HEADER_FILES} ${SRC_FILES})
 add_executable(Editor ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES} ${UIS_HEADERS} resources/resources.qrc)
 
-target_link_libraries(Editor ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core)
+target_link_libraries(Editor ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core ${YAML_CPP_LIBRARIES})

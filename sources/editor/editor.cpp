@@ -9,6 +9,8 @@
 #include "ui_mainwindow.h"
 #include "../../headers/editor/mainwindow.h"
 #include <QApplication>
+
+#include "yaml-cpp/yaml.h"
 using namespace SDL2pp;
 
 MapaEditor setup() {
