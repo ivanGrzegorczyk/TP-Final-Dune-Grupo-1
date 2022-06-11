@@ -13,12 +13,15 @@ private:
     std::queue<Event> events;
     std::mutex mutex;
     std::condition_variable conditionVariable;
+    std::atomic<bool> keep_poping;
+
+    void stop();
 
 public:
-    BlockingQueue() = default;
+    BlockingQueue();
 
     void push(Event &&event);
-    Event pop();
+    void pop();
 
     BlockingQueue(const BlockingQueue&) = delete;
     BlockingQueue& operator=(const BlockingQueue&) = delete;
