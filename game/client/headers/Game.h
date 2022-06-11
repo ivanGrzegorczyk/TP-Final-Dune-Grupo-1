@@ -3,14 +3,12 @@
 
 #include "SDL2pp/SDL2pp.hh"
 #include "MapUi.h"
-#include "Protocol.h"
 
 using namespace SDL2pp;
 class Game {
 private:
     MapUi map;
     Renderer& rdr;
-    Protocol protocol;
     bool isRunning;
     void sendInputToServer(int x, int y);
 public:

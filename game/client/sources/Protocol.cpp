@@ -1,9 +1,8 @@
 #include "../headers/Protocol.h"
 
-Protocol::Protocol() {
+Protocol::Protocol(const char* hostname, const char* servicename) : skt(hostname, servicename){
 }
 
-//formato sendUbicacion: tipoComando(1 byte), coordenadas(2bytes BE)
 void Protocol::_serializeAndSend(int currentX, int currentY, int dstX, int dstY) {
     uint8_t command = SEARCH_PATH;
     uint16_t currtX = htons((uint16_t)currentX);
@@ -11,10 +10,10 @@ void Protocol::_serializeAndSend(int currentX, int currentY, int dstX, int dstY)
     uint16_t desX = htons((uint16_t)dstX);
     uint16_t desY = htons((uint16_t)dstY);
 
-    /*skt.sendAll(&command, sizeof(command), );
-    skt.sendAll(&currtX, sizeof(currtX), );
-    skt.sendAll(&desX, sizeof(desX));
-    skt.sendAll(&desY, sizeof(desY));*/
+    skt.sendall(&command, sizeof(command));
+    skt.sendall(&currtX, sizeof(currtX));
+    skt.sendall(&desX, sizeof(desX));
+    skt.sendall(&desY, sizeof(desY));
 }
 
 void Protocol::sendUbication(std::pair<coordenada_t, coordenada_t> ubication) {
@@ -28,7 +27,7 @@ void Protocol::sendUbication(std::pair<coordenada_t, coordenada_t> ubication) {
 std::vector<coordenada_t> Protocol::receivePath() {
     std::vector<coordenada_t> path;
     uint8_t length;
-    //skt.recvAll(&length, sizeof(length), );
+    skt.recvall(&length, sizeof(length));
 
     path.resize(int(length));
     for (int i = 0; i < int(length); i++) {
@@ -40,8 +39,7 @@ std::vector<coordenada_t> Protocol::receivePath() {
 void Protocol::_fillVector(std::vector<coordenada_t> &v) {
     uint16_t posX;
     uint16_t posY;
-    //skt.recvAll(&posX, sizeof(posX), );
+    skt.recvall(&posX, sizeof(posX));
     coordenada_t coord {(int) ntohs(posX), (int) ntohs(posY)};
     v.push_back(coord);
 }
-//formato manda longitud del vector de 1 byte

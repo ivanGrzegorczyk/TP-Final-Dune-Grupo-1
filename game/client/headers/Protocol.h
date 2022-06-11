@@ -4,17 +4,19 @@
 #include <netinet/in.h>
 #include <utility>
 #include <vector>
+#include "../../common/headers/Socket.h"
+
 #define SEARCH_PATH 1
 
 typedef std::pair<int, int> coordenada_t;
 
 class Protocol {
 private:
-    //Socket skt;
+    Socket skt;
     void _fillVector(std::vector<coordenada_t> &v);
     void _serializeAndSend(int currentX, int currentY, int dstX, int dstY);
 public:
-    Protocol();
+    Protocol(const char* hostname, const char* servicename);
     void sendUbication(std::pair<coordenada_t, coordenada_t> ubication);
     std::vector<coordenada_t> receivePath();
 
