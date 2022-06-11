@@ -24,7 +24,7 @@ MapaEditor setup() {
     std::vector<coordenada_t> celdas_montania;
     celdas_montania.push_back({3,3});
     celdas_montania.push_back({3,4});
-    m.poner_terreno(celdas_montania, "montania");
+    m.poner_terreno(celdas_montania, "mountain");
     return m;
 }
 

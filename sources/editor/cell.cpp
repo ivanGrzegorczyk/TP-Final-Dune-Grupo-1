@@ -14,6 +14,7 @@ Cell::Cell(MapaEditor& map, std::shared_ptr<std::string> curr_terrain_brush, coo
     QPixmap pm = QPixmap::fromImage(img);
     currentTexture = pm;
     this->setPixmap(currentTexture);
+    this->update();
 }
 
 void Cell::update()
@@ -36,7 +37,6 @@ void Cell::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)  {
     Paints using the current texture the user is painting with.
 */
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    std:: cout << "texture is  " << *current_brush << std::endl;
     place_tile(*current_brush);
 }
 

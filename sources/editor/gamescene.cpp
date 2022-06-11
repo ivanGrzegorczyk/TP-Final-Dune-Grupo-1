@@ -11,21 +11,9 @@ GameScene::GameScene(MapaEditor&& map) : map(map)
         p->setPos(cell.id.first*30,cell.id.second*30);
         this->addItem(p);
     }
-    /*
-    for(int i = 0; i < 10; i++){
-        for(int j = 0; j < 18; j++){
-            Cell* p = new Cell(this->active_texture);
-            QRect rect = p->pixmap().rect();
-            p->setAcceptHoverEvents(true);
-            p->setPos(j*30,i*30);
-            this->addItem(p);
-        }
-    }
-    */
 }
 
 void GameScene::set_active_texture(std::string& texture) {
-    std::cout << "Setting active texture to mountain" << std::endl;
     this->active_texture->assign("mountain");
 }
 
