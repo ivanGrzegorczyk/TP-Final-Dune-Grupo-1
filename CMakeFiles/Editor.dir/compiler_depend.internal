@@ -349,6 +349,9 @@ CMakeFiles/Editor.dir/Editor_autogen/mocs_compilation.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/mapa_editor.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/celda_editor.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/Entity.h
  /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/Editor_autogen/HVLD4MCOPM/moc_mainwindow.cpp
  /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/mainwindow.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow
@@ -1454,9 +1457,9 @@ CMakeFiles/Editor.dir/sources/editor/editor.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h
- /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/mainwindow.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/mainwindow.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow
- /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/gamescene.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/gamescene.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QKeyEvent
@@ -1470,7 +1473,7 @@ CMakeFiles/Editor.dir/sources/editor/editor.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h
- /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/cell.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/cell.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsPixmapItem
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsitem.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainterpath.h
@@ -1478,12 +1481,13 @@ CMakeFiles/Editor.dir/sources/editor/editor.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/mapa_editor.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication
 
 CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o
  /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/gamescene.cpp
  /usr/include/stdc-predef.h
- /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/gamescene.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/gamescene.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h
@@ -1815,7 +1819,7 @@ CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h
- /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/cell.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/cell.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsPixmapItem
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsitem.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainterpath.h
@@ -1823,6 +1827,9 @@ CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/mapa_editor.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/celda_editor.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/Entity.h
  /usr/include/c++/11/iostream
  /usr/include/c++/11/ostream
  /usr/include/c++/11/ios
@@ -1842,7 +1849,7 @@ CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o
 CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o
  /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/mainwindow.cpp
  /usr/include/stdc-predef.h
- /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/mainwindow.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/mainwindow.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h
@@ -2165,7 +2172,7 @@ CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qkeysequence.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qicon.h
- /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/gamescene.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/gamescene.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h
@@ -2185,7 +2192,7 @@ CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h
- /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/cell.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/cell.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsPixmapItem
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsitem.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainterpath.h
@@ -2193,6 +2200,9 @@ CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/mapa_editor.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/editor/celda_editor.h
+ /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/headers/Entity.h
  /home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/ui_mainwindow.h
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QVariant
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qvariant.h

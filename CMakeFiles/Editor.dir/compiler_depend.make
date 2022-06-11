@@ -347,6 +347,9 @@ CMakeFiles/Editor.dir/Editor_autogen/mocs_compilation.cpp.o: Editor_autogen/mocs
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h \
+  headers/editor/mapa_editor.h \
+  headers/editor/celda_editor.h \
+  headers/Entity.h \
   Editor_autogen/HVLD4MCOPM/moc_mainwindow.cpp \
   headers/editor/mainwindow.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
@@ -1449,9 +1452,9 @@ CMakeFiles/Editor.dir/sources/editor/editor.cpp.o: sources/editor/editor.cpp \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
-  sources/editor/mainwindow.h \
+  headers/editor/mainwindow.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
-  sources/editor/gamescene.h \
+  headers/editor/gamescene.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QKeyEvent \
@@ -1465,7 +1468,7 @@ CMakeFiles/Editor.dir/sources/editor/editor.cpp.o: sources/editor/editor.cpp \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
-  sources/editor/cell.h \
+  headers/editor/cell.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsPixmapItem \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsitem.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainterpath.h \
@@ -1473,11 +1476,12 @@ CMakeFiles/Editor.dir/sources/editor/editor.cpp.o: sources/editor/editor.cpp \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h \
+  headers/editor/mapa_editor.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication
 
 CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o: sources/editor/gamescene.cpp \
   /usr/include/stdc-predef.h \
-  sources/editor/gamescene.h \
+  headers/editor/gamescene.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \
@@ -1809,7 +1813,7 @@ CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o: sources/editor/gamescene.c
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
-  sources/editor/cell.h \
+  headers/editor/cell.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsPixmapItem \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsitem.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainterpath.h \
@@ -1817,6 +1821,9 @@ CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o: sources/editor/gamescene.c
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h \
+  headers/editor/mapa_editor.h \
+  headers/editor/celda_editor.h \
+  headers/Entity.h \
   /usr/include/c++/11/iostream \
   /usr/include/c++/11/ostream \
   /usr/include/c++/11/ios \
@@ -1835,7 +1842,7 @@ CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o: sources/editor/gamescene.c
 
 CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o: sources/editor/mainwindow.cpp \
   /usr/include/stdc-predef.h \
-  sources/editor/mainwindow.h \
+  headers/editor/mainwindow.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \
@@ -2158,7 +2165,7 @@ CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o: sources/editor/mainwindow
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qkeysequence.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qicon.h \
-  sources/editor/gamescene.h \
+  headers/editor/gamescene.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h \
@@ -2178,7 +2185,7 @@ CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o: sources/editor/mainwindow
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
-  sources/editor/cell.h \
+  headers/editor/cell.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsPixmapItem \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsitem.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainterpath.h \
@@ -2186,6 +2193,9 @@ CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o: sources/editor/mainwindow
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h \
+  headers/editor/mapa_editor.h \
+  headers/editor/celda_editor.h \
+  headers/Entity.h \
   ui_mainwindow.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QVariant \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/qvariant.h \
@@ -2223,12 +2233,6 @@ CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o: sources/editor/mainwindow
 sources/editor/mainwindow.cpp:
 
 sources/editor/gamescene.cpp:
-
-sources/editor/cell.h:
-
-sources/editor/gamescene.h:
-
-sources/editor/mainwindow.h:
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h:
 
@@ -3156,6 +3160,8 @@ extern/libSDL2pp/SDL2pp/external/libcpp_optional.hh:
 
 /usr/include/SDL2/SDL_pixels.h:
 
+headers/editor/celda_editor.h:
+
 /usr/lib/gcc/x86_64-linux-gnu/11/include/rtmintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:
@@ -3181,8 +3187,6 @@ headers/editor/mainwindow.h:
 /usr/lib/gcc/x86_64-linux-gnu/11/include/popcntintrin.h:
 
 sources/editor/celda_editor.cpp:
-
-headers/editor/celda_editor.h:
 
 /usr/include/c++/11/bits/basic_ios.h:
 

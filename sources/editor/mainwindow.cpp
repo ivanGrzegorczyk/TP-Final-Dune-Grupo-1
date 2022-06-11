@@ -3,9 +3,10 @@
 #include "../../headers/editor/mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(MapaEditor&& map, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , scene(std::move(map))
 {
     ui->setupUi(this);
     ui->view->setScene(&this->scene);

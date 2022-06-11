@@ -1,6 +1,6 @@
 #include "../../headers/editor/gamescene.h"
 #include <iostream>
-GameScene::GameScene()
+GameScene::GameScene(MapaEditor&& mapa)
 {
     this->active_texture.reset(new std::string("rock"));
     for(int i = 0; i < 10; i++){
