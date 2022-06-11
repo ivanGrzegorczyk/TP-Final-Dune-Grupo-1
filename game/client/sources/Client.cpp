@@ -44,7 +44,7 @@ void Client::sendToServer() {
 }
 
 void Client::ProcessInput() {
-    Event event = input;
+    Event event = createEvent();
     sendQueue.push(event);
 }
 
@@ -53,5 +53,27 @@ void Client::cambiar() {
     Event event = this->recvQueue.pop();
     if(event) {
         event.ejecutar(map);
+    }
+}
+
+Event Game::createEvent() {
+    Event inputEvent;
+    SDL_Event event;
+    std::vector<coordenada_t> status;
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT:
+                running = false;
+                break;
+            case SDL_MOUSEBUTTONUP:
+                int x, y;
+                x = event.button.x;
+                y = event.button.y;
+
+                //sendInputToServer(x, y);
+                break;
+            default:
+                break;
+        }
     }
 }
