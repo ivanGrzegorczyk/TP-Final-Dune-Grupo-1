@@ -18,9 +18,11 @@ private:
     BlockingQueue blockingQueue;
     ServerProtocol protocol;
     std::atomic<bool> keep_accepting;
+    std::atomic<bool> active_game;
     std::list<ThClient *> clients;
     Event event_to_send;
 
+    void finish();
     void broadCast();
     void acceptClients();
     void cleanClients();
@@ -32,7 +34,7 @@ public:
     // Gameloop
     void run();
 
-    bool manageEvents();
+    void manageEvents();
 };
 
 #endif  // SERVER_H_

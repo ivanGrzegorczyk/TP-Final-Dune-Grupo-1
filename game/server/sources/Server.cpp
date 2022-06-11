@@ -1,26 +1,42 @@
 #include "../headers/Server.h"
 
 Server::Server(const std::string &host, int rows, int columns) :
-    map(rows, columns), protocol(host), keep_accepting(true) {}
+    map(rows, columns), protocol(host), keep_accepting(true), active_game(true) {}
 
 void Server::run() {
     std::thread acceptingThread(&Server::acceptClients, this);
     std::thread broadcastThread(&Server::broadCast, this);
+    std::thread finishThread(&Server::finish, this);
 
-    bool active_game = true;
     do {
-        active_game = manageEvents();
+        manageEvents();
 
     } while (active_game);
 
     acceptingThread.join();
     broadcastThread.join();
+    finishThread.join();
+}
+
+void Server::finish() {
+    char c;
+    do {
+        std::cin >> c;
+    } while (c != 'q');
+
+    protocol.shutdown(SHUT_RDWR);
+    active_game = false;
+    keep_accepting = false;
 }
 
 void Server::broadCast() {
-    Event event(blockingQueue.pop());
-    for (ThClient *client : clients) {
-        client->sendEvent(event);
+    while (active_game) {
+        Event event(blockingQueue.pop());
+        if (!active_game)
+            return;  // TODO Salida temporal
+        for (ThClient *client : clients) {
+            client->sendEvent(event);
+        }
     }
 }
 
@@ -52,12 +68,7 @@ bool Server::cleanClient(ThClient *client) {
     return false;
 }
 
-bool Server::manageEvents() {
-    if (protectedQueue.empty())
-        return false;
-
+void Server::manageEvents() {
     Event event(protectedQueue.pop());
     blockingQueue.push(std::move(event));
-
-    return true;
 }
