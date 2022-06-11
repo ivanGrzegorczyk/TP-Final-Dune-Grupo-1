@@ -5,7 +5,7 @@ GameScene::GameScene(MapaEditor&& map) : map(map)
     this->active_texture.reset(new std::string("rock"));
     for(auto it = map.begin(); it != map.end(); ++it) {
         auto cell = *it;
-        Cell* p = new Cell(this->active_texture);
+        Cell* p = new Cell(map, this->active_texture, cell.id);
         QRect rect = p->pixmap().rect();
         p->setAcceptHoverEvents(true);
         p->setPos(cell.id.first*30,cell.id.second*30);

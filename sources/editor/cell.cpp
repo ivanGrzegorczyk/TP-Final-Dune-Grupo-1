@@ -5,8 +5,8 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsColorizeEffect>
 #include <QGraphicsEffect>
-Cell::Cell(std::shared_ptr<std::string> curr_terrain_brush): 
-    current_brush(curr_terrain_brush), currentPixmap(0), hovering(false)
+Cell::Cell(MapaEditor& map, std::shared_ptr<std::string> curr_terrain_brush, coordenada_t position): 
+    current_brush(curr_terrain_brush), currentPixmap(0), hovering(false), map(map), position(position)
 {
     QImage img;
     // qrc resource handling
@@ -18,7 +18,10 @@ Cell::Cell(std::shared_ptr<std::string> curr_terrain_brush):
 
 void Cell::update()
 {
-    
+    CeldaEditor c = std::move(map.cell(position));
+    QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect;
+    effect->setColor((c.terreno == "mountain") ? Qt::red : Qt::blue);
+    this->setGraphicsEffect(effect);
 }
 
 void Cell::hoverEnterEvent(QGraphicsSceneHoverEvent *event) {
@@ -38,7 +41,7 @@ void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void Cell::place_tile(std::string terrain) {
-    QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect;
-    effect->setColor((terrain == "mountain") ? Qt::red : Qt::blue);
-    this->setGraphicsEffect(effect);
+    std::vector<coordenada_t> coordinates{position};
+    map.poner_terreno(coordinates, terrain);
+    update();
 }
