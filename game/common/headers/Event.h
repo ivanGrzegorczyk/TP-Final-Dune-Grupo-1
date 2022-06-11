@@ -2,13 +2,18 @@
 #define EVENT_H_
 
 #include <string>
+#include <stack>
+#include <vector>
+
+#include "Entity.h"
 
 class Event {
-private:
-    std::string event;
-
 public:
+    std::vector<uint16_t> event;
+
     Event() = default;
+
+    explicit Event(std::stack<coordenada_t> path);
 
     Event(Event&&) noexcept;
     Event& operator=(Event&&) noexcept;
