@@ -10,16 +10,6 @@ Navigator::Navigator(std::vector<std::vector<ServerCell>> &map) : nodeMap(map.si
         }
     }
 }
-void Navigator::mostrar() {
-    for (int i = 0; i < nodeMap.size(); i++) {
-        for (int j = 0; j < nodeMap.at(0).size(); j++) {
-            std::cout << nodeMap[i][j].cell->ground;
-        }
-        std::cout << "\n";
-    }
-    std::cout << std::endl;
-}
-
 
 void Navigator::manageNeighbour(coordenada_t neighbour, coordenada_t end) {
     int x = neighbour.first, y = neighbour.second;
@@ -32,9 +22,6 @@ void Navigator::manageNeighbour(coordenada_t neighbour, coordenada_t end) {
             if (std::find(openSet.begin(), openSet.end(), nodeMap[x][y]) == openSet.end()) {
                 openSet.push_back(nodeMap[x][y]);
                 nodeMap[x][y].cell->ground = '*';  // Para imprimir las celdas que se analizan
-                usleep(1000);
-                system("clear");
-                mostrar();
             }
         }
     }

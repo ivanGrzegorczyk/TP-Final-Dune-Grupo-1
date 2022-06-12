@@ -2,34 +2,29 @@
 #define THCLIENT_H_
 
 #include <atomic>
-#include <string>
-
-#include "../../common/headers/Thread.h"
-#include "../../common/headers/Socket.h"
 #include "ServerProtocol.h"
-#include "ServerMap.h"
+#include "../../common/headers/Thread.h"
 #include "../../common/headers/ProtectedQueue.h"
+#include "ServerEvent.h"
 
 class ThClient: public Thread {
 private:
     std::atomic<bool> keep_talking;
     std::atomic<bool> is_running;
     ServerProtocol protocol;
-    ProtectedQueue &protectedQueue;
-    ServerMap &map;
+    ProtectedQueue<ServerEvent *> &protectedQueue;
 
-    void searchPath();
+    void repositionUnity();
+    void manageCommand(int command);
 
 protected:
     void run() override;
 
 public:
-    ThClient(Socket &&peer, ProtectedQueue &protectedQueue, ServerMap &map);
+    ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue);
 
     bool isDead();
     void stop();
-
-    void sendEvent(Event &event);
 
     ThClient(const ThClient&) = delete;
     ThClient& operator=(const ThClient&) = delete;

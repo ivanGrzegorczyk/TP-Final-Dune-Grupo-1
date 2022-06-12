@@ -30,13 +30,12 @@ public:
     int commandReceive();
 
     /**
-     * @brief Receives current position of a unit and goal position.
-     * It the sets the parameters of the method values with that info.
+     * @brief Receives id of a unit and goal position.
+     * It then sets the parameter values with that info.
      *
-     * @param current
      * @param goal
      */
-    void requestPath(coordenada_t &current, coordenada_t &goal);
+    void getRelocationData(uint16_t &id, coordenada_t &goal);
 
     /**
      * @brief Send the shortest path a unit hasta to take in order

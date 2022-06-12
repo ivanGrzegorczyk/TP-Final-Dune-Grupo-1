@@ -1,5 +1,9 @@
+#include <unistd.h>
+#include <iostream>
+#include <thread>
 #include "../headers/Server.h"
 #include "../../common/headers/Constantes.h"
+#include "../headers/ThCLient.h"
 
 Server::Server(const std::string &host, int rows, int columns) :
     map(rows, columns), protocol(host), keep_accepting(true), active_game(true) {}
@@ -50,10 +54,11 @@ void Server::finish() {
 
 void Server::broadCast() {
     while (active_game) {
-        Event event(blockingQueue.pop());
-        if (!active_game)
-            return;  // TODO Salida temporal
-        clients.broadCast();
+        if (blockingQueue.pop()) {
+            if (!active_game)
+                return;  // TODO Salida temporal
+            clients.broadCast();  // Actualizo a todos los clientes
+        }
     }
 }
 
@@ -61,7 +66,7 @@ void Server::acceptClients() {
     try {
         while (keep_accepting) {
             Socket peer = protocol.accept();
-            auto *client = new ThClient(std::move(peer), protectedQueue, map);
+            auto *client = new ThClient(std::move(peer), protectedQueue);
             client->start();
             clients.push(client);
         }
@@ -71,7 +76,15 @@ void Server::acceptClients() {
 }
 
 void Server::manageEvents() {
-    Event event(protectedQueue.pop());
-    // Actualizo el modelo
-    blockingQueue.push(std::move(event));
+    ServerEvent *event = protectedQueue.pop();
+    if (event != nullptr)
+        event->performEvent(this);
 }
+
+void Server::repositionUnity(int id, coordenada_t goal) {
+    bool updateClient;
+    updateClient = map.reposition(id, goal);
+    blockingQueue.push(updateClient);
+}
+
+

@@ -2,44 +2,28 @@
 #include <iostream>
 
 #include "../headers/ThCLient.h"
+#include "../headers/RepositionEvent.h"
+#include "../../common/headers/Constantes.h"
 
-ThClient::ThClient(Socket &&peer, ProtectedQueue &protectedQueue, ServerMap &map):
-        protectedQueue(protectedQueue), map(map),
-        keep_talking(true), is_running(true),
+ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue):
+        protectedQueue(protectedQueue), keep_talking(true), is_running(true),
         protocol(std::move(peer)) {}
 
 void ThClient::run() {
     while (keep_talking) {
         int command = protocol.commandReceive();
-
-        switch (command) {
-            case SEARCH_PATH: {
-                searchPath();  // Busco el camino y pusheo a la cola de eventos protegida
-                break;
-            }
-            default: {
-                throw std::runtime_error("Unknown command");
-            }
-        }
+        manageCommand(command);
     }
 
     is_running = false;
 }
 
-void ThClient::sendEvent(Event &event) {
-    if (event.event.at(0) == 1) {
-        protocol.sendPath(event.event);
-    } else {
-        std::cerr << "Error en el evento" << std::endl;
-    }
-}
-
-void ThClient::searchPath() {
-    coordenada_t current;
+void ThClient::repositionUnity() {
+    uint16_t id;
     coordenada_t goal;
-    protocol.requestPath(current, goal);
-    std::stack<coordenada_t> path = map.A_star(current, goal);
-    protectedQueue.push(std::move(Event {path}));
+    protocol.getRelocationData(id, goal);
+    ServerEvent *event = new RepositionEvent(id, goal);
+    protectedQueue.push(event);
 }
 
 void ThClient::stop() {
@@ -49,4 +33,16 @@ void ThClient::stop() {
 
 bool ThClient::isDead() {
     return !is_running;
+}
+
+void ThClient::manageCommand(int command) {
+    switch (command) {
+        case REPOSITION_EVENT: {
+            repositionUnity();
+            break;
+        }
+        default: {
+            throw std::runtime_error("Unknown command");
+        }
+    }
 }

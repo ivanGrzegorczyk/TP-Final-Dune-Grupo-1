@@ -7,4 +7,7 @@
 
 #define GAME_LOOP_RATE 1.0 / 30.0
 
+// Server
+#define REPOSITION_EVENT 1
+
 #endif //TP_FINAL_DUNE_GRUPO_1_CONSTANTES_H

@@ -26,5 +26,7 @@ bool ClientsMonitor::cleanClient(ThClient *client) {
 
 void ClientsMonitor::broadCast() {
     std::lock_guard<std::mutex> lock(mutex);
-    // TODO Mando la foto del mundo
+    for (ThClient *client : clients) {
+        //client->update();
+    }
 }

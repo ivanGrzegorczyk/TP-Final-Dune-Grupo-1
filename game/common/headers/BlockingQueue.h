@@ -6,8 +6,6 @@
 #include <condition_variable>
 #include <atomic>
 
-#include "Event.h"
-
 template<class T>
 class BlockingQueue {
 private:

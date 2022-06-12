@@ -10,8 +10,8 @@ template<class T>
 T ProtectedQueue<T>::pop() {
     std::lock_guard<std::mutex> lock(mutex);
 
-    if (data.empty())  // TODO Cuando sea polimorfico devuelvo nullptr
-        return {};
+    if (data.empty())
+        return nullptr;
 
     T t = data.front();
     data.pop();

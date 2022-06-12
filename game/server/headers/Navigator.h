@@ -17,11 +17,9 @@ private:
     void manageNeighbour(coordenada_t neighbour, coordenada_t end);
     std::stack<coordenada_t> reconstructPath(coordenada_t start);
 
-    void mostrar();
-
 public:
     Navigator() = delete;
-    Navigator(std::vector<std::vector<ServerCell>> &map);
+    explicit Navigator(std::vector<std::vector<ServerCell>> &map);
 
     std::stack<coordenada_t> A_star(coordenada_t start, coordenada_t end);
 };

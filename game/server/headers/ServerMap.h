@@ -9,15 +9,15 @@
 
 class ServerMap {
 private:
-    int rows, columns;
-    std::map<coordenada_t, std::shared_ptr<Building>> buildings;
-
-public:
-    ServerMap(int rows, int columns);
-
+    std::map<int, std::shared_ptr<Building>> buildings;
+    std::map<int, std::shared_ptr<Unity>> unities;
     std::vector<std::vector<ServerCell>> map;
 
     std::stack<coordenada_t> A_star(coordenada_t start, coordenada_t end);
+public:
+    ServerMap(int rows, int columns);
+
+    bool reposition(int id, coordenada_t goal);
 };
 
 #endif  // SERVERMAP_H_
