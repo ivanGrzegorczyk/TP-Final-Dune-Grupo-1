@@ -1,17 +1,19 @@
 #include "../headers/ProtectedQueue.h"
 
-void ProtectedQueue::push(Event *event) {
+template<class T>
+void ProtectedQueue<T>::push(T t) {
     std::lock_guard<std::mutex> lock(mutex);
-    events.push(event);
+    data.push(t);
 }
 
-Event* ProtectedQueue::pop() {
+template<class T>
+T ProtectedQueue<T>::pop() {
     std::lock_guard<std::mutex> lock(mutex);
 
-    if (events.empty())  // TODO Cuando sea polimorfico devuelvo nullptr
+    if (data.empty())  // TODO Cuando sea polimorfico devuelvo nullptr
         return {};
 
-    Event *event = events.front();
-    events.pop();
-    return event;
+    T t = data.front();
+    data.pop();
+    return t;
 }

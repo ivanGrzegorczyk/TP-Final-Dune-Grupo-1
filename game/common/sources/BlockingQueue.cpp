@@ -1,29 +1,33 @@
 #include "../headers/BlockingQueue.h"
 
-BlockingQueue::BlockingQueue() : closed(false) {}
+template<class T>
+BlockingQueue<T>::BlockingQueue() : closed(false) {}
 
-void BlockingQueue::stop() {
+template<class T>
+void BlockingQueue<T>::stop() {
     std::unique_lock<std::mutex> uniqueLock(mutex);
     closed = true;
     conditionVariable.notify_all();
 }
 
-void BlockingQueue::push(Event *event) {
+template<class T>
+void BlockingQueue<T>::push(T t) {
     std::unique_lock<std::mutex> uniqueLock(mutex);
-    events.push(event);
+    data.push(t);
     conditionVariable.notify_all();
 }
 
-Event* BlockingQueue::pop() {
+template<class T>
+T BlockingQueue<T>::pop() {
     std::unique_lock<std::mutex> uniqueLock(mutex);
-    while (events.empty()) {
+    while (data.empty()) {
         if (closed)
             return {};
         conditionVariable.wait(uniqueLock);
     }
 
-    Event *event = events.front();
-    events.pop();
+    T t = data.front();
+    data.pop();
 
-    return event;
+    return t;
 }

@@ -6,16 +6,17 @@
 
 #include "Event.h"
 
+template<class T>
 class ProtectedQueue {
 private:
-    std::queue<Event*> events;
+    std::queue<T> data;
     std::mutex mutex;
 
 public:
     ProtectedQueue() = default;
 
-    void push(Event *event);
-    Event* pop();
+    void push(T t);
+    T pop();
 
     ProtectedQueue(const ProtectedQueue&) = delete;
     ProtectedQueue& operator=(const ProtectedQueue&) = delete;
