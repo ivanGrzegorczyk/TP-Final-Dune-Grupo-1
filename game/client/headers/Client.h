@@ -4,13 +4,14 @@
 #include "../../common/headers/BlockingQueue.h"
 #include "../../common/headers/ProtectedQueue.h"
 
+
 class Client {
 private:
-    MapUi map;
+    MapUi mapUi;
     std::atomic<bool> running;
     Protocol protocol;
-    BlockingQueue sendQueue;
-    ProtectedQueue recvQueue;
+    BlockingQueue<InputEvent*> sendQueue;
+    //ProtectedQueue<> recvQueue;
 
 
 public:
@@ -20,13 +21,15 @@ public:
 
     void receiveOfServer();
 
-    Event GetEventByid(int i);
+    //Event GetEventByid(int i);
 
-    Event createEvent();
+    InputEvent* createEvent();
 
     void ProcessInput();
 
     void update();
+
+    void renderer();
 };
 
 

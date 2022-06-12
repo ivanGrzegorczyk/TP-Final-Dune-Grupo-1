@@ -21,44 +21,35 @@ void Client::run(char *file) {
     Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
 
     while(running) {
-        ProcessInput();
+        ProcessInput(); //pop y mandarlo al mapa
         update();
-        //renderer();
+        renderer();
     }
     threadReceive.join();
     threadSend.join();
 }
 
 void Client::ProcessInput() {
-    Event *event = createEvent();
-    if(event != nullptr) {
+    InputEvent *event = createEvent();
+    if(event) {
         sendQueue.push(event);
     }
     //sendQueue.push(event);
 }
 
-Event Client::createEvent() {
-    //std::stack<coordenada_t> ubication;
+InputEvent* Client::createEvent() {
     SDL_Event event;
-    std::vector<coordenada_t> status;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_QUIT:
                 running = false;
                 break;
             case SDL_MOUSEBUTTONUP:
-                int x, y;
-                x = event.button.x;
-                y = event.button.y;
-                map.mouseEvent(x, y);
-                if(map.hasAPin()) {
-
-                    //return MoveQuery();
-                    //mando coordenadas al server
-                } else {
-                    //evento dummy
-                }
-                break;
+                int xmouse, ymouse;
+                xmouse = event.button.x;
+                ymouse = event.button.y;
+                InputEvent *query =  mapUi.mouseEvent(xmouse, ymouse);
+                return query;
             default:
                 break;
         }
@@ -66,41 +57,30 @@ Event Client::createEvent() {
 }
 
 void Client::update() {
-    Event event = this->recvQueue.pop(); //puntero
+    //InputEvent* event = this->recvQueue.pop(); //puntero
     ///if(event) {
        // event.ejecutar(map);
     //}
 }
 
-Event Client::GetEventByid(int id) {
-    switch (id) {
-        case SEARCH_PATH: {
-            Event event;
-            std::stack<coordenada_t> path = protocol.receivePath();
-
-            break;
-        }
-        default: {
-            throw std::runtime_error("Unknown command");
-        }
-    }
-}
 
 
-//hilos
 void Client::sendToServer() {
     while(running) {
-        Event *event = this->sendQueue.pop();
-        //if(event)
-            protocol.enviar(event.event);
+        InputEvent *event = this->sendQueue.pop();
+        event->send(this->protocol);
     }
 }
 
 void Client::receiveOfServer() {
     while(running) {
-        Event *event;
+        InputEvent *event;
         int id = protocol.commandReceive();
-        event = GetEventByid(id);
+       // event = GetEventByid(id);
        // this->recvQueue.push(event);
     }
+}
+
+void Client::renderer() {
+    mapUi.render();
 }
