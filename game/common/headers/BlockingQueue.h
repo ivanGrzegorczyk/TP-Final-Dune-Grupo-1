@@ -10,7 +10,7 @@
 
 class BlockingQueue {
 private:
-    std::queue<Event> events;
+    std::queue<Event*> events;
     std::mutex mutex;
     std::condition_variable conditionVariable;
     std::atomic<bool> closed;
@@ -20,8 +20,8 @@ private:
 public:
     BlockingQueue();
 
-    void push(Event &&event);
-    Event pop();
+    void push(Event *event);
+    Event* pop();
 
     BlockingQueue(const BlockingQueue&) = delete;
     BlockingQueue& operator=(const BlockingQueue&) = delete;

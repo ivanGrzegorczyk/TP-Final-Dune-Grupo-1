@@ -8,9 +8,8 @@
 #include "Entity.h"
 
 class Event {
+protected:
 public:
-    std::vector<uint16_t> event;
-
     Event() = default;
 
     explicit Event(std::stack<coordenada_t> path);
@@ -20,6 +19,8 @@ public:
 
     Event(const Event&) = delete;
     Event& operator=(const Event&) = delete;
+
+    virtual ~Event() = 0;
 };
 
 #endif  // EVENT_H_

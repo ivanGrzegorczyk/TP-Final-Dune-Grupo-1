@@ -8,13 +8,13 @@ void BlockingQueue::stop() {
     conditionVariable.notify_all();
 }
 
-void BlockingQueue::push(Event &&event) {
+void BlockingQueue::push(Event *event) {
     std::unique_lock<std::mutex> uniqueLock(mutex);
-    events.push(std::move(event));
+    events.push(event);
     conditionVariable.notify_all();
 }
 
-Event BlockingQueue::pop() {
+Event* BlockingQueue::pop() {
     std::unique_lock<std::mutex> uniqueLock(mutex);
     while (events.empty()) {
         if (closed)
@@ -22,8 +22,8 @@ Event BlockingQueue::pop() {
         conditionVariable.wait(uniqueLock);
     }
 
-    Event event = std::move(events.front());
+    Event *event = events.front();
     events.pop();
 
-    return std::move(event);
+    return event;
 }

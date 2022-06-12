@@ -8,14 +8,14 @@
 
 class ProtectedQueue {
 private:
-    std::queue<Event> events;
+    std::queue<Event*> events;
     std::mutex mutex;
 
 public:
     ProtectedQueue() = default;
 
-    void push(Event &&event);
-    Event pop();
+    void push(Event *event);
+    Event* pop();
 
     ProtectedQueue(const ProtectedQueue&) = delete;
     ProtectedQueue& operator=(const ProtectedQueue&) = delete;
