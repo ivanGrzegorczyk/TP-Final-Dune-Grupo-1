@@ -4,8 +4,10 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-#include "Character.h"
-#include "CeldaUi.h"
+
+#include "../headers/CeldaUi.h"
+#include "../headers/Character.h"
+
 #define WIDTH_TEXTURE 16
 #define HEIGHT_TEXTURE 16
 #define SRC 0
@@ -15,7 +17,6 @@ using namespace SDL2pp;
 class MapUi {
 private:
     void draw();
-    bool pin;
     Character character;
     Rect src;
     Rect dst;
@@ -32,15 +33,12 @@ public:
     MapUi(Renderer& renderer, char* terrain);
     ~MapUi();
     char* terrain;
-    bool mouseEvent(int x, int y);
+    InputEvent* mouseEvent(int x, int y);
     void update();
     void render();
 
     void moveCharacter(std::vector<coordenada_t> &path);
 
-    void dropAPin();
-
-    bool hasAPin() const;
 };
 
 

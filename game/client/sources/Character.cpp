@@ -1,4 +1,5 @@
 #include "../headers/Character.h"
+#include "../headers/MoveQuery.h"
 
 std::pair<int, int> Character::getCoordinates() {
     return std::make_pair(pos_X, pos_Y);
@@ -69,10 +70,9 @@ void Character::highlight() {
     t.SetColorMod(255, 255, 0);
 }
 
-void Character::reactToEvent(int x, int y, MapUi &map) {
+InputEvent* Character::reactToEvent(int x, int y) {
     if(mouseOverCharacter(x, y) && selected) {
-        selected = false;
-        map.dropAPin();
+        return walkEvent(x, y);
     } else if(mouseOverCharacter(x, y) && !selected) {
         selected = true;
         this->highlight();
@@ -80,6 +80,14 @@ void Character::reactToEvent(int x, int y, MapUi &map) {
         selected = false;
         this->normalColor();
     }
+    return nullptr;
+}
+
+InputEvent *Character::walkEvent(int x, int y) {
+    selected = false;
+    coordenada_t coord({x, y});
+    InputEvent* query = new MoveQuery(id, std::move(coord));
+    return query;
 }
 
 bool Character::mouseOverCharacter(int x, int y) const {
