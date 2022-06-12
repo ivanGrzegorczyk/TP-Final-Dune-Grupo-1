@@ -53,40 +53,39 @@ void Character::move(std::vector<coordenada_t> &pathDes) { // recibo coordenadas
     //path.push_back(std::make_pair(x, y));
 
 }
-void Character::changeColor() {
+/*void Character::changeColor() {
     if(selected) {
         t.SetColorMod(255, 0, 0);
     } else {
         t.SetColorMod(255, 255, 0);
     }
+}*/
+
+void Character::normalColor() {
+    t.SetColorMod(255, 0, 0);
 }
 
-void Character::mouseEvent(int x, int y) {
-    desX = x;
-    desY = y;
+void Character::highlight() {
+    t.SetColorMod(255, 255, 0);
 }
 
-bool Character::reactToEvent(int x, int y, std::pair<coordenada_t, coordenada_t> &ubication) { //cambiar nombre
-    desX = x;
-    desY = y;
-    bool change;
-    if (!current.Contains(desX, desY) && selected) {
-        ubication.first.first = pos_X;
-        ubication.first.second = pos_Y;
-        ubication.second.first = desX;
-        ubication.second.second = desY;
-        return true;
+void Character::reactToEvent(int x, int y, MapUi &map) {
+    if(mouseOverCharacter(x, y) && selected) {
+        selected = false;
+        map.dropAPin();
+    } else if(mouseOverCharacter(x, y) && !selected) {
+        selected = true;
+        this->highlight();
+    } else {
+        selected = false;
+        this->normalColor();
     }
-    if (current.Contains(desX, desY) && !selected) {
-        change = true;
-    }
-    if (current.Contains(desX, desY) && selected) {
-        change = false;
-    }
-    selected = change;
-    changeColor();
-    return false;
 }
+
+bool Character::mouseOverCharacter(int x, int y) const {
+    return current.Contains(x, y);
+}
+
 bool Character::isSelected() const {
-    return selected;
+    return this->selected;
 }

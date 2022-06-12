@@ -1,5 +1,2 @@
-//
-// Created by adrian on 11/06/22.
-//
+#include "../headers/InputEvent.h"
 
-#include "InputEvent.h"

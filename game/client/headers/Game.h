@@ -3,6 +3,7 @@
 
 #include "SDL2pp/SDL2pp.hh"
 #include "MapUi.h"
+#include "../../common/headers/Event.h"
 
 using namespace SDL2pp;
 class Game {
@@ -18,6 +19,7 @@ public:
     void processInput();
     void update();
     void renderer();
+
 };
 
 

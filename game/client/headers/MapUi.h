@@ -13,18 +13,9 @@
 using namespace SDL2pp;
 
 class MapUi {
-public:
-    MapUi(Renderer& renderer, char* terrain);
-    ~MapUi();
-    char* terrain;
-    bool mouseEvent(int x, int y, std::pair<coordenada_t, coordenada_t> &ubication);
-    void update();
-    void render();
-
-    void moveCharacter(std::vector<coordenada_t> &path);
-
 private:
     void draw();
+    bool pin;
     Character character;
     Rect src;
     Rect dst;
@@ -36,6 +27,20 @@ private:
     Rect sand;
     Rect specie;
     std::vector<std::vector<CeldaUi>> map;
+
+public:
+    MapUi(Renderer& renderer, char* terrain);
+    ~MapUi();
+    char* terrain;
+    bool mouseEvent(int x, int y);
+    void update();
+    void render();
+
+    void moveCharacter(std::vector<coordenada_t> &path);
+
+    void dropAPin();
+
+    bool hasAPin() const;
 };
 
 

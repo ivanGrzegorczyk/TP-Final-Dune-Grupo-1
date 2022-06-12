@@ -18,8 +18,16 @@ private:
 public:
     Protocol(const char* hostname, const char* servicename);
     void sendUbication(std::pair<coordenada_t, coordenada_t> ubication);
-    std::vector<coordenada_t> receivePath();
+    //std::vector<coordenada_t> receivePath();
 
+
+
+    void enviar(std::vector<uint16_t> vector);
+
+    int commandReceive();
+    std::stack<coordenada_t> receivePath();
+
+    void moveQuery(int idunity ,coordenada_t dest);
 };
 
 

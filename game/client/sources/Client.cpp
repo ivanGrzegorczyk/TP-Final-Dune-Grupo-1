@@ -2,6 +2,8 @@
 #include "../headers/Game.h"
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"
+#include "../headers/InputEvent.h"
+#include "../headers/MoveQuery.h"
 
 using namespace SDL2pp;
 
@@ -18,46 +20,25 @@ void Client::run(char *file) {
             SDL_WINDOWPOS_UNDEFINED,640, 480, SDL_WINDOW_RESIZABLE);
     Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
 
-    //Game game(render, file); //arg [2]
     while(running) {
-        processInput();
-        //update();
+        ProcessInput();
+        update();
         //renderer();
-        usleep(10000000.0f/25.0f);
     }
     threadReceive.join();
     threadSend.join();
 }
 
-
-void Client::receiveOfServer() {
-    int id = protocol.receiveCommandId();
-    Event event = GetEventByid();
-    this->recvQueue.push(event);
-}
-
-void Client::sendToServer() {
-    while(running) {
-        Event event = this->sendQueue.pop();
-        event.sendToServer(this->protocol);
-    }
-}
-
 void Client::ProcessInput() {
-    Event event = createEvent();
-    sendQueue.push(event);
-}
-
-
-void Client::cambiar() {
-    Event event = this->recvQueue.pop();
-    if(event) {
-        event.ejecutar(map);
+    Event *event = createEvent();
+    if(event != nullptr) {
+        sendQueue.push(event);
     }
+    //sendQueue.push(event);
 }
 
-Event Game::createEvent() {
-    Event inputEvent;
+Event Client::createEvent() {
+    //std::stack<coordenada_t> ubication;
     SDL_Event event;
     std::vector<coordenada_t> status;
     while (SDL_PollEvent(&event)) {
@@ -69,11 +50,57 @@ Event Game::createEvent() {
                 int x, y;
                 x = event.button.x;
                 y = event.button.y;
+                map.mouseEvent(x, y);
+                if(map.hasAPin()) {
 
-                //sendInputToServer(x, y);
+                    //return MoveQuery();
+                    //mando coordenadas al server
+                } else {
+                    //evento dummy
+                }
                 break;
             default:
                 break;
         }
+    }
+}
+
+void Client::update() {
+    Event event = this->recvQueue.pop(); //puntero
+    ///if(event) {
+       // event.ejecutar(map);
+    //}
+}
+
+Event Client::GetEventByid(int id) {
+    switch (id) {
+        case SEARCH_PATH: {
+            Event event;
+            std::stack<coordenada_t> path = protocol.receivePath();
+
+            break;
+        }
+        default: {
+            throw std::runtime_error("Unknown command");
+        }
+    }
+}
+
+
+//hilos
+void Client::sendToServer() {
+    while(running) {
+        Event *event = this->sendQueue.pop();
+        //if(event)
+            protocol.enviar(event.event);
+    }
+}
+
+void Client::receiveOfServer() {
+    while(running) {
+        Event *event;
+        int id = protocol.commandReceive();
+        event = GetEventByid(id);
+       // this->recvQueue.push(event);
     }
 }

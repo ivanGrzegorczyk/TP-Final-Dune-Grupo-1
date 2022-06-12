@@ -1,6 +1,6 @@
 #include "../headers/MapUi.h"
 
-MapUi::MapUi(Renderer &renderer, char *terrain) : character(renderer),terrain(terrain), rdr(renderer), ground(renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
+MapUi::MapUi(Renderer &renderer, char *terrain) : pin(false), character(renderer),terrain(terrain), rdr(renderer), ground(renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
                                                   ground2(renderer, Surface(DATA_PATH "/d2k_BLOXXMAS.bmp")),
                                                   ground3(renderer, Surface(DATA_PATH "/d2k_BLOXTREE.bmp")){
     src.SetX(SRC);
@@ -75,13 +75,19 @@ void MapUi::render() {
     character.render();
 }
 
-bool MapUi::mouseEvent(int x, int y, std::pair<coordenada_t, coordenada_t> &ubication) {
+bool MapUi::mouseEvent(int x, int y) {
     //character.mouseEvent(x, y);
-    return character.reactToEvent(x, y, ubication);
+    return character.reactToEvent(x, y, this);
 }
 
 void MapUi::moveCharacter(std::vector<coordenada_t> &path) {
     character.move(path);
 }
 
+void MapUi::dropAPin() {
+    this->pin = true;
+}
 
+bool MapUi::hasAPin() const {
+    return this->pin;
+}

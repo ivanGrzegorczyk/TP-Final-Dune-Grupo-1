@@ -6,7 +6,7 @@
 
 class Client {
 private:
-    //MapUi map;
+    MapUi map;
     std::atomic<bool> running;
     Protocol protocol;
     BlockingQueue sendQueue;
@@ -19,6 +19,14 @@ public:
     void sendToServer();
 
     void receiveOfServer();
+
+    Event GetEventByid(int i);
+
+    Event createEvent();
+
+    void ProcessInput();
+
+    void update();
 };
 
 
