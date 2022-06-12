@@ -4,8 +4,8 @@
 #include "Entity.h"
 
 class Building: public Entity {
-private:
-    std::vector<coordenada_t> id;
+protected:
+    std::vector<coordenada_t> coords;
 
 public:
     virtual ~Building() = 0;

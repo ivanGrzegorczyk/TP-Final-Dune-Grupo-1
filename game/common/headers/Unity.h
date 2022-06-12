@@ -4,8 +4,9 @@
 #include "Entity.h"
 
 class Unity: public Entity {  // abstracta
-private:
-    coordenada_t id;
+protected:
+    coordenada_t coord;
+    std::stack<coordenada_t> path;
 
 public:
     virtual ~Unity() = 0;
