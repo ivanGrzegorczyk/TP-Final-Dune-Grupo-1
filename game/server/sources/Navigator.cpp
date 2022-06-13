@@ -21,7 +21,6 @@ void Navigator::manageNeighbour(coordenada_t neighbour, coordenada_t end) {
             nodeMap[x][y].setF(tentativeG + nodeMap[x][y].calculateH(end));
             if (std::find(openSet.begin(), openSet.end(), nodeMap[x][y]) == openSet.end()) {
                 openSet.push_back(nodeMap[x][y]);
-                nodeMap[x][y].cell->ground = '*';  // Para imprimir las celdas que se analizan
             }
         }
     }

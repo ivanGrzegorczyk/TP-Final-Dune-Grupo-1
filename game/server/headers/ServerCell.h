@@ -11,15 +11,18 @@
 #include "../../common/headers/Building.h"
 #include "../../common/headers/Units.h"
 
+#define TERRAIN_SAND 0
+#define TERRAIN_DUNES 1
+#define TERRAIN_ROCKS 2
+#define TERRAIN_TOPS 3
+#define TERRAIN_CLIFFS 4
+
 class ServerCell {
 public:
-    coordenada_t id;
-    char ground;  // Temporal para simular celdas ocupadas
+    coordenada_t coords;
+    int ground;
     std::shared_ptr<Building> building;
     std::vector<std::weak_ptr<Units>> unities;
-
-    // Unidades en la celda
-    // Edificios en la celda
 
     ServerCell();
     explicit ServerCell(coordenada_t coord);

@@ -6,7 +6,7 @@ ServerMap::ServerMap(int rows, int columns) :
 map(rows, std::vector<ServerCell>(columns)) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
-            map[i][j].id = {i, j};
+            map[i][j].coords = {i, j};
         }
     }
 }
