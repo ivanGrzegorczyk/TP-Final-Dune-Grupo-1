@@ -14,13 +14,33 @@ private:
     std::condition_variable conditionVariable;
     std::atomic<bool> closed;
 
-    void stop();
+    void stop() {
+        std::unique_lock<std::mutex> uniqueLock(mutex);
+        closed = true;
+        conditionVariable.notify_all();
+    }
 
 public:
-    BlockingQueue();
+    BlockingQueue() : closed(false) {}
 
-    void push(T t);
-    T pop();
+    void push(T t) {
+        std::unique_lock<std::mutex> uniqueLock(mutex);
+        data.push(t);
+        conditionVariable.notify_all();
+    }
+    T pop() {
+        std::unique_lock<std::mutex> uniqueLock(mutex);
+        while (data.empty()) {
+            if (closed)
+                return {};
+            conditionVariable.wait(uniqueLock);
+        }
+
+        T t = data.front();
+        data.pop();
+
+        return t;
+    }
 
     BlockingQueue(const BlockingQueue&) = delete;
     BlockingQueue& operator=(const BlockingQueue&) = delete;

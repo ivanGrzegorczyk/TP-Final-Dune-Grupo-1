@@ -13,8 +13,21 @@ private:
 public:
     ProtectedQueue() = default;
 
-    void push(T t);
-    T pop();
+    void push(T t) {
+        std::lock_guard<std::mutex> lock(mutex);
+        data.push(t);
+    }
+
+    T pop() {
+        std::lock_guard<std::mutex> lock(mutex);
+
+        if (data.empty())
+            return nullptr;
+
+        T t = data.front();
+        data.pop();
+        return t;
+    }
 
     ProtectedQueue(const ProtectedQueue&) = delete;
     ProtectedQueue& operator=(const ProtectedQueue&) = delete;
