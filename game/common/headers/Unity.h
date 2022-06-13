@@ -17,8 +17,6 @@ public:
     Unity(int id, double hp, int range, int speed, coordenada_t coord);
     void setPath(std::stack<coordenada_t> _path);
     coordenada_t getPosition();
-
-    ~Unity() override = 0;
 };
 
 #endif  // UNITY_H_

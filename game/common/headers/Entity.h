@@ -12,7 +12,7 @@ protected:
 
 public:
     Entity(int id, double HP);
-    virtual ~Entity() = 0;
+    virtual ~Entity() = default;
 };
 
 #endif  // ENTITY_H_
