@@ -10,7 +10,7 @@ public:
     int unitId;
     coordenada_t goal;
 
-    RepositionEvent(int id, coordenada_t goal);
+    RepositionEvent(int playerId, int unitId, coordenada_t goal);
 
     void performEvent(Server *server) override;
 };

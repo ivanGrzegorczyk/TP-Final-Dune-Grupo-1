@@ -8,6 +8,7 @@ protected:
     std::vector<coordenada_t> coords;
 
 public:
+    Building(int id, double hp, std::vector<coordenada_t> coords);
     virtual ~Building() = 0;
 };
 

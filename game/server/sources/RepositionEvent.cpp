@@ -1,9 +1,9 @@
 #include "../headers/RepositionEvent.h"
 
-void RepositionEvent::performEvent(Server *server) {
-    server->repositionUnity(unitId, goal);
-}
+RepositionEvent::RepositionEvent(int playerId, int unitId, coordenada_t goal) :
+ServerEvent(playerId), unitId(unitId), goal(std::move(goal)) {}
 
-RepositionEvent::RepositionEvent(int id, coordenada_t goal) :
-        unitId(id), goal(std::move(goal)) {}
+void RepositionEvent::performEvent(Server *server) {
+    server->repositionUnity(playerId, unitId, goal);
+}
 

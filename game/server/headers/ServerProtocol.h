@@ -8,7 +8,7 @@
 #include "../../common/headers/Socket.h"
 #include "../../common/headers/Entity.h"
 
-#define SEARCH_PATH 1
+#define REPOSITION_EVENT 1
 
 class ServerProtocol {
 private:

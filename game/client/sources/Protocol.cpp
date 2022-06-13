@@ -26,7 +26,7 @@ void Protocol::moveQuery(int idunity, coordenada_t dest) {
     uint16_t id = htons(idunity);
     uint16_t desX = htons(dest.first);
     uint16_t desY = htons(dest.second); //castear???
-    uint8_t command = SEARCH_PATH;
+    uint8_t command = REPOSITION_EVENT;
 
     skt.sendall(&command, sizeof(command));
     skt.sendall(&id, sizeof(id));
@@ -39,7 +39,7 @@ void Protocol::createBuilding(int clientId, int buildingId, coordenada_t coord) 
     uint16_t buildingID = htons(buildingId);
     uint16_t coordX = htons(coord.first);
     uint16_t coordY = htons(coord.second); //castear???
-    uint8_t command = CREATE_BUILDING;
+    uint8_t command = CREATE_BUILDING_EVENT;
 
     skt.sendall(&command, sizeof(command));
     skt.sendall(&clientID, sizeof(clientID));
@@ -49,7 +49,7 @@ void Protocol::createBuilding(int clientId, int buildingId, coordenada_t coord) 
 }
 
 void Protocol::createUnidadLigera(int id) {
-    uint8_t command = CREATE_UNITY;
+    uint8_t command = CREATE_UNITY_EVENT;
     uint8_t unityId = id;
     skt.sendall(&command, sizeof(command));
     skt.sendall((&unityId), sizeof(unityId));
