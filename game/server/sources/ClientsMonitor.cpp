@@ -1,3 +1,4 @@
+#include "../headers/ThCLient.h"
 #include "../headers/ClientsMonitor.h"
 
 ClientsMonitor::~ClientsMonitor() {

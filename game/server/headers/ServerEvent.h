@@ -2,7 +2,6 @@
 #define SERVEREVENT_H_
 
 #include "Server.h"
-
 class Server;
 
 class ServerEvent {

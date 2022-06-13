@@ -2,6 +2,7 @@
 #define CLIENTSMONITOR_H_
 
 #include <list>
+class ThClient;
 #include "ThCLient.h"
 
 class ClientsMonitor {

@@ -9,9 +9,9 @@
 #include "../../common/headers/BlockingQueue.h"
 #include "../../common/headers/ProtectedQueue.h"
 
-#include "ClientsMonitor.h"
-
 class ServerEvent;
+
+#include "ClientsMonitor.h"
 #include "ServerEvent.h"
 
 typedef std::chrono::time_point<std::chrono::system_clock> chrono;

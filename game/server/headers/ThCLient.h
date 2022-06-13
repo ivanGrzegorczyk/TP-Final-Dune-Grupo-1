@@ -5,6 +5,7 @@
 #include "ServerProtocol.h"
 #include "../../common/headers/Thread.h"
 #include "../../common/headers/ProtectedQueue.h"
+
 #include "ServerEvent.h"
 
 class ThClient: public Thread {
