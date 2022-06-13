@@ -19,11 +19,13 @@ private:
 public:
     ServerMap(int rows, int columns);
 
-    bool reposition(int playerId, int id, coordenada_t goal);
+    bool reposition(int playerId, int id, coordenada_t goal, int &updates);
 
     void spawnUnit(int playerId, int unit);
 
     void addUnitData(std::vector<uint16_t> &vec);
+
+    void updateUnitPositions();
 };
 
 #endif  // SERVERMAP_H_

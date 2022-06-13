@@ -48,3 +48,10 @@ void ServerProtocol::assignPlayerId(int id) {
 
     socket.sendall(&playerId, sizeof(playerId));
 }
+
+void ServerProtocol::sendSnapshot(const std::vector<uint16_t> &snapshot) {
+    for (auto msg : snapshot) {
+        uint16_t aux = htons(msg);
+        socket.sendall(&aux, sizeof(aux));
+    }
+}

@@ -28,6 +28,6 @@ bool ClientsMonitor::cleanClient(ThClient *client) {
 void ClientsMonitor::broadCast(const std::vector<uint16_t> &snapshot) {
     std::lock_guard<std::mutex> lock(mutex);
     for (ThClient *client : clients) {
-        //client->update();
+        client->sendSnapshot(snapshot);
     }
 }

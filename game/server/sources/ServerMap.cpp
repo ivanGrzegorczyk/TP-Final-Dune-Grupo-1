@@ -17,13 +17,14 @@ std::stack<coordenada_t> ServerMap::A_star(
     return navigator.A_star(start, end);
 }
 
-bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
+bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal, int &updates) {
     try {
         if (units.at(playerId).at(unitId)->getPosition() == goal)
             return false;
-
-        units.at(playerId).at(unitId)->setPath(
-                A_star(units.at(playerId).at(unitId)->getPosition(), goal));
+        std::stack<coordenada_t> path = A_star(
+                units.at(playerId).at(unitId)->getPosition(), goal);
+        updates = path.size();
+        units.at(playerId).at(unitId)->setPath(path);
         return true;  // TODO Revisar caso en el que no hay un camino posible
     } catch(const std::out_of_range &e) {
         return false;
@@ -47,6 +48,14 @@ void ServerMap::addUnitData(std::vector<uint16_t> &vec) {
             coordenada_t position = unit->getPosition();
             vec.push_back((uint16_t) position.first);
             vec.push_back((uint16_t) position.second);
+        }
+    }
+}
+
+void ServerMap::updateUnitPositions() {
+    for (auto const& [player, unitsMap] : units) {
+        for (auto const& [unitId, unit] : unitsMap) {
+            unit->relocate();
         }
     }
 }

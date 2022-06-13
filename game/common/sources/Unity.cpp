@@ -12,3 +12,11 @@ void Units::setPath(std::stack<coordenada_t> _path) {
 coordenada_t Units::getPosition() {
     return coord;
 }
+
+void Units::relocate() {
+    if (path.empty())
+        return;
+
+    coord = path.top();
+    path.pop();
+}

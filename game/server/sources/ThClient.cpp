@@ -58,3 +58,7 @@ void ThClient::spawnUnit() {
     ServerEvent *event = new SpawnUnitEvent(playerId, unit);
     protectedQueue.push(event);
 }
+
+void ThClient::sendSnapshot(const std::vector<uint16_t> &snapshot) {
+    protocol.sendSnapshot(snapshot);
+}

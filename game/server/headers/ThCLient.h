@@ -30,6 +30,8 @@ public:
     bool isDead();
     void stop();
 
+    void sendSnapshot(const std::vector<uint16_t> &snapshot);
+
     ThClient(const ThClient&) = delete;
     ThClient& operator=(const ThClient&) = delete;
 };
