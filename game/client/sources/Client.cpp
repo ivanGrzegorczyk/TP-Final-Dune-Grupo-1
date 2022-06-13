@@ -2,7 +2,7 @@
 #include "../headers/Game.h"
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"
-#include "../headers/InputEvent.h"
+#include "../headers/Request.h"
 #include "../headers/MoveQuery.h"
 
 using namespace SDL2pp;
@@ -30,14 +30,14 @@ void Client::run(char *file) {
 }
 
 void Client::ProcessInput() {
-    InputEvent *event = createEvent();
+    Request *event = createEvent();
     if(event) {
         sendQueue.push(event);
     }
     //sendQueue.push(event);
 }
 
-InputEvent* Client::createEvent() {
+Request* Client::createEvent() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -48,7 +48,7 @@ InputEvent* Client::createEvent() {
                 int xmouse, ymouse;
                 xmouse = event.button.x;
                 ymouse = event.button.y;
-                InputEvent *query =  mapUi.mouseEvent(xmouse, ymouse);
+                Request *query =  mapUi.mouseEvent(xmouse, ymouse);
                 return query;
             default:
                 break;
@@ -57,7 +57,7 @@ InputEvent* Client::createEvent() {
 }
 
 void Client::update() {
-    //InputEvent* event = this->recvQueue.pop(); //puntero
+    //Request* event = this->recvQueue.pop(); //puntero
     ///if(event) {
        // event.ejecutar(map);
     //}
@@ -67,14 +67,14 @@ void Client::update() {
 
 void Client::sendToServer() {
     while(running) {
-        InputEvent *event = this->sendQueue.pop();
+        Request *event = this->sendQueue.pop();
         event->send(this->protocol);
     }
 }
 
 void Client::receiveOfServer() {
     while(running) {
-        InputEvent *event;
+        Request *event;
         int id = protocol.commandReceive();
        // event = GetEventByid(id);
        // this->recvQueue.push(event);

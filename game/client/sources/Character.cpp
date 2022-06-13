@@ -70,7 +70,7 @@ void Character::highlight() {
     t.SetColorMod(255, 255, 0);
 }
 
-InputEvent* Character::reactToEvent(int x, int y) {
+Request* Character::reactToEvent(int x, int y) {
     if(mouseOverCharacter(x, y) && selected) {
         return walkEvent(x, y);
     } else if(mouseOverCharacter(x, y) && !selected) {
@@ -83,10 +83,10 @@ InputEvent* Character::reactToEvent(int x, int y) {
     return nullptr;
 }
 
-InputEvent *Character::walkEvent(int x, int y) {
+Request *Character::walkEvent(int x, int y) {
     selected = false;
     coordenada_t coord({x, y});
-    InputEvent* query = new MoveQuery(id, std::move(coord));
+    Request* query = new MoveQuery(id, std::move(coord));
     return query;
 }
 

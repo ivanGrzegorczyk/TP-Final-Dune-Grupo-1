@@ -1,9 +1,9 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_MOVEQUERY_H
 #define TP_FINAL_DUNE_GRUPO_1_MOVEQUERY_H
-#include "InputEvent.h"
+#include "Request.h"
 
 
-class MoveQuery : public InputEvent {
+class MoveQuery : public Request {
 private:
     int unityId;
     coordenada_t dest;

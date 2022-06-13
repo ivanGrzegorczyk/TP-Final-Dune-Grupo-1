@@ -2,9 +2,9 @@
 #define TP_FINAL_DUNE_GRUPO_1_CREATEBUILDING_H
 
 
-#include "../headers/InputEvent.h"
+#include "../headers/Request.h"
 
-class CreateBuilding : public InputEvent{
+class CreateBuilding : public Request{
 private:
     int idClient;
     int idBuilding;

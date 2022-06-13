@@ -75,7 +75,7 @@ void MapUi::render() {
     character.render();
 }
 
-InputEvent* MapUi::mouseEvent(int x, int y) {
+Request* MapUi::mouseEvent(int x, int y) {
     return character.reactToEvent(x, y);
 }
 

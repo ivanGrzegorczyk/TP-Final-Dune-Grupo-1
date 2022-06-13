@@ -11,7 +11,7 @@ private:
     MapUi mapUi;
     std::atomic<bool> running;
     Protocol protocol;
-    BlockingQueue<InputEvent*> sendQueue;
+    BlockingQueue<Request*> sendQueue;
     //ProtectedQueue<> recvQueue;
 
 
@@ -24,7 +24,7 @@ public:
 
     //Event GetEventByid(int i);
 
-    InputEvent* createEvent();
+    Request* createEvent();
 
     void ProcessInput();
 

@@ -1,7 +1,7 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #define TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #include "SDL2pp/SDL2pp.hh"
-#include "../headers/InputEvent.h"
+#include "../headers/Request.h"
 #include "../../common/headers/Unity.h"
 #include "../headers/MoveQuery.h"
 
@@ -16,7 +16,7 @@ private:
     bool selected;
     bool mouseOverCharacter(int x, int y) const;
     void normalColor();
-    InputEvent *walkEvent(int x, int y);
+    Request *walkEvent(int x, int y);
     void highlight();
     //bool isMoving;
     //int pos;
@@ -33,7 +33,7 @@ public:
     //void move(int x, int y);
     //void mouseEvent(int x, int y);
     bool isSelected() const;
-    InputEvent* reactToEvent(int x, int y);
+    Request* reactToEvent(int x, int y);
     //void searchPath(); //va a recibir las coordenadas que se clickeo
     std::pair<int, int> getCoordinates();
 };

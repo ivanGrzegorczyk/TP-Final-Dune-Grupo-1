@@ -33,7 +33,7 @@ public:
     MapUi(Renderer& renderer, char* terrain);
     ~MapUi();
     char* terrain;
-    InputEvent* mouseEvent(int x, int y);
+    Request* mouseEvent(int x, int y);
     void update();
     void render();
 
