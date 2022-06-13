@@ -14,12 +14,6 @@ private:
     std::condition_variable conditionVariable;
     std::atomic<bool> closed;
 
-    void stop() {
-        std::unique_lock<std::mutex> uniqueLock(mutex);
-        closed = true;
-        conditionVariable.notify_all();
-    }
-
 public:
     BlockingQueue() : closed(false) {}
 
@@ -40,6 +34,12 @@ public:
         data.pop();
 
         return t;
+    }
+
+    void stop() {
+        std::unique_lock<std::mutex> uniqueLock(mutex);
+        closed = true;
+        conditionVariable.notify_all();
     }
 
     BlockingQueue(const BlockingQueue&) = delete;
