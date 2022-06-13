@@ -3,7 +3,13 @@
 
 // CONSTANTES DESPUES VAN EN EL YAML
 
+//client
+#define UNIDAD_LIGERA 10
+
+//protocol
 #define SEARCH_PATH 1
+#define CREATE_BUILDING 2
+#define CREATE_UNITY 3
 
 #define GAME_LOOP_RATE 1.0 / 30.0
 
