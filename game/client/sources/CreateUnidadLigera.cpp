@@ -1,9 +1,9 @@
-#include "../headers/CreateUnity.h"
+#include "../headers/CreateUnidadLigera.h"
 
-void CreateUnity::send(Protocol &protocol) {
-    protocol.sendCreateUnity();
+void CreateUnidadLigera::send(Protocol &protocol) {
+    protocol.createUnidadLigera(this->unityId);
 }
 
-int CreateUnity::CreateUnity() {
-    return 0;
+CreateUnidadLigera::CreateUnidadLigera() : unityId(UNIDAD_LIGERA) {
+
 }

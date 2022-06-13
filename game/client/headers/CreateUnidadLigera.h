@@ -1,13 +1,15 @@
-#ifndef TP_FINAL_DUNE_GRUPO_1_CREATEUNITY_H
-#define TP_FINAL_DUNE_GRUPO_1_CREATEUNITY_H
+#ifndef TP_FINAL_DUNE_GRUPO_1_CREATEUNIDADLIGERA_H
+#define TP_FINAL_DUNE_GRUPO_1_CREATEUNIDADLIGERA_H
+#include "../../common/headers/Constantes.h"
 #include "Request.h"
 
-class CreateUnidad : public Request{
+class CreateUnidadLigera : public Request{
 private:
     int unityId;
 public:
-    
+    CreateUnidadLigera();
+    void send(Protocol &protocol) override;
 };
 
 
-#endif //TP_FINAL_DUNE_GRUPO_1_CREATEUNITY_H
+#endif //TP_FINAL_DUNE_GRUPO_1_CREATEUNIDADLIGERA_H
