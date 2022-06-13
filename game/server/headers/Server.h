@@ -26,6 +26,7 @@ private:
     std::atomic<bool> keep_accepting;
     std::atomic<bool> active_game;
     ClientsMonitor clients;
+    int nextPlayerId;
 
     void finish();
     void broadCast();

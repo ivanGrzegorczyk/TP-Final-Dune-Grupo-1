@@ -38,21 +38,9 @@ void ServerProtocol::getRelocationData
     goal.second = ntohs(goal_y);
 }
 
-void ServerProtocol::sendPath(const std::vector<uint16_t>& path) {
-    if (path.empty()) {
-        // TODO Definir caso en el que no hay camino posible
-        return;
-    } else {
-        uint8_t command = SEARCH_PATH;
-        socket.sendall(&command, sizeof(command));
-    }
+void ServerProtocol::assignPlayerId(int id) {
+    uint16_t playerId = id;
+    playerId = htons(playerId);
 
-    uint16_t length = path.size();
-    length = ntohs(length);
-    socket.sendall(&length, sizeof(length));
-    for (uint16_t coord : path) {
-        uint16_t aux;
-        aux = htons(coord);
-        socket.sendall(&aux, sizeof(aux));
-    }
+    socket.sendall(&playerId, sizeof(playerId));
 }

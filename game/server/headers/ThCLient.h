@@ -6,6 +6,7 @@
 #include "../../common/headers/Thread.h"
 #include "../../common/headers/ProtectedQueue.h"
 
+class ServerEvent;
 #include "ServerEvent.h"
 
 class ThClient: public Thread {
@@ -14,6 +15,7 @@ private:
     std::atomic<bool> is_running;
     ServerProtocol protocol;
     ProtectedQueue<ServerEvent *> &protectedQueue;
+    int playerId;
 
     void repositionUnity();
     void manageCommand(int command);
@@ -22,7 +24,7 @@ protected:
     void run() override;
 
 public:
-    ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue);
+    ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id);
 
     bool isDead();
     void stop();

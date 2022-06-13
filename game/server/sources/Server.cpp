@@ -3,10 +3,9 @@
 #include <thread>
 #include "../headers/Server.h"
 #include "../../common/headers/Constantes.h"
-#include "../headers/ThCLient.h"
 
 Server::Server(const std::string &host, int rows, int columns) :
-    map(rows, columns), protocol(host), keep_accepting(true), active_game(true) {}
+    map(rows, columns), protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {}
 
 void Server::run() {
     std::thread acceptingThread(&Server::acceptClients, this);
@@ -52,23 +51,14 @@ void Server::finish() {
     keep_accepting = false;
 }
 
-void Server::broadCast() {
-    while (active_game) {
-        if (blockingQueue.pop()) {
-            if (!active_game)
-                return;  // TODO Salida temporal
-            clients.broadCast();  // Actualizo a todos los clientes
-        }
-    }
-}
-
 void Server::acceptClients() {
     try {
         while (keep_accepting) {
             Socket peer = protocol.accept();
-            auto *client = new ThClient(std::move(peer), protectedQueue);
+            auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId);
             client->start();
             clients.push(client);
+            nextPlayerId++;
         }
     } catch(const std::exception &e) {
         // TODO Manejar excepcion
@@ -87,4 +77,12 @@ void Server::repositionUnity(int id, coordenada_t goal) {
     blockingQueue.push(updateClient);
 }
 
-
+void Server::broadCast() {
+    while (active_game) {
+        if (blockingQueue.pop()) {
+            if (!active_game)
+                return;  // TODO Salida temporal
+            clients.broadCast();  // Actualizo a todos los clientes
+        }
+    }
+}

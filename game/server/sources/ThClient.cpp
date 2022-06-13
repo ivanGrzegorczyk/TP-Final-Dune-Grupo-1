@@ -5,11 +5,12 @@
 #include "../headers/RepositionEvent.h"
 #include "../../common/headers/Constantes.h"
 
-ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue):
+ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id):
         protectedQueue(protectedQueue), keep_talking(true), is_running(true),
-        protocol(std::move(peer)) {}
+        protocol(std::move(peer)), playerId(id) {}
 
 void ThClient::run() {
+    protocol.assignPlayerId(playerId);
     while (keep_talking) {
         int command = protocol.commandReceive();
         manageCommand(command);

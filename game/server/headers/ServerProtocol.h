@@ -37,13 +37,7 @@ public:
      */
     void getRelocationData(uint16_t &id, coordenada_t &goal);
 
-    /**
-     * @brief Send the shortest path a unit hasta to take in order
-     * to move to nother location.
-     *
-     * @param path
-     */
-    void sendPath(const std::vector<uint16_t>& path);
+    void assignPlayerId(int id);
 };
 
 #endif  // SERVERPROTOCOL_H_
