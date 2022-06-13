@@ -7,6 +7,7 @@
 
 class Client {
 private:
+    int clientId;
     MapUi mapUi;
     std::atomic<bool> running;
     Protocol protocol;

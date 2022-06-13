@@ -1,7 +1,18 @@
 #include <stack>
 #include "../headers/Protocol.h"
 
-Protocol::Protocol(const char* hostname, const char* servicename) : skt(hostname, servicename){
+Protocol::Protocol(const char* hostname, const char* servicename) : id(-1), skt(hostname, servicename){
+    receiveId();
+}
+
+void Protocol::receiveId() {
+    uint16_t idProtocol;
+    skt.recvall(&idProtocol, sizeof(idProtocol));
+    this->id = ntohs(idProtocol);
+}
+
+int Protocol::getId() const {
+    return this->id;
 }
 
 int Protocol::commandReceive() {

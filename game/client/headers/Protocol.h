@@ -13,6 +13,7 @@ typedef std::pair<int, int> coordenada_t;
 
 class Protocol {
 private:
+    int id;
     Socket skt;
 
 public:
@@ -20,6 +21,10 @@ public:
     int commandReceive();
     void moveQuery(int idunity ,coordenada_t dest);
     void createBuilding(int clientId, int buildingId, coordenada_t coord);
+
+    void receiveId();
+
+    int getId() const;
 };
 
 

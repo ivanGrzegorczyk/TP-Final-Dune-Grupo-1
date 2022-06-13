@@ -7,8 +7,8 @@
 
 using namespace SDL2pp;
 
-Client::Client(const char* hostname, const char* servicename) : protocol(hostname, servicename) {
-
+Client::Client(const char* hostname, const char* servicename) : clientId(-1) ,protocol(hostname, servicename) {
+    this->clientId = protocol.getId();
 }
 
 void Client::run(char *file) {
