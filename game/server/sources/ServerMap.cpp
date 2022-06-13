@@ -31,8 +31,22 @@ bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
 }
 
 void ServerMap::spawnUnit(int playerId, int unit) {
-    int unityId = units.size() + 1; // TODO Que pasa si se elimina alguna unidad? Que id correspondería?
+    int unitId = units.at(playerId).size() + 1; // TODO Que pasa si se elimina alguna unidad? Que id correspondería?
     if (unit == LIGHT_INFANTRY)
         units.at(playerId).insert(std::pair<int, Units *> (
-                unityId, new LightInfantry(unityId, coordenada_t{1, 1})));
+                unitId, new LightInfantry(unitId, coordenada_t{playerId, playerId}))); // TODO Las coordenadas estan asi temporalmente
+}
+
+void ServerMap::addUnitData(std::vector<uint16_t> &vec) {
+    for (auto const& [player, unitsMap] : units) {
+        uint16_t playerId = player;
+        vec.push_back(playerId);
+        for (auto const& [unitId, unit] : unitsMap) {
+            vec.push_back(uint16_t {10});  // TODO Cuando se agreguen más unidades hay que cambiar esta linea
+            vec.push_back((uint16_t) unitId);
+            coordenada_t position = unit->getPosition();
+            vec.push_back((uint16_t) position.first);
+            vec.push_back((uint16_t) position.second);
+        }
+    }
 }

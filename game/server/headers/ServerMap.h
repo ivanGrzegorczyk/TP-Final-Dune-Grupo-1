@@ -22,6 +22,8 @@ public:
     bool reposition(int playerId, int id, coordenada_t goal);
 
     void spawnUnit(int playerId, int unit);
+
+    void addUnitData(std::vector<uint16_t> &vec);
 };
 
 #endif  // SERVERMAP_H_

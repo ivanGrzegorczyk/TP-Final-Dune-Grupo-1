@@ -74,19 +74,27 @@ void Server::manageEvents() {
 void Server::broadCast() {
     while (active_game) {
         if (blockingQueue.pop()) {
-            if (!active_game)
+            if (!active_game) {
                 return;  // TODO Salida temporal
-            clients.broadCast();  // Actualizo a todos los clientes
+            }
+            std::vector<uint16_t> snapshot = createSnapshot();
+            clients.broadCast(snapshot);  // Actualizo a todos los clientes
         }
     }
 }
 
-void Server::repositionUnity(int playerId, int unitId, coordenada_t goal) {
+void Server::repositionUnit(int playerId, int unitId, coordenada_t goal) {
     bool updateClient;
     updateClient = map.reposition(playerId, unitId, goal);
     blockingQueue.push(updateClient);
 }
 
-void Server::spawnUnit(int playerId, int unity) {
-    map.spawnUnit(playerId, unity);
+void Server::spawnUnit(int playerId, int unit) {
+    map.spawnUnit(playerId, unit);
+}
+
+std::vector<uint16_t> Server::createSnapshot() {
+    std::vector<uint16_t> snapshot;
+    map.addUnitData(snapshot);
+    return snapshot;
 }

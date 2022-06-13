@@ -40,11 +40,13 @@ public:
     // Gameloop
     void run();
 
-    void repositionUnity(int playerId, int unitId, coordenada_t goal);
+    void repositionUnit(int playerId, int unitId, coordenada_t goal);
 
     static duration simDeltaTime(chrono &t1, chrono &t2);
 
-    void spawnUnit(int playerId, int unity);
+    void spawnUnit(int playerId, int unit);
+
+    std::vector<uint16_t> createSnapshot();
 };
 
 #endif  // SERVER_H_

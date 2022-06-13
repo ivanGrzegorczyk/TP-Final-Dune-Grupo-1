@@ -17,7 +17,7 @@ public:
     ~ClientsMonitor();
 
     void push(ThClient *client);
-    void broadCast();
+    void broadCast(const std::vector<uint16_t> &snapshot);
 };
 
 #endif  // CLIENTSMONITOR_H_
