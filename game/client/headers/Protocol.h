@@ -4,10 +4,9 @@
 #include <netinet/in.h>
 #include <utility>
 #include <vector>
+#include "../../common/headers/Constantes.h"
 #include "../../common/headers/Socket.h"
 
-#define SEARCH_PATH 1
-#define CREATE_BUILDING 2
 
 typedef std::pair<int, int> coordenada_t;
 
@@ -25,6 +24,8 @@ public:
     void receiveId();
 
     int getId() const;
+
+    void createUnidadLigera(int id);
 };
 
 
