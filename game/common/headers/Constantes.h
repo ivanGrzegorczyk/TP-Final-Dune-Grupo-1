@@ -9,9 +9,9 @@
 //protocol
 #define REPOSITION_EVENT 1
 #define CREATE_BUILDING_EVENT 2
-#define CREATE_UNITY_EVENT 3
+#define CREATE_UNIT_EVENT 3
 
-//unities
+//units
 #define LIGHT_INFANTRY_RANGE 3
 #define LIGHT_INFANTRY_SPEED 16
 #define LIGHT_INFANTRY_HP 50

@@ -71,12 +71,6 @@ void Server::manageEvents() {
         event->performEvent(this);
 }
 
-void Server::repositionUnity(int id, coordenada_t goal) {
-    bool updateClient;
-    updateClient = map.reposition(id, goal);
-    blockingQueue.push(updateClient);
-}
-
 void Server::broadCast() {
     while (active_game) {
         if (blockingQueue.pop()) {
@@ -85,4 +79,14 @@ void Server::broadCast() {
             clients.broadCast();  // Actualizo a todos los clientes
         }
     }
+}
+
+void Server::repositionUnity(int playerId, int unitId, coordenada_t goal) {
+    bool updateClient;
+    updateClient = map.reposition(playerId, unitId, goal);
+    blockingQueue.push(updateClient);
+}
+
+void Server::spawnUnit(int playerId, int unity) {
+    map.spawnUnit(playerId, unity);
 }

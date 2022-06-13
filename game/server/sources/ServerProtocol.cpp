@@ -38,6 +38,10 @@ void ServerProtocol::getRelocationData
     goal.second = ntohs(goal_y);
 }
 
+void ServerProtocol::getUnitData(uint8_t &unity) {
+    socket.recvall(&unity, sizeof(unity));
+}
+
 void ServerProtocol::assignPlayerId(int id) {
     uint16_t playerId = id;
     playerId = htons(playerId);

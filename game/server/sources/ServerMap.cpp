@@ -1,4 +1,6 @@
 #include "../headers/ServerMap.h"
+#include "../../common/headers/Constantes.h"
+#include "../../common/headers/LightInfantry.h"
 
 ServerMap::ServerMap(int rows, int columns) :
 map(rows, std::vector<ServerCell>(columns)) {
@@ -15,15 +17,22 @@ std::stack<coordenada_t> ServerMap::A_star(
     return navigator.A_star(start, end);
 }
 
-bool ServerMap::reposition(int id, coordenada_t goal) {
+bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
     try {
-        if (unities.at(id)->getPosition() == goal)
+        if (units.at(playerId).at(unitId)->getPosition() == goal)
             return false;
 
-        unities.at(id)->setPath(
-                A_star(unities.at(id)->getPosition(), goal));
+        units.at(playerId).at(unitId)->setPath(
+                A_star(units.at(playerId).at(unitId)->getPosition(), goal));
         return true;  // TODO Revisar caso en el que no hay un camino posible
     } catch(const std::out_of_range &e) {
         return false;
     }
+}
+
+void ServerMap::spawnUnit(int playerId, int unit) {
+    int unityId = units.size() + 1; // TODO Que pasa si se elimina alguna unidad? Que id correspondería?
+    if (unit == LIGHT_INFANTRY)
+        units.at(playerId).insert(std::pair<int, Units *> (
+                unityId, new LightInfantry(unityId, coordenada_t{1, 1})));
 }

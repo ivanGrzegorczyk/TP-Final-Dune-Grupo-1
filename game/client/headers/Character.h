@@ -2,13 +2,13 @@
 #define TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Request.h"
-#include "../../common/headers/Unity.h"
+#include "../../common/headers/Units.h"
 #include "../headers/MoveQuery.h"
 
 
 using namespace SDL2pp;
 
-class Character : public Unity {
+class Character : public Units {
 private:
     SDL2pp::Texture t;    //std::vector<std::pair<int, int>> path;
     Renderer& rnd;

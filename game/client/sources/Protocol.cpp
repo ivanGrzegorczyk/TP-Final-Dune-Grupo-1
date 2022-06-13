@@ -49,7 +49,7 @@ void Protocol::createBuilding(int clientId, int buildingId, coordenada_t coord) 
 }
 
 void Protocol::createUnidadLigera(int id) {
-    uint8_t command = CREATE_UNITY_EVENT;
+    uint8_t command = CREATE_UNIT_EVENT;
     uint8_t unityId = id;
     skt.sendall(&command, sizeof(command));
     skt.sendall((&unityId), sizeof(unityId));

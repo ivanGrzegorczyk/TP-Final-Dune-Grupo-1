@@ -40,9 +40,11 @@ public:
     // Gameloop
     void run();
 
-    void repositionUnity(int id, coordenada_t goal);
+    void repositionUnity(int playerId, int unitId, coordenada_t goal);
 
     static duration simDeltaTime(chrono &t1, chrono &t2);
+
+    void spawnUnit(int playerId, int unity);
 };
 
 #endif  // SERVER_H_

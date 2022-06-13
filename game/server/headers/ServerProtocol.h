@@ -38,6 +38,8 @@ public:
     void getRelocationData(uint16_t &id, coordenada_t &goal);
 
     void assignPlayerId(int id);
+
+    void getUnitData(uint8_t &unity);
 };
 
 #endif  // SERVERPROTOCOL_H_

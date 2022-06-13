@@ -17,8 +17,9 @@ private:
     ProtectedQueue<ServerEvent *> &protectedQueue;
     int playerId;
 
-    void repositionUnity();
     void manageCommand(int command);
+    void repositionUnit();
+    void spawnUnit();
 
 protected:
     void run() override;

@@ -4,6 +4,7 @@
 #include "../headers/ThCLient.h"
 #include "../headers/RepositionEvent.h"
 #include "../../common/headers/Constantes.h"
+#include "../headers/SpawnUnitEvent.h"
 
 ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id):
         protectedQueue(protectedQueue), keep_talking(true), is_running(true),
@@ -19,14 +20,6 @@ void ThClient::run() {
     is_running = false;
 }
 
-void ThClient::repositionUnity() {
-    uint16_t id;
-    coordenada_t goal;
-    protocol.getRelocationData(id, goal);
-    ServerEvent *event = new RepositionEvent(id, goal);
-    protectedQueue.push(event);
-}
-
 void ThClient::stop() {
     keep_talking = false;
     protocol.shutdown(SHUT_RDWR);
@@ -39,11 +32,29 @@ bool ThClient::isDead() {
 void ThClient::manageCommand(int command) {
     switch (command) {
         case REPOSITION_EVENT: {
-            repositionUnity();
+            repositionUnit();
             break;
+        }
+        case CREATE_UNIT_EVENT: {
+            spawnUnit();
         }
         default: {
             throw std::runtime_error("Unknown command");
         }
     }
+}
+
+void ThClient::repositionUnit() {
+    uint16_t unitId;
+    coordenada_t goal;
+    protocol.getRelocationData(unitId, goal);
+    ServerEvent *event = new RepositionEvent(playerId, unitId, goal);
+    protectedQueue.push(event);
+}
+
+void ThClient::spawnUnit() {
+    uint8_t unit;
+    protocol.getUnitData(unit);
+    ServerEvent *event = new SpawnUnitEvent(playerId, unit);
+    protectedQueue.push(event);
 }
