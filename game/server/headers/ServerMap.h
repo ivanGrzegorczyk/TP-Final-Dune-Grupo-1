@@ -27,7 +27,7 @@ public:
 
     void updateUnitPositions();
 
-    void createBuilding(int playerId, int buildingType, coordenada_t coords);
+    void createBuilding(int playerId, int buildingType, const std::vector<coordenada_t>& coords);
 };
 
 #endif  // SERVERMAP_H_

@@ -38,10 +38,12 @@ void ServerMap::spawnUnit(int playerId, int unit) {
                 unitId, new LightInfantry(unitId, coordenada_t{playerId, playerId}))); // TODO Las coordenadas estan asi temporalmente
 }
 
-void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t coords) {
+void ServerMap::createBuilding(int playerId, int buildingType, const std::vector<coordenada_t>& coords) {
     int buildingId = buildings.at(playerId).size() + 1;
 
-    if (buildingType == BUILDING_BARRACKS)
+    if (buildingType == BUILDING_BARRACKS) {
+
+    }
 }
 
 void ServerMap::addUnitData(std::vector<uint16_t> &vec) {

@@ -48,7 +48,7 @@ public:
 
     std::vector<uint16_t> createSnapshot();
 
-    void createBuilding(int playerId, int buildingType, coordenada_t coords);
+    void createBuilding(int playerId, int buildingType, const std::vector<coordenada_t>& coords);
 };
 
 #endif  // SERVER_H_

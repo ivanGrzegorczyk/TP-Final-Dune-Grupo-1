@@ -107,6 +107,6 @@ std::vector<uint16_t> Server::createSnapshot() {
     return snapshot;
 }
 
-void Server::createBuilding(int playerId, int buildingType, coordenada_t coords) {
+void Server::createBuilding(int playerId, int buildingType, const std::vector<coordenada_t>& coords) {
     map.createBuilding(playerId, buildingType, coords);
 }

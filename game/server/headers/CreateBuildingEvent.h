@@ -6,9 +6,9 @@
 class CreateBuildingEvent : public ServerEvent {
 public:
     int buildingType;
-    coordenada_t coords;
+    std::vector<coordenada_t> coords;
 
-    CreateBuildingEvent(int playerId, int buildingType, coordenada_t coords);
+    CreateBuildingEvent(int playerId, int buildingType, std::vector<coordenada_t> coords);
 
     void performEvent(Server *server) override;
 };
