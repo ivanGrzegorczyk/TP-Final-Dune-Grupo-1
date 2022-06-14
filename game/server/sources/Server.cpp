@@ -56,6 +56,7 @@ void Server::acceptClients() {
     try {
         while (keep_accepting) {
             Socket peer = protocol.accept();
+            std::cout << "Acepta un cliente" << std::endl;
             auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId);
             client->start();
             clients.push(client);
@@ -63,6 +64,7 @@ void Server::acceptClients() {
         }
     } catch(const std::exception &e) {
         // TODO Manejar excepcion
+        std::cout << "Catchea en el acceptClients y sale" << std::endl;
         return;
     }
 }
