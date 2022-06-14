@@ -19,12 +19,12 @@ std::stack<coordenada_t> ServerMap::A_star(
 
 bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal, int &updates) {
     try {
-        if (units.at(playerId).at(unitId)->getPosition() == goal)
+        if (units[playerId].at(unitId)->getPosition() == goal)
             return false;
         std::stack<coordenada_t> path = A_star(
                 units.at(playerId).at(unitId)->getPosition(), goal);
         updates = path.size();
-        units.at(playerId).at(unitId)->setPath(path);
+        units[playerId].at(unitId)->setPath(path);
         return true;  // TODO Revisar caso en el que no hay un camino posible
     } catch(const std::out_of_range &e) {
         return false;
@@ -32,7 +32,7 @@ bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal, int &upd
 }
 
 void ServerMap::spawnUnit(int playerId, int unit) {
-    int unitId = units.at(playerId).size() + 1; // TODO Que pasa si se elimina alguna unidad? Que id correspondería?
+    int unitId = units[playerId].size() + 1; // TODO Que pasa si se elimina alguna unidad? Que id correspondería?
     if (unit == UNIT_LIGHT_INFANTRY)
         units.at(playerId).insert(std::pair<int, Units *> (
                 unitId, new LightInfantry(unitId, coordenada_t{playerId, playerId}))); // TODO Las coordenadas estan asi temporalmente
