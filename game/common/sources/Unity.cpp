@@ -20,3 +20,7 @@ void Units::relocate() {
     coord = path.top();
     path.pop();
 }
+
+void Units::setPosition(coordenada_t newPosition) {
+    this->coord = newPosition;
+}
