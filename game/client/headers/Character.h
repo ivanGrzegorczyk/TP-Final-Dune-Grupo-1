@@ -28,7 +28,7 @@ private:
 public:
     explicit Character(SDL2pp::Renderer &renderer);
     void render();
-    void update();
+    void update(MapUi *map);
     void move(std::vector<coordenada_t> &path);
     //void move(int x, int y);
     //void mouseEvent(int x, int y);

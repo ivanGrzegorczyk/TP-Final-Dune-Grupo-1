@@ -31,7 +31,7 @@ private:
     Rect sand;
     Rect specie;
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings;
-    std::map<int, std::map<int, std::shared_ptr<Units>>> units;
+    std::map<int, std::map<int, std::shared_ptr<Character*>>> units;
     std::vector<std::vector<CeldaUi>> map;
 
 public:

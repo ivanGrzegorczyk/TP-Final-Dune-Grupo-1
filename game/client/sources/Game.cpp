@@ -2,8 +2,8 @@
 
 void Game::sendInputToServer(int x, int y) {
     std::pair<coordenada_t, coordenada_t> ubication;
-    bool walk = map.mouseEvent(x, y, ubication);
-    if(walk) {
+    //bool walk = map.mouseEvent(x, y, ubication);
+   // if(walk) {
         std::cout << "ready to walk" << std::endl;
         //this->protocol.sendLocation(ubication);
         //std::vector<coordenada_t> path = this->protocol.receivePath();

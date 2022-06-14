@@ -8,23 +8,24 @@
 
 using namespace SDL2pp;
 
-Client::Client(const char* hostname, const char* servicename) : clientId(-1) ,protocol(hostname, servicename) {
+Client::Client(const char* hostname, const char* servicename, Renderer &rnd, char* file) : mapUi(rnd, file),
+                                                                                            clientId(-1), protocol(hostname, servicename), running(true) {
     this->clientId = protocol.getId();
 }
 
-void Client::run(char *file) {
+void Client::run() {
     std::thread threadReceive(&Client::receiveOfServer, this);
     std::thread threadSend(&Client::sendToServer, this);
 
-    SDL sdl(SDL_INIT_VIDEO);
-    Window window("Client", SDL_WINDOWPOS_UNDEFINED,
-            SDL_WINDOWPOS_UNDEFINED,640, 480, SDL_WINDOW_RESIZABLE);
-    Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
 
+    auto t1 = std::chrono::system_clock::now();
     while(running) {
         ProcessInput(); //pop y mandarlo al mapa
         update();
         renderer();
+        auto t2 = std::chrono::system_clock::now();
+        auto delta = simDeltaTime(t1, t2);
+        sleep(t1, t2, delta);
     }
     threadReceive.join();
     threadSend.join();

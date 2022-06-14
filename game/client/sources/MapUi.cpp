@@ -16,10 +16,8 @@ MapUi::MapUi(Renderer &renderer, char *terrain) : character(renderer),terrain(te
 }
 void MapUi::update(Response *response) {
     response->update(this->units);
-    character.update();
-
+    character.update(this);
 }
-
 
 MapUi::~MapUi() {
 

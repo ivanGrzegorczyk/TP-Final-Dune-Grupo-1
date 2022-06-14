@@ -1,59 +1,60 @@
 #include "../headers/Character.h"
 #include "../headers/MoveQuery.h"
+#include "../headers/MapUi.h"
 
 std::pair<int, int> Character::getCoordinates() {
-    return std::make_pair(pos_X, pos_Y);
+    //return std::make_pair(pos_X, pos_Y);
 }
 
 void Character::render() {
     //current.SetX(pos)
-    current.SetX(pos_X * 8);
-    current.SetY(pos_Y * 8);
-    current.SetW(24);
-    current.SetH(32);
+   // current.SetX(pos_X * 8);
+    //current.SetY(pos_Y * 8);
+    //current.SetW(24);
+    //current.SetH(32);
     rnd.Copy(t, Rect(0, 0, 13,16), current);
 }
 
-void Character::update() {
+void Character::update(MapUi *map) {
     int x;
     int y;
-    if(pos < path.size()) {
-        std::pair<int, int> cell = path[pos];
-        x = cell.first;
-        y = cell.second;
+    //if(pos < path.size()) {
+       // std::pair<int, int> cell = path[pos];
+        //x = cell.first;
+        //y = cell.second;
         //if (isMoving) {
             current.SetX(x);
             current.SetY(y);
-            pos_X = x;
-            pos_Y = y;
-            pos++;
+            //pos_X = x;
+            //pos_Y = y;
+            //pos++;
         //}
-    } else {
-        path.clear();
-        pos = 0;
+    } //else {
+       // path.clear();
+        //pos = 0;
     }
 }
 
-Character::Character(SDL2pp::Renderer &renderer) : rnd(renderer), selected(false), isMoving(false),pos(0) ,desY(0), desX(0),pos_X(20),pos_Y(5),
+Character::Character(SDL2pp::Renderer &renderer) : rnd(renderer), selected(false),
                                                     t(Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp")
                                                     .SetColorKey(true, 0))) {
 }
 
-void Character::move(std::vector<coordenada_t> &pathDes) { // recibo coordenadas del servidor
-    /*coordenada_t currentPos {pos_X, pos_Y};
-    coordenada_t destPos {desX, desY};*/
+/*void Character::move(std::vector<coordenada_t> &pathDes) {
+    *//*coordenada_t currentPos {pos_X, pos_Y};
+    coordenada_t destPos {desX, desY};*//*
     //protocol->caminar(currentPos, destPos);
-   /* path.push_back(std::make_pair(0, 1));
+   *//* path.push_back(std::make_pair(0, 1));
     path.push_back(std::make_pair(0, 2));
     path.push_back(std::make_pair(0, 3));
     path.push_back(std::make_pair(0, 4));
     path.push_back(std::make_pair(0, 5));
     path.push_back(std::make_pair(0, 6));
     path.push_back(std::make_pair(0, 7));
-    path.push_back(std::make_pair(1, 7));*/
+    path.push_back(std::make_pair(1, 7));*//*
     //path.push_back(std::make_pair(x, y));
 
-}
+}*/
 /*void Character::changeColor() {
     if(selected) {
         t.SetColorMod(255, 0, 0);
