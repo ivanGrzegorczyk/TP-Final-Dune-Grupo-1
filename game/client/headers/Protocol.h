@@ -6,6 +6,7 @@
 #include <vector>
 #include "../../common/headers/Constantes.h"
 #include "../../common/headers/Socket.h"
+#include "Response.h"
 
 
 typedef std::pair<int, int> coordenada_t;
@@ -26,6 +27,8 @@ public:
     int getId() const;
 
     void createUnidadLigera(int id);
+
+    Response *recvResponse();
 };
 
 

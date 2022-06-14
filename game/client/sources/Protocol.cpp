@@ -55,3 +55,33 @@ void Protocol::createUnidadLigera(int id) {
     skt.sendall((&unityId), sizeof(unityId));
 }
 
+Response* Protocol::recvResponse() {
+    //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings;
+    //std::map<int, std::pair<int, coordenada_t>> units;
+    int i = 0;
+    uint16_t lengthResponse;
+    skt.recvall(&lengthResponse, sizeof(lengthResponse));
+    lengthResponse = ntohs(lengthResponse);
+    auto* response = new Response();
+    //uint16_t bytesPlayer;
+
+    //uint16_t chunk;
+    uint16_t idPlayer;
+    uint16_t action;
+    uint16_t characterId;
+    uint16_t posX;
+    uint16_t posY;
+    while(i < lengthResponse) {
+        skt.recvall(&idPlayer, sizeof(idPlayer));
+        skt.recvall(&action, sizeof(action));
+        skt.recvall(&characterId, sizeof(characterId));
+        skt.recvall(&posX, sizeof(posX));
+        skt.recvall(&posY, sizeof(posY));
+        coordenada_t coord = {ntohs(posX), ntohs(posY)};
+        response->add(idPlayer, characterId, coord);
+        i += 5;
+        //response->addResponseChunk(ntohs(chunk));
+    }
+    return response;
+}
+
