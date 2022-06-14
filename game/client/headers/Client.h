@@ -11,8 +11,8 @@ private:
     MapUi mapUi;
     std::atomic<bool> running;
     Protocol protocol;
-    BlockingQueue<Request*> sendQueue;
-    //ProtectedQueue<> recvQueue;
+    BlockingQueue<Request *> sendQueue;
+    ProtectedQueue<Response *> recvQueue;
 
 
 public:

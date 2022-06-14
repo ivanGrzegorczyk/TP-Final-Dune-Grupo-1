@@ -4,6 +4,7 @@
 #include "../headers/Client.h"
 #include "../headers/Request.h"
 #include "../headers/MoveQuery.h"
+#include "../headers/Response.h"
 
 using namespace SDL2pp;
 
@@ -34,7 +35,6 @@ void Client::ProcessInput() {
     if(event) {
         sendQueue.push(event);
     }
-    //sendQueue.push(event);
 }
 
 Request* Client::createEvent() {
@@ -46,10 +46,11 @@ Request* Client::createEvent() {
                 break;
             case SDL_MOUSEBUTTONUP:
                 int xmouse, ymouse;
+                Request* request;
                 xmouse = event.button.x;
                 ymouse = event.button.y;
-                Request *query =  mapUi.mouseEvent(xmouse, ymouse);
-                return query;
+                request =  mapUi.mouseEvent(xmouse, ymouse);
+                return request;
             default:
                 break;
         }
@@ -57,13 +58,9 @@ Request* Client::createEvent() {
 }
 
 void Client::update() {
-    //Request* event = this->recvQueue.pop(); //puntero
-    ///if(event) {
-       // event.ejecutar(map);
-    //}
+    Response* response = this->recvQueue.pop();
+    this->mapUi.update(response);
 }
-
-
 
 void Client::sendToServer() {
     while(running) {
@@ -74,10 +71,8 @@ void Client::sendToServer() {
 
 void Client::receiveOfServer() {
     while(running) {
-        Request *event;
-        int id = protocol.commandReceive();
-       // event = GetEventByid(id);
-       // this->recvQueue.push(event);
+        Response *response = protocol.recvResponse();
+        this->recvQueue.push(response);
     }
 }
 
