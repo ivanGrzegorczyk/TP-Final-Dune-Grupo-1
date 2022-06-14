@@ -106,3 +106,7 @@ std::vector<uint16_t> Server::createSnapshot() {
     snapshot.insert(snapshot.begin(), size);
     return snapshot;
 }
+
+void Server::createBuilding(int playerId, int buildingType, coordenada_t coords) {
+    map.createBuilding(playerId, buildingType, coords);
+}
