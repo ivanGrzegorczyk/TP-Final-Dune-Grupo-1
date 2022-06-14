@@ -4,7 +4,6 @@
 #include <SDL_image.h>
 
 #include <SDL2pp/SDL2pp.hh>
-#include <fstream>
 #include "ui_mainwindow.h"
 #include "../../headers/editor/mainwindow.h"
 #include <QApplication>
@@ -33,8 +32,6 @@ int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
     MainWindow w(std::move(m));
     w.show();
-    int return_val = a.exec();    
-    std::ofstream my_file("data.yaml");
-    my_file << m.to_yaml();
+    int return_val = a.exec(); 
     return return_val;
 }

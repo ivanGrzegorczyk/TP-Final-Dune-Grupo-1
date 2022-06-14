@@ -19,9 +19,7 @@ public:
     std::shared_ptr<std::string> active_texture; //todo make readonly with method
 
 private slots:
-	// Método polimorfico definido por QWidget. Por default no hace nada
-	// pero yo quiero procesar eventos del teclado para mover a mi personaje
-    void keyPressEvent(QKeyEvent *event) override;
+    //void keyPressEvent(QKeyEvent *event) override;
 
 private:
     std::vector<std::shared_ptr<Cell>> cells;

@@ -1,5 +1,6 @@
 #include "../../headers/editor/gamescene.h"
 #include <iostream>
+#include <fstream>
 GameScene::GameScene(MapaEditor&& map) : map(map)
 {
     this->active_texture.reset(new std::string("rock"));
@@ -15,8 +16,7 @@ GameScene::GameScene(MapaEditor&& map) : map(map)
 
 void GameScene::set_active_texture(std::string& texture) {
     this->active_texture->assign("mountain");
+    std::ofstream my_file("data.yaml");
+    my_file << map.to_yaml();
 }
 
-void GameScene::keyPressEvent(QKeyEvent *event)
-{
-}

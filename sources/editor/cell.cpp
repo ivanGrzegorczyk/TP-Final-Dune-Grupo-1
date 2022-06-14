@@ -1,5 +1,6 @@
 #include "../../headers/editor/cell.h"
 #include <iostream>
+#include <fstream>
 #include <qpainter.h>
 #include <QBitmap>
 #include <QGraphicsSceneMouseEvent>
@@ -37,6 +38,8 @@ void Cell::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)  {
     Paints using the current texture the user is painting with.
 */
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    std::ofstream my_file("data.yaml");
+    my_file << map.to_yaml();
     place_tile(*current_brush);
 }
 

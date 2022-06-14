@@ -73,15 +73,16 @@ class MapaEditor {
                         << YAML::Key << "terrain"
                         << YAML::Value <<  cell({i,j}).terreno
                         << YAML::Key << "buildings"
-                        << YAML::BeginSeq
+                        << YAML::BeginSeq;
                         // building is always defined at its rightmost position
-                            << YAML::BeginMap
+                        if(i == 1 && j == 1)
+                            out << YAML::BeginMap
                                 << YAML::Key << "name"
                                 << YAML::Value << "Construction Center"
                                 << YAML::Key << "size"
                                 << YAML::Value << YAML::BeginSeq << "2" << "2" << YAML::EndSeq //TODO Implemet buildings
-                            << YAML::EndMap
-                        << YAML::EndSeq
+                                << YAML::EndMap;
+                        out << YAML::EndSeq
                         << YAML::Key << "pos"
                         << YAML::Value 
                         << YAML::BeginSeq

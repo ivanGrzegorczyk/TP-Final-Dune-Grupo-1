@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/Server.dir/Server_autogen/mocs_compilation.cpp.o CMakeFiles/Server.dir/sources/Navigator.cpp.o CMakeFiles/Server.dir/sources/Node.cpp.o CMakeFiles/Server.dir/sources/ServerCell.cpp.o CMakeFiles/Server.dir/sources/ServerMap.cpp.o CMakeFiles/Server.dir/sources/server_main.cpp.o -o Server 
