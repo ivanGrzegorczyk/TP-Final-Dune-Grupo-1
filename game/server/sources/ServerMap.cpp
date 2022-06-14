@@ -33,7 +33,7 @@ bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal, int &upd
 
 void ServerMap::spawnUnit(int playerId, int unit) {
     int unitId = units.at(playerId).size() + 1; // TODO Que pasa si se elimina alguna unidad? Que id correspondería?
-    if (unit == LIGHT_INFANTRY)
+    if (unit == UNIT_LIGHT_INFANTRY)
         units.at(playerId).insert(std::pair<int, Units *> (
                 unitId, new LightInfantry(unitId, coordenada_t{playerId, playerId}))); // TODO Las coordenadas estan asi temporalmente
 }
