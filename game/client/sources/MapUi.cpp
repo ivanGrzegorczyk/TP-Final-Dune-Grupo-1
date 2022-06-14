@@ -14,8 +14,10 @@ MapUi::MapUi(Renderer &renderer, char *terrain) : character(renderer),terrain(te
     map.resize(50, std::vector<CeldaUi>(160));
     draw();
 }
-void MapUi::update() {
+void MapUi::update(Response *response) {
+    response->update(this->units);
     character.update();
+
 }
 
 

@@ -4,9 +4,12 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <map>
+#include <memory>
 
 #include "../headers/CeldaUi.h"
 #include "../headers/Character.h"
+#include "../../common/headers/Building.h"
 
 #define WIDTH_TEXTURE 16
 #define HEIGHT_TEXTURE 16
@@ -27,6 +30,8 @@ private:
     Rect rock;
     Rect sand;
     Rect specie;
+    //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings;
+    std::map<int, std::map<int, std::shared_ptr<Units>>> units;
     std::vector<std::vector<CeldaUi>> map;
 
 public:
@@ -34,7 +39,7 @@ public:
     ~MapUi();
     char* terrain;
     Request* mouseEvent(int x, int y);
-    void update();
+    void update(Response *response);
     void render();
 
     void moveCharacter(std::vector<coordenada_t> &path);
