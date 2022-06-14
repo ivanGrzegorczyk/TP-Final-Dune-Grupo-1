@@ -2,7 +2,7 @@
 #define SERVEREVENT_H_
 
 class Server;
-#include "Server.h"
+#include "../Server.h"
 
 class ServerEvent {
 public:

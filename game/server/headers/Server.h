@@ -12,7 +12,7 @@
 class ServerEvent;
 
 #include "ClientsMonitor.h"
-#include "ServerEvent.h"
+#include "events/ServerEvent.h"
 
 typedef std::chrono::time_point<std::chrono::system_clock> chrono;
 typedef std::chrono::duration<double, std::milli> duration;

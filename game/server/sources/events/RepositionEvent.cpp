@@ -1,4 +1,4 @@
-#include "../headers/RepositionEvent.h"
+#include "../../headers/events/RepositionEvent.h"
 
 RepositionEvent::RepositionEvent(int playerId, int unitId, coordenada_t goal) :
 ServerEvent(playerId), unitId(unitId), goal(std::move(goal)) {}

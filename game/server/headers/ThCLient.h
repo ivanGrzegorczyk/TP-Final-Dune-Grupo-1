@@ -7,7 +7,7 @@
 #include "../../common/headers/ProtectedQueue.h"
 
 class ServerEvent;
-#include "ServerEvent.h"
+#include "events/ServerEvent.h"
 
 class ThClient: public Thread {
 private:

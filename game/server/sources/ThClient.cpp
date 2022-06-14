@@ -2,9 +2,9 @@
 #include <iostream>
 
 #include "../headers/ThCLient.h"
-#include "../headers/RepositionEvent.h"
+#include "../headers/events/RepositionEvent.h"
 #include "../../common/headers/Constantes.h"
-#include "../headers/SpawnUnitEvent.h"
+#include "../headers/events/SpawnUnitEvent.h"
 
 ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id):
         protectedQueue(protectedQueue), keep_talking(true), is_running(true),
