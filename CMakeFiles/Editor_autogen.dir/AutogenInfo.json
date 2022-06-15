@@ -73,6 +73,12 @@
 		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake",
 		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake",
 		"/home/osboxes/.local/lib/python3.9/site-packages/cmake/data/share/cmake-3.22/Modules/CMakeParseArguments.cmake",
+		"/home/osboxes/.local/lib/python3.9/site-packages/cmake/data/share/cmake-3.22/Modules/FindThreads.cmake",
+		"/home/osboxes/.local/lib/python3.9/site-packages/cmake/data/share/cmake-3.22/Modules/CheckLibraryExists.cmake",
+		"/home/osboxes/.local/lib/python3.9/site-packages/cmake/data/share/cmake-3.22/Modules/CheckIncludeFile.cmake",
+		"/home/osboxes/.local/lib/python3.9/site-packages/cmake/data/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake",
+		"/home/osboxes/.local/lib/python3.9/site-packages/cmake/data/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake",
+		"/home/osboxes/.local/lib/python3.9/site-packages/cmake/data/share/cmake-3.22/Modules/FindPackageMessage.cmake",
 		"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/resources/resources.qrc"
 	],
 	"CMAKE_SOURCE_DIR" : "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1",
@@ -114,7 +120,14 @@
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/Editor_autogen/include",
 	"MOC_COMPILATION_FILE" : "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/Editor_autogen/mocs_compilation.cpp",
-	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_GUI_LIB", "QT_NO_DEBUG", "QT_WIDGETS_LIB" ],
+	"MOC_DEFINITIONS" : 
+	[
+		"DATA_PATH=\"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/assets/\"",
+		"QT_CORE_LIB",
+		"QT_GUI_LIB",
+		"QT_NO_DEBUG",
+		"QT_WIDGETS_LIB"
+	],
 	"MOC_DEPEND_FILTERS" : 
 	[
 		[
@@ -157,6 +170,7 @@
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : 
 	[
+		"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/Server_autogen/mocs_compilation.cpp",
 		"/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/ui_mainwindow.h"
 	],
 	"MULTI_CONFIG" : false,

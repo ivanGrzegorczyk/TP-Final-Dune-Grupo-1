@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include "yaml-cpp/yaml.h"
+
 #include "celda_editor.h"
 
 typedef std::vector<std::vector<CeldaEditor>> matriz_t;

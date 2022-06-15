@@ -1,15 +1,7 @@
-.idea/.gitignore
-.idea/modules.xml
-.idea/TP-Final-Dune-Grupo-1.iml
-.idea/vcs.xml
-server
-server_celda.o
-server_main.o
-server_mapa.o
-server_navegador.o
-.idea/misc.xml
-.vscode/settings.json
-.idea/.name
+.idea/*
+.vscode/*
+cmake-build-debug/*
+CMakeFiles/*
 CMakeCache.txt
 TP_Final_Dune_Grupo_1
 Makefile
@@ -22,3 +14,4 @@ CMakeFiles/Server.dir/build.make
 CMakeFiles/Editor.dir/compiler_depend.make
 CMakeFiles/progress.marks
 CMakeFiles/Makefile2
+Makefile

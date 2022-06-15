@@ -69,9 +69,9 @@ include CMakeFiles/Editor.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Editor.dir/flags.make
 
-ui_mainwindow.h: sources/mainwindow.ui
+ui_mainwindow.h: game/editor/mainwindow.ui
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Generating ui_mainwindow.h"
-	/usr/lib/qt5/bin/uic -o "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/ui_mainwindow.h" "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/mainwindow.ui"
+	/usr/lib/qt5/bin/uic -o "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/ui_mainwindow.h" "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/mainwindow.ui"
 
 Editor_autogen/3YJK5W5UP7/qrc_resources.cpp: resources/resources.qrc
 Editor_autogen/3YJK5W5UP7/qrc_resources.cpp: CMakeFiles/Editor_autogen.dir/AutoRcc_resources_3YJK5W5UP7_Info.json
