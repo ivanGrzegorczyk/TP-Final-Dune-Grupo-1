@@ -11,7 +11,7 @@ find_package(Qt5Widgets)
 message("[INFO] La raiz del proyecto es ${PROJECT_SOURCE_DIR}")
 
 # Agrego src a la lista de directorios de includes
-include_directories(${PROJECT_SOURCE_DIR}/sources)
+include_directories(${PROJECT_SOURCE_DIR}/game)
 
 # Esta macro toma cada uno los parámetros y ejecuta *uic* sobre ellos
 # La aplicacion uic genera headers con la definición de los widgets
@@ -43,12 +43,12 @@ add_subdirectory(extern/libSDL2pp)
 include_directories(${PROJECT_SOURCE_DIR}/extern)
 include_directories(${SDL2PP_INCLUDE_DIRS})
 
-FILE(GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/headers/*.h ui_mainwindow.h)
-FILE(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/sources/*.cpp)
-FILE(GLOB HEADER_EDITOR_FILES ${PROJECT_SOURCE_DIR}/headers/editor/*.h)
-FILE(GLOB SRC_EDITOR_FILES ${PROJECT_SOURCE_DIR}/sources/editor/*.cpp)
+FILE(GLOB HEADER_EDITOR_FILES ${PROJECT_SOURCE_DIR}/game/editor/headers/*.h)
+FILE(GLOB SRC_EDITOR_FILES ${PROJECT_SOURCE_DIR}/game/editor/sources/*.cpp)
 
-add_executable(Server ${HEADER_FILES} ${SRC_FILES})
+message("Headers: ${HEADER_EDITOR_FILES}")
+message("Sources: ${SRC_EDITOR_FILES}")
+
 add_executable(Editor ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES} ${UIS_HEADERS} resources/resources.qrc)
 
 target_link_libraries(Editor ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core ${YAML_CPP_LIBRARIES})
