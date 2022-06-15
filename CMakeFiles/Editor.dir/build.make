@@ -69,9 +69,9 @@ include CMakeFiles/Editor.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Editor.dir/flags.make
 
-ui_mainwindow.h: sources/mainwindow.ui
+ui_mainwindow.h: game/editor/mainwindow.ui
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Generating ui_mainwindow.h"
-	/usr/lib/qt5/bin/uic -o "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/ui_mainwindow.h" "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/mainwindow.ui"
+	/usr/lib/qt5/bin/uic -o "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/ui_mainwindow.h" "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/mainwindow.ui"
 
 Editor_autogen/3YJK5W5UP7/qrc_resources.cpp: resources/resources.qrc
 Editor_autogen/3YJK5W5UP7/qrc_resources.cpp: CMakeFiles/Editor_autogen.dir/AutoRcc_resources_3YJK5W5UP7_Info.json
@@ -94,75 +94,75 @@ CMakeFiles/Editor.dir/Editor_autogen/mocs_compilation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/Editor_autogen/mocs_compilation.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/Editor_autogen/mocs_compilation.cpp" -o CMakeFiles/Editor.dir/Editor_autogen/mocs_compilation.cpp.s
 
-CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.o: CMakeFiles/Editor.dir/flags.make
-CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.o: sources/editor/celda_editor.cpp
-CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.o: CMakeFiles/Editor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.o -MF CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.o.d -o CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/celda_editor.cpp"
+CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.o: CMakeFiles/Editor.dir/flags.make
+CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.o: game/editor/sources/celda_editor.cpp
+CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.o: CMakeFiles/Editor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.o -MF CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.o.d -o CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/celda_editor.cpp"
 
-CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/celda_editor.cpp" > CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.i
+CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/celda_editor.cpp" > CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.i
 
-CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/celda_editor.cpp" -o CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.s
+CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/celda_editor.cpp" -o CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.s
 
-CMakeFiles/Editor.dir/sources/editor/cell.cpp.o: CMakeFiles/Editor.dir/flags.make
-CMakeFiles/Editor.dir/sources/editor/cell.cpp.o: sources/editor/cell.cpp
-CMakeFiles/Editor.dir/sources/editor/cell.cpp.o: CMakeFiles/Editor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Editor.dir/sources/editor/cell.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Editor.dir/sources/editor/cell.cpp.o -MF CMakeFiles/Editor.dir/sources/editor/cell.cpp.o.d -o CMakeFiles/Editor.dir/sources/editor/cell.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/cell.cpp"
+CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.o: CMakeFiles/Editor.dir/flags.make
+CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.o: game/editor/sources/cell.cpp
+CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.o: CMakeFiles/Editor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.o -MF CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.o.d -o CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/cell.cpp"
 
-CMakeFiles/Editor.dir/sources/editor/cell.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Editor.dir/sources/editor/cell.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/cell.cpp" > CMakeFiles/Editor.dir/sources/editor/cell.cpp.i
+CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/cell.cpp" > CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.i
 
-CMakeFiles/Editor.dir/sources/editor/cell.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/sources/editor/cell.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/cell.cpp" -o CMakeFiles/Editor.dir/sources/editor/cell.cpp.s
+CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/cell.cpp" -o CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.s
 
-CMakeFiles/Editor.dir/sources/editor/editor.cpp.o: CMakeFiles/Editor.dir/flags.make
-CMakeFiles/Editor.dir/sources/editor/editor.cpp.o: sources/editor/editor.cpp
-CMakeFiles/Editor.dir/sources/editor/editor.cpp.o: CMakeFiles/Editor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Editor.dir/sources/editor/editor.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Editor.dir/sources/editor/editor.cpp.o -MF CMakeFiles/Editor.dir/sources/editor/editor.cpp.o.d -o CMakeFiles/Editor.dir/sources/editor/editor.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/editor.cpp"
+CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.o: CMakeFiles/Editor.dir/flags.make
+CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.o: game/editor/sources/editor.cpp
+CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.o: CMakeFiles/Editor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.o -MF CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.o.d -o CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/editor.cpp"
 
-CMakeFiles/Editor.dir/sources/editor/editor.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Editor.dir/sources/editor/editor.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/editor.cpp" > CMakeFiles/Editor.dir/sources/editor/editor.cpp.i
+CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/editor.cpp" > CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.i
 
-CMakeFiles/Editor.dir/sources/editor/editor.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/sources/editor/editor.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/editor.cpp" -o CMakeFiles/Editor.dir/sources/editor/editor.cpp.s
+CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/editor.cpp" -o CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.s
 
-CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o: CMakeFiles/Editor.dir/flags.make
-CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o: sources/editor/gamescene.cpp
-CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o: CMakeFiles/Editor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o -MF CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o.d -o CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/gamescene.cpp"
+CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.o: CMakeFiles/Editor.dir/flags.make
+CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.o: game/editor/sources/gamescene.cpp
+CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.o: CMakeFiles/Editor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.o -MF CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.o.d -o CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/gamescene.cpp"
 
-CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/gamescene.cpp" > CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.i
+CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/gamescene.cpp" > CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.i
 
-CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/gamescene.cpp" -o CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.s
+CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/gamescene.cpp" -o CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.s
 
-CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o: CMakeFiles/Editor.dir/flags.make
-CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o: sources/editor/mainwindow.cpp
-CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o: CMakeFiles/Editor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o -MF CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o.d -o CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/mainwindow.cpp"
+CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.o: CMakeFiles/Editor.dir/flags.make
+CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.o: game/editor/sources/mainwindow.cpp
+CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.o: CMakeFiles/Editor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.o -MF CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.o.d -o CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.o -c "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/mainwindow.cpp"
 
-CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/mainwindow.cpp" > CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.i
+CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/mainwindow.cpp" > CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.i
 
-CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/sources/editor/mainwindow.cpp" -o CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.s
+CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/osboxes/Documents/Cpp/grupal reclone/TP-Final-Dune-Grupo-1/game/editor/sources/mainwindow.cpp" -o CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.s
 
 CMakeFiles/Editor.dir/Editor_autogen/3YJK5W5UP7/qrc_resources.cpp.o: CMakeFiles/Editor.dir/flags.make
 CMakeFiles/Editor.dir/Editor_autogen/3YJK5W5UP7/qrc_resources.cpp.o: Editor_autogen/3YJK5W5UP7/qrc_resources.cpp
@@ -181,22 +181,22 @@ CMakeFiles/Editor.dir/Editor_autogen/3YJK5W5UP7/qrc_resources.cpp.s: cmake_force
 # Object files for target Editor
 Editor_OBJECTS = \
 "CMakeFiles/Editor.dir/Editor_autogen/mocs_compilation.cpp.o" \
-"CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.o" \
-"CMakeFiles/Editor.dir/sources/editor/cell.cpp.o" \
-"CMakeFiles/Editor.dir/sources/editor/editor.cpp.o" \
-"CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o" \
-"CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o" \
+"CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.o" \
+"CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.o" \
+"CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.o" \
+"CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.o" \
+"CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.o" \
 "CMakeFiles/Editor.dir/Editor_autogen/3YJK5W5UP7/qrc_resources.cpp.o"
 
 # External object files for target Editor
 Editor_EXTERNAL_OBJECTS =
 
 Editor: CMakeFiles/Editor.dir/Editor_autogen/mocs_compilation.cpp.o
-Editor: CMakeFiles/Editor.dir/sources/editor/celda_editor.cpp.o
-Editor: CMakeFiles/Editor.dir/sources/editor/cell.cpp.o
-Editor: CMakeFiles/Editor.dir/sources/editor/editor.cpp.o
-Editor: CMakeFiles/Editor.dir/sources/editor/gamescene.cpp.o
-Editor: CMakeFiles/Editor.dir/sources/editor/mainwindow.cpp.o
+Editor: CMakeFiles/Editor.dir/game/editor/sources/celda_editor.cpp.o
+Editor: CMakeFiles/Editor.dir/game/editor/sources/cell.cpp.o
+Editor: CMakeFiles/Editor.dir/game/editor/sources/editor.cpp.o
+Editor: CMakeFiles/Editor.dir/game/editor/sources/gamescene.cpp.o
+Editor: CMakeFiles/Editor.dir/game/editor/sources/mainwindow.cpp.o
 Editor: CMakeFiles/Editor.dir/Editor_autogen/3YJK5W5UP7/qrc_resources.cpp.o
 Editor: CMakeFiles/Editor.dir/build.make
 Editor: /usr/lib/x86_64-linux-gnu/libSDL2main.a
@@ -205,6 +205,7 @@ Editor: /usr/lib/x86_64-linux-gnu/libSDL2.so
 Editor: /usr/lib/x86_64-linux-gnu/libSDL2_image.so
 Editor: /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so
 Editor: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.2
+Editor: /usr/local/lib/libyaml-cpp.a
 Editor: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.2
 Editor: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.2
 Editor: CMakeFiles/Editor.dir/link.txt
