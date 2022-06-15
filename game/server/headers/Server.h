@@ -4,13 +4,11 @@
 #include <atomic>
 #include <list>
 #include <chrono>
+
 #include "ServerProtocol.h"
 #include "ServerMap.h"
 #include "../../common/headers/BlockingQueue.h"
 #include "../../common/headers/ProtectedQueue.h"
-
-class ServerEvent;
-
 #include "ClientsMonitor.h"
 #include "events/ServerEvent.h"
 
@@ -40,15 +38,10 @@ public:
     // Gameloop
     void run();
 
-    void repositionUnit(int playerId, int unitId, coordenada_t goal);
-
     static duration simDeltaTime(chrono &t1, chrono &t2);
-
-    void spawnUnit(int playerId, int unit);
 
     std::vector<uint16_t> createSnapshot();
 
-    void createBuilding(int playerId, int buildingType, const std::vector<coordenada_t>& coords);
 };
 
 #endif  // SERVER_H_

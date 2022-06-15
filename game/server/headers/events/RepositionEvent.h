@@ -12,7 +12,7 @@ public:
 
     RepositionEvent(int playerId, int unitId, coordenada_t goal);
 
-    void performEvent(Server *server) override;
+    void performEvent(ServerMap &map, BlockingQueue<bool> &queue) override;
 };
 
 #endif  // REPOSITIONEVENT_H_

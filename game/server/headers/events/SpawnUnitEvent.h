@@ -9,7 +9,7 @@ public:
 
     SpawnUnitEvent(int playerId, int unit);
 
-    void performEvent(Server *server) override;
+    void performEvent(ServerMap &map, BlockingQueue<bool> &queue) override;
 };
 
 #endif   // SPAWNUNITEVENT_H_

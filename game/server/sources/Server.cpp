@@ -72,7 +72,7 @@ void Server::acceptClients() {
 void Server::manageEvents() {
     ServerEvent *event = protectedQueue.pop();
     if (event != nullptr)
-        event->performEvent(this);
+        event->performEvent(map, blockingQueue);
     map.updateUnitPositions();
 }
 
@@ -88,27 +88,10 @@ void Server::broadCast() {
     }
 }
 
-void Server::repositionUnit(int playerId, int unitId, coordenada_t goal) {
-    bool updateClient;
-    int updates = 0;
-    updateClient = map.reposition(playerId, unitId, goal, updates);
-    for (int i = 0; i < updates; i++) {
-        blockingQueue.push(updateClient);
-    }
-}
-
-void Server::spawnUnit(int playerId, int unit) {
-    map.spawnUnit(playerId, unit);
-}
-
 std::vector<uint16_t> Server::createSnapshot() {
     std::vector<uint16_t> snapshot;
     map.addUnitData(snapshot);
     uint16_t size = snapshot.size();
     snapshot.insert(snapshot.begin(), size);
     return snapshot;
-}
-
-void Server::createBuilding(int playerId, int buildingType, const std::vector<coordenada_t>& coords) {
-    map.createBuilding(playerId, buildingType, coords);
 }

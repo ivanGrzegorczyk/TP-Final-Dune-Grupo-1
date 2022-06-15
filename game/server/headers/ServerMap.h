@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <map>
+#include <mutex>
 
 #include "ServerCell.h"
 #include "Navigator.h"
@@ -13,6 +14,7 @@ private:
     std::map<int, std::map<int, std::shared_ptr<Building>>> buildings;
     std::map<int, std::map<int, std::shared_ptr<Units>>> units;
     std::vector<std::vector<ServerCell>> map;
+    std::mutex mutex;
 
     std::stack<coordenada_t> A_star(coordenada_t start, coordenada_t end);
 

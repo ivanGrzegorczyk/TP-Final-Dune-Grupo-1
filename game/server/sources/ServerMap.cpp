@@ -13,11 +13,13 @@ map(rows, std::vector<ServerCell>(columns)) {
 
 std::stack<coordenada_t> ServerMap::A_star(
         coordenada_t start, coordenada_t end) {
+    std::lock_guard<std::mutex> lock(mutex);
     Navigator navigator(map);
     return navigator.A_star(start, end);
 }
 
 bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal, int &updates) {
+    std::lock_guard<std::mutex> lock(mutex);
     try {
         if (units[playerId].at(unitId)->getPosition() == goal)
             return false;
@@ -32,6 +34,7 @@ bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal, int &upd
 }
 
 void ServerMap::spawnUnit(int playerId, int unit) {
+    std::lock_guard<std::mutex> lock(mutex);
     int unitId = units[playerId].size() + 1; // TODO Que pasa si se elimina alguna unidad? Que id correspondería?
     if (unit == UNIT_LIGHT_INFANTRY)
         units.at(playerId).insert(std::pair<int, Units *> (
@@ -39,6 +42,7 @@ void ServerMap::spawnUnit(int playerId, int unit) {
 }
 
 void ServerMap::createBuilding(int playerId, int buildingType, const std::vector<coordenada_t>& coords) {
+    std::lock_guard<std::mutex> lock(mutex);
     int buildingId = buildings.at(playerId).size() + 1;
 
     if (buildingType == BUILDING_BARRACKS) {
@@ -47,6 +51,7 @@ void ServerMap::createBuilding(int playerId, int buildingType, const std::vector
 }
 
 void ServerMap::addUnitData(std::vector<uint16_t> &vec) {
+    std::lock_guard<std::mutex> lock(mutex);
     for (auto const& [player, unitsMap] : units) {
         uint16_t playerId = player;
         vec.push_back(playerId);
@@ -61,6 +66,7 @@ void ServerMap::addUnitData(std::vector<uint16_t> &vec) {
 }
 
 void ServerMap::updateUnitPositions() {
+    std::lock_guard<std::mutex> lock(mutex);
     for (auto const& [player, unitsMap] : units) {
         for (auto const& [unitId, unit] : unitsMap) {
             unit->relocate();
