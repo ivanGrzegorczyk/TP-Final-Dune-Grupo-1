@@ -23,7 +23,7 @@
       <widget class="QGraphicsView" name="view">
        <property name="geometry">
         <rect>
-         <x>0</x>
+         <x>-10</x>
          <y>0</y>
          <width>782</width>
          <height>566</height>
@@ -38,8 +38,8 @@
         <rect>
          <x>580</x>
          <y>10</y>
-         <width>160</width>
-         <height>80</height>
+         <width>114</width>
+         <height>230</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="button_container">
@@ -51,14 +51,47 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="edit_button">
+         <widget class="QPushButton" name="edit_button_1">
           <property name="text">
-           <string>PushButton</string>
+           <string>Mountain</string>
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="edit_button_2">
+          <property name="text">
+           <string>Sand</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="edit_button_3">
+          <property name="text">
+           <string>Rock</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="edit_button_4">
+          <property name="text">
+           <string>Building</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="edit_button_5">
+          <property name="text">
+           <string>Save</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="spinBox"/>
+        </item>
        </layout>
       </widget>
+      <zorder>view</zorder>
+      <zorder>verticalLayoutWidget</zorder>
      </widget>
     </item>
    </layout>

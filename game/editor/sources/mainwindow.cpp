@@ -10,11 +10,11 @@ MainWindow::MainWindow(MapaEditor&& map, QWidget *parent)
 {
     ui->setupUi(this);
     ui->view->setScene(&this->scene);
-    connect(ui->edit_button, &QPushButton::clicked, this, &MainWindow::toggle_button);
+    connect(ui->edit_button_1, &QPushButton::clicked, this, &MainWindow::toggle_button);
+    ui->edit_button_1->setText("Mountain");
 }
 
 void MainWindow::toggle_button() {
-    ui->edit_button->setText("Mountain");
     std::string txt("mountain");
     scene.set_active_texture(txt);
 }
