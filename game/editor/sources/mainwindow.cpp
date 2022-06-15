@@ -1,6 +1,6 @@
 // Code credit FIUBA: https://github.com/Taller-de-Programacion/clases/tree/feature/bibliotecas-gui/bibliotecas-gui/qt5
 
-#include "../../game/editor/headers/mainwindow.h"
+#include "../../headers/editor/mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(MapaEditor&& map, QWidget *parent)
@@ -10,12 +10,12 @@ MainWindow::MainWindow(MapaEditor&& map, QWidget *parent)
 {
     ui->setupUi(this);
     ui->view->setScene(&this->scene);
-    connect(ui->edit_button_1, &QPushButton::clicked, this, &MainWindow::toggle_button);
-    ui->edit_button_1->setText("Mountain");
+    connect(ui->edit_button, &QPushButton::clicked, this,  [=]() { this->toggle_button("mountain"); });
 }
 
-void MainWindow::toggle_button() {
-    std::string txt("mountain");
+void MainWindow::toggle_button(std::string text) {
+    ui->edit_button->setText(text);
+    std::string txt(text);
     scene.set_active_texture(txt);
 }
 

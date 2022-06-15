@@ -6,12 +6,7 @@ CMakeCache.txt
 TP_Final_Dune_Grupo_1
 Makefile
 Editor
-CMakeFiles/Server.dir/progress.make
-CMakeFiles/Server_autogen.dir/progress.make
-CMakeFiles/Server.dir/compiler_depend.make
-CMakeFiles/Server.dir/cmake_clean.cmake
-CMakeFiles/Server.dir/build.make
-CMakeFiles/Editor.dir/compiler_depend.make
-CMakeFiles/progress.marks
-CMakeFiles/Makefile2
+CMakeFiles
+CMakeCache.txt
 Makefile
+cmake_install.cmake
