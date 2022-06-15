@@ -19,6 +19,6 @@ public:
 private:
     Ui::MainWindow *ui;
     GameScene scene;
-    void toggle_button();
+    void toggle_button(QString text);
 };
 #endif // MAINWINDOW_H
