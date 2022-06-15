@@ -1,7 +1,7 @@
 #include "../headers/CreateBuilding.h"
 
-void CreateBuilding::send(Protocol &protocol) {
-    protocol.createBuilding(this->idClient, this->idBuilding, this->coord);
+std::vector<uint16_t> CreateBuilding::getData() {
+    return {};
 }
 
 CreateBuilding::CreateBuilding(int idClient, int idBuilding, coordenada_t &&coord) :  idClient(idClient),

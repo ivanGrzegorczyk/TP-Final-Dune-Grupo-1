@@ -5,9 +5,9 @@
 #include <vector>
 #include <map>
 #include <memory>
-#include "../../common/headers/Building.h"
-#include "../../common/headers/Units.h"
 #include "Character.h"
+
+
 
 class Response {
 private:
@@ -17,7 +17,7 @@ private:
 public:
     Response() = default;
     void add(int playerId, int characterId, coordenada_t coord);
-    void update(std::map<int, std::map<int, std::shared_ptr<Character>>> unitsInfo);
+    void update(std::map<int, std::map<int, std::shared_ptr<Character>>> &unitsInfo, Renderer &rdr);
     //void addResponseChunk(uint16_t chunk);
 };
 

@@ -1,7 +1,7 @@
 #include "../headers/CreateUnidadLigera.h"
 
-void CreateUnidadLigera::send(Protocol &protocol) {
-    protocol.createUnidadLigera(this->unityId);
+std::vector<uint16_t> CreateUnidadLigera::getData() {
+    return {};
 }
 
 CreateUnidadLigera::CreateUnidadLigera() : unityId(UNIT_LIGHT_INFANTRY) {

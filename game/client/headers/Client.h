@@ -3,16 +3,20 @@
 #include <unistd.h>
 #include "../../common/headers/BlockingQueue.h"
 #include "../../common/headers/ProtectedQueue.h"
+#include "Response.h"
+#include "MapUi.h"
+#include "Protocol.h"
+
 
 typedef std::chrono::time_point<std::chrono::system_clock> chrono;
 typedef std::chrono::duration<double, std::milli> duration;
 
 class Client {
 private:
+    Protocol protocol;
     int clientId;
     MapUi mapUi;
     std::atomic<bool> running;
-    Protocol protocol;
     BlockingQueue<Request *> sendQueue;
     ProtectedQueue<Response *> recvQueue;
 
@@ -32,7 +36,7 @@ public:
             usleep(GAME_LOOP_RATE - delta.count());
     }
 
-    Client(const char* hostname, const char* servicename, Renderer &rnd, char * file);
+    Client(std::string hostname, std::string servicename, Renderer &rnd, std::string file);
     void run();
     void sendToServer();
 

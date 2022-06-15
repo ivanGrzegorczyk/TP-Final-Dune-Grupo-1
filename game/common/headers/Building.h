@@ -2,6 +2,7 @@
 #define BUILDING_H_
 
 #include "Entity.h"
+#include "Constantes.h"
 
 class Building: public Entity {
 protected:

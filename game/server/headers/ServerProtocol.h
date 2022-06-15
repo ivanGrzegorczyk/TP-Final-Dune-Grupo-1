@@ -7,6 +7,7 @@
 
 #include "../../common/headers/Socket.h"
 #include "../../common/headers/Entity.h"
+#include "../../common/headers/Constantes.h"
 
 #define REPOSITION_EVENT 1
 

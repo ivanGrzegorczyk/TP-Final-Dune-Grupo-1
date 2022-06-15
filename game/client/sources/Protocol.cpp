@@ -1,7 +1,7 @@
 #include <stack>
 #include "../headers/Protocol.h"
 
-Protocol::Protocol(const char* hostname, const char* servicename) : id(-1), skt(hostname, servicename){
+Protocol::Protocol(std::string hostname, std::string servicename) : id(-1), skt(hostname.c_str(), servicename.c_str()){
     receiveId();
 }
 
@@ -83,5 +83,15 @@ Response* Protocol::recvResponse() {
         //response->addResponseChunk(ntohs(chunk));
     }
     return response;
+}
+
+void Protocol::send(std::vector<uint16_t> vector) {
+    uint16_t aux;
+    uint8_t command = REPOSITION_EVENT;
+    skt.sendall(&command, sizeof(command));
+    for(uint16_t data : vector) {
+        aux = htons(data);
+        skt.sendall(&aux, sizeof(aux));
+    }
 }
 

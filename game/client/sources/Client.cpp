@@ -1,5 +1,4 @@
 #include <thread>
-#include "../headers/Game.h"
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"
 #include "../headers/Request.h"
@@ -8,8 +7,8 @@
 
 using namespace SDL2pp;
 
-Client::Client(const char* hostname, const char* servicename, Renderer &rnd, char* file) : mapUi(rnd, file),
-                                                                                            clientId(-1), protocol(hostname, servicename), running(true) {
+Client::Client(std::string hostname, std::string  servicename, Renderer &rnd, std::string  file) : protocol(hostname, servicename), mapUi(rnd, file),
+                                                                                            clientId(), running(true) {
     this->clientId = protocol.getId();
 }
 
@@ -33,7 +32,7 @@ void Client::run() {
 
 void Client::ProcessInput() {
     Request *event = createEvent();
-    if(event) {
+    if(event != nullptr) {
         sendQueue.push(event);
     }
 }
@@ -50,12 +49,13 @@ Request* Client::createEvent() {
                 Request* request;
                 xmouse = event.button.x;
                 ymouse = event.button.y;
-                request =  mapUi.mouseEvent(xmouse, ymouse);
+                request =  mapUi.mouseEvent(xmouse, ymouse, clientId);
                 return request;
             default:
                 break;
         }
     }
+    return nullptr;
 }
 
 void Client::update() {
@@ -65,8 +65,9 @@ void Client::update() {
 
 void Client::sendToServer() {
     while(running) {
-        Request *event = this->sendQueue.pop();
-        event->send(this->protocol);
+        std::vector<uint16_t> data;
+        data = this->sendQueue.pop()->getData();
+        protocol.send(data);
     }
 }
 

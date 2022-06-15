@@ -1,6 +1,8 @@
 #include "../headers/MapUi.h"
 
-MapUi::MapUi(Renderer &renderer, char *terrain) : character(renderer),terrain(terrain), rdr(renderer), ground(renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
+#include <utility>
+
+MapUi::MapUi(Renderer &renderer, std::string terrain) : terrain(std::move(terrain)), rdr(renderer), ground(renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
                                                   ground2(renderer, Surface(DATA_PATH "/d2k_BLOXXMAS.bmp")),
                                                   ground3(renderer, Surface(DATA_PATH "/d2k_BLOXTREE.bmp")){
     src.SetX(SRC);
@@ -15,8 +17,8 @@ MapUi::MapUi(Renderer &renderer, char *terrain) : character(renderer),terrain(te
     draw();
 }
 void MapUi::update(Response *response) {
-    response->update(this->units);
-    character.update(this);
+    response->update(this->units, rdr);
+    //for para recorrer el diccionario para actualizar posiciones
 }
 
 MapUi::~MapUi() {
@@ -72,13 +74,24 @@ void MapUi::render() {
             col.render(rdr);
         }
     }
-    character.render();
+   for(auto const& [playerId, unitsMap] : units) {
+       for(auto const& [unitId, unit]: unitsMap) {
+           unit->render();
+       }
+   }
 }
 
-Request* MapUi::mouseEvent(int x, int y) {
-    return character.reactToEvent(x, y);
+Request* MapUi::mouseEvent(int x, int y, int playerId) {
+    coordenada_t coord {x, y};
+    for (auto const& [unitId, unit] : units.at(playerId)) {
+        if(unit->getPosition() == coord) {
+            return unit->reactToEvent(x, y);
+        }
+    }
+    return nullptr;
+    //return character.reactToEvent(x, y);
 }
 
 void MapUi::moveCharacter(std::vector<coordenada_t> &path) {
-    character.move(path);
+    //character.move(path);
 }

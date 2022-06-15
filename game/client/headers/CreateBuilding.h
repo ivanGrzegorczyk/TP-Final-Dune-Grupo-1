@@ -3,6 +3,7 @@
 
 
 #include "../headers/Request.h"
+#include "../../common/headers/Constantes.h"
 
 class CreateBuilding : public Request{
 private:
@@ -11,7 +12,7 @@ private:
     coordenada_t coord;
 public:
     CreateBuilding(int idClient, int idBuilding, coordenada_t &&coord);
-    void send(Protocol &protocol) override;
+    std::vector<uint16_t> getData() override;
 };
 
 

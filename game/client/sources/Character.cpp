@@ -8,14 +8,15 @@ std::pair<int, int> Character::getCoordinates() {
 
 void Character::render() {
     //current.SetX(pos)
-   // current.SetX(pos_X * 8);
-    //current.SetY(pos_Y * 8);
-    //current.SetW(24);
-    //current.SetH(32);
+    current.SetX(coord.first * 8);
+    current.SetY(coord.second * 8);
+    current.SetW(24);
+    current.SetH(32);
+
     rnd.Copy(t, Rect(0, 0, 13,16), current);
 }
 
-void Character::update(MapUi *map) {
+/*void Character::update(MapUi *map) {
     int x;
     int y;
     //if(pos < path.size()) {
@@ -33,9 +34,9 @@ void Character::update(MapUi *map) {
        // path.clear();
         //pos = 0;
     }
-}
+}*/
 
-Character::Character(SDL2pp::Renderer &renderer) : rnd(renderer), selected(false),
+Character::Character(SDL2pp::Renderer &renderer, int id, coordenada_t coord) : Units(id, 0, 0, 0, coord), rnd(renderer), selected(false),
                                                     t(Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp")
                                                     .SetColorKey(true, 0))) {
 }

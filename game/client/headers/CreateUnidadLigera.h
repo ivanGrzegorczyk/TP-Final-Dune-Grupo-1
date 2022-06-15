@@ -3,12 +3,13 @@
 #include "../../common/headers/Constantes.h"
 #include "Request.h"
 
+
 class CreateUnidadLigera : public Request{
 private:
     int unityId;
 public:
     CreateUnidadLigera();
-    void send(Protocol &protocol) override;
+    std::vector<uint16_t> getData() override;
 };
 
 

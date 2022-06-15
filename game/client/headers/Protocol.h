@@ -4,12 +4,10 @@
 #include <netinet/in.h>
 #include <utility>
 #include <vector>
-#include "../../common/headers/Constantes.h"
 #include "../../common/headers/Socket.h"
+#include "../../common/headers/Constantes.h"
 #include "Response.h"
 
-
-typedef std::pair<int, int> coordenada_t;
 
 class Protocol {
 private:
@@ -17,7 +15,7 @@ private:
     Socket skt;
 
 public:
-    Protocol(const char* hostname, const char* servicename);
+    Protocol(std::string hostname, std::string servicename);
     int commandReceive();
     void moveQuery(int idunity ,coordenada_t dest);
     void createBuilding(int clientId, int buildingId, coordenada_t coord);
@@ -29,6 +27,8 @@ public:
     void createUnidadLigera(int id);
 
     Response *recvResponse();
+
+    void send(std::vector<uint16_t> vector);
 };
 
 

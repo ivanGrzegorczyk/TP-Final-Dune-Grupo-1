@@ -1,11 +1,13 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_REQUEST_H
 #define TP_FINAL_DUNE_GRUPO_1_REQUEST_H
-#include "Protocol.h"
+
+#include <vector>
+#include <cstdint>
 
 class Request {
 protected:
 public:
-    virtual void send(Protocol &protocol) = 0;
+    virtual std::vector<uint16_t> getData() = 0;
 
 };
 

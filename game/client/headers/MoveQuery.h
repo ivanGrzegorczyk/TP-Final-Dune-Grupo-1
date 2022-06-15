@@ -1,6 +1,7 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_MOVEQUERY_H
 #define TP_FINAL_DUNE_GRUPO_1_MOVEQUERY_H
 #include "Request.h"
+#include "../../common/headers/Constantes.h"
 
 
 class MoveQuery : public Request {
@@ -9,7 +10,7 @@ private:
     coordenada_t dest;
 public:
     explicit MoveQuery(int id, coordenada_t &&dst);
-    void send(Protocol &protocol) override;
+    std::vector<uint16_t> getData() override;
 };
 
 #endif //TP_FINAL_DUNE_GRUPO_1_MOVEQUERY_H

@@ -3,8 +3,6 @@
 
 #include <utility>
 
-typedef std::pair<int, int> coordenada_t;
-
 class Entity {  // Va terminar siendo una clase abstracta
 protected:
     int id;

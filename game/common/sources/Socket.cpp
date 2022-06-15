@@ -116,7 +116,7 @@ int Socket::sendsome(const void *data, unsigned int sz) {
             throw std::exception();
         }
         // 99% casi seguro que es un error
-        std::cout << "socket send failed" << std::endl;
+        std::cout << "socket getData failed" << std::endl;
         throw std::exception();
     } else {
         return s;

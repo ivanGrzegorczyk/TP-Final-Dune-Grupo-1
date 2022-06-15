@@ -1,9 +1,8 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #define TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #include "SDL2pp/SDL2pp.hh"
-#include "../headers/Request.h"
 #include "../../common/headers/Units.h"
-#include "../headers/MoveQuery.h"
+#include "Request.h"
 
 
 using namespace SDL2pp;
@@ -26,16 +25,17 @@ private:
     int pos_Y;*/
     //void changeColor();
 public:
-    explicit Character(SDL2pp::Renderer &renderer);
+    Character(SDL2pp::Renderer &renderer, int id, coordenada_t coord);
     void render();
-    void update(MapUi *map);
-    void move(std::vector<coordenada_t> &path);
+    //void move(std::vector<coordenada_t> &path);
     //void move(int x, int y);
     //void mouseEvent(int x, int y);
     bool isSelected() const;
     Request* reactToEvent(int x, int y);
     //void searchPath(); //va a recibir las coordenadas que se clickeo
     std::pair<int, int> getCoordinates();
+
+    //void update(MapUi *map);
 };
 
 

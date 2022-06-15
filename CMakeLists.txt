@@ -25,11 +25,11 @@ FILE(GLOB SRC_CLIENT_FILES ${PROJECT_SOURCE_DIR}/game/client/sources/*.cpp)
 find_package (Threads)
 
 add_executable(Server ${HEADER_COMMON_FILES} ${SRC_COMMON_FILES} ${HEADER_SERVER_FILES} ${SRC_SERVER_FILES})
-add_executable(Editor ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES})
+#add_executable(Editor ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES})
 add_executable(Client ${HEADER_COMMON_FILES} ${SRC_COMMON_FILES} ${HEADER_CLIENT_FILES} ${SRC_CLIENT_FILES})
 
 target_link_libraries (Server Threads::Threads)
 target_link_libraries (Client Threads::Threads)
 
-target_link_libraries(Editor ${SDL2PP_LIBRARIES})
+#target_link_libraries(Editor ${SDL2PP_LIBRARIES})
 target_link_libraries(Client ${SDL2PP_LIBRARIES})

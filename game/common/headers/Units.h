@@ -5,6 +5,7 @@
 #include <stack>
 
 #include "Entity.h"
+#include "Constantes.h"
 
 class Units: public Entity {  // abstracta
 protected:

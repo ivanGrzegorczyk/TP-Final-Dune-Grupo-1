@@ -9,8 +9,20 @@ void Response::add(int playerId, int characterId, coordenada_t coord) {
     units.emplace(playerId, std::make_pair(characterId, coord));
 }
 
-void Response::update(std::map<int, std::map<int, std::shared_ptr<Character>>> unitsInfo) {
+void Response::update(std::map<int, std::map<int, std::shared_ptr<Character>>> &unitsMap, Renderer &rdr) {
     for(auto const& [player, coordUnit] : this->units) {
-        unitsInfo.at(player).at(coordUnit.first)->setPosition(coordUnit.second);
+        if(unitsMap.find(player) != unitsMap.end()) { //me fijo si existe el jugador
+
+            if(unitsMap[player].find(coordUnit.first) != unitsMap[player].end()) {
+                unitsMap.at(player).at(coordUnit.first)->setPosition(coordUnit.second); //actualizo
+            } else {
+                unitsMap.at(player).insert(std::pair<int, Character *> (
+                        coordUnit.first, new Character(rdr, coordUnit.first, coordUnit.second))); //creo unidad
+            }
+
+        } else {
+            unitsMap[player].insert(std::pair<int, Character *> (
+                    coordUnit.first, new Character(rdr, coordUnit.first, coordUnit.second))); //creo jugador y unidad
+        }
     }
 }
