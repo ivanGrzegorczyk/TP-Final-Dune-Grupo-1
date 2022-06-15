@@ -11,7 +11,10 @@ Cell::Cell(MapaEditor& map, std::shared_ptr<std::string> curr_terrain_brush, coo
 {
     QImage img;
     // qrc resource handling
-    if(!img.load(":crate.png")) throw std::invalid_argument("bad filename");
+    std::string filename = ":d2k_BLOXXMAS.bmp";
+    if(!img.load(filename.c_str())) throw std::invalid_argument(filename);
+    // TODO: merge image processing code with d2k
+    img = img.copy(0,0,32,32);
     QPixmap pm = QPixmap::fromImage(img);
     currentTexture = pm;
     this->setPixmap(currentTexture);
