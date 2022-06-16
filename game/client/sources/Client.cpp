@@ -39,35 +39,40 @@ void Client::ProcessInput() {
 
 Request* Client::createEvent() {
     SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        switch (event.type) {
-            case SDL_QUIT:
-                running = false;
-                break;
-            case SDL_MOUSEBUTTONUP:
-                int xmouse, ymouse;
-                Request* request;
-                xmouse = event.button.x;
-                ymouse = event.button.y;
-                request =  mapUi.mouseEvent(xmouse, ymouse, clientId);
-                return request;
-            default:
-                break;
-        }
+
+    SDL_PollEvent(&event);
+    switch (event.type) {
+        case SDL_QUIT:
+            running = false;
+            break;
+        case SDL_MOUSEBUTTONUP:
+            int xmouse, ymouse;
+            Request* request;
+            xmouse = event.button.x;
+            ymouse = event.button.y;
+            request =  mapUi.mouseEvent(xmouse, ymouse, clientId);
+            return request;
+        default:
+            break;
     }
+
     return nullptr;
 }
 
 void Client::update() {
     Response* response = this->recvQueue.pop();
-    this->mapUi.update(response);
+    if (response != nullptr)
+        this->mapUi.update(response);
 }
 
 void Client::sendToServer() {
     while(running) {
         std::vector<uint16_t> data;
-        data = this->sendQueue.pop()->getData();
-        protocol.send(data);
+        Request *event = this->sendQueue.pop();
+        if (event != nullptr) {
+            data = this->sendQueue.pop()->getData();
+            protocol.send(data);
+        }
     }
 }
 

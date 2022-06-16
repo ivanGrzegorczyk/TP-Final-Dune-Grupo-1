@@ -65,29 +65,33 @@ Character::Character(SDL2pp::Renderer &renderer, int id, coordenada_t coord) : U
 }*/
 
 void Character::normalColor() {
-    t.SetColorMod(255, 0, 0);
-}
-
-void Character::highlight() {
     t.SetColorMod(255, 255, 0);
 }
 
+void Character::highlight() {
+    t.SetColorMod(255, 0, 0);
+}
+
 Request* Character::reactToEvent(int x, int y) {
-    if(mouseOverCharacter(x, y) && selected) {
-        return walkEvent(x, y);
-    } else if(mouseOverCharacter(x, y) && !selected) {
+    if (mouseOverCharacter(x, y) && !selected) {
         selected = true;
         this->highlight();
-    } else {
+    } else if (mouseOverCharacter(x, y) && selected) {
         selected = false;
         this->normalColor();
+    } else if (!mouseOverCharacter(x, y) && selected) {
+        selected = false;
+        this->normalColor();
+        return walkEvent(x, y);
+    } else {
+        return nullptr;
     }
     return nullptr;
 }
 
 Request *Character::walkEvent(int x, int y) {
     selected = false;
-    coordenada_t coord({x, y});
+    coordenada_t coord({x/8, y/8});
     Request* query = new MoveQuery(id, std::move(coord));
     return query;
 }

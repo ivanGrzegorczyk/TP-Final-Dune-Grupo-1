@@ -13,19 +13,19 @@ private:
     Renderer& rnd;
     Rect current;
     bool selected;
-    bool mouseOverCharacter(int x, int y) const;
     void normalColor();
     Request *walkEvent(int x, int y);
     void highlight();
-    //bool isMoving;
-    //int pos;
-   /* int desX;
-    int desY;
-    int pos_X;
-    int pos_Y;*/
-    //void changeColor();
+    /* int desX;
+     int desY;
+     int pos_X;
+     int pos_Y;*/
 public:
     Character(SDL2pp::Renderer &renderer, int id, coordenada_t coord);
+    //void changeColor();
+    //int pos;
+    //bool isMoving;
+    bool mouseOverCharacter(int x, int y) const;
     void render();
     //void move(std::vector<coordenada_t> &path);
     //void move(int x, int y);

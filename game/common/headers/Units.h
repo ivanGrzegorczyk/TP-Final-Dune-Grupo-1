@@ -19,7 +19,7 @@ public:
     void setPath(std::stack<coordenada_t> _path);
     coordenada_t getPosition();
     void setPosition(coordenada_t newPosition);
-    void relocate();
+    bool relocate();
 };
 
 #endif  // UNITY_H_

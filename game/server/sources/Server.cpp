@@ -16,9 +16,10 @@ void Server::run() {
 
     do {
         manageEvents();
-        auto t2 = std::chrono::system_clock::now();
-        auto delta = simDeltaTime(t1, t2);
-        sleep(t1, t2, delta);
+        usleep(10000000.0f/25.0f);
+//        auto t2 = std::chrono::system_clock::now();
+//        auto delta = simDeltaTime(t1, t2);
+//        sleep(t1, t2, delta);
     } while (active_game);
 
     acceptingThread.join();
@@ -71,18 +72,24 @@ void Server::acceptClients() {
 
 void Server::manageEvents() {
     ServerEvent *event = protectedQueue.pop();
-    if (event != nullptr)
+    if (event != nullptr) {
+        std::cout << "Hay un evento" << std::endl;
         event->performEvent(map, blockingQueue);
-    map.updateUnitPositions();
+    }
+    if (map.updateUnitPositions()) {
+        std::cout << "se mueve en el server" << std::endl;
+        blockingQueue.push(true);
+    }
 }
 
 void Server::broadCast() {
     while (active_game) {
-        if (blockingQueue.pop()) {
+        if (blockingQueue.pop() || !blockingQueue.pop()) {
             if (!active_game) {
                 return;  // TODO Salida temporal
             }
             std::vector<uint16_t> snapshot = createSnapshot();
+            std::cout << "envia el broadcast: " << snapshot.size() << std::endl;
             clients.broadCast(snapshot);  // Actualizo a todos los clientes
         }
     }

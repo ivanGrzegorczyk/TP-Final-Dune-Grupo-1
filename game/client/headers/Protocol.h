@@ -28,7 +28,7 @@ public:
 
     Response *recvResponse();
 
-    void send(std::vector<uint16_t> vector);
+    void send(const std::vector<uint16_t>& vector);
 };
 
 

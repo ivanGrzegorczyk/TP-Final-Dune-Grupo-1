@@ -1,6 +1,7 @@
 #include <cstdint>
 #include <stack>
 #include <netinet/in.h>
+#include <iostream>
 
 #include "../headers/ServerProtocol.h"
 
@@ -19,21 +20,23 @@ void ServerProtocol::shutdown(int how) {
 }
 
 int ServerProtocol::commandReceive() {
-    uint8_t command;
-    socket.recvall(&command, sizeof(command));
+    uint16_t command;
+    socket.recvall(&command, 1);
+    std::cout << "recibo un comando: " << command << std::endl;
     return command;
 }
 
 void ServerProtocol::getRelocationData
     (uint16_t &id, coordenada_t &goal) {
+    uint16_t unitId;
     uint16_t goal_x;
     uint16_t goal_y;
 
-    socket.recvall(&id, sizeof(id));
+    socket.recvall(&unitId, sizeof(unitId));
     socket.recvall(&goal_x, sizeof(goal_x));
     socket.recvall(&goal_y, sizeof(goal_y));
 
-    id = ntohs(id);
+    id = ntohs(unitId);
     goal.first = ntohs(goal_x);
     goal.second = ntohs(goal_y);
 }
@@ -43,6 +46,7 @@ void ServerProtocol::getUnitData(uint8_t &unity) {
 }
 
 void ServerProtocol::assignPlayerId(int id) {
+    std::cout << "id enviado: " << id << std::endl;
     uint16_t playerId = id;
     playerId = htons(playerId);
 

@@ -13,12 +13,13 @@ coordenada_t Units::getPosition() {
     return coord;
 }
 
-void Units::relocate() {
+bool Units::relocate() {
     if (path.empty())
-        return;
+        return false;
 
     coord = path.top();
     path.pop();
+    return true;
 }
 
 void Units::setPosition(coordenada_t newPosition) {

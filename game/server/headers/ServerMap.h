@@ -27,7 +27,7 @@ public:
 
     void addUnitData(std::vector<uint16_t> &vec);
 
-    void updateUnitPositions();
+    bool updateUnitPositions();
 
     void createBuilding(int playerId, int buildingType, const std::vector<coordenada_t>& coords);
 };

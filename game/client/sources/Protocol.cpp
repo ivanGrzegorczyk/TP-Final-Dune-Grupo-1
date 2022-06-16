@@ -8,7 +8,9 @@ Protocol::Protocol(std::string hostname, std::string servicename) : id(-1), skt(
 void Protocol::receiveId() {
     uint16_t idProtocol;
     skt.recvall(&idProtocol, sizeof(idProtocol));
-    this->id = ntohs(idProtocol);
+    //this->id = ntohs(idProtocol);
+    this->id = 1;
+    std::cout << "ID RECIBIDO: " << this->id << std::endl;
 }
 
 int Protocol::getId() const {
@@ -71,25 +73,27 @@ Response* Protocol::recvResponse() {
     uint16_t characterId;
     uint16_t posX;
     uint16_t posY;
-    while(i < lengthResponse) {
+    //while(i < lengthResponse) {
         skt.recvall(&idPlayer, sizeof(idPlayer));
         skt.recvall(&action, sizeof(action));
         skt.recvall(&characterId, sizeof(characterId));
         skt.recvall(&posX, sizeof(posX));
         skt.recvall(&posY, sizeof(posY));
         coordenada_t coord = {ntohs(posX), ntohs(posY)};
-        response->add(idPlayer, characterId, coord);
-        i += 5;
+        //int idP = ntohs(idPlayer);
+        response->add(1, 1, coord);
+      //  i += 5;
         //response->addResponseChunk(ntohs(chunk));
-    }
+    //}
     return response;
 }
 
-void Protocol::send(std::vector<uint16_t> vector) {
+void Protocol::send(const std::vector<uint16_t>& vector) {
     uint16_t aux;
     uint8_t command = REPOSITION_EVENT;
     skt.sendall(&command, sizeof(command));
     for(uint16_t data : vector) {
+        std::cout << "data: " << unsigned(data) << std::endl;
         aux = htons(data);
         skt.sendall(&aux, sizeof(aux));
     }

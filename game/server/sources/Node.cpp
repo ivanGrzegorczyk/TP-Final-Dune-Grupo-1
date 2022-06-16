@@ -15,7 +15,7 @@ Node::Node(coordenada_t id, ServerCell &cell) {
 }
 
 bool Node::blocked() const {
-    return (cell->ground == TERRAIN_ROCKS);
+    return (cell->ground != TERRAIN_ROCKS);
 }
 
 bool Node::operator==(const Node &other) const {

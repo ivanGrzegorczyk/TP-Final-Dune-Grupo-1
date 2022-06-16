@@ -9,11 +9,13 @@ map(rows, std::vector<ServerCell>(columns)) {
             map[i][j].coords = {i, j};
         }
     }
+
+    units[1].insert(std::pair<int, Units *> (
+            1, new LightInfantry(1, coordenada_t{1, 1})));
 }
 
 std::stack<coordenada_t> ServerMap::A_star(
         coordenada_t start, coordenada_t end) {
-    std::lock_guard<std::mutex> lock(mutex);
     Navigator navigator(map);
     return navigator.A_star(start, end);
 }
@@ -21,14 +23,22 @@ std::stack<coordenada_t> ServerMap::A_star(
 bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal, int &updates) {
     std::lock_guard<std::mutex> lock(mutex);
     try {
-        if (units[playerId].at(unitId)->getPosition() == goal)
+        if (units[playerId].at(unitId)->getPosition() == goal) {
+            std::cout << "Ya esta en esa posicion" << std::endl;
             return false;
+        }
+        std::cout << "Antes de hacer el algoritmo" << std::endl;
+        std::cout << "playerID: " << playerId << std::endl;
+        std::cout << "goal_x: " << goal.first << std::endl;
+        std::cout << "goal_y: " << goal.second << std::endl;
+
         std::stack<coordenada_t> path = A_star(
                 units.at(playerId).at(unitId)->getPosition(), goal);
-        updates = path.size();
+
         units[playerId].at(unitId)->setPath(path);
         return true;  // TODO Revisar caso en el que no hay un camino posible
-    } catch(const std::out_of_range &e) {
+    } catch(const std::exception &e) {
+        std::cout << "No existe la unidad" << std::endl;
         return false;
     }
 }
@@ -65,11 +75,15 @@ void ServerMap::addUnitData(std::vector<uint16_t> &vec) {
     }
 }
 
-void ServerMap::updateUnitPositions() {
+bool ServerMap::updateUnitPositions() {
     std::lock_guard<std::mutex> lock(mutex);
+    bool relocated = false;
+
     for (auto const& [player, unitsMap] : units) {
         for (auto const& [unitId, unit] : unitsMap) {
-            unit->relocate();
+            if (unit->relocate() && !relocated)
+                relocated = true;
         }
     }
+    return relocated;
 }

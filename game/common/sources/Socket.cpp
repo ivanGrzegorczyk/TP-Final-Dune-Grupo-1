@@ -149,6 +149,7 @@ Socket Socket::accept() {
     int skt = ::accept(this->skt, nullptr, nullptr);
     if (skt < 0) {
         // TODO descriptive exc
+        std::cout << "Falla el accept" << std::endl;
         throw std::exception();
     }
     return Socket(skt);
