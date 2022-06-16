@@ -73,25 +73,21 @@ void Server::acceptClients() {
 void Server::manageEvents() {
     ServerEvent *event = protectedQueue.pop();
     if (event != nullptr) {
-        std::cout << "Hay un evento" << std::endl;
-        event->performEvent(map, blockingQueue);
+        event->performEvent(map);
+        blockingQueue.push(createSnapshot());
     }
     if (map.updateUnitPositions()) {
-        std::cout << "se mueve en el server" << std::endl;
-        blockingQueue.push(true);
+        blockingQueue.push(createSnapshot());
     }
 }
 
 void Server::broadCast() {
     while (active_game) {
-        if (blockingQueue.pop() || !blockingQueue.pop()) {
-            if (!active_game) {
-                return;  // TODO Salida temporal
-            }
-            std::vector<uint16_t> snapshot = createSnapshot();
-            std::cout << "envia el broadcast: " << snapshot.size() << std::endl;
-            clients.broadCast(snapshot);  // Actualizo a todos los clientes
+        std::vector<uint16_t> snapshot = blockingQueue.pop();
+        if (!active_game) {
+            return;  // TODO Salida temporal
         }
+        clients.broadCast(snapshot);  // Actualizo a todos los clientes
     }
 }
 

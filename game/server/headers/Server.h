@@ -19,7 +19,7 @@ class Server {
 private:
     ServerMap map;
     ProtectedQueue<ServerEvent *> protectedQueue;
-    BlockingQueue<bool> blockingQueue;
+    BlockingQueue<std::vector<uint16_t>> blockingQueue;
     ServerProtocol protocol;
     std::atomic<bool> keep_accepting;
     std::atomic<bool> active_game;

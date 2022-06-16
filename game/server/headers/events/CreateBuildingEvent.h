@@ -10,7 +10,7 @@ public:
 
     CreateBuildingEvent(int playerId, int buildingType, std::vector<coordenada_t> coords);
 
-    void performEvent(ServerMap &map, BlockingQueue<bool> &queue) override;
+    void performEvent(ServerMap &map) override;
 };
 
 #endif  // CREATEBUILDINGEVENT_H_
