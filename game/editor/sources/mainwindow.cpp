@@ -11,8 +11,15 @@ MainWindow::MainWindow(MapaEditor&& map, QWidget *parent)
 {
     ui->setupUi(this);
     ui->view->setScene(&this->scene);
-    ui->edit_button_1->setText("mountain");
-    connect(ui->edit_button_1, &QPushButton::clicked, this,  [=]() { this->toggle_button(ui->edit_button_1->text()); });
+    QString text1 = QString::fromStdString("mountain");
+    QString text2 = QString::fromStdString("sand");
+    QString text3 = QString::fromStdString("rock");
+    ui->edit_button_1->setText(text1);
+    ui->edit_button_2->setText(text2);
+    ui->edit_button_3->setText(text3);
+    auto lambda1 =  [text1, this]() { this->toggle_button(text1); };
+
+    connect(ui->edit_button_1, &QPushButton::clicked, this, lambda1);
 }
 
 void MainWindow::toggle_button(QString text) {
