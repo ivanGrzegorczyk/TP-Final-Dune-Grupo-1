@@ -16,6 +16,7 @@ public:
     GameScene(MapaEditor&& map);
     virtual ~GameScene() = default;
     void set_active_texture(std::string& texture);
+    void save();
     std::shared_ptr<std::string> active_texture; //todo make readonly with method
 
 private slots:

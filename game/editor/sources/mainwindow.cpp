@@ -11,21 +11,32 @@ MainWindow::MainWindow(MapaEditor&& map, QWidget *parent)
 {
     ui->setupUi(this);
     ui->view->setScene(&this->scene);
-    QString text1 = QString::fromStdString("mountain");
-    QString text2 = QString::fromStdString("sand");
-    QString text3 = QString::fromStdString("rock");
-    ui->edit_button_1->setText(text1);
-    ui->edit_button_2->setText(text2);
-    ui->edit_button_3->setText(text3);
-    auto lambda1 =  [text1, this]() { this->toggle_button(text1); };
 
-    connect(ui->edit_button_1, &QPushButton::clicked, this, lambda1);
+    std::vector<QString> textures;
+    textures.push_back(QString::fromStdString("mountain"));
+    textures.push_back(QString::fromStdString("sand"));
+    textures.push_back(QString::fromStdString("rock"));
+
+
+    std::vector<QPushButton *> buttons;
+    buttons.push_back(ui->edit_button_1);
+    buttons.push_back(ui->edit_button_2);
+    buttons.push_back(ui->edit_button_3);
+
+    for (int i = 0; i < 3; i++) {
+        QString texture = textures[i];
+        QPushButton *button = buttons[i];
+        button->setCheckable(true);
+        buttons[i]->setText(texture);
+        auto lambda =  [button, this]() { this->toggle_button(button); };
+        connect(buttons[i], &QPushButton::clicked, this, lambda);
+    }
 }
 
-void MainWindow::toggle_button(QString text) {
-    ui->edit_button_1->setText(text);
-    std::string txt = text.toStdString();
-    scene.set_active_texture(txt);
+void MainWindow::toggle_button(QPushButton *button) {
+    button->setChecked(true);
+    std::string std(button->text().toStdString());
+    scene.set_active_texture(std);
 }
 
 MainWindow::~MainWindow()

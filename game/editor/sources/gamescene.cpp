@@ -15,7 +15,11 @@ GameScene::GameScene(MapaEditor&& map) : map(map)
 }
 
 void GameScene::set_active_texture(std::string& texture) {
-    this->active_texture->assign("mountain");
+    std::cout << texture << "!!!" << std::endl;
+    this->active_texture->assign(texture);
+}
+
+void GameScene::save() {
     std::ofstream my_file("data.yaml");
     my_file << map.to_yaml();
 }
