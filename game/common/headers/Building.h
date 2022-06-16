@@ -9,7 +9,7 @@ protected:
     std::vector<coordenada_t> coords;
 
 public:
-    Building(int id, double hp, std::vector<coordenada_t> coords);
+    Building(int id, double hp, int type, std::vector<coordenada_t> coords);
 };
 
 #endif  // BUILDING_H_

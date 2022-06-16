@@ -7,9 +7,12 @@ class Entity {  // Va terminar siendo una clase abstracta
 protected:
     int id;
     double HP;
+    int type;
 
 public:
-    Entity(int id, double HP);
+    int getType() const;
+
+    Entity(int id, double HP, int type);
     virtual ~Entity() = default;
 };
 

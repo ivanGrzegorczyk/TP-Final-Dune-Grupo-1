@@ -22,7 +22,6 @@ void ServerProtocol::shutdown(int how) {
 int ServerProtocol::commandReceive() {
     uint16_t command;
     socket.recvall(&command, 1);
-    std::cout << "recibo un comando: " << command << std::endl;
     return command;
 }
 
@@ -41,12 +40,16 @@ void ServerProtocol::getRelocationData
     goal.second = ntohs(goal_y);
 }
 
-void ServerProtocol::getUnitData(uint8_t &unity) {
+void ServerProtocol::getUnitData(uint8_t &unity, coordenada_t &position) {
     socket.recvall(&unity, sizeof(unity));
+    uint16_t aux;
+    socket.recvall(&aux, sizeof(aux));
+    position.first = ntohs(aux);
+    socket.recvall(&aux, sizeof(aux));
+    position.second = ntohs(aux);
 }
 
 void ServerProtocol::assignPlayerId(int id) {
-    std::cout << "id enviado: " << id << std::endl;
     uint16_t playerId = id;
     playerId = htons(playerId);
 

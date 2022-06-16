@@ -11,23 +11,10 @@ ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue,
         protocol(std::move(peer)), playerId(id) {}
 
 void ThClient::run() {
-    std::cout << "Se corre el run" << std::endl;
     protocol.assignPlayerId(playerId);
-    std::vector<uint16_t> broadCastInicial;
-    uint16_t aux = 5;
-    broadCastInicial.push_back(aux);
-    broadCastInicial.push_back((uint16_t)playerId);
-    aux = 10;
-    broadCastInicial.push_back(aux);
-    aux = 1;
-    broadCastInicial.push_back(aux);
-    broadCastInicial.push_back(aux);
-    broadCastInicial.push_back(aux);
-    protocol.sendSnapshot(broadCastInicial);
 
     while (keep_talking) {
         int command = protocol.commandReceive();
-        std::cout << "COMANDO: " << command << std::endl;
         manageCommand(command);
     }
 
@@ -68,12 +55,12 @@ void ThClient::repositionUnit() {
 
 void ThClient::spawnUnit() {
     uint8_t unit;
-    protocol.getUnitData(unit);
-    ServerEvent *event = new SpawnUnitEvent(playerId, unit);
+    coordenada_t position;
+    protocol.getUnitData(unit, position);
+    ServerEvent *event = new SpawnUnitEvent(playerId, unit, position);
     protectedQueue.push(event);
 }
 
 void ThClient::sendSnapshot(const std::vector<uint16_t> &snapshot) {
-    std::cout << "Envia snapshot" << std::endl;
     protocol.sendSnapshot(snapshot);
 }

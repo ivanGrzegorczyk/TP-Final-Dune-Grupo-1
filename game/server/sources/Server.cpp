@@ -12,7 +12,7 @@ void Server::run() {
     std::thread broadcastThread(&Server::broadCast, this);
     std::thread finishThread(&Server::finish, this);
 
-    auto t1 = std::chrono::system_clock::now();
+//    auto t1 = std::chrono::system_clock::now();
 
     do {
         manageEvents();
@@ -93,7 +93,7 @@ void Server::broadCast() {
 
 std::vector<uint16_t> Server::createSnapshot() {
     std::vector<uint16_t> snapshot;
-    map.addUnitData(snapshot);
+    map.addSnapshotData(snapshot);
     uint16_t size = snapshot.size();
     snapshot.insert(snapshot.begin(), size);
     return snapshot;

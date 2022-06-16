@@ -2,8 +2,8 @@
 #include <utility>
 #include "../headers/Units.h"
 
-Units::Units(int id, double hp, int range, int speed, coordenada_t coord) :
-        Entity(id, hp), range(range), speed(speed), coord(std::move(coord)) {}
+Units::Units(int id, double hp, int range, int speed, int type, coordenada_t coord) :
+        Entity(id, hp, type), range(range), speed(speed), coord(std::move(coord)) {}
 
 void Units::setPath(std::stack<coordenada_t> _path) {
     this->path = std::move(_path);

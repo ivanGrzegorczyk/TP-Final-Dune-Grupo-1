@@ -3,7 +3,7 @@
 #include "../../common/headers/LightInfantry.h"
 
 ServerMap::ServerMap(int rows, int columns) :
-map(rows, std::vector<ServerCell>(columns)) {
+map(rows, std::vector<ServerCell>(columns)), entityId(1) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
             map[i][j].coords = {i, j};
@@ -38,33 +38,20 @@ bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
     }
 }
 
-void ServerMap::spawnUnit(int playerId, int unit) {
-    int unitId = units[playerId].size() + 1; // TODO Que pasa si se elimina alguna unidad? Que id correspondería?
+void ServerMap::spawnUnit(int playerId, int unit, coordenada_t position) {
     if (unit == UNIT_LIGHT_INFANTRY)
         units.at(playerId).insert(std::pair<int, Units *> (
-                unitId, new LightInfantry(unitId, coordenada_t{playerId, playerId}))); // TODO Las coordenadas estan asi temporalmente
+                entityId, new LightInfantry(entityId, position)));
+
+    entityId++;
 }
 
 void ServerMap::createBuilding(int playerId, int buildingType, const std::vector<coordenada_t>& coords) {
-    int buildingId = buildings.at(playerId).size() + 1;
-
     if (buildingType == BUILDING_BARRACKS) {
 
     }
-}
 
-void ServerMap::addUnitData(std::vector<uint16_t> &vec) {
-    for (auto const& [player, unitsMap] : units) {
-        uint16_t playerId = player;
-        vec.push_back(playerId);
-        for (auto const& [unitId, unit] : unitsMap) {
-            vec.push_back(uint16_t {10});  // TODO Cuando se agreguen más unidades hay que cambiar esta linea
-            vec.push_back((uint16_t) unitId);
-            coordenada_t position = unit->getPosition();
-            vec.push_back((uint16_t) position.first);
-            vec.push_back((uint16_t) position.second);
-        }
-    }
+    entityId++;
 }
 
 bool ServerMap::updateUnitPositions() {
@@ -77,4 +64,32 @@ bool ServerMap::updateUnitPositions() {
         }
     }
     return relocated;
+}
+
+void ServerMap::addUnitData(int playerId, std::vector<uint16_t> &snapshot) {
+    snapshot.push_back(units.at(playerId).size());  // Cantidad de unidades para este jugador
+    for (auto const& [unitId, unit] : units.at(playerId)) {
+        snapshot.push_back((uint16_t) unit->getType());  // Tipo de unidad
+        snapshot.push_back((uint16_t) unitId);  // Id de la unidad
+        snapshot.push_back((uint16_t) unit->getPosition().first);  // Coordenada x
+        snapshot.push_back((uint16_t) unit->getPosition().second);  // Coordenada y
+    }
+}
+
+void ServerMap::addBuildingData(int playerId, std::vector<uint16_t> &snapshot) {
+    snapshot.push_back(buildings.at(playerId).size());  // Cantidad de edificios para este jugador
+    for (auto const& [buildingId, building] : buildings.at(playerId)) {
+        snapshot.push_back((uint16_t) building->getType());  // Tipo de edificio
+        snapshot.push_back((uint16_t) buildingId);  // Id del edificio
+//        snapshot.push_back((uint16_t) building->getPosition().first);
+//        snapshot.push_back((uint16_t) building->getPosition().second);
+    }
+}
+
+void ServerMap::addSnapshotData(std::vector<uint16_t> &snapshot) {
+    for (auto const& [player, unitsMap] : units) {
+        snapshot.push_back((uint16_t) player);  // PlayerId
+        addUnitData(player, snapshot);
+        //addBuildingData(player, snapshot);
+    }
 }
