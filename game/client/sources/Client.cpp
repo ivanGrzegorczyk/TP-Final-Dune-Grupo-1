@@ -1,14 +1,12 @@
 #include <thread>
+#include <utility>
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"
-#include "../headers/Request.h"
-#include "../headers/MoveQuery.h"
-#include "../headers/Response.h"
 
 using namespace SDL2pp;
 
-Client::Client(std::string hostname, std::string  servicename, Renderer &rnd, std::string  file) : protocol(hostname, servicename), mapUi(rnd, file),
-                                                                                            clientId(), running(true) {
+Client::Client(std::string hostname, std::string  servicename, Renderer &rnd, std::string  file) :
+    protocol(std::move(hostname), std::move(servicename)), mapUi(rnd, std::move(file)),clientId(), running(true) {
     this->clientId = protocol.getId();
 }
 
@@ -19,7 +17,7 @@ void Client::run() {
 
     auto t1 = std::chrono::system_clock::now();
     while(running) {
-        ProcessInput(); //pop y mandarlo al mapa
+        ProcessInput();
         update();
         renderer();
         auto t2 = std::chrono::system_clock::now();
@@ -39,19 +37,28 @@ void Client::ProcessInput() {
 
 Request* Client::createEvent() {
     SDL_Event event;
-
     SDL_PollEvent(&event);
     switch (event.type) {
         case SDL_QUIT:
             running = false;
             break;
         case SDL_MOUSEBUTTONUP:
-            int xmouse, ymouse;
-            Request* request;
-            xmouse = event.button.x;
-            ymouse = event.button.y;
-            request =  mapUi.mouseEvent(xmouse, ymouse, clientId);
-            return request;
+            if(event.button.button ==  SDL_BUTTON_RIGHT) {
+                Request* request;
+                int xm, ym;
+                xm = event.button.x;
+                ym = event.button.y;
+                request = mapUi.moveCharacter(xm, ym, clientId);
+                return request;
+            }
+            if(event.button.button == SDL_BUTTON_LEFT) {
+                Request* r;
+                int xmouse, ymouse;
+                xmouse = event.button.x;
+                ymouse = event.button.y;
+                r =  mapUi.mouseEvent(xmouse, ymouse, clientId);
+                return r;
+            }
         default:
             break;
     }
@@ -61,8 +68,9 @@ Request* Client::createEvent() {
 
 void Client::update() {
     Response* response = this->recvQueue.pop();
-    if (response != nullptr)
+    if (response != nullptr) {
         this->mapUi.update(response);
+    }
 }
 
 void Client::sendToServer() {
@@ -70,7 +78,7 @@ void Client::sendToServer() {
         std::vector<uint16_t> data;
         Request *event = this->sendQueue.pop();
         if (event != nullptr) {
-            data = this->sendQueue.pop()->getData();
+            data = event->getData();
             protocol.send(data);
         }
     }

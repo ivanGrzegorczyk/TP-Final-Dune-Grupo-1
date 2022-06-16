@@ -97,6 +97,9 @@ Request* MapUi::mouseEvent(int x, int y, int playerId) {
     //return character.reactToEvent(x, y);
 }
 
-void MapUi::moveCharacter(std::vector<coordenada_t> &path) {
+Request* MapUi::moveCharacter(int x, int y, int playerId) {
+    for (auto const& [unitId, unit] : units[playerId]) {
+        return unit->walkEvent(x, y);
+    }
     //character.move(path);
 }
