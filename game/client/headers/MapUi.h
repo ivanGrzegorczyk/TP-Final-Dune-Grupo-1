@@ -41,7 +41,7 @@ public:
     void update(Response *response);
     void render();
 
-    void moveCharacter(std::vector<coordenada_t> &path);
+    Request* moveCharacter(int x, int y, int playerId);
 
 };
 
