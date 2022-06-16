@@ -3,7 +3,6 @@
 
 #include "../headers/ThCLient.h"
 #include "../headers/events/RepositionEvent.h"
-#include "../../common/headers/Constantes.h"
 #include "../headers/events/SpawnUnitEvent.h"
 
 ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id):
@@ -38,6 +37,7 @@ void ThClient::manageCommand(int command) {
         }
         case CREATE_UNIT_EVENT: {
             spawnUnit();
+            break;
         }
         default: {
             throw std::runtime_error("Unknown command");

@@ -9,7 +9,7 @@
 #include <memory>
 
 #include "../../common/headers/Building.h"
-#include "../../common/headers/Units.h"
+#include "../../common/headers/Unit.h"
 
 #define TERRAIN_SAND 0
 #define TERRAIN_DUNES 1
@@ -22,7 +22,7 @@ public:
     coordenada_t coords;
     int ground;
     std::shared_ptr<Building> building;
-    std::vector<std::weak_ptr<Units>> unities;
+    std::vector<std::weak_ptr<Unit>> unities;
 
     ServerCell();
     explicit ServerCell(coordenada_t coord);

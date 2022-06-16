@@ -7,7 +7,7 @@
 #include "Entity.h"
 #include "Constantes.h"
 
-class Units: public Entity {  // abstracta
+class Unit: public Entity {  // abstracta
 protected:
     int range;
     int speed;
@@ -15,7 +15,7 @@ protected:
     std::stack<coordenada_t> path;
 
 public:
-    Units(int id, double hp, int range, int speed, int type, coordenada_t coord);
+    Unit(int id, double hp, int range, int speed, int type, coordenada_t coord);
     void setPath(std::stack<coordenada_t> _path);
     coordenada_t getPosition();
     void setPosition(coordenada_t newPosition);

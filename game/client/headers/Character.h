@@ -1,13 +1,13 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #define TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #include "SDL2pp/SDL2pp.hh"
-#include "../../common/headers/Units.h"
+#include "../../common/headers/Unit.h"
 #include "Request.h"
 
 
 using namespace SDL2pp;
 
-class Character : public Units {
+class Character : public Unit {
 private:
     SDL2pp::Texture t;
     Renderer& rnd;

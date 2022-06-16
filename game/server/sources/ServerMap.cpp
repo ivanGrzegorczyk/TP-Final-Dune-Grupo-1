@@ -1,6 +1,5 @@
 #include "../headers/ServerMap.h"
-#include "../../common/headers/Constantes.h"
-#include "../../common/headers/LightInfantry.h"
+#include "../headers/units/LightInfantry.h"
 
 ServerMap::ServerMap(int rows, int columns) :
 map(rows, std::vector<ServerCell>(columns)), entityId(1) {
@@ -9,9 +8,6 @@ map(rows, std::vector<ServerCell>(columns)), entityId(1) {
             map[i][j].coords = {i, j};
         }
     }
-
-    units[1].insert(std::pair<int, Units *> (
-            1, new LightInfantry(1, coordenada_t{1, 1})));
 }
 
 std::stack<coordenada_t> ServerMap::A_star(
@@ -40,7 +36,7 @@ bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
 
 void ServerMap::spawnUnit(int playerId, int unit, coordenada_t position) {
     if (unit == UNIT_LIGHT_INFANTRY)
-        units.at(playerId).insert(std::pair<int, Units *> (
+        units.at(playerId).insert(std::pair<int, Unit *> (
                 entityId, new LightInfantry(entityId, position)));
 
     entityId++;
