@@ -55,7 +55,7 @@ void ThClient::repositionUnit() {
 }
 
 void ThClient::spawnUnit() {
-    uint8_t unit;
+    uint16_t unit;
     coordenada_t position;
     protocol.getUnitData(unit, position);
     ServerEvent *event = new SpawnUnitEvent(playerId, unit, position);
