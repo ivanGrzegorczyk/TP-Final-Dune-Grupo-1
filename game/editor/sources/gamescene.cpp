@@ -21,6 +21,7 @@ GameScene::GameScene(MapaEditor&& map) : map(map)
 }
 
 void GameScene::set_active_texture(std::string& texture) {
+    //TODO use map
     auto lambda = [texture](std::shared_ptr<Terrain> t){  return t->name() == texture; };
     auto found = std::find_if(terrain_types.begin(), terrain_types.end(), lambda);
     if(found == terrain_types.end()) {

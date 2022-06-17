@@ -17,10 +17,12 @@ class MapaEditor {
     coordenada_t ubicacion_centro_construccion = {-1,-1};
     public:
     MapaEditor(int filas, int columnas) : filas(filas), columnas(columnas) {
+        std::string name("default"); //TODO centralize all terrains
+        std::shared_ptr<Terrain> terr(new Terrain(name));
         for(int i = 0; i < filas; i++) {
             fila_t fila;
             for(int j = 0; j < columnas; j++) {
-                CeldaEditor c({i, j});
+                CeldaEditor c({i, j}, terr);
                 fila.push_back(c);
             }
             mapa.push_back(fila);
@@ -45,9 +47,9 @@ class MapaEditor {
         return mapa[ubicacion_centro_construccion.second][ubicacion_centro_construccion.first]
             .propiedades[0];
     }
-    void poner_terreno(std::vector<coordenada_t> celdas, std::string terreno) {
+    void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain) {
         for(coordenada_t celda : celdas) {
-            mapa[celda.second][celda.first].terreno = terreno;
+            mapa[celda.second][celda.first].terrain = terrain;
         }
     }
     std::string to_yaml() {
@@ -72,7 +74,7 @@ class MapaEditor {
                 out 
                     << YAML::BeginMap
                         << YAML::Key << "terrain"
-                        << YAML::Value <<  cell({i,j}).terreno
+                        << YAML::Value <<  cell({i,j}).terrain->name()
                         << YAML::Key << "buildings"
                         << YAML::BeginSeq;
                         // building is always defined at its rightmost position

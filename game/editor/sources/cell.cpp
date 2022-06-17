@@ -20,8 +20,7 @@ void Cell::update()
 {
     CeldaEditor c = std::move(map.cell(position));
     QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect;
-    std::cout << c.terreno << "!" << std::endl;
-    effect->setColor((c.terreno == "mountain") ? Qt::red : Qt::blue);
+    effect->setColor((c.terrain->name() == "mountain") ? Qt::red : Qt::blue);
     this->setGraphicsEffect(effect);
 }
 
@@ -43,6 +42,6 @@ void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 void Cell::place_tile(std::shared_ptr<Terrain> terrain) {
     std::vector<coordenada_t> coordinates{position};
     std::cout << terrain->name() << std::endl;
-    map.poner_terreno(coordinates, terrain->name());
+    map.place_terrain(coordinates, terrain);
     update();
 }

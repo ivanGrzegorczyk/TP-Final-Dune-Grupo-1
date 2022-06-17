@@ -22,7 +22,10 @@ MapaEditor setup() {
     std::vector<coordenada_t> celdas_montania;
     celdas_montania.push_back({3,3});
     celdas_montania.push_back({3,4});
-    m.poner_terreno(celdas_montania, "mountain");
+
+    std::string name("mountain"); //TODO centralize all terrains
+    std::shared_ptr<Terrain> terr(new Terrain(name));
+    m.place_terrain(celdas_montania, terr);
     return m;
 }
 
