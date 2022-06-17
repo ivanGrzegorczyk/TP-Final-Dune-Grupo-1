@@ -11,6 +11,7 @@ ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue,
 
 void ThClient::run() {
     protocol.assignPlayerId(playerId);
+    protocol.sendTerrain();
 
     while (keep_talking) {
         int command = protocol.commandReceive();

@@ -2,6 +2,7 @@
 #include <stack>
 #include <netinet/in.h>
 #include <iostream>
+#include <fstream>
 
 #include "../headers/ServerProtocol.h"
 
@@ -61,4 +62,31 @@ void ServerProtocol::sendSnapshot(const std::vector<uint16_t> &snapshot) {
         uint16_t aux = htons(msg);
         socket.sendall(&aux, sizeof(aux));
     }
+}
+
+void ServerProtocol::sendTerrain() {
+    std::ifstream file;
+    std::string line;
+    file.open("terrain.txt");
+    std::vector<uint8_t> ground;
+    uint16_t size = 50;
+    size = htons(size);
+    // Envio la cantidad de filas y columnas del mapa
+    socket.sendall(&size, sizeof(size));
+    socket.sendall(&size, sizeof(size));
+
+    // Pongo todos los datos en un vector
+    while (getline(file, line)) {
+        for (char c : line) {
+            if (c == 'O') { // Rocas
+                ground.push_back(TERRAIN_ROCKS);
+            } else {           // Arena
+                ground.push_back(TERRAIN_SAND);
+            }
+        }
+    }
+
+    // Envio los datos del terreno
+    for (uint8_t terrain : ground)
+        socket.sendall(&terrain, sizeof(terrain));
 }

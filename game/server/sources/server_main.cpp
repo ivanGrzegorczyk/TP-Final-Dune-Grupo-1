@@ -2,7 +2,7 @@
 
 int main(int argc, char* argv[]) {
     if (argc > 0) {
-        Server server(argv[1], 50, 160);
+        Server server(argv[1], 50, 50);
 
         try {
             server.run();
