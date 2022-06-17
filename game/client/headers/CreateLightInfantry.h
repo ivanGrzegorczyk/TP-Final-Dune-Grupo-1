@@ -6,7 +6,6 @@
 
 class CreateLightInfantry : public Request{
 private:
-    int unitId;
     coordenada_t coord;
 public:
     CreateLightInfantry(int x, int y);
