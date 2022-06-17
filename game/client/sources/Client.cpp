@@ -2,6 +2,7 @@
 #include <utility>
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"
+#include "../headers/CreateLightInfantry.h"
 
 using namespace SDL2pp;
 
@@ -31,6 +32,7 @@ void Client::run() {
 void Client::ProcessInput() {
     Request *event = createEvent();
     if(event != nullptr) {
+        std::cout << "evento de crear" << std::endl;
         sendQueue.push(event);
     }
 }
@@ -42,6 +44,12 @@ Request* Client::createEvent() {
         case SDL_QUIT:
             running = false;
             break;
+        /*case SDL_KEYDOWN:
+            switch (event.key.keysym.sym) {
+                case SDLK_a:
+                    multi = true;
+                    std::cout << "TECLA" << std::endl;
+            }*/
         case SDL_MOUSEBUTTONUP:
             if(event.button.button ==  SDL_BUTTON_RIGHT) {
                 Request* request;
@@ -56,6 +64,11 @@ Request* Client::createEvent() {
                 int xmouse, ymouse;
                 xmouse = event.button.x;
                 ymouse = event.button.y;
+                int click = event.button.clicks;
+                if(click == 2) {
+                    Request *unit = new CreateLightInfantry(xmouse / 8, ymouse / 8);
+                    return unit;
+                }
                 r =  mapUi.mouseEvent(xmouse, ymouse, clientId);
                 return r;
             }
@@ -79,7 +92,7 @@ void Client::sendToServer() {
         Request *event = this->sendQueue.pop();
         if (event != nullptr) {
             data = event->getData();
-            protocol.send(data);
+            protocol.send(event->getCommand(), data);
         }
     }
 }
