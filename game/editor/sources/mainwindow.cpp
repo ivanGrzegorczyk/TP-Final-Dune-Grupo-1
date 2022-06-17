@@ -4,10 +4,10 @@
 #include "ui_mainwindow.h"
 #include <QString>
 
-MainWindow::MainWindow(MapaEditor&& map, QWidget *parent)
+MainWindow::MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , scene(std::move(map))
+    , scene(map)
 {
     ui->setupUi(this);
     ui->view->setScene(&this->scene);
@@ -31,6 +31,8 @@ MainWindow::MainWindow(MapaEditor&& map, QWidget *parent)
         auto lambda =  [button, this]() { this->toggle_button(button); };
         connect(buttons[i], &QPushButton::clicked, this, lambda);
     }
+    auto lambda_save =  [this]() { this->scene.save(); };
+    connect(ui->save_button, &QPushButton::clicked, this, lambda_save);
 }
 
 void MainWindow::toggle_button(QPushButton *button) {

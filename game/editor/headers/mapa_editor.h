@@ -16,6 +16,10 @@ class MapaEditor {
     int filas; int columnas;
     coordenada_t ubicacion_centro_construccion = {-1,-1};
     public:
+    MapaEditor(MapaEditor& other) = delete;
+    MapaEditor& operator=(MapaEditor& other) = delete;
+    MapaEditor(MapaEditor&& other) = default;
+    MapaEditor& operator=(MapaEditor&& other) = default;
     MapaEditor(int filas, int columnas) : filas(filas), columnas(columnas) {
         std::string name("default"); //TODO centralize all terrains
         std::shared_ptr<Terrain> terr(new Terrain(name));
@@ -48,11 +52,16 @@ class MapaEditor {
             .propiedades[0];
     }
     void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain) {
+        std::cout <<  "change terrain in " << std::to_string(celdas[0].first) << std::to_string(celdas[0].second);
+
         for(coordenada_t celda : celdas) {
+            std::cout <<  "from " << mapa[celda.second][celda.first].terrain->name();
             mapa[celda.second][celda.first].terrain = terrain;
+            std::cout << "to" << mapa[celda.second][celda.first].terrain->name() << std::endl;
         }
     }
     std::string to_yaml() {
+        std::cout << "First cell is:" << mapa[0][0].terrain->name() << std::endl;
         YAML::Emitter out;
         out << YAML::BeginMap;
             out << YAML::Key << "name";
@@ -71,10 +80,11 @@ class MapaEditor {
                     << YAML::BeginSeq;
         for(int i = 0; i < filas; i++) {
             for(int j = 0; j < columnas; j++) {
+                std::string terrain(cell({i,j}).terrain->name());
                 out 
                     << YAML::BeginMap
                         << YAML::Key << "terrain"
-                        << YAML::Value <<  cell({i,j}).terrain->name()
+                        << YAML::Value <<  terrain
                         << YAML::Key << "buildings"
                         << YAML::BeginSeq;
                         // building is always defined at its rightmost position
@@ -98,7 +108,6 @@ class MapaEditor {
         out << YAML::EndSeq 
         << YAML::EndMap
         << YAML::EndMap;
-        std::cout << out.c_str() <<std::endl;
         return std::string(out.c_str());
     }
     

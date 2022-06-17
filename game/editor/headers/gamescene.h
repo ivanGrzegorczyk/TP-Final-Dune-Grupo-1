@@ -15,7 +15,7 @@ class GameScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    GameScene(MapaEditor&& map);
+    GameScene(std::shared_ptr<MapaEditor> map);
     virtual ~GameScene() = default;
     void set_active_texture(std::string& texture);
     void save();
@@ -26,7 +26,7 @@ private slots:
 
 private:
     std::vector<std::shared_ptr<Cell>> cells;
-    MapaEditor map;
+    std::shared_ptr<MapaEditor> map;
     std::vector<std::shared_ptr<Terrain>> terrain_types;
 };
 

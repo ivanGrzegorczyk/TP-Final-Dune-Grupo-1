@@ -31,9 +31,10 @@ MapaEditor setup() {
 
 int main(int argc, char* argv[]) {
 
-    MapaEditor m(std::move(setup()));
+    MapaEditor* m = new MapaEditor(std::move(setup()));
+    std::shared_ptr<MapaEditor> map_ptr(m);
     QApplication a(argc, argv);
-    MainWindow w(std::move(m));
+    MainWindow w(map_ptr);
     w.show();
     int return_val = a.exec(); 
     return return_val;

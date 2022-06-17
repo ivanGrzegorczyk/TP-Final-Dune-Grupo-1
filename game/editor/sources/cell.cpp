@@ -6,15 +6,14 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsColorizeEffect>
 #include <QGraphicsEffect>
-Cell::Cell(MapaEditor& map, std::shared_ptr<SharedBrush> brush, coordenada_t position): 
+Cell::Cell(std::shared_ptr<MapaEditor> map, std::shared_ptr<SharedBrush> brush, coordenada_t position): 
         hovering(false), map(map), position(position), current_brush(brush) {
     this->update();
 }
 
 void Cell::update()
 {
-    CeldaEditor c = std::move(map.cell(position));
-    QImage terrain_texture = c.terrain->image();
+    QImage terrain_texture = map->cell(position).terrain->image();
     currentTexture = QPixmap::fromImage(terrain_texture);
     this->setPixmap(currentTexture);
 }
@@ -36,7 +35,6 @@ void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
 void Cell::place_tile(std::shared_ptr<Terrain> terrain) {
     std::vector<coordenada_t> coordinates{position};
-    std::cout << terrain->name() << std::endl;
-    map.place_terrain(coordinates, terrain);
+    map->place_terrain(coordinates, terrain);
     update();
 }

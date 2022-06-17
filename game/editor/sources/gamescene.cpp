@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-GameScene::GameScene(MapaEditor&& map) : map(map)
+GameScene::GameScene(std::shared_ptr<MapaEditor> map) : map(map)
 {
     std::vector<std::string> names = {"rock", "mountain", "sand"};
     for(std::string name : names) { 
@@ -10,7 +10,7 @@ GameScene::GameScene(MapaEditor&& map) : map(map)
         terrain_types.push_back(terr);
     }
     brush.reset(new SharedBrush(terrain_types[0]));
-    for(auto it = map.begin(); it != map.end(); ++it) {
+    for(auto it = map->begin(); it != map->end(); ++it) {
         auto cell = *it;
         Cell* p = new Cell(map, brush, cell.id);
         QRect rect = p->pixmap().rect();
@@ -28,11 +28,11 @@ void GameScene::set_active_texture(std::string& texture) {
         throw std::invalid_argument("bad texture name");
     }
     brush->change_brush(*found);
-    std::cout <<  "set:" << brush->brush()->name() << std::endl;
 }
 
 void GameScene::save() {
     std::ofstream my_file("data.yaml");
-    my_file << map.to_yaml();
+    my_file << map->to_yaml();
+    my_file.close();
 }
 

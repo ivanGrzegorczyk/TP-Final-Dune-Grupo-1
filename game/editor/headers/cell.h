@@ -15,7 +15,7 @@ protected:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 public:
-    Cell(MapaEditor& map, std::shared_ptr<SharedBrush> brush, coordenada_t position);
+    Cell(std::shared_ptr<MapaEditor> map, std::shared_ptr<SharedBrush> brush, coordenada_t position);
     virtual ~Cell() = default;
     void update();
     void place_tile(std::shared_ptr<Terrain> terrain);
@@ -24,7 +24,7 @@ private:
     QList<QPixmap> pixmaps;
     QPixmap currentTexture; //unscaled current texture
     bool hovering;
-    MapaEditor& map;
+    std::shared_ptr<MapaEditor> map;
     coordenada_t position;
     std::shared_ptr<SharedBrush> current_brush;
 };

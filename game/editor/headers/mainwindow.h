@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 #include <QMainWindow>
 #include <QPushButton>
+#include <memory>
 #include "gamescene.h"
 #include "mapa_editor.h"
 
@@ -14,7 +15,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(MapaEditor&& map, QWidget *parent = nullptr);
+    MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
