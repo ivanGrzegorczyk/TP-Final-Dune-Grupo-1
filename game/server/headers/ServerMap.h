@@ -29,7 +29,7 @@ public:
 
     bool updateUnitPositions();
 
-    void createBuilding(int playerId, int buildingType, const std::vector<coordenada_t>& coords);
+    void createBuilding(int playerId, int buildingType, coordenada_t position);
 
     void addSnapshotData(std::vector<uint16_t> &snapshot);
 

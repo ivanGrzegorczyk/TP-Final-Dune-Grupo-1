@@ -36,10 +36,15 @@ typedef std::pair<int, int> coordenada_t;
 #define CREATE_BUILDING_EVENT 2
 #define CREATE_UNIT_EVENT 3
 
-//units
+//light infantry data
 #define LIGHT_INFANTRY_RANGE 3
 #define LIGHT_INFANTRY_SPEED 16
 #define LIGHT_INFANTRY_HP 50
+
+//barracks data
+#define BARRACKS_ENERGY 100
+#define BARRACKS_COST 300
+#define BARRACKS_POINTS 300
 
 // Terrain
 #define TERRAIN_SAND 0
