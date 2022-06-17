@@ -6,6 +6,7 @@
 #include <QTimer>
 #include "cell.h"
 #include "mapa_editor.h"
+#include "shared_brush.h"
 #include "terrain.h"
 #include <memory>
 #include "cell.h"
@@ -18,7 +19,7 @@ public:
     virtual ~GameScene() = default;
     void set_active_texture(std::string& texture);
     void save();
-    std::shared_ptr<Terrain> active_texture;
+    std::shared_ptr<SharedBrush> brush;
 
 private slots:
     //void keyPressEvent(QKeyEvent *event) override;

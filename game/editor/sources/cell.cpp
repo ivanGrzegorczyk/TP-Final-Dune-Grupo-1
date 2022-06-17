@@ -6,11 +6,11 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsColorizeEffect>
 #include <QGraphicsEffect>
-Cell::Cell(MapaEditor& map, std::shared_ptr<Terrain> *terrain_addr, coordenada_t position): 
-    currentPixmap(0), hovering(false), map(map), position(position), current_brush(terrain_addr) {
+Cell::Cell(MapaEditor& map, std::shared_ptr<SharedBrush> brush, coordenada_t position): 
+    currentPixmap(0), hovering(false), map(map), position(position), current_brush(brush) {
     // qrc resource handling
     //pm is a pixmap of the terrain to use
-    QPixmap pm = QPixmap::fromImage((*current_brush)->image());
+    QPixmap pm = QPixmap::fromImage(current_brush->brush()->image());
     currentTexture = pm;
     this->setPixmap(currentTexture);
     this->update();
@@ -37,12 +37,12 @@ void Cell::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)  {
     Paints using the current texture the user is painting with.
 */
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    std::cout << (*current_brush)->name() << std::endl;
-    place_tile(*current_brush);
+    place_tile(current_brush->brush());
 }
 
 void Cell::place_tile(std::shared_ptr<Terrain> terrain) {
     std::vector<coordenada_t> coordinates{position};
+    std::cout << terrain->name() << std::endl;
     map.poner_terreno(coordinates, terrain->name());
     update();
 }
