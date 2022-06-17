@@ -8,10 +8,11 @@ using namespace SDL2pp;
 
 Client::Client(std::string hostname, std::string  servicename, Renderer &rnd, std::string  file) :
     protocol(std::move(hostname), std::move(servicename)), mapUi(rnd, std::move(file)),clientId(), running(true) {
-    this->clientId = protocol.getId();
 }
 
 void Client::run() {
+    this->clientId = protocol.receiveId();
+    this->mapUi.receiveMap(protocol);
     std::thread threadReceive(&Client::receiveOfServer, this);
     std::thread threadSend(&Client::sendToServer, this);
 
