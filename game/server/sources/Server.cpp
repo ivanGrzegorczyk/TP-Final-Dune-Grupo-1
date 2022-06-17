@@ -2,10 +2,12 @@
 #include <iostream>
 #include <thread>
 #include "../headers/Server.h"
-#include "../../common/headers/Constantes.h"
 
 Server::Server(const std::string &host, int rows, int columns) :
-    map(rows, columns), protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {}
+    map(rows, rows), protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
+    // TODO las dimensiones del mapa están hardcodeadas en 50x50 por ahora
+    map.initializeTerrain();
+}
 
 void Server::run() {
     std::thread acceptingThread(&Server::acceptClients, this);
@@ -66,7 +68,7 @@ void Server::broadCast() {
     while (active_game) {
         std::vector<uint16_t> snapshot = blockingQueue.pop();
         if (!active_game) {
-            return;  // TODO Salida temporal
+            return;
         }
         clients.broadCast(snapshot);  // Actualizo a todos los clientes
     }

@@ -43,6 +43,8 @@ public:
     void getUnitData(uint8_t &unity, coordenada_t &position);
 
     void sendSnapshot(const std::vector<uint16_t> &snapshot);
+
+    void sendTerrain();
 };
 
 #endif  // SERVERPROTOCOL_H_

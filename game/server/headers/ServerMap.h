@@ -32,6 +32,8 @@ public:
     void createBuilding(int playerId, int buildingType, const std::vector<coordenada_t>& coords);
 
     void addSnapshotData(std::vector<uint16_t> &snapshot);
+
+    void initializeTerrain();
 };
 
 #endif  // SERVERMAP_H_

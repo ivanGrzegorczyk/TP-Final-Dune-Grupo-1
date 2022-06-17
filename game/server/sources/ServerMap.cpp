@@ -1,3 +1,4 @@
+#include <fstream>
 #include "../headers/ServerMap.h"
 #include "../headers/units/LightInfantry.h"
 
@@ -84,5 +85,22 @@ void ServerMap::addSnapshotData(std::vector<uint16_t> &snapshot) {
         snapshot.push_back((uint16_t) player);  // PlayerId
         addUnitData(player, snapshot);
         //addBuildingData(player, snapshot);
+    }
+}
+
+void ServerMap::initializeTerrain() {
+    std::ifstream file;
+    std::string line;
+    file.open("terrain.txt");
+    int x = 0, y = -1;
+    while (getline(file, line)) {
+        for (char c : line) {
+            y++;
+            if (c == 'O')  // Rocas
+                map[x][y].ground = TERRAIN_ROCKS;
+            else           // Arena
+                map[x][y].ground = TERRAIN_SAND;
+        }
+        x++;
     }
 }
