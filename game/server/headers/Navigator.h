@@ -13,6 +13,7 @@ private:
     std::vector<Node> openSet;
     std::vector<std::vector<Node>> nodeMap;
     Node current;
+    Node closest;
 
     void manageNeighbour(coordenada_t neighbour, coordenada_t end);
     std::stack<coordenada_t> reconstructPath(coordenada_t start);
