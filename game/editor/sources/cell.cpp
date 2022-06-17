@@ -8,22 +8,15 @@
 #include <QGraphicsEffect>
 Cell::Cell(MapaEditor& map, std::shared_ptr<SharedBrush> brush, coordenada_t position): 
         hovering(false), map(map), position(position), current_brush(brush) {
-    // qrc resource handling
-    //pm is a pixmap of the terrain to use
-    currentTexture = QPixmap::fromImage(current_brush->brush()->image());
-    this->setPixmap(currentTexture);
     this->update();
 }
 
 void Cell::update()
 {
     CeldaEditor c = std::move(map.cell(position));
-    QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect;
-    effect->setColor((c.terrain->name() == "mountain") ? Qt::red : Qt::blue);
-    this->setGraphicsEffect(effect);
     QImage terrain_texture = c.terrain->image();
-    QPixmap pm = QPixmap::fromImage(terrain_texture);
-    this->setPixmap(pm);
+    currentTexture = QPixmap::fromImage(terrain_texture);
+    this->setPixmap(currentTexture);
 }
 
 void Cell::hoverEnterEvent(QGraphicsSceneHoverEvent *event) {
