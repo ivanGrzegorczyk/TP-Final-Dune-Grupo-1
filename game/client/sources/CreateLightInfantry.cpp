@@ -6,6 +6,7 @@ CreateLightInfantry::CreateLightInfantry(int x, int y) : unitId(UNIT_LIGHT_INFAN
 
 std::vector<uint16_t> CreateLightInfantry::getData() {
     std::vector<uint16_t> data;
+    data.push_back((uint16_t) UNIT_LIGHT_INFANTRY);
     data.push_back((uint16_t)unitId);
     data.push_back((uint16_t)coord.first);
     data.push_back((uint16_t)coord.second);
