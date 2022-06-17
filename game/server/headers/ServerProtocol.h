@@ -40,7 +40,7 @@ public:
 
     void assignPlayerId(int id);
 
-    void getUnitData(uint8_t &unit, coordenada_t &position);
+    void getUnitData(uint16_t &unit, coordenada_t &position);
 
     void sendSnapshot(const std::vector<uint16_t> &snapshot);
 
