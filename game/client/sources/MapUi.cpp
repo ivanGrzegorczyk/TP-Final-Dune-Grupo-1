@@ -48,7 +48,6 @@ void MapUi::draw() {
             uint8_t type = this->terrain.second.at(j);
             if(type == TERRAIN_ROCKS) {
                 CeldaUi cell(&ground3, coord, dst, r);
-                std::cout << "entre en roca" << std::endl;
                 map[i][j] = cell;
             }else {
                 CeldaUi cell(&ground, coord, dst, s);

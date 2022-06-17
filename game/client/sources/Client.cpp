@@ -46,12 +46,15 @@ Request* Client::createEvent() {
         case SDL_QUIT:
             running = false;
             break;
-        /*case SDL_KEYDOWN:
+        case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
                 case SDLK_a:
-                    multi = true;
+                    int x = -1 ,y = -1;
+                    SDL_GetMouseState(&x, &y);
                     std::cout << "TECLA" << std::endl;
-            }*/
+                    Request *unit = new CreateLightInfantry(x / 8, y / 8);
+                    return unit;
+            }
         case SDL_MOUSEBUTTONUP:
             if(event.button.button ==  SDL_BUTTON_RIGHT) {
                 Request* request;
@@ -66,11 +69,6 @@ Request* Client::createEvent() {
                 int xmouse, ymouse;
                 xmouse = event.button.x;
                 ymouse = event.button.y;
-                int click = event.button.clicks;
-                if(click == 2) {
-                    Request *unit = new CreateLightInfantry(xmouse / 8, ymouse / 8);
-                    return unit;
-                }
                 r =  mapUi.mouseEvent(xmouse, ymouse, clientId);
                 return r;
             }
