@@ -23,7 +23,6 @@ public:
 private:
     QList<QPixmap> pixmaps;
     QPixmap currentTexture; //unscaled current texture
-    int currentPixmap;
     bool hovering;
     MapaEditor& map;
     coordenada_t position;
