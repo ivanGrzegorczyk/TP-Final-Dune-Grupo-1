@@ -7,14 +7,14 @@
 class Entity {  // Va terminar siendo una clase abstracta
 protected:
     int id;
-    double HP;
+    int HP;
     int type;
     coordenada_t coord;
 
 public:
     int getType() const;
     coordenada_t getPosition();
-    Entity(int id, double HP, int type, coordenada_t coord);
+    Entity(int id, int HP, int type, coordenada_t coord);
     virtual ~Entity() = default;
 };
 
