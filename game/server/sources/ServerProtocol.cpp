@@ -67,7 +67,11 @@ void ServerProtocol::sendSnapshot(const std::vector<uint16_t> &snapshot) {
 void ServerProtocol::sendTerrain() {
     std::ifstream file;
     std::string line;
-    file.open("terrain.txt");
+
+    file.open("../terrain.txt", std::ifstream::in);
+    if (!file.is_open())
+        std::cout << "No se abrio el archivo" << std::endl;
+
     std::vector<uint8_t> ground;
     uint16_t size = 50;
     size = htons(size);
@@ -80,12 +84,12 @@ void ServerProtocol::sendTerrain() {
         for (char c : line) {
             if (c == 'O') { // Rocas
                 ground.push_back(TERRAIN_ROCKS);
-            } else {           // Arena
+            } else if (c == 'X') {           // Arena
                 ground.push_back(TERRAIN_SAND);
             }
         }
     }
-
+    std::cout << "ground.size(): " << ground.size() << std::endl;
     // Envio los datos del terreno
     for (uint8_t terrain : ground)
         socket.sendall(&terrain, sizeof(terrain));
