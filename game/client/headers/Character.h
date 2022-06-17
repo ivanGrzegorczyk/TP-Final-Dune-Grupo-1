@@ -1,9 +1,8 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #define TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #include "SDL2pp/SDL2pp.hh"
-#include "../../common/headers/Unit.h"
 #include "Request.h"
-
+#include "../../common/headers/Unit.h"
 
 using namespace SDL2pp;
 

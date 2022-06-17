@@ -11,7 +11,7 @@ void Character::render() {
     rnd.Copy(t, Rect(0, 0, 13,16), current);
 }
 
-Character::Character(SDL2pp::Renderer &renderer, int id, coordenada_t coord) : Unit(id, 0, 0, 0, coord), rnd(renderer), selected(false),
+Character::Character(SDL2pp::Renderer &renderer, int id, coordenada_t coord) : Unit(id, 0, 0, 0, 0, coord), rnd(renderer), selected(false),
                                                                                t(Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp")
                                                     .SetColorKey(true, 0))) {
 }

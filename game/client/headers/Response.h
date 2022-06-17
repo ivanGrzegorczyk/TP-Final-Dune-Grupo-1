@@ -5,8 +5,8 @@
 #include <vector>
 #include <map>
 #include <memory>
+#include "../../common/headers/Constantes.h"
 #include "Character.h"
-
 
 
 class Response {

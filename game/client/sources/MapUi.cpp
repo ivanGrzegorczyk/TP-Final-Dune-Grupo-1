@@ -81,6 +81,7 @@ void MapUi::render() {
             col.render(rdr);
         }
     }
+    //std::cout << "tamaño de arreglo: " << units.size() << std::endl;
     for(auto const& [playerId, unitsMap] : units) {
        for(auto const& [unitId, unit]: unitsMap) {
            unit->render();
@@ -101,5 +102,6 @@ Request* MapUi::moveCharacter(int x, int y, int playerId) {
     for (auto const& [unitId, unit] : units[playerId]) {
         return unit->walkEvent(x, y);
     }
+    return nullptr;
     //character.move(path);
 }
