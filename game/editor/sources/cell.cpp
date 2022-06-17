@@ -6,16 +6,12 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsColorizeEffect>
 #include <QGraphicsEffect>
-Cell::Cell(MapaEditor& map, std::shared_ptr<std::string> curr_terrain_brush, coordenada_t position): 
-    current_brush(curr_terrain_brush), currentPixmap(0), hovering(false), map(map), position(position)
+Cell::Cell(MapaEditor& map, std::shared_ptr<Terrain> terrain, coordenada_t position): 
+    currentPixmap(0), hovering(false), map(map), position(position), current_brush(terrain)
 {
-    QImage img;
     // qrc resource handling
-    std::string filename = ":d2k_BLOXXMAS.bmp";
-    if(!img.load(filename.c_str())) throw std::invalid_argument(filename);
-    // TODO: merge image processing code with d2k
-    img = img.copy(0,0,32,32);
-    QPixmap pm = QPixmap::fromImage(img);
+    //pm is a pixmap of the terrain to use
+    QPixmap pm = QPixmap::fromImage(terrain->image());
     currentTexture = pm;
     this->setPixmap(currentTexture);
     this->update();
@@ -41,11 +37,11 @@ void Cell::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)  {
     Paints using the current texture the user is painting with.
 */
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    place_tile(*current_brush);
+    place_tile(current_brush);
 }
 
-void Cell::place_tile(std::string terrain) {
+void Cell::place_tile(std::shared_ptr<Terrain> terrain) {
     std::vector<coordenada_t> coordinates{position};
-    map.poner_terreno(coordinates, terrain);
+    map.poner_terreno(coordinates, terrain->name());
     update();
 }

@@ -1,12 +1,19 @@
 #include "../../game/editor/headers/gamescene.h"
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 GameScene::GameScene(MapaEditor&& map) : map(map)
 {
-    this->active_texture.reset(new std::string("rock"));
+    std::vector<std::string> names = {"rock", "mountain", "sand"};
+    for(std::string name : names) { 
+        std::shared_ptr<Terrain> terr(new Terrain(name));
+        terrain_types.push_back(terr);
+    }
+    this->active_texture = terrain_types[0];
+
     for(auto it = map.begin(); it != map.end(); ++it) {
         auto cell = *it;
-        Cell* p = new Cell(map, this->active_texture, cell.id);
+        Cell* p = new Cell(map, active_texture, cell.id);
         QRect rect = p->pixmap().rect();
         p->setAcceptHoverEvents(true);
         p->setPos(cell.id.first*30,cell.id.second*30);
@@ -16,7 +23,12 @@ GameScene::GameScene(MapaEditor&& map) : map(map)
 
 void GameScene::set_active_texture(std::string& texture) {
     std::cout << texture << "!!!" << std::endl;
-    this->active_texture->assign(texture);
+    auto lambda = [texture](std::shared_ptr<Terrain> t){  return t->name() == texture; };
+    auto found = std::find_if(terrain_types.begin(), terrain_types.end(), lambda);
+    if(found == terrain_types.end()) {
+        throw std::invalid_argument("bad texture name");
+    }
+    active_texture = *found;
 }
 
 void GameScene::save() {
