@@ -23,7 +23,7 @@ private:
 public:
     ServerMap(int rows, int columns);
 
-    bool reposition(int playerId, int id, coordenada_t goal);
+    void reposition(int playerId, int unitId, coordenada_t goal);
 
     void spawnUnit(int playerId, int unit, coordenada_t position);
 

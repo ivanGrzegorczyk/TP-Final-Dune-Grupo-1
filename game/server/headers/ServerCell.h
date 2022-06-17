@@ -11,18 +11,12 @@
 #include "../../common/headers/Building.h"
 #include "../../common/headers/Unit.h"
 
-#define TERRAIN_SAND 0
-#define TERRAIN_DUNES 1
-#define TERRAIN_ROCKS 2
-#define TERRAIN_TOPS 3
-#define TERRAIN_CLIFFS 4
-
 class ServerCell {
 public:
     coordenada_t coords;
     int ground;
     std::shared_ptr<Building> building;
-    std::vector<std::weak_ptr<Unit>> unities;
+    std::vector<std::weak_ptr<Unit>> cellUnits;
 
     ServerCell();
     explicit ServerCell(coordenada_t coord);

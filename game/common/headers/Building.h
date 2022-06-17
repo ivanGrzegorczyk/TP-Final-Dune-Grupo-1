@@ -5,11 +5,8 @@
 #include "Constantes.h"
 
 class Building: public Entity {
-protected:
-    std::vector<coordenada_t> coords;
-
 public:
-    Building(int id, double hp, int type, std::vector<coordenada_t> coords);
+    Building(int id, double hp, int type, coordenada_t coords);
 };
 
 #endif  // BUILDING_H_

@@ -41,6 +41,13 @@ typedef std::pair<int, int> coordenada_t;
 #define LIGHT_INFANTRY_SPEED 16
 #define LIGHT_INFANTRY_HP 50
 
-#define GAME_LOOP_RATE 1.0 / 30.0
+// Terrain
+#define TERRAIN_SAND 0
+#define TERRAIN_DUNES 1
+#define TERRAIN_ROCKS 2
+#define TERRAIN_TOPS 3
+#define TERRAIN_CLIFFS 4
+
+#define GAME_LOOP_RATE (1.0 / 30.0)
 
 #endif //TP_FINAL_DUNE_GRUPO_1_CONSTANTES_H

@@ -16,38 +16,35 @@ std::stack<coordenada_t> ServerMap::A_star(
     return navigator.A_star(start, end);
 }
 
-bool ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
+void ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
     try {
         if (units[playerId].at(unitId)->getPosition() == goal) {
             std::cout << "Ya esta en esa posicion" << std::endl;
-            return false;
         }
 
         std::stack<coordenada_t> path = A_star(
                 units.at(playerId).at(unitId)->getPosition(), goal);
 
         units[playerId].at(unitId)->setPath(path);
-        return true;  // TODO Revisar caso en el que no hay un camino posible
     } catch(const std::exception &e) {
         std::cout << "No existe la unidad" << std::endl;
-        return false;
     }
 }
 
 void ServerMap::spawnUnit(int playerId, int unit, coordenada_t position) {
-    if (unit == UNIT_LIGHT_INFANTRY)
-        units.at(playerId).insert(std::pair<int, Unit *> (
+    if (unit == UNIT_LIGHT_INFANTRY) {
+        units.at(playerId).insert(std::pair<int, Unit *>(
                 entityId, new LightInfantry(entityId, position)));
-
-    entityId++;
+        map[position.first][position.second].cellUnits.push_back(units.at(playerId).at(entityId));
+        entityId++;
+    }
 }
 
 void ServerMap::createBuilding(int playerId, int buildingType, const std::vector<coordenada_t>& coords) {
     if (buildingType == BUILDING_BARRACKS) {
 
+        entityId++;
     }
-
-    entityId++;
 }
 
 bool ServerMap::updateUnitPositions() {
@@ -77,8 +74,8 @@ void ServerMap::addBuildingData(int playerId, std::vector<uint16_t> &snapshot) {
     for (auto const& [buildingId, building] : buildings.at(playerId)) {
         snapshot.push_back((uint16_t) building->getType());  // Tipo de edificio
         snapshot.push_back((uint16_t) buildingId);  // Id del edificio
-//        snapshot.push_back((uint16_t) building->getPosition().first);
-//        snapshot.push_back((uint16_t) building->getPosition().second);
+        snapshot.push_back((uint16_t) building->getPosition().first);
+        snapshot.push_back((uint16_t) building->getPosition().second);
     }
 }
 
