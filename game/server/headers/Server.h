@@ -12,9 +12,6 @@
 #include "ClientsMonitor.h"
 #include "events/ServerEvent.h"
 
-typedef std::chrono::time_point<std::chrono::system_clock> chrono;
-typedef std::chrono::duration<double, std::milli> duration;
-
 class Server {
 private:
     ServerMap map;
@@ -28,7 +25,6 @@ private:
 
     void finish();
     void broadCast();
-    void sleep(const chrono &t1, const chrono &t2, duration &delta) const;
     void acceptClients();
     void manageEvents();
 
@@ -37,8 +33,6 @@ public:
     Server(const std::string &host, int rows, int columns);
     // Gameloop
     void run();
-
-    static duration simDeltaTime(chrono &t1, chrono &t2);
 
     std::vector<uint16_t> createSnapshot();
 
