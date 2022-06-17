@@ -6,12 +6,11 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsColorizeEffect>
 #include <QGraphicsEffect>
-Cell::Cell(MapaEditor& map, std::shared_ptr<Terrain> terrain, coordenada_t position): 
-    currentPixmap(0), hovering(false), map(map), position(position), current_brush(terrain)
-{
+Cell::Cell(MapaEditor& map, std::shared_ptr<Terrain> *terrain_addr, coordenada_t position): 
+    currentPixmap(0), hovering(false), map(map), position(position), current_brush(terrain_addr) {
     // qrc resource handling
     //pm is a pixmap of the terrain to use
-    QPixmap pm = QPixmap::fromImage(terrain->image());
+    QPixmap pm = QPixmap::fromImage((*current_brush)->image());
     currentTexture = pm;
     this->setPixmap(currentTexture);
     this->update();
@@ -21,6 +20,7 @@ void Cell::update()
 {
     CeldaEditor c = std::move(map.cell(position));
     QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect;
+    std::cout << c.terreno << "!" << std::endl;
     effect->setColor((c.terreno == "mountain") ? Qt::red : Qt::blue);
     this->setGraphicsEffect(effect);
 }
@@ -37,7 +37,8 @@ void Cell::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)  {
     Paints using the current texture the user is painting with.
 */
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    place_tile(current_brush);
+    std::cout << (*current_brush)->name() << std::endl;
+    place_tile(*current_brush);
 }
 
 void Cell::place_tile(std::shared_ptr<Terrain> terrain) {

@@ -13,7 +13,7 @@ GameScene::GameScene(MapaEditor&& map) : map(map)
 
     for(auto it = map.begin(); it != map.end(); ++it) {
         auto cell = *it;
-        Cell* p = new Cell(map, active_texture, cell.id);
+        Cell* p = new Cell(map, &active_texture, cell.id);
         QRect rect = p->pixmap().rect();
         p->setAcceptHoverEvents(true);
         p->setPos(cell.id.first*30,cell.id.second*30);
@@ -22,13 +22,13 @@ GameScene::GameScene(MapaEditor&& map) : map(map)
 }
 
 void GameScene::set_active_texture(std::string& texture) {
-    std::cout << texture << "!!!" << std::endl;
     auto lambda = [texture](std::shared_ptr<Terrain> t){  return t->name() == texture; };
     auto found = std::find_if(terrain_types.begin(), terrain_types.end(), lambda);
     if(found == terrain_types.end()) {
         throw std::invalid_argument("bad texture name");
     }
     active_texture = *found;
+    std::cout <<  "set:" << active_texture->name() << std::endl;
 }
 
 void GameScene::save() {
