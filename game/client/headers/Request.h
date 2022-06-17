@@ -7,8 +7,8 @@
 class Request {
 protected:
 public:
+    virtual int getCommand() = 0;
     virtual std::vector<uint16_t> getData() = 0;
-
 };
 
 

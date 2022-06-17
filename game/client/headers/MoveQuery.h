@@ -11,6 +11,7 @@ private:
 public:
     explicit MoveQuery(int id, coordenada_t &&dst);
     std::vector<uint16_t> getData() override;
+    int getCommand() override;
 };
 
 #endif //TP_FINAL_DUNE_GRUPO_1_MOVEQUERY_H

@@ -13,3 +13,6 @@ std::vector<uint16_t> MoveQuery::getData() {
     return data;
 }
 
+int MoveQuery::getCommand() {
+    return REPOSITION_EVENT;
+}
