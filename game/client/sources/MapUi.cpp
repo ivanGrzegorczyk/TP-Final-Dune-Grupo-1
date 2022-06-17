@@ -2,8 +2,7 @@
 
 #include <utility>
 
-MapUi::MapUi(Renderer &renderer, std::string terrain) :
-terrain(std::move(terrain)), rdr(renderer), ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
+MapUi::MapUi(Renderer &renderer, std::string terrain) : rdr(renderer), ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
                                                ground2(renderer, Surface(DATA_PATH "/d2k_BLOXXMAS.bmp")),
                                                ground3(renderer, Surface(DATA_PATH "/d2k_BLOXTREE.bmp")){
     std::cout << "Entra al constructor de MapUI" << std::endl;
@@ -16,16 +15,16 @@ terrain(std::move(terrain)), rdr(renderer), ground (renderer, Surface(DATA_PATH 
     dst.SetX(SRC);
     dst.SetY(SRC);
     map.resize(50, std::vector<CeldaUi>(160));
-    draw();
 }
 void MapUi::update(Response *response) {
     response->update(this->units, rdr);
-    //for para recorrer el diccionario para actualizar posiciones
 }
 
-MapUi::~MapUi() {
 
+void MapUi::receiveMap(Protocol &protocol) {
+    this->terrain = protocol.receiveTerrain();
 }
+
 
 void MapUi::draw() {
     std::cout << "Entra al MapUi.draw()" << std::endl;
@@ -39,38 +38,22 @@ void MapUi::draw() {
     rock = r;
     specie = sp;
 
-    int numberRow = 0;
-    std::ifstream file;
-    file.open(terrain, std::ifstream::in);
-    getline(file, columns);
-    std::stringstream ss(columns);
-    int cols;
-    ss >> cols;
-    while (getline(file, line) && numberRow < 50) {
-        for (int col = 0; col < cols; col++) {
-            std::pair<int, int> coord;
-            coord.first = numberRow;
-            coord.second = col;
-            char &g = line.at(col);
-            dst.SetX(col * WIDTH_TEXTURE);
-            dst.SetY(numberRow * HEIGHT_TEXTURE);
-            if (g == 'X') {
-                //extraigo datos del vector del server
+    for(int i = 0; i < this->terrain.first.first; i++) {
+        for (int j = 0; j < this->terrain.first.second; j++) {
+            std::pair<int, int> coord(i, j);
+            dst.SetX(j * WIDTH_TEXTURE);
+            dst.SetY(i * HEIGHT_TEXTURE);
+            uint8_t type = this->terrain.second.at(j);
+            if(type == TERRAIN_ROCKS) {
                 CeldaUi cell(&ground3, coord, dst, r);
-                //rdr.Copy(ground3, r, dst);
-                map[numberRow][col] = cell;
-            } else if (g == 'S') {
-                CeldaUi cell(&ground2, coord, dst, sp);
-                map[numberRow][col] = cell;
-                //rdr.Copy(ground2, sp, dst);
-            } else {
+                std::cout << "entre en roca" << std::endl;
+                map[i][j] = cell;
+            }else {
                 CeldaUi cell(&ground, coord, dst, s);
-                map[numberRow][col] = cell;
-                //rdr.Copy(ground, s, dst);
+                map[i][j] = cell;
             }
         }
-        numberRow++;
-    }
+   }
 }
 
 void MapUi::render() {
@@ -95,7 +78,6 @@ Request* MapUi::mouseEvent(int x, int y, int playerId) {
         return unit->reactToEvent(x, y);
     }
     return nullptr;
-    //return character.reactToEvent(x, y);
 }
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
@@ -103,5 +85,6 @@ Request* MapUi::moveCharacter(int x, int y, int playerId) {
         return unit->walkEvent(x, y);
     }
     return nullptr;
-    //character.move(path);
 }
+
+MapUi::~MapUi() = default;
