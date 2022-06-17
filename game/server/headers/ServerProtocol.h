@@ -9,8 +9,6 @@
 #include "../../common/headers/Entity.h"
 #include "../../common/headers/Constantes.h"
 
-#define REPOSITION_EVENT 1
-
 class ServerProtocol {
 private:
     Socket socket;

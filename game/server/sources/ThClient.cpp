@@ -41,7 +41,7 @@ void ThClient::manageCommand(int command) {
             break;
         }
         default: {
-            throw std::runtime_error("Unknown command");
+            throw std::runtime_error("Unknown command: " + std::to_string(command));
         }
     }
 }

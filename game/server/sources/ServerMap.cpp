@@ -35,8 +35,10 @@ void ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
 
 void ServerMap::spawnUnit(int playerId, int unit, coordenada_t position) {
     // TODO Chequear que las coordenadas estén dentro del mapa
+    std::cout << "Crea la unidad" << std::endl;
     if (unit == UNIT_LIGHT_INFANTRY) {
-        units.at(playerId).insert(std::pair<int, Unit *>(
+        std::cout << "UNIT_LIGHT_INFANTRY" << std::endl;
+        units[playerId].insert(std::pair<int, LightInfantry *>(
                 entityId, new LightInfantry(entityId, position)));
         map[position.first][position.second].cellUnits.push_back(units.at(playerId).at(entityId));
         entityId++;
@@ -46,7 +48,7 @@ void ServerMap::spawnUnit(int playerId, int unit, coordenada_t position) {
 void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t position) {
     // TODO Chequear que las coordenadas estén dentro del mapa
     if (buildingType == BUILDING_BARRACKS) {
-        buildings.at(playerId).insert(std::pair<int, Building *>(
+        buildings[playerId].insert(std::pair<int, Barracks *>(
                 entityId, new Barracks(entityId, position)));
 
         int x = position.first, y = position.second;
