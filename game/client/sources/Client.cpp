@@ -13,6 +13,7 @@ Client::Client(std::string hostname, std::string  servicename, Renderer &rnd, st
 void Client::run() {
     this->clientId = protocol.receiveId();
     this->mapUi.receiveMap(protocol);
+    this->mapUi.draw();
     std::thread threadReceive(&Client::receiveOfServer, this);
     std::thread threadSend(&Client::sendToServer, this);
 

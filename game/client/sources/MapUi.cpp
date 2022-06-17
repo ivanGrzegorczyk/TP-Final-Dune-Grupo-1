@@ -23,6 +23,8 @@ void MapUi::update(Response *response) {
 
 void MapUi::receiveMap(Protocol &protocol) {
     this->terrain = protocol.receiveTerrain();
+    map = std::vector<std::vector<CeldaUi>>(
+            terrain.first.first, std::vector<CeldaUi>(terrain.first.second));
 }
 
 

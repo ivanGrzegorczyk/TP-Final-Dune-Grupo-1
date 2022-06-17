@@ -20,7 +20,6 @@ using namespace SDL2pp;
 
 class MapUi {
 private:
-    void draw();
     Rect src;
     Rect dst;
     Renderer& rdr;
@@ -38,6 +37,7 @@ private:
 public:
     MapUi(Renderer& renderer, std::string terrain);
     ~MapUi();
+    void draw();
     //std::string  terrain;
     Request* mouseEvent(int x, int y, int playerId);
     void update(Response *response);
