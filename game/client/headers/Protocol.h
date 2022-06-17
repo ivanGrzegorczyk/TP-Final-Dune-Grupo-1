@@ -4,6 +4,7 @@
 #include <netinet/in.h>
 #include <utility>
 #include <vector>
+#include <string>
 #include "../../common/headers/Socket.h"
 #include "../../common/headers/Constantes.h"
 #include "Response.h"
@@ -28,7 +29,7 @@ public:
 
     Response *recvResponse();
 
-    void send(const std::vector<uint16_t>& vector);
+    void send(int command, std::vector<uint16_t> vector);
 };
 
 

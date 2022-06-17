@@ -88,10 +88,10 @@ Response* Protocol::recvResponse() {
     return response;
 }
 
-void Protocol::send(const std::vector<uint16_t>& vector) {
+void Protocol::send(int command, std::vector<uint16_t> vector) {
     uint16_t aux;
-    uint8_t command = REPOSITION_EVENT;
-    skt.sendall(&command, sizeof(command));
+    uint8_t cmd = command;
+    skt.sendall(&cmd, sizeof(cmd));
     for(uint16_t data : vector) {
         std::cout << "data: " << unsigned(data) << std::endl;
         aux = htons(data);
