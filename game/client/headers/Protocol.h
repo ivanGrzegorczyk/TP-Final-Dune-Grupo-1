@@ -14,6 +14,7 @@ class Protocol {
 private:
     int id;
     Socket skt;
+    void _fillVector(std::vector<uint8_t> &vector, int x, int y);
 
 public:
     Protocol(std::string hostname, std::string servicename);
@@ -21,15 +22,15 @@ public:
     void moveQuery(int idunity ,coordenada_t dest);
     void createBuilding(int clientId, int buildingId, coordenada_t coord);
 
-    void receiveId();
-
-    int getId() const;
+    int receiveId();
 
     void createUnidadLigera(int id);
 
     Response *recvResponse();
 
     void send(int command, std::vector<uint16_t> vector);
+
+    std::pair<coordenada_t, std::vector<uint8_t>> receiveTerrain();
 };
 
 

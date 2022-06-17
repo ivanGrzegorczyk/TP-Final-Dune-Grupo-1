@@ -2,20 +2,21 @@
 #include "../headers/Protocol.h"
 
 Protocol::Protocol(std::string hostname, std::string servicename) : id(-1), skt(hostname.c_str(), servicename.c_str()){
-    receiveId();
 }
 
-void Protocol::receiveId() {
-    uint16_t idProtocol;
-    skt.recvall(&idProtocol, sizeof(idProtocol));
+int Protocol::receiveId() {
+    uint16_t id;
+    int idHost;
+    skt.recvall(&id, sizeof(id));
+
     //this->id = ntohs(idProtocol);
-    this->id = 1;
-    std::cout << "ID RECIBIDO: " << this->id << std::endl;
+    //this->id = 1; //TODO sacar el hardcodeo
+    std::cout << "ID RECIBIDO: " << unsigned(ntohs(id))<< std::endl;
+    idHost = ntohs(id);
+    return idHost;
 }
 
-int Protocol::getId() const {
-    return this->id;
-}
+
 
 int Protocol::commandReceive() {
     uint8_t command;
@@ -81,7 +82,7 @@ Response* Protocol::recvResponse() {
         skt.recvall(&posY, sizeof(posY));
         coordenada_t coord = {ntohs(posX), ntohs(posY)};
         //int idP = ntohs(idPlayer);
-        response->add(1, 1, coord);
+        response->add(1, 1, coord); //TODO sacar el hardcodeo
       //  i += 5;
         //response->addResponseChunk(ntohs(chunk));
     //}
@@ -98,4 +99,32 @@ void Protocol::send(int command, std::vector<uint16_t> vector) {
         skt.sendall(&aux, sizeof(aux));
     }
 }
+
+void Protocol::_fillVector(std::vector<uint8_t> &vector, int x, int y) {
+    uint8_t terrainType;
+    for(int i = 0; i < x; i++){
+        for (int j = 0; j < y; j++) {
+            skt.recvall(&terrainType, sizeof (terrainType));
+            vector.push_back(terrainType);
+        }
+    }
+}
+
+std::pair<coordenada_t, std::vector<uint8_t>> Protocol::receiveTerrain() {
+    std::pair<coordenada_t ,std::vector<uint8_t>> terrain;
+    uint16_t x;
+    uint16_t y;
+    int xHost;
+    int yHost;
+
+    skt.recvall(&x, sizeof(x));
+    skt.recvall(&y, sizeof(y));
+    xHost = ntohs(x);
+    yHost = ntohs(y);
+    terrain.first.first = xHost;
+    terrain.first.second = yHost;
+    _fillVector(terrain.second, xHost, yHost);
+    return terrain;
+}
+
 
