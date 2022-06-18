@@ -1,19 +1,16 @@
 #include "../headers/Navigator.h"
 
 Navigator::Navigator(std::vector<std::vector<ServerCell>> &map) : nodeMap(map.size(), std::vector<Node>(map.at(0).size())) {
-    size_t filas = map.size();
-    size_t columnas = map.at(0).size();
-
-    for (size_t i = 0; i < filas; i++) {
-        for (size_t j = 0; j < columnas; j++) {
-            nodeMap[i][j] = Node(coordenada_t {i, j}, map[i][j]);
+    for (size_t i = 0; i < 50; i++) {
+        for (size_t j = 0; j < 50; j++) {
+            nodeMap[j][i] = Node(coordenada_t {j, i}, map[i][j].ground);
         }
     }
 }
 
 void Navigator::manageNeighbour(coordenada_t neighbour, coordenada_t end) {
     int x = neighbour.first, y = neighbour.second;
-    if (!nodeMap[x][y].blocked()) {
+    if (!nodeMap[x][y].isBlocked()) {
         double tentativeG = current.getG() + current.calculateG(neighbour);
         if (tentativeG < nodeMap[x][y].getG()) {
             nodeMap[x][y].previous_id = current.id;
@@ -37,6 +34,14 @@ std::stack<coordenada_t> Navigator::reconstructPath(coordenada_t start) {
         current = nodeMap[current.previous_id.first][current.previous_id.second];
     }
     path.push(current.id);
+
+    for (int i = 0; i < 50; i++) {
+        for (int j = 0; j < 50; j++) {
+            nodeMap[i][j].previous_id = {-1, -1};
+            nodeMap[i][j].setF(INFINITY);
+            nodeMap[i][j].setG(INFINITY);
+        }
+    }
 
     return path;
 }
@@ -70,6 +75,14 @@ std::stack<coordenada_t> Navigator::A_star(coordenada_t start, coordenada_t end)
                     manageNeighbour(coordenada_t {x, y}, end);
                 }
             }
+        }
+    }
+
+    for (int i = 0; i < 50; i++) {
+        for (int j = 0; j < 50; j++) {
+            nodeMap[i][j].previous_id = {-1, -1};
+            nodeMap[i][j].setF(INFINITY);
+            nodeMap[i][j].setG(INFINITY);
         }
     }
 
