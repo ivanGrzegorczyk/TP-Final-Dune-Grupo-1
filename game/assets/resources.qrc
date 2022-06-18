@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>crate.png</file>
+        <file>d2k_BLOXXMAS.bmp</file>
+    </qresource>
+</RCC>
