@@ -16,8 +16,6 @@ int Protocol::receiveId() {
     return idHost;
 }
 
-
-
 int Protocol::commandReceive() {
     uint8_t command;
     skt.recvall(&command, sizeof(command));
@@ -28,7 +26,7 @@ int Protocol::commandReceive() {
 void Protocol::moveQuery(int idunity, coordenada_t dest) {
     uint16_t id = htons(idunity);
     uint16_t desX = htons(dest.first);
-    uint16_t desY = htons(dest.second); //castear???
+    uint16_t desY = htons(dest.second);
     uint8_t command = REPOSITION_EVENT;
 
     skt.sendall(&command, sizeof(command));
@@ -59,33 +57,38 @@ void Protocol::createUnidadLigera(int id) {
 }
 
 Response* Protocol::recvResponse() {
-    //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings;
-    //std::map<int, std::pair<int, coordenada_t>> units;
-    int i = 0;
+    int offset = 0;
     uint16_t lengthResponse;
     skt.recvall(&lengthResponse, sizeof(lengthResponse));
     lengthResponse = ntohs(lengthResponse);
     auto* response = new Response();
-    //uint16_t bytesPlayer;
 
-    //uint16_t chunk;
     uint16_t idPlayer;
-    uint16_t action;
+    uint16_t amount;
+    uint16_t type;
     uint16_t characterId;
     uint16_t posX;
     uint16_t posY;
-    //while(i < lengthResponse) {
+
+    while(offset < lengthResponse) {
         skt.recvall(&idPlayer, sizeof(idPlayer));
-        skt.recvall(&action, sizeof(action));
-        skt.recvall(&characterId, sizeof(characterId));
-        skt.recvall(&posX, sizeof(posX));
-        skt.recvall(&posY, sizeof(posY));
-        coordenada_t coord = {ntohs(posX), ntohs(posY)};
-        //int idP = ntohs(idPlayer);
-        response->add(1, 1, coord); //TODO sacar el hardcodeo
-      //  i += 5;
-        //response->addResponseChunk(ntohs(chunk));
-    //}
+        skt.recvall(&amount, sizeof(amount));
+        int player = ntohs(idPlayer);
+        int amountHost = ntohs(amount);
+        for(int j = 0; j < amountHost; j++){
+            skt.recvall(&type, sizeof(type));
+            skt.recvall(&characterId, sizeof(characterId));
+            skt.recvall(&posX, sizeof(posX));
+            skt.recvall(&posY, sizeof(posY));
+            int typeHost = ntohs(type);
+            int characterIdHost = ntohs(characterId);
+            int posxHost = ntohs(posX);
+            int posyHost = ntohs(posY);
+            coordenada_t coord({posX, posY});
+           response->add(player, typeHost, characterId, coord);
+        }
+        offset += amountHost;
+    }
     return response;
 }
 
