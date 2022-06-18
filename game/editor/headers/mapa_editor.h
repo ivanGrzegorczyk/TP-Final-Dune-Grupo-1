@@ -39,7 +39,6 @@ class MapaEditor {
         // coordenada es valida
         // TODO sistema de propiedades mejor, clase mapa
         coordenada_t nula = {-1, -1};
-        std::cout << "placing new center" << std::endl;
         if(ubicacion_centro_construccion != nula) {
             mapa[ubicacion_centro_construccion.second][ubicacion_centro_construccion.first]
                 .propiedades.clear();

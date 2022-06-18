@@ -3,6 +3,7 @@
 #include "mapa_editor.h"
 #include "terrain.h"
 #include "shared_brush.h"
+#include "graphics_map.h"
 #include <QGraphicsPixmapItem>
 #include <QList>
 #include <QPixmap>
@@ -15,11 +16,15 @@ protected:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 public:
+    enum {Type = UserType + 1};
     Cell(std::shared_ptr<MapaEditor> map, std::shared_ptr<EditorState> brush, coordenada_t position);
     virtual ~Cell() = default;
-    void update();
     void place_tile(std::shared_ptr<Terrain> terrain);
     void move_building();
+    void update();
+    int type() const override {
+        return Type;
+    }
 
 private:
     QList<QPixmap> pixmaps;

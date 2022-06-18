@@ -1,4 +1,5 @@
 #include "../../game/editor/headers/cell.h"
+#include "../../game/editor/headers/graphics_map.h"
 #include <iostream>
 #include <fstream>
 #include <qpainter.h>
@@ -6,6 +7,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsColorizeEffect>
 #include <QGraphicsEffect>
+class GraphicsMap;
 Cell::Cell(std::shared_ptr<MapaEditor> map, std::shared_ptr<EditorState> brush, coordenada_t position): 
         hovering(false), map(map), position(position), current_brush(brush) {
     this->update();
@@ -53,5 +55,7 @@ void Cell::place_tile(std::shared_ptr<Terrain> terrain) {
 
 void Cell::move_building() {
     map->colocar_centro_construccion(position);
-    update();
+    std::cout << "parent data: " << this->parentItem()->childItems().count() << std::endl;
+    GraphicsMap* parent = qgraphicsitem_cast<GraphicsMap*>(this->parentItem());
+    parent->update();
 }

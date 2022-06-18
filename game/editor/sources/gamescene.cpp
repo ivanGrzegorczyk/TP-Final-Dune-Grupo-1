@@ -15,8 +15,6 @@ GameScene::GameScene(std::shared_ptr<MapaEditor> map) : map(map)
         auto cell = *it;
         Cell* p = new Cell(map, brush, cell.id);
         p->setParentItem(gm);
-        p->setFlag(p->ItemIgnoresTransformations);
-        QRect rect = p->pixmap().rect();
         p->setAcceptHoverEvents(true);
         p->setPos(cell.id.first*30,cell.id.second*30);
     }
