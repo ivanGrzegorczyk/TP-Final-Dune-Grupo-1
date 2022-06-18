@@ -77,14 +77,17 @@ void MapUi::render() {
 
 Request* MapUi::mouseEvent(int x, int y, int playerId) {
     for (auto const& [unitId, unit] : units[playerId]) {
-        return unit->reactToEvent(x, y);
+        unit->reactToEvent(x, y);
     }
     return nullptr;
 }
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
+    Request *request;
     for (auto const& [unitId, unit] : units[playerId]) {
-        return unit->walkEvent(x, y);
+        request = unit->walkEvent(x, y);
+        if (request != nullptr)
+            return request;
     }
     return nullptr;
 }

@@ -59,7 +59,7 @@ Request* Client::createEvent() {
                 int x, y;
                 x = event.button.x;
                 y = event.button.y;
-                request = mapUi.moveCharacter(x/16, y/16, clientId);
+                request = mapUi.moveCharacter(x / 16, y / 16, clientId);
                 return request;
             }
             if(event.button.button == SDL_BUTTON_LEFT) {
