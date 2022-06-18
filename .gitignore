@@ -5,7 +5,12 @@ CMakeFiles/*
 CMakeCache.txt
 TP_Final_Dune_Grupo_1
 cmake_install.cmake
+Client_autogen/*
+Editor_autogen/*
+Server_autogen/*
+extern/libSDL2pp/SDL2pp_autogen/*
 Makefile
-Client
-Server
+ui_mainwindow.h
 Editor
+Server
+Client
