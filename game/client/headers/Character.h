@@ -1,34 +1,26 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #define TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #include "SDL2pp/SDL2pp.hh"
-#include "Protocol.h"
+#include "Request.h"
+#include "../../common/headers/Unit.h"
+
 using namespace SDL2pp;
 
-class Character {
+class Character : public Unit {
 private:
     SDL2pp::Texture t;
-    std::vector<std::pair<int, int>> path;
     Renderer& rnd;
     Rect current;
     bool selected;
-    bool isMoving;
-    int pos;
-    int desX;
-    int desY;
-    int pos_X;
-    int pos_Y;
-    void changeColor();
+    void normalColor();
+    void highlight();
 public:
-    explicit Character(SDL2pp::Renderer &renderer);
+    Character(SDL2pp::Renderer &renderer, int id, coordenada_t coord, int type);
+    Request *walkEvent(int x, int y);
+    bool mouseOverCharacter(int x, int y) const;
     void render();
-    void update();
-    void move(std::vector<coordenada_t> &path);
-    //void move(int x, int y);
-    void mouseEvent(int x, int y);
-    bool isSelected() const;
-    bool reactToEvent(int x, int y, std::pair<coordenada_t, coordenada_t> &ubication);
-    void searchPath(); //va a recibir las coordenadas que se clickeo
-    std::pair<int, int> getCoordinates();
+    Request* reactToEvent(int x, int y);
+    //void update(MapUi *map);
 };
 
 

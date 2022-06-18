@@ -2,13 +2,15 @@
 #define BUILDING_H_
 
 #include "Entity.h"
+#include "Constantes.h"
 
 class Building: public Entity {
-private:
-    std::vector<coordenada_t> id;
+protected:
+    int energy;
+    int cost;
 
 public:
-    virtual ~Building() = 0;
+    Building(int id, int hp, int type, coordenada_t coords, int energy, int cost);
 };
 
 #endif  // BUILDING_H_

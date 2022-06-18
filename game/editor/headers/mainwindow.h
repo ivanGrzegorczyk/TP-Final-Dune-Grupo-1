@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMainWindow>
+#include <QPushButton>
+#include <memory>
 #include "gamescene.h"
 #include "mapa_editor.h"
 
@@ -13,12 +15,13 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(MapaEditor&& map, QWidget *parent = nullptr);
+    MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
     GameScene scene;
-    void toggle_button();
+    void toggle_button(QPushButton *text);
+    void place_building();
 };
 #endif // MAINWINDOW_H

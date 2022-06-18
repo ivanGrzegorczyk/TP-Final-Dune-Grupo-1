@@ -1,65 +1,83 @@
+#include <unistd.h>
+#include <iostream>
+#include <thread>
 #include "../headers/Server.h"
 
 Server::Server(const std::string &host, int rows, int columns) :
-    map(rows, columns), protocol(host), keep_accepting(true) {}
+    map(rows, rows), protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
+    // TODO las dimensiones del mapa están hardcodeadas en 50x50 por ahora
+    map.initializeTerrain();
+}
 
 void Server::run() {
     std::thread acceptingThread(&Server::acceptClients, this);
     std::thread broadcastThread(&Server::broadCast, this);
+    std::thread finishThread(&Server::finish, this);  // TODO Multiples partidas
 
-    bool active_game = true;
     do {
-        active_game = manageEvents();
-
+        manageEvents();
+        usleep(10000000.0f/50.0f);  // TODO Poner el tiempo bien
     } while (active_game);
 
     acceptingThread.join();
     broadcastThread.join();
+    finishThread.join();
 }
 
-void Server::broadCast() {
-    /*
-    Event event(blockingQueue.pop());
-    for (ThClient *client : clients) {
-        client->sendEvent(event);
-    }
-    */
+void Server::finish() {
+    char c;
+    do {
+        std::cin >> c;
+    } while (c != 'q');
+
+    protocol.shutdown(SHUT_RDWR);
+    active_game = false;
+    keep_accepting = false;
+    blockingQueue.stop();
 }
 
 void Server::acceptClients() {
     try {
         while (keep_accepting) {
             Socket peer = protocol.accept();
-            auto *client = new ThClient(std::move(peer), protectedQueue, map);
+            std::cout << "Acepta un cliente" << std::endl;
+            auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId);
             client->start();
-            clients.push_back(client);
+            clients.push(client);
+            nextPlayerId++;
         }
     } catch(const std::exception &e) {
         // TODO Manejar excepcion
+        std::cout << "Catchea en el acceptClients y sale" << std::endl;
+        return;
     }
-    cleanClients();
 }
 
-void Server::cleanClients() {
-    clients.erase(std::remove_if(
-            clients.begin(), clients.end(), cleanClient), clients.end());
-}
-
-bool Server::cleanClient(ThClient *client) {
-    if (client->isDead()) {
-        client->join();
-        delete client;
-        return true;
+void Server::manageEvents() {
+    ServerEvent *event = protectedQueue.pop();
+    if (event != nullptr) {
+        event->performEvent(map);
+        blockingQueue.push(createSnapshot());
     }
-    return false;
+    if (map.updateUnitPositions()) {
+        blockingQueue.push(createSnapshot());
+    }
 }
 
-bool Server::manageEvents() {
-    if (protectedQueue.empty())
-        return false;
+void Server::broadCast() {
+    while (active_game) {
+        std::vector<uint16_t> snapshot = blockingQueue.pop();
+        if (!active_game) {
+            return;
+        }
+        clients.broadCast(snapshot);  // Actualizo a todos los clientes
+    }
+}
 
-    Event event(protectedQueue.pop());
-    blockingQueue.push(std::move(event));
-
-    return true;
+std::vector<uint16_t> Server::createSnapshot() {
+    std::vector<uint16_t> snapshot;
+    map.addSnapshotData(snapshot);
+    uint16_t size = snapshot.size();
+    snapshot.insert(snapshot.begin(), size);
+    return snapshot;
 }

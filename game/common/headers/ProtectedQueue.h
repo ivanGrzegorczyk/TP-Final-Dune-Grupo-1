@@ -4,19 +4,30 @@
 #include <queue>
 #include <mutex>
 
-#include "Event.h"
-
+template<class T>
 class ProtectedQueue {
 private:
-    std::queue<Event> events;
+    std::queue<T> data;
     std::mutex mutex;
 
 public:
     ProtectedQueue() = default;
 
-    void push(Event &&event);
-    Event pop();
-    bool empty();
+    void push(T t) {
+        std::lock_guard<std::mutex> lock(mutex);
+        data.push(t);
+    }
+
+    T pop() {
+        std::lock_guard<std::mutex> lock(mutex);
+
+        if (data.empty())
+            return nullptr;
+
+        T t = data.front();
+        data.pop();
+        return t;
+    }
 
     ProtectedQueue(const ProtectedQueue&) = delete;
     ProtectedQueue& operator=(const ProtectedQueue&) = delete;

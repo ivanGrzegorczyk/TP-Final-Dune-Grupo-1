@@ -7,8 +7,7 @@
 
 #include "../../common/headers/Socket.h"
 #include "../../common/headers/Entity.h"
-
-#define SEARCH_PATH 1
+#include "../../common/headers/Constantes.h"
 
 class ServerProtocol {
 private:
@@ -30,21 +29,20 @@ public:
     int commandReceive();
 
     /**
-     * @brief Receives current position of a unit and goal position.
-     * It the sets the parameters of the method values with that info.
+     * @brief Receives id of a unit and goal position.
+     * It then sets the parameter values with that info.
      *
-     * @param current
      * @param goal
      */
-    void requestPath(coordenada_t &current, coordenada_t &goal);
+    void getRelocationData(uint16_t &id, coordenada_t &goal);
 
-    /**
-     * @brief Send the shortest path a unit hasta to take in order
-     * to move to nother location.
-     *
-     * @param path
-     */
-    void sendPath(std::vector<uint16_t> path);
+    void assignPlayerId(int id);
+
+    void getUnitData(uint16_t &unit, coordenada_t &position);
+
+    void sendSnapshot(const std::vector<uint16_t> &snapshot);
+
+    void sendTerrain();
 };
 
 #endif  // SERVERPROTOCOL_H_

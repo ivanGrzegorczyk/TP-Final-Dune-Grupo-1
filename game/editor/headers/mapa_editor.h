@@ -16,11 +16,17 @@ class MapaEditor {
     int filas; int columnas;
     coordenada_t ubicacion_centro_construccion = {-1,-1};
     public:
+    MapaEditor(MapaEditor& other) = delete;
+    MapaEditor& operator=(MapaEditor& other) = delete;
+    MapaEditor(MapaEditor&& other) = default;
+    MapaEditor& operator=(MapaEditor&& other) = default;
     MapaEditor(int filas, int columnas) : filas(filas), columnas(columnas) {
+        std::string name("default"); //TODO centralize all terrains
+        std::shared_ptr<Terrain> terr(new Terrain(name));
         for(int i = 0; i < filas; i++) {
             fila_t fila;
             for(int j = 0; j < columnas; j++) {
-                CeldaEditor c({i, j});
+                CeldaEditor c({i, j}, terr);
                 fila.push_back(c);
             }
             mapa.push_back(fila);
@@ -41,16 +47,18 @@ class MapaEditor {
         mapa[coordenada.second][coordenada.first]
             .propiedades.emplace_back("centro_construccion");
     }
-    std::string centro_construccion() {
-        return mapa[ubicacion_centro_construccion.second][ubicacion_centro_construccion.first]
-            .propiedades[0];
+    coordenada_t construction_center() {
+        return ubicacion_centro_construccion;
     }
-    void poner_terreno(std::vector<coordenada_t> celdas, std::string terreno) {
+    void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain) {
         for(coordenada_t celda : celdas) {
-            mapa[celda.second][celda.first].terreno = terreno;
+            std::cout <<  "from " << mapa[celda.second][celda.first].terrain->name();
+            mapa[celda.second][celda.first].terrain = terrain;
+            std::cout << "to" << mapa[celda.second][celda.first].terrain->name() << std::endl;
         }
     }
     std::string to_yaml() {
+        std::cout << "First cell is:" << mapa[0][0].terrain->name() << std::endl;
         YAML::Emitter out;
         out << YAML::BeginMap;
             out << YAML::Key << "name";
@@ -69,20 +77,26 @@ class MapaEditor {
                     << YAML::BeginSeq;
         for(int i = 0; i < filas; i++) {
             for(int j = 0; j < columnas; j++) {
+                std::string terrain(cell({i,j}).terrain->name());
                 out 
                     << YAML::BeginMap
                         << YAML::Key << "terrain"
-                        << YAML::Value <<  cell({i,j}).terreno
+                        << YAML::Value <<  terrain
                         << YAML::Key << "buildings"
                         << YAML::BeginSeq;
                         // building is always defined at its rightmost position
-                        if(i == 1 && j == 1)
+                        coordenada_t current({i,j});
+                        if(ubicacion_centro_construccion == current) {
                             out << YAML::BeginMap
                                 << YAML::Key << "name"
                                 << YAML::Value << "Construction Center"
                                 << YAML::Key << "size"
-                                << YAML::Value << YAML::BeginSeq << "2" << "2" << YAML::EndSeq //TODO Implemet buildings
+                                << YAML::Value 
+                                << YAML::BeginSeq << "2" << "2" 
+                                << YAML::EndSeq 
                                 << YAML::EndMap;
+                        }
+                            
                         out << YAML::EndSeq
                         << YAML::Key << "pos"
                         << YAML::Value 
@@ -96,7 +110,6 @@ class MapaEditor {
         out << YAML::EndSeq 
         << YAML::EndMap
         << YAML::EndMap;
-        std::cout << out.c_str() <<std::endl;
         return std::string(out.c_str());
     }
     

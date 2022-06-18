@@ -1,13 +1,13 @@
 #include "../headers/ServerCell.h"
 
 ServerCell::ServerCell() {
-    id = {0, 0};
-    ground = '.';
+    coords = {0, 0};
+    ground = TERRAIN_ROCKS;
     building = nullptr;
 }
 
 ServerCell::ServerCell(coordenada_t coord) {
-    id = coord;
-    ground = '.';
+    coords = coord;
+    ground = TERRAIN_ROCKS;
     building = nullptr;
 }

@@ -1,9 +1,13 @@
 #ifndef CELL_H
 #define CELL_H
 #include "mapa_editor.h"
+#include "terrain.h"
+#include "shared_brush.h"
+#include "graphics_map.h"
 #include <QGraphicsPixmapItem>
 #include <QList>
 #include <QPixmap>
+#include <memory>
 
 class Cell : public QGraphicsPixmapItem
 {
@@ -12,19 +16,23 @@ protected:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 public:
-    Cell(MapaEditor& map, const std::shared_ptr<std::string> active_texture, coordenada_t position);
+    enum {Type = UserType + 1};
+    Cell(std::shared_ptr<MapaEditor> map, std::shared_ptr<EditorState> brush, coordenada_t position);
     virtual ~Cell() = default;
+    void place_tile(std::shared_ptr<Terrain> terrain);
+    void move_building();
     void update();
-    void place_tile(std::string terrain);
+    int type() const override {
+        return Type;
+    }
 
 private:
     QList<QPixmap> pixmaps;
     QPixmap currentTexture; //unscaled current texture
-    std::shared_ptr<std::string> current_brush;
-    int currentPixmap;
     bool hovering;
-    MapaEditor& map;
+    std::shared_ptr<MapaEditor> map;
     coordenada_t position;
+    std::shared_ptr<EditorState> current_brush;
 };
 
 #endif // CELL_H
