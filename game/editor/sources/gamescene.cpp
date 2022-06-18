@@ -20,7 +20,12 @@ GameScene::GameScene(std::shared_ptr<MapaEditor> map) : map(map)
     }
 }
 
+// TODO Generalize to 'set current mode'. Mode can be placing a building, or painting terrain
 void GameScene::set_active_texture(std::string& texture) {
+    if(texture == "building") {
+        brush->move_building();
+        return;
+    }
     //TODO use map
     auto lambda = [texture](std::shared_ptr<Terrain> t){  return t->name() == texture; };
     auto found = std::find_if(terrain_types.begin(), terrain_types.end(), lambda);

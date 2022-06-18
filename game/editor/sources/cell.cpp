@@ -16,6 +16,11 @@ void Cell::update()
     QImage terrain_texture = map->cell(position).terrain->image();
     currentTexture = QPixmap::fromImage(terrain_texture);
     this->setPixmap(currentTexture);
+    if(position == map->construction_center()) {
+        QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect();
+        effect->setColor(Qt::red);
+        this->setGraphicsEffect(effect);
+    }
 }
 
 void Cell::hoverEnterEvent(QGraphicsSceneHoverEvent *event) {
@@ -30,11 +35,19 @@ void Cell::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)  {
     Paints using the current texture the user is painting with.
 */
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    if(current_brush->state() == "building") {
+        
+    }
     place_tile(current_brush->brush());
 }
 
 void Cell::place_tile(std::shared_ptr<Terrain> terrain) {
     std::vector<coordenada_t> coordinates{position};
     map->place_terrain(coordinates, terrain);
+    update();
+}
+
+void Cell::move_building() {
+    map->colocar_centro_construccion(position);
     update();
 }

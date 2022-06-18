@@ -19,6 +19,7 @@ public:
     virtual ~Cell() = default;
     void update();
     void place_tile(std::shared_ptr<Terrain> terrain);
+    void move_building();
 
 private:
     QList<QPixmap> pixmaps;

@@ -14,11 +14,9 @@ MapaEditor setup() {
     MapaEditor m(5,5);
     coordenada_t construccion = {1,3};
     m.colocar_centro_construccion(construccion);
-    std::cout << m.centro_construccion();
 
     coordenada_t construccion2 = {4,0};
     m.colocar_centro_construccion(construccion2);
-    std::cout << m.centro_construccion() << std::endl;
     std::vector<coordenada_t> celdas_montania;
     celdas_montania.push_back({3,3});
     celdas_montania.push_back({3,4});

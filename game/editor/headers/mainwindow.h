@@ -22,5 +22,6 @@ private:
     Ui::MainWindow *ui;
     GameScene scene;
     void toggle_button(QPushButton *text);
+    void place_building();
 };
 #endif // MAINWINDOW_H

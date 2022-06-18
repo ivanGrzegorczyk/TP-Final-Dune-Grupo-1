@@ -47,9 +47,8 @@ class MapaEditor {
         mapa[coordenada.second][coordenada.first]
             .propiedades.emplace_back("centro_construccion");
     }
-    std::string centro_construccion() {
-        return mapa[ubicacion_centro_construccion.second][ubicacion_centro_construccion.first]
-            .propiedades[0];
+    coordenada_t construction_center() {
+        return ubicacion_centro_construccion;
     }
     void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain) {
         std::cout <<  "change terrain in " << std::to_string(celdas[0].first) << std::to_string(celdas[0].second);

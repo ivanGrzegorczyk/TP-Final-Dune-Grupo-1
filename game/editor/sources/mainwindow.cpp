@@ -32,12 +32,18 @@ MainWindow::MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent)
         connect(buttons[i], &QPushButton::clicked, this, lambda);
     }
     auto lambda_save =  [this]() { this->scene.save(); };
+    auto lambda_build =  [this]() { this->place_building(); };
     connect(ui->save_button, &QPushButton::clicked, this, lambda_save);
+    connect(ui->building_button, &QPushButton::clicked, this, lambda_build);
 }
 
 void MainWindow::toggle_button(QPushButton *button) {
-    button->setChecked(true);
     std::string std(button->text().toStdString());
+    scene.set_active_texture(std);
+}
+
+void MainWindow::place_building() {
+    std::string std("building");
     scene.set_active_texture(std);
 }
 
