@@ -39,6 +39,7 @@ class MapaEditor {
         // coordenada es valida
         // TODO sistema de propiedades mejor, clase mapa
         coordenada_t nula = {-1, -1};
+        std::cout << "placing new center" << std::endl;
         if(ubicacion_centro_construccion != nula) {
             mapa[ubicacion_centro_construccion.second][ubicacion_centro_construccion.first]
                 .propiedades.clear();
@@ -51,8 +52,6 @@ class MapaEditor {
         return ubicacion_centro_construccion;
     }
     void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain) {
-        std::cout <<  "change terrain in " << std::to_string(celdas[0].first) << std::to_string(celdas[0].second);
-
         for(coordenada_t celda : celdas) {
             std::cout <<  "from " << mapa[celda.second][celda.first].terrain->name();
             mapa[celda.second][celda.first].terrain = terrain;
@@ -87,13 +86,18 @@ class MapaEditor {
                         << YAML::Key << "buildings"
                         << YAML::BeginSeq;
                         // building is always defined at its rightmost position
-                        if(i == 1 && j == 1)
+                        coordenada_t current({i,j});
+                        if(ubicacion_centro_construccion == current) {
                             out << YAML::BeginMap
                                 << YAML::Key << "name"
                                 << YAML::Value << "Construction Center"
                                 << YAML::Key << "size"
-                                << YAML::Value << YAML::BeginSeq << "2" << "2" << YAML::EndSeq //TODO Implemet buildings
+                                << YAML::Value 
+                                << YAML::BeginSeq << "2" << "2" 
+                                << YAML::EndSeq 
                                 << YAML::EndMap;
+                        }
+                            
                         out << YAML::EndSeq
                         << YAML::Key << "pos"
                         << YAML::Value 

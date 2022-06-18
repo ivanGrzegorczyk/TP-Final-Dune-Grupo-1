@@ -21,6 +21,9 @@ void Cell::update()
         effect->setColor(Qt::red);
         this->setGraphicsEffect(effect);
     }
+    else {
+        this->setGraphicsEffect(nullptr);
+    }
 }
 
 void Cell::hoverEnterEvent(QGraphicsSceneHoverEvent *event) {
@@ -36,9 +39,10 @@ void Cell::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)  {
 */
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if(current_brush->state() == "building") {
-        
+        move_building();
+    } else {
+        place_tile(current_brush->brush());
     }
-    place_tile(current_brush->brush());
 }
 
 void Cell::place_tile(std::shared_ptr<Terrain> terrain) {
