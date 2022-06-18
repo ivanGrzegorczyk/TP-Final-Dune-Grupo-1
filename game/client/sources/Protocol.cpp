@@ -75,8 +75,6 @@ Response* Protocol::recvResponse() {
         skt.recvall(&amount, sizeof(amount));
         int player = ntohs(idPlayer);
         int amountHost = ntohs(amount);
-        std::cout << "Jugador: " << player << std::endl;
-        std::cout << "cantidad de unidades: " << amountHost << std::endl;
         for(int j = 0; j < amountHost; j++){
             skt.recvall(&type, sizeof(type));
             skt.recvall(&characterId, sizeof(characterId));

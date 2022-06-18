@@ -35,14 +35,6 @@ std::stack<coordenada_t> Navigator::reconstructPath(coordenada_t start) {
     }
     path.push(current.id);
 
-    for (int i = 0; i < 50; i++) {
-        for (int j = 0; j < 50; j++) {
-            nodeMap[i][j].previous_id = {-1, -1};
-            nodeMap[i][j].setF(INFINITY);
-            nodeMap[i][j].setG(INFINITY);
-        }
-    }
-
     return path;
 }
 
