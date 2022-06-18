@@ -34,7 +34,6 @@ void Client::run() {
 void Client::ProcessInput() {
     Request *event = createEvent();
     if(event != nullptr) {
-        std::cout << "evento de crear" << std::endl;
         sendQueue.push(event);
     }
 }
@@ -51,25 +50,24 @@ Request* Client::createEvent() {
                 case SDLK_a:
                     int x = -1 ,y = -1;
                     SDL_GetMouseState(&x, &y);
-                    std::cout << "TECLA" << std::endl;
-                    Request *unit = new CreateLightInfantry(x / 8, y / 8);
+                    Request *unit = new CreateLightInfantry(x / 16, y / 16);
                     return unit;
             }
         case SDL_MOUSEBUTTONUP:
             if(event.button.button ==  SDL_BUTTON_RIGHT) {
                 Request* request;
-                int xm, ym;
-                xm = event.button.x;
-                ym = event.button.y;
-                request = mapUi.moveCharacter(xm, ym, clientId);
+                int x, y;
+                x = event.button.x;
+                y = event.button.y;
+                request = mapUi.moveCharacter(x/16, y/16, clientId);
                 return request;
             }
             if(event.button.button == SDL_BUTTON_LEFT) {
                 Request* r;
-                int xmouse, ymouse;
-                xmouse = event.button.x;
-                ymouse = event.button.y;
-                r =  mapUi.mouseEvent(xmouse, ymouse, clientId);
+                int x, y;
+                x = event.button.x;
+                y = event.button.y;
+                r =  mapUi.mouseEvent(x, y, clientId);
                 return r;
             }
         default:

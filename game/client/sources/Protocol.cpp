@@ -75,6 +75,8 @@ Response* Protocol::recvResponse() {
         skt.recvall(&amount, sizeof(amount));
         int player = ntohs(idPlayer);
         int amountHost = ntohs(amount);
+        std::cout << "Jugador: " << player << std::endl;
+        std::cout << "cantidad de unidades: " << amountHost << std::endl;
         for(int j = 0; j < amountHost; j++){
             skt.recvall(&type, sizeof(type));
             skt.recvall(&characterId, sizeof(characterId));
@@ -84,10 +86,10 @@ Response* Protocol::recvResponse() {
             int characterIdHost = ntohs(characterId);
             int posxHost = ntohs(posX);
             int posyHost = ntohs(posY);
-            coordenada_t coord({posX, posY});
-           response->add(player, typeHost, characterId, coord);
+            coordenada_t coord({posxHost * 2, posyHost * 2});
+            response->add(player, typeHost, characterIdHost, coord);
         }
-        offset += amountHost;
+        offset += (amountHost * 4) + 2;
     }
     return response;
 }

@@ -9,7 +9,7 @@ std::vector<uint16_t> CreateLightInfantry::getData() {
     data.push_back((uint16_t) UNIT_LIGHT_INFANTRY);
     data.push_back((uint16_t)coord.first);
     data.push_back((uint16_t)coord.second);
-    return  data;
+    return data;
 }
 
 int CreateLightInfantry::getCommand() {

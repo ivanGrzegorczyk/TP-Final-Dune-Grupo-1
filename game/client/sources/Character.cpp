@@ -26,9 +26,11 @@ void Character::highlight() {
 
 Request* Character::reactToEvent(int x, int y) {
     if (mouseOverCharacter(x, y) && !selected) {
+        std::cout << "Entra al if" << std::endl;
         selected = true;
         this->highlight();
     } else {
+        std::cout << "Entra al else" << std::endl;
         selected = false;
         this->normalColor();
     }
@@ -39,7 +41,8 @@ Request *Character::walkEvent(int x, int y) {
     if (!mouseOverCharacter(x, y) && selected) {
         selected = false;
         this->normalColor();
-        coordenada_t coord({x / 8, y / 8});
+        coordenada_t coord({x, y});
+        std::cout << "goal: (" << x << " " << y << ")" << std::endl;
         Request *query = new MoveQuery(id, std::move(coord));
         return query;
     }

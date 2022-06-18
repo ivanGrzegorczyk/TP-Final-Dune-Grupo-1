@@ -39,13 +39,13 @@ void MapUi::draw() {
     sand = s;
     rock = r;
     specie = sp;
-
+    int k = 0;
     for(int i = 0; i < this->terrain.first.first; i++) {
         for (int j = 0; j < this->terrain.first.second; j++) {
-            std::pair<int, int> coord(i, j);
+            coordenada_t coord(i, j);
             dst.SetX(j * WIDTH_TEXTURE);
             dst.SetY(i * HEIGHT_TEXTURE);
-            uint8_t type = this->terrain.second.at(j);
+            uint8_t type = this->terrain.second.at(k);
             if(type == TERRAIN_ROCKS) {
                 CeldaUi cell(&ground3, coord, dst, r);
                 map[i][j] = cell;
@@ -53,6 +53,7 @@ void MapUi::draw() {
                 CeldaUi cell(&ground, coord, dst, s);
                 map[i][j] = cell;
             }
+            k++;
         }
    }
 }

@@ -35,9 +35,7 @@ void ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
 
 void ServerMap::spawnUnit(int playerId, int unit, coordenada_t position) {
     // TODO Chequear que las coordenadas estén dentro del mapa
-    std::cout << "Crea la unidad" << std::endl;
     if (unit == UNIT_LIGHT_INFANTRY) {
-        std::cout << "UNIT_LIGHT_INFANTRY" << std::endl;
         units[playerId].insert(std::pair<int, LightInfantry *>(
                 entityId, new LightInfantry(entityId, position)));
         map[position.first][position.second].cellUnits.push_back(units.at(playerId).at(entityId));
@@ -106,16 +104,23 @@ void ServerMap::addSnapshotData(std::vector<uint16_t> &snapshot) {
 void ServerMap::initializeTerrain() {
     std::ifstream file;
     std::string line;
-    file.open("terrain.txt");
-    int x = 0, y = -1;
+
+    file.open("../terrain.txt", std::ifstream::in);
+    if (!file.is_open())
+        std::cout << "No se abrio el archivo" << std::endl;
+
+    int x = 0;
     while (getline(file, line)) {
+        int y = -1;
         for (char c : line) {
             y++;
-            if (c == 'O')  // Rocas
+            if (c == 'O') { // Rocas
                 map[x][y].ground = TERRAIN_ROCKS;
-            else           // Arena
+            } else if (c == 'X') {           // Arena
                 map[x][y].ground = TERRAIN_SAND;
+            }
         }
         x++;
     }
+    file.close();
 }

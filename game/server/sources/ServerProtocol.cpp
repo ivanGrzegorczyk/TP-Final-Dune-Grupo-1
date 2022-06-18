@@ -73,7 +73,6 @@ void ServerProtocol::sendTerrain() {
     if (!file.is_open())
         std::cout << "No se abrio el archivo" << std::endl;
 
-    std::vector<uint8_t> ground;
     uint16_t size = 50;
     size = htons(size);
     // Envio la cantidad de filas y columnas del mapa
@@ -83,15 +82,14 @@ void ServerProtocol::sendTerrain() {
     // Pongo todos los datos en un vector
     while (getline(file, line)) {
         for (char c : line) {
-            if (c == 'O') { // Rocas
-                ground.push_back(TERRAIN_ROCKS);
-            } else if (c == 'X') {           // Arena
-                ground.push_back(TERRAIN_SAND);
+            if (c == 'O') {                 // Rocas
+                uint8_t ground = TERRAIN_ROCKS;
+                socket.sendall(&ground, sizeof(ground));
+            } else if (c == 'X') {          // Arena
+                uint8_t ground = TERRAIN_SAND;
+                socket.sendall(&ground, sizeof(ground));
             }
         }
     }
-    std::cout << "ground.size(): " << ground.size() << std::endl;
-    // Envio los datos del terreno
-    for (uint8_t terrain : ground)
-        socket.sendall(&terrain, sizeof(terrain));
+    file.close();
 }
