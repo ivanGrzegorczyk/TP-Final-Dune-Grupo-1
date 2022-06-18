@@ -10,14 +10,17 @@ GameScene::GameScene(std::shared_ptr<MapaEditor> map) : map(map)
         terrain_types.push_back(terr);
     }
     brush.reset(new EditorState(terrain_types[0]));
+    GraphicsMap* gm = new GraphicsMap();
     for(auto it = map->begin(); it != map->end(); ++it) {
         auto cell = *it;
         Cell* p = new Cell(map, brush, cell.id);
+        p->setParentItem(gm);
+        p->setFlag(p->ItemIgnoresTransformations);
         QRect rect = p->pixmap().rect();
         p->setAcceptHoverEvents(true);
         p->setPos(cell.id.first*30,cell.id.second*30);
-        this->addItem(p);
     }
+    this->addItem(gm);
 }
 
 // TODO Generalize to 'set current mode'. Mode can be placing a building, or painting terrain

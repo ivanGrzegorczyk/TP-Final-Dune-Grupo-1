@@ -8,6 +8,7 @@
 #include "mapa_editor.h"
 #include "shared_brush.h"
 #include "terrain.h"
+#include "graphics_map.h"
 #include <memory>
 #include "cell.h"
 
