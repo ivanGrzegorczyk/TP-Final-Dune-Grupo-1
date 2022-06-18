@@ -6,12 +6,12 @@
 #include <QImage>
 #include <memory>
 // TODO Replace with state pattern
-class SharedBrush {
+class EditorState {
     private:
     std::shared_ptr<Terrain> terrain;
     std::string _state;
     public:
-    SharedBrush(std::shared_ptr<Terrain> t) : terrain(t), _state("terrain") {}
+    EditorState(std::shared_ptr<Terrain> t) : terrain(t), _state("terrain") {}
     void change_brush(std::shared_ptr<Terrain> t) {
         _state = "terrain";
         terrain = t;

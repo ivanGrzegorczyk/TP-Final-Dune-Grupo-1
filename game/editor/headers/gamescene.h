@@ -19,7 +19,7 @@ public:
     virtual ~GameScene() = default;
     void set_active_texture(std::string& texture);
     void save();
-    std::shared_ptr<SharedBrush> brush;
+    std::shared_ptr<EditorState> brush;
 
 private slots:
     //void keyPressEvent(QKeyEvent *event) override;

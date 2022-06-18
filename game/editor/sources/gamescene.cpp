@@ -9,7 +9,7 @@ GameScene::GameScene(std::shared_ptr<MapaEditor> map) : map(map)
         std::shared_ptr<Terrain> terr(new Terrain(name));
         terrain_types.push_back(terr);
     }
-    brush.reset(new SharedBrush(terrain_types[0]));
+    brush.reset(new EditorState(terrain_types[0]));
     for(auto it = map->begin(); it != map->end(); ++it) {
         auto cell = *it;
         Cell* p = new Cell(map, brush, cell.id);

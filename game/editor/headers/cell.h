@@ -15,7 +15,7 @@ protected:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 public:
-    Cell(std::shared_ptr<MapaEditor> map, std::shared_ptr<SharedBrush> brush, coordenada_t position);
+    Cell(std::shared_ptr<MapaEditor> map, std::shared_ptr<EditorState> brush, coordenada_t position);
     virtual ~Cell() = default;
     void update();
     void place_tile(std::shared_ptr<Terrain> terrain);
@@ -27,7 +27,7 @@ private:
     bool hovering;
     std::shared_ptr<MapaEditor> map;
     coordenada_t position;
-    std::shared_ptr<SharedBrush> current_brush;
+    std::shared_ptr<EditorState> current_brush;
 };
 
 #endif // CELL_H
