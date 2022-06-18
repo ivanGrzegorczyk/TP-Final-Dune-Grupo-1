@@ -16,6 +16,11 @@ public:
     void push(T t) {
         std::lock_guard<std::mutex> lock(mutex);
         data.push(t);
+    }
+
+    T pop() {
+        std::lock_guard<std::mutex> lock(mutex);
+
         if (data.empty())
             return nullptr;
 

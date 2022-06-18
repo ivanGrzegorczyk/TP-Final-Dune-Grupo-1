@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <map>
+#include <mutex>
 
 #include "ServerCell.h"
 #include "Navigator.h"
