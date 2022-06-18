@@ -26,11 +26,9 @@ void Character::highlight() {
 
 Request* Character::reactToEvent(int x, int y) {
     if (mouseOverCharacter(x, y) && !selected) {
-        std::cout << "Entra al if" << std::endl;
         selected = true;
         this->highlight();
     } else {
-        std::cout << "Entra al else" << std::endl;
         selected = false;
         this->normalColor();
     }

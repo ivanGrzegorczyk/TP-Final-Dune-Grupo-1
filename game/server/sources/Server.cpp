@@ -16,7 +16,7 @@ void Server::run() {
 
     do {
         manageEvents();
-        usleep(10000000.0f/25.0f);  // TODO Poner el tiempo bien
+        usleep(10000000.0f/50.0f);  // TODO Poner el tiempo bien
     } while (active_game);
 
     acceptingThread.join();
