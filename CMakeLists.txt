@@ -57,7 +57,7 @@ FILE(GLOB SRC_CLIENT_FILES ${PROJECT_SOURCE_DIR}/game/client/sources/*.cpp)
 find_package (Threads)
 
 add_executable(Server ${HEADER_COMMON_FILES} ${SRC_COMMON_FILES} ${HEADER_SERVER_FILES} ${SRC_SERVER_FILES})
-add_executable(Editor ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES} ${UIS_HEADERS} resources/resources.qrc)
+add_executable(Editor ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES} ${UIS_HEADERS} game/assets/resources.qrc)
 add_executable(Client ${HEADER_CLIENT_FILES} ${SRC_CLIENT_FILES})
 
 target_link_libraries (Server Threads::Threads)
