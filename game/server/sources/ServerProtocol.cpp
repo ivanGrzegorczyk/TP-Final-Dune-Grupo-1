@@ -1,6 +1,8 @@
 #include <cstdint>
 #include <stack>
 #include <netinet/in.h>
+#include <iostream>
+#include <fstream>
 
 #include "../headers/ServerProtocol.h"
 
@@ -19,41 +21,75 @@ void ServerProtocol::shutdown(int how) {
 }
 
 int ServerProtocol::commandReceive() {
-    uint8_t command;
-    socket.recvall(&command, sizeof(command));
+    uint16_t command;
+    socket.recvall(&command, 1);
     return command;
 }
 
-void ServerProtocol::requestPath
-    (coordenada_t &current, coordenada_t &goal) {
-    uint16_t current_x;
-    uint16_t current_y;
+void ServerProtocol::getRelocationData
+    (uint16_t &id, coordenada_t &goal) {
+    uint16_t unitId;
     uint16_t goal_x;
     uint16_t goal_y;
 
-    socket.recvall(&current_x, sizeof(current_x));
-    socket.recvall(&current_y, sizeof(current_y));
+    socket.recvall(&unitId, sizeof(unitId));
     socket.recvall(&goal_x, sizeof(goal_x));
     socket.recvall(&goal_y, sizeof(goal_y));
 
-    current.first = ntohs(current_x);
-    current.second = ntohs(current_y);
+    id = ntohs(unitId);
     goal.first = ntohs(goal_x);
     goal.second = ntohs(goal_y);
 }
 
-void ServerProtocol::sendPath(std::vector<uint16_t> path) {
-    if (path.empty()) {
-        // TODO Definir caso en el que no hay camino posible
-        return;
-    } else {
-        uint8_t command = SEARCH_PATH;
-        socket.sendall(&command, sizeof(command));
-    }
+void ServerProtocol::getUnitData(uint16_t &unit, coordenada_t &position) {
+    uint16_t aux;
+    socket.recvall(&aux, sizeof(aux));
+    unit = ntohs(aux);
+    socket.recvall(&aux, sizeof(aux));
+    position.first = ntohs(aux);
+    socket.recvall(&aux, sizeof(aux));
+    position.second = ntohs(aux);
+}
 
-    for (uint16_t coord : path) {
-        uint16_t aux;
-        aux = htons(coord);
+void ServerProtocol::assignPlayerId(int id) {
+    uint16_t playerId = id;
+    playerId = htons(playerId);
+
+    socket.sendall(&playerId, sizeof(playerId));
+}
+
+void ServerProtocol::sendSnapshot(const std::vector<uint16_t> &snapshot) {
+    for (auto msg : snapshot) {
+        uint16_t aux = htons(msg);
         socket.sendall(&aux, sizeof(aux));
     }
+}
+
+void ServerProtocol::sendTerrain() {
+    std::ifstream file;
+    std::string line;
+
+    file.open("../terrain.txt", std::ifstream::in);
+    if (!file.is_open())
+        std::cout << "No se abrio el archivo" << std::endl;
+
+    uint16_t size = 50;
+    size = htons(size);
+    // Envio la cantidad de filas y columnas del mapa
+    socket.sendall(&size, sizeof(size));
+    socket.sendall(&size, sizeof(size));
+
+    // Pongo todos los datos en un vector
+    while (getline(file, line)) {
+        for (char c : line) {
+            if (c == 'O') {                 // Rocas
+                uint8_t ground = TERRAIN_ROCKS;
+                socket.sendall(&ground, sizeof(ground));
+            } else if (c == 'X') {          // Arena
+                uint8_t ground = TERRAIN_SAND;
+                socket.sendall(&ground, sizeof(ground));
+            }
+        }
+    }
+    file.close();
 }

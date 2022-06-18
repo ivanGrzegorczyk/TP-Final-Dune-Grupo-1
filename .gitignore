@@ -1,12 +1,11 @@
 .idea/*
-.vscode
+.vscode/*
 cmake-build-debug/*
 CMakeFiles/*
 CMakeCache.txt
 TP_Final_Dune_Grupo_1
-Makefile
-Editor
-CMakeFiles
-CMakeCache.txt
-Makefile
 cmake_install.cmake
+Makefile
+Client
+Server
+Editor

@@ -3,8 +3,6 @@
 
 #include <vector>
 #include <string>
-#include <iostream>
-#include "yaml-cpp/yaml.h"
 
 #include "celda_editor.h"
 
@@ -16,17 +14,11 @@ class MapaEditor {
     int filas; int columnas;
     coordenada_t ubicacion_centro_construccion = {-1,-1};
     public:
-    MapaEditor(MapaEditor& other) = delete;
-    MapaEditor& operator=(MapaEditor& other) = delete;
-    MapaEditor(MapaEditor&& other) = default;
-    MapaEditor& operator=(MapaEditor&& other) = default;
     MapaEditor(int filas, int columnas) : filas(filas), columnas(columnas) {
-        std::string name("default"); //TODO centralize all terrains
-        std::shared_ptr<Terrain> terr(new Terrain(name));
         for(int i = 0; i < filas; i++) {
             fila_t fila;
             for(int j = 0; j < columnas; j++) {
-                CeldaEditor c({i, j}, terr);
+                CeldaEditor c({i, j});
                 fila.push_back(c);
             }
             mapa.push_back(fila);
@@ -47,72 +39,15 @@ class MapaEditor {
         mapa[coordenada.second][coordenada.first]
             .propiedades.emplace_back("centro_construccion");
     }
-    coordenada_t construction_center() {
-        return ubicacion_centro_construccion;
+    std::string centro_construccion() {
+        return mapa[ubicacion_centro_construccion.second][ubicacion_centro_construccion.first]
+            .propiedades[0];
     }
-    void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain) {
+    void poner_terreno(std::vector<coordenada_t> celdas, std::string terreno) {
         for(coordenada_t celda : celdas) {
-            std::cout <<  "from " << mapa[celda.second][celda.first].terrain->name();
-            mapa[celda.second][celda.first].terrain = terrain;
-            std::cout << "to" << mapa[celda.second][celda.first].terrain->name() << std::endl;
+            mapa[celda.second][celda.first].terreno = terreno;
         }
     }
-    std::string to_yaml() {
-        std::cout << "First cell is:" << mapa[0][0].terrain->name() << std::endl;
-        YAML::Emitter out;
-        out << YAML::BeginMap;
-            out << YAML::Key << "name";
-            out << YAML::Value << "My cool map";
-            out << YAML::Key << "num_players";
-            out << YAML::Value << "12345"; // TODO set in ui
-            out << YAML::Key << "map";
-            out << YAML::Value 
-                << YAML::BeginMap
-                << YAML::Key << "rows"
-                << YAML::Value << std::to_string(filas)
-                << YAML::Key << "columns"
-                << YAML::Value << std::to_string(columnas)
-                << YAML::Key << "cells"
-                << YAML::Value  
-                    << YAML::BeginSeq;
-        for(int i = 0; i < filas; i++) {
-            for(int j = 0; j < columnas; j++) {
-                std::string terrain(cell({i,j}).terrain->name());
-                out 
-                    << YAML::BeginMap
-                        << YAML::Key << "terrain"
-                        << YAML::Value <<  terrain
-                        << YAML::Key << "buildings"
-                        << YAML::BeginSeq;
-                        // building is always defined at its rightmost position
-                        coordenada_t current({i,j});
-                        if(ubicacion_centro_construccion == current) {
-                            out << YAML::BeginMap
-                                << YAML::Key << "name"
-                                << YAML::Value << "Construction Center"
-                                << YAML::Key << "size"
-                                << YAML::Value 
-                                << YAML::BeginSeq << "2" << "2" 
-                                << YAML::EndSeq 
-                                << YAML::EndMap;
-                        }
-                            
-                        out << YAML::EndSeq
-                        << YAML::Key << "pos"
-                        << YAML::Value 
-                        << YAML::BeginSeq
-                            << std::to_string(i) << std::to_string(j)
-                        << YAML::EndSeq
-                    << YAML::EndMap;
-                // end cell
-            }
-        }
-        out << YAML::EndSeq 
-        << YAML::EndMap
-        << YAML::EndMap;
-        return std::string(out.c_str());
-    }
-    
     class MapIterator {
         const MapaEditor& _mapa;
         int max;

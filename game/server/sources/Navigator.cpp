@@ -1,40 +1,26 @@
 #include "../headers/Navigator.h"
 
 Navigator::Navigator(std::vector<std::vector<ServerCell>> &map) : nodeMap(map.size(), std::vector<Node>(map.at(0).size())) {
-    size_t filas = map.size();
-    size_t columnas = map.at(0).size();
-
-    for (size_t i = 0; i < filas; i++) {
-        for (size_t j = 0; j < columnas; j++) {
-            nodeMap[i][j] = Node(coordenada_t {i, j}, map[i][j]);
+    for (size_t i = 0; i < 50; i++) {
+        for (size_t j = 0; j < 50; j++) {
+            nodeMap[j][i] = Node(coordenada_t {j, i}, map[i][j].ground);
         }
     }
 }
-void Navigator::mostrar() {
-    for (int i = 0; i < nodeMap.size(); i++) {
-        for (int j = 0; j < nodeMap.at(0).size(); j++) {
-            std::cout << nodeMap[i][j].cell->ground;
-        }
-        std::cout << "\n";
-    }
-    std::cout << std::endl;
-}
-
 
 void Navigator::manageNeighbour(coordenada_t neighbour, coordenada_t end) {
     int x = neighbour.first, y = neighbour.second;
-    if (!nodeMap[x][y].blocked()) {
+    if (!nodeMap[x][y].isBlocked()) {
         double tentativeG = current.getG() + current.calculateG(neighbour);
         if (tentativeG < nodeMap[x][y].getG()) {
             nodeMap[x][y].previous_id = current.id;
+            double heuristic = nodeMap[x][y].calculateH(end);
             nodeMap[x][y].setG(tentativeG);
-            nodeMap[x][y].setF(tentativeG + nodeMap[x][y].calculateH(end));
+            nodeMap[x][y].setF(tentativeG + heuristic);
+            if (heuristic < closest.calculateH(end))
+                closest = nodeMap[x][y];
             if (std::find(openSet.begin(), openSet.end(), nodeMap[x][y]) == openSet.end()) {
                 openSet.push_back(nodeMap[x][y]);
-                nodeMap[x][y].cell->ground = '*';  // Para imprimir las celdas que se analizan
-                usleep(1000);
-                system("clear");
-                mostrar();
             }
         }
     }
@@ -56,6 +42,7 @@ std::stack<coordenada_t> Navigator::A_star(coordenada_t start, coordenada_t end)
     current = nodeMap[start.first][start.second];
     current.setG(0);
     current.setF(current.getG() + current.calculateH(end));
+    closest = current;
     openSet.push_back(current);
 
     while (!openSet.empty()) {
@@ -83,6 +70,13 @@ std::stack<coordenada_t> Navigator::A_star(coordenada_t start, coordenada_t end)
         }
     }
 
-    std::cout << "\nGOAL NOT FOUND" << std::endl;
-    return {};
+    for (int i = 0; i < 50; i++) {
+        for (int j = 0; j < 50; j++) {
+            nodeMap[i][j].previous_id = {-1, -1};
+            nodeMap[i][j].setF(INFINITY);
+            nodeMap[i][j].setG(INFINITY);
+        }
+    }
+
+    return A_star(start, closest.id);
 }

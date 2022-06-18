@@ -9,17 +9,14 @@
 #include <memory>
 
 #include "../../common/headers/Building.h"
-#include "../../common/headers/Unity.h"
+#include "../../common/headers/Unit.h"
 
 class ServerCell {
 public:
-    coordenada_t id;
-    char ground;  // Temporal para simular celdas ocupadas
+    coordenada_t coords;
+    int ground;
     std::shared_ptr<Building> building;
-    std::vector<std::weak_ptr<Unity>> unities;
-
-    // Unidades en la celda
-    // Edificios en la celda
+    std::vector<std::weak_ptr<Unit>> cellUnits;
 
     ServerCell();
     explicit ServerCell(coordenada_t coord);

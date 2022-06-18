@@ -1,8 +1,11 @@
 #include "../headers/MapUi.h"
 
-MapUi::MapUi(Renderer &renderer, char *terrain) : character(renderer),terrain(terrain), rdr(renderer), ground(renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
-                                                  ground2(renderer, Surface(DATA_PATH "/d2k_BLOXXMAS.bmp")),
-                                                  ground3(renderer, Surface(DATA_PATH "/d2k_BLOXTREE.bmp")){
+#include <utility>
+
+MapUi::MapUi(Renderer &renderer, std::string terrain) : rdr(renderer), ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
+                                               ground2(renderer, Surface(DATA_PATH "/d2k_BLOXXMAS.bmp")),
+                                               ground3(renderer, Surface(DATA_PATH "/d2k_BLOXTREE.bmp")){
+    std::cout << "Entra al constructor de MapUI" << std::endl;
     src.SetX(SRC);
     src.SetY(SRC);
     src.SetW(WIDTH_TEXTURE);
@@ -12,18 +15,21 @@ MapUi::MapUi(Renderer &renderer, char *terrain) : character(renderer),terrain(te
     dst.SetX(SRC);
     dst.SetY(SRC);
     map.resize(50, std::vector<CeldaUi>(160));
-    draw();
 }
-void MapUi::update() {
-    character.update();
+void MapUi::update(Response *response) {
+    response->update(this->units, rdr);
 }
 
 
-MapUi::~MapUi() {
-
+void MapUi::receiveMap(Protocol &protocol) {
+    this->terrain = protocol.receiveTerrain();
+    map = std::vector<std::vector<CeldaUi>>(
+            terrain.first.first, std::vector<CeldaUi>(terrain.first.second));
 }
+
 
 void MapUi::draw() {
+    std::cout << "Entra al MapUi.draw()" << std::endl;
     std::string line;
     std::string columns; //frente 150 en y, 0 en x
     Rect s(0, 0, 8, 8);
@@ -33,55 +39,57 @@ void MapUi::draw() {
     sand = s;
     rock = r;
     specie = sp;
-
-    int numberRow = 0;
-    std::fstream file;
-    file.open(terrain);
-    getline(file, columns);
-    while (getline(file, line) && numberRow < 50) {
-        for (int col = 0; col < (std::stoi(columns)); col++) {
-            std::pair<int, int> coord;
-            coord.first = numberRow;
-            coord.second = col;
-            char &g = line.at(col);
-            dst.SetX(col * WIDTH_TEXTURE);
-            dst.SetY(numberRow * HEIGHT_TEXTURE);
-            if (g == 'X') {
-                //extraigo datos del vector del server
+    int k = 0;
+    for(int i = 0; i < this->terrain.first.first; i++) {
+        for (int j = 0; j < this->terrain.first.second; j++) {
+            coordenada_t coord(i, j);
+            dst.SetX(j * WIDTH_TEXTURE);
+            dst.SetY(i * HEIGHT_TEXTURE);
+            uint8_t type = this->terrain.second.at(k);
+            if(type == TERRAIN_ROCKS) {
                 CeldaUi cell(&ground3, coord, dst, r);
-                //rdr.Copy(ground3, r, dst);
-                map[numberRow][col] = cell;
-            } else if (g == 'S') {
-                CeldaUi cell(&ground2, coord, dst, sp);
-                map[numberRow][col] = cell;
-                //rdr.Copy(ground2, sp, dst);
-            } else {
+                map[i][j] = cell;
+            }else {
                 CeldaUi cell(&ground, coord, dst, s);
-                map[numberRow][col] = cell;
-                //rdr.Copy(ground, s, dst);
+                map[i][j] = cell;
             }
+            k++;
         }
-        numberRow++;
-    }
+   }
 }
 
 void MapUi::render() {
+    rdr.Clear();
     //rdr.Copy(ground, s, Rect(1000, 900, 32, 32));
     for(auto& row : map) {
         for(auto& col : row) {
             col.render(rdr);
         }
     }
-    character.render();
+    //std::cout << "tamaño de arreglo: " << units.size() << std::endl;
+    for(auto const& [playerId, unitsMap] : units) {
+       for(auto const& [unitId, unit]: unitsMap) {
+           unit->render();
+       }
+    }
+    rdr.Present();
 }
 
-bool MapUi::mouseEvent(int x, int y, std::pair<coordenada_t, coordenada_t> &ubication) {
-    //character.mouseEvent(x, y);
-    return character.reactToEvent(x, y, ubication);
+Request* MapUi::mouseEvent(int x, int y, int playerId) {
+    for (auto const& [unitId, unit] : units[playerId]) {
+        unit->reactToEvent(x, y);
+    }
+    return nullptr;
 }
 
-void MapUi::moveCharacter(std::vector<coordenada_t> &path) {
-    character.move(path);
+Request* MapUi::moveCharacter(int x, int y, int playerId) {
+    Request *request;
+    for (auto const& [unitId, unit] : units[playerId]) {
+        request = unit->walkEvent(x, y);
+        if (request != nullptr)
+            return request;
+    }
+    return nullptr;
 }
 
-
+MapUi::~MapUi() = default;

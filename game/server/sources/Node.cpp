@@ -4,18 +4,18 @@ Node::Node() {
     this->id = {-1, -1};
     this->previous_id = {-1, -1};
     f = g = INFINITY;
-    this->cell = nullptr;
+    blocked = false;
 }
 
-Node::Node(coordenada_t id, ServerCell &cell) {
+Node::Node(coordenada_t id, int terrain) {
     this->id = id;
     this->previous_id = {-1, -1};
-    this->cell = &cell;
+    blocked = terrain != TERRAIN_ROCKS;
     f = g = INFINITY;
 }
 
-bool Node::blocked() const {
-    return (cell->ground == 'X');
+bool Node::isBlocked() const {
+    return blocked;
 }
 
 bool Node::operator==(const Node &other) const {

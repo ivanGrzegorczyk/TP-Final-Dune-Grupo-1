@@ -1,92 +1,52 @@
 #include "../headers/Character.h"
-
-std::pair<int, int> Character::getCoordinates() {
-    return std::make_pair(pos_X, pos_Y);
-}
+#include "../headers/MoveQuery.h"
+#include "../headers/MapUi.h"
 
 void Character::render() {
-    //current.SetX(pos)
-    current.SetX(pos_X * 8);
-    current.SetY(pos_Y * 8);
+    current.SetX(coord.first * 8);
+    current.SetY(coord.second * 8);
     current.SetW(24);
     current.SetH(32);
+
     rnd.Copy(t, Rect(0, 0, 13,16), current);
 }
 
-void Character::update() {
-    int x;
-    int y;
-    if(pos < path.size()) {
-        std::pair<int, int> cell = path[pos];
-        x = cell.first;
-        y = cell.second;
-        //if (isMoving) {
-            current.SetX(x);
-            current.SetY(y);
-            pos_X = x;
-            pos_Y = y;
-            pos++;
-        //}
-    } else {
-        path.clear();
-        pos = 0;
-    }
-}
-
-Character::Character(SDL2pp::Renderer &renderer) : rnd(renderer), selected(false), isMoving(false),pos(0) ,desY(0), desX(0),pos_X(20),pos_Y(5),
-                                                    t(Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp")
+Character::Character(SDL2pp::Renderer &renderer, int id, coordenada_t coord, int type) : Unit(id, 0, 0, 0, type, coord), rnd(renderer), selected(false),
+                                                                               t(Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp")
                                                     .SetColorKey(true, 0))) {
 }
 
-void Character::move(std::vector<coordenada_t> &pathDes) { // recibo coordenadas del servidor
-    /*coordenada_t currentPos {pos_X, pos_Y};
-    coordenada_t destPos {desX, desY};*/
-    //protocol->caminar(currentPos, destPos);
-   /* path.push_back(std::make_pair(0, 1));
-    path.push_back(std::make_pair(0, 2));
-    path.push_back(std::make_pair(0, 3));
-    path.push_back(std::make_pair(0, 4));
-    path.push_back(std::make_pair(0, 5));
-    path.push_back(std::make_pair(0, 6));
-    path.push_back(std::make_pair(0, 7));
-    path.push_back(std::make_pair(1, 7));*/
-    //path.push_back(std::make_pair(x, y));
-
+void Character::normalColor() {
+    t.SetColorMod(255, 255, 0);
 }
-void Character::changeColor() {
-    if(selected) {
-        t.SetColorMod(255, 0, 0);
+
+void Character::highlight() {
+    t.SetColorMod(255, 0, 0);
+}
+
+Request* Character::reactToEvent(int x, int y) {
+    if (mouseOverCharacter(x, y) && !selected) {
+        selected = true;
+        this->highlight();
     } else {
-        t.SetColorMod(255, 255, 0);
+        selected = false;
+        this->normalColor();
     }
+    return nullptr;
 }
 
-void Character::mouseEvent(int x, int y) {
-    desX = x;
-    desY = y;
+Request *Character::walkEvent(int x, int y) {
+    if (!mouseOverCharacter(x, y) && selected) {
+        selected = false;
+        this->normalColor();
+        coordenada_t coord({x, y});
+        std::cout << "goal: (" << x << " " << y << ")" << std::endl;
+        Request *query = new MoveQuery(id, std::move(coord));
+        return query;
+    }
+    return nullptr;
 }
 
-bool Character::reactToEvent(int x, int y, std::pair<coordenada_t, coordenada_t> &ubication) { //cambiar nombre
-    desX = x;
-    desY = y;
-    bool change;
-    if (!current.Contains(desX, desY) && selected) {
-        ubication.first.first = pos_X;
-        ubication.first.second = pos_Y;
-        ubication.second.first = desX;
-        ubication.second.second = desY;
-        return true;
-    }
-    if (current.Contains(desX, desY) && !selected) {
-        change = true;
-    }
-    if (current.Contains(desX, desY) && selected) {
-        change = false;
-    }
-    selected = change;
-    changeColor();
-    return false;
-}
-bool Character::isSelected() const {
-    return selected;
+bool Character::mouseOverCharacter(int x, int y) const {
+    return current.Contains(x, y);
 }
