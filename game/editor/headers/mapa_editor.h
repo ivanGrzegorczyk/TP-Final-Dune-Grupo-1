@@ -41,8 +41,10 @@ class MapaEditor {
         return mapa[coordinate.second][coordinate.first];
     }
     void colocar_centro_construccion(coordenada_t& coord) {
-        // coordenada es valida
-        // TODO sistema de propiedades mejor, clase mapa
+        // TODO better property system
+        if(construction_center_location.size() >= num_players) {
+            throw std::invalid_argument("cant place any more construction centers!");
+        }
         construction_center_location.push_back(coord);
         mapa[coord.second][coord.first]
             .propiedades.emplace_back("centro_construccion");

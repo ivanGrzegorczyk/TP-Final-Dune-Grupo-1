@@ -58,8 +58,11 @@ void Cell::place_tile(std::shared_ptr<Terrain> terrain) {
 }
 
 void Cell::move_building() {
-    map->colocar_centro_construccion(position);
-    std::cout << "parent data: " << this->parentItem()->childItems().count() << std::endl;
+    try {
+        map->colocar_centro_construccion(position);
+    } catch(std::invalid_argument e) {
+        //TODO play sound effect
+    }
     GraphicsMap* parent = qgraphicsitem_cast<GraphicsMap*>(this->parentItem());
     parent->update();
 }

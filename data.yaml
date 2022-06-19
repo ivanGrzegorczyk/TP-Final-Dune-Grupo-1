@@ -1,7 +1,7 @@
 name: My cool map
-num_players: 12345
+num_players: 3
 map:
-  rows: 2
+  rows: 3
   columns: 3
   cells:
     - terrain: default
@@ -21,25 +21,64 @@ map:
         - 1
     - terrain: default
       buildings:
-        []
+        - name: Construction Center
+          size:
+            - 2
+            - 2
       pos:
         - 0
         - 2
     - terrain: default
       buildings:
-        []
+        - name: Construction Center
+          size:
+            - 2
+            - 2
       pos:
         - 1
         - 0
-    - terrain: mountain
+    - terrain: default
       buildings:
-        []
+        - name: Construction Center
+          size:
+            - 2
+            - 2
       pos:
         - 1
         - 1
     - terrain: default
       buildings:
-        []
+        - name: Construction Center
+          size:
+            - 2
+            - 2
       pos:
         - 1
+        - 2
+    - terrain: default
+      buildings:
+        - name: Construction Center
+          size:
+            - 2
+            - 2
+      pos:
+        - 2
+        - 0
+    - terrain: default
+      buildings:
+        - name: Construction Center
+          size:
+            - 2
+            - 2
+      pos:
+        - 2
+        - 1
+    - terrain: default
+      buildings:
+        - name: Construction Center
+          size:
+            - 2
+            - 2
+      pos:
+        - 2
         - 2
