@@ -8,10 +8,13 @@
 MainWindow::MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent)
     : QMainWindow(parent), 
     ui(new Ui::MainWindow),
-    ui_map(new Ui::centralwidget), 
+    ui_map(new Ui::NewMap), 
     scene(map)
 {
     ui_map->setupUi(this);
+    QPushButton *button = ui_map->edit_button_1;
+    auto lambda =  [button, this]() { this->open_map(); };
+    connect(button, &QPushButton::clicked, this, lambda);
     /*
     ui->view->setScene(&this->scene);
 
@@ -50,6 +53,11 @@ void MainWindow::place_building() {
     std::string std("building");
     scene.set_active_texture(std);
 }
+
+void MainWindow::open_map() {
+    ui->setupUi(this);
+}
+
 
 MainWindow::~MainWindow()
 {

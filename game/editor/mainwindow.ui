@@ -90,8 +90,6 @@
         </item>
        </layout>
       </widget>
-      <zorder>view</zorder>
-      <zorder>verticalLayoutWidget</zorder>
      </widget>
     </item>
    </layout>

@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QVBoxLayout>
@@ -20,12 +21,13 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_centralwidget
+class Ui_NewMap
 {
 public:
+    QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QWidget *widget;
-    QGraphicsView *graphicsView;
+    QGraphicsView *view;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *button_container;
     QLabel *label;
@@ -36,22 +38,25 @@ public:
     QPushButton *save_button;
     QSpinBox *spinBox;
 
-    void setupUi(QWidget *centralwidget)
+    void setupUi(QMainWindow *NewMap)
     {
-        if (centralwidget->objectName().isEmpty())
-            centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        centralwidget->resize(526, 400);
+        if (NewMap->objectName().isEmpty())
+            NewMap->setObjectName(QString::fromUtf8("NewMap"));
+        NewMap->resize(800, 600);
+        centralwidget = new QWidget(NewMap);
+        centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         widget = new QWidget(centralwidget);
         widget->setObjectName(QString::fromUtf8("widget"));
         widget->setEnabled(true);
-        graphicsView = new QGraphicsView(widget);
-        graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
-        graphicsView->setGeometry(QRect(0, 0, 511, 391));
+        view = new QGraphicsView(widget);
+        view->setObjectName(QString::fromUtf8("view"));
+        view->setGeometry(QRect(-10, 0, 782, 566));
+        view->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         verticalLayoutWidget = new QWidget(widget);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(20, 10, 114, 282));
+        verticalLayoutWidget->setGeometry(QRect(250, 110, 120, 230));
         button_container = new QVBoxLayout(verticalLayoutWidget);
         button_container->setObjectName(QString::fromUtf8("button_container"));
         button_container->setContentsMargins(0, 0, 0, 0);
@@ -93,27 +98,28 @@ public:
 
         verticalLayout->addWidget(widget);
 
+        NewMap->setCentralWidget(centralwidget);
 
-        retranslateUi(centralwidget);
+        retranslateUi(NewMap);
 
-        QMetaObject::connectSlotsByName(centralwidget);
+        QMetaObject::connectSlotsByName(NewMap);
     } // setupUi
 
-    void retranslateUi(QWidget *centralwidget)
+    void retranslateUi(QMainWindow *NewMap)
     {
-        label->setText(QCoreApplication::translate("centralwidget", "Hi! This is a label", nullptr));
-        edit_button_1->setText(QCoreApplication::translate("centralwidget", "Mountain", nullptr));
-        edit_button_2->setText(QCoreApplication::translate("centralwidget", "Sand", nullptr));
-        edit_button_3->setText(QCoreApplication::translate("centralwidget", "Rock", nullptr));
-        building_button->setText(QCoreApplication::translate("centralwidget", "Building", nullptr));
-        save_button->setText(QCoreApplication::translate("centralwidget", "Save", nullptr));
-        (void)centralwidget;
+        NewMap->setWindowTitle(QCoreApplication::translate("NewMap", "New Map", nullptr));
+        label->setText(QCoreApplication::translate("NewMap", "creatng new map", nullptr));
+        edit_button_1->setText(QCoreApplication::translate("NewMap", "Mountain", nullptr));
+        edit_button_2->setText(QCoreApplication::translate("NewMap", "Sand", nullptr));
+        edit_button_3->setText(QCoreApplication::translate("NewMap", "Rock", nullptr));
+        building_button->setText(QCoreApplication::translate("NewMap", "Building", nullptr));
+        save_button->setText(QCoreApplication::translate("NewMap", "Save", nullptr));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class centralwidget: public Ui_centralwidget {};
+    class NewMap: public Ui_NewMap {};
 } // namespace Ui
 
 QT_END_NAMESPACE
