@@ -7,7 +7,7 @@
 #include "mapa_editor.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class MainWindow; class centralwidget; }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -20,6 +20,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    Ui::centralwidget *ui_map;
     GameScene scene;
     void toggle_button(QPushButton *text);
     void place_building();

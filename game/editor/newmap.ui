@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>centralwidget</class>
+ <widget class="QWidget" name="centralwidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>526</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>511</width>
+        <height>391</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>114</width>
+        <height>282</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="button_container">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Hi! This is a label</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="edit_button_1">
+         <property name="text">
+          <string>Mountain</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="edit_button_2">
+         <property name="text">
+          <string>Sand</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="edit_button_3">
+         <property name="text">
+          <string>Rock</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="building_button">
+         <property name="text">
+          <string>Building</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="save_button">
+         <property name="text">
+          <string>Save</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

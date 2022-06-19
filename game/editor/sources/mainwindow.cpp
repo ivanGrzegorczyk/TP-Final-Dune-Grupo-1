@@ -1,15 +1,18 @@
 // Code credit FIUBA: https://github.com/Taller-de-Programacion/clases/tree/feature/bibliotecas-gui/bibliotecas-gui/qt5
 
 #include "../../game/editor/headers/mainwindow.h"
-#include "ui_mainwindow.h"
 #include <QString>
+#include "ui_mainwindow.h"
+#include "ui_newmap.h"
 
 MainWindow::MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-    , scene(map)
+    : QMainWindow(parent), 
+    ui(new Ui::MainWindow),
+    ui_map(new Ui::centralwidget), 
+    scene(map)
 {
-    ui->setupUi(this);
+    ui_map->setupUi(this);
+    /*
     ui->view->setScene(&this->scene);
 
     std::vector<QString> textures;
@@ -35,6 +38,7 @@ MainWindow::MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent)
     auto lambda_build =  [this]() { this->place_building(); };
     connect(ui->save_button, &QPushButton::clicked, this, lambda_save);
     connect(ui->building_button, &QPushButton::clicked, this, lambda_build);
+    */
 }
 
 void MainWindow::toggle_button(QPushButton *button) {
@@ -49,6 +53,7 @@ void MainWindow::place_building() {
 
 MainWindow::~MainWindow()
 {
+    delete ui_map;
     delete ui;
 }
 

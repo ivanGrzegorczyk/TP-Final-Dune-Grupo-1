@@ -5,6 +5,7 @@
 
 #include <SDL2pp/SDL2pp.hh>
 #include "ui_mainwindow.h"
+#include "ui_newmap.h"
 #include "../../game/editor/headers/mainwindow.h"
 #include <QApplication>
 

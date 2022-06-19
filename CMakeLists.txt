@@ -18,6 +18,7 @@ include_directories(${PROJECT_SOURCE_DIR}/game)
 # Los nombres de los headers generados se guardan en la variable pasada
 # como primer parámetro.
 qt5_wrap_ui(UIS_HEADERS
+        game/editor/newmap.ui
         game/editor/mainwindow.ui
 )
 
