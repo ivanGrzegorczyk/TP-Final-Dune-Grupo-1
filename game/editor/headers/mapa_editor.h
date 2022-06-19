@@ -38,13 +38,53 @@ class MapaEditor {
         }
     }
     const CeldaEditor& cell(coordenada_t coordinate) const {
+        if(!is_cell(coordinate)) {
+            throw std::invalid_argument("not a cell in the map\n");
+        }
         return mapa[coordinate.second][coordinate.first];
+    }
+    bool is_cell(coordenada_t coordinate) const {
+        return coordinate.first < x && coordinate.second < y;
+    }
+
+    bool is_buildable_cell(coordenada_t coordinate) const {
+        return is_cell(coordinate) && cell(coordinate).terrain->name() == "rock";
+    }
+
+    //TODO building class with this logic
+    /*
+        Gets all positions that would be occupied by the 
+        building if placed on the map,
+        with its top left corner at <position>.
+        Does not take into account if a position is invalid.
+        Ordered first by y/height and then by x/width.
+    */
+    std::vector<coordenada_t> get_positions(
+            const int x, const int y, const int size_x, const int size_y){
+        std::vector<coordenada_t> myvect;
+        for (char _y = 0; _y < size_y; _y++) {
+            for (char _x = 0; _x < size_x; _x++) {
+                int block_x = x + _x;
+                int block_y = y + _y;
+                coordenada_t location({x,y});
+                myvect.push_back(location);
+            }
+        }
+        return myvect;
     }
     void colocar_centro_construccion(coordenada_t& coord) {
         // TODO better property system
+        // TODO building class
         if(construction_center_location.size() >= num_players) {
             throw std::invalid_argument("cant place any more construction centers!");
         }
+        // check if building fits and terrain works
+        std::vector<coordenada_t> occupied_cells = get_positions(coord.first, coord.second, 2,2);
+        for(coordenada_t cell : occupied_cells) {
+            if(!is_buildable_cell(cell)) 
+                throw std::invalid_argument("cant place that building!");
+        }
+        
         construction_center_location.push_back(coord);
         mapa[coord.second][coord.first]
             .propiedades.emplace_back("centro_construccion");
