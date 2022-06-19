@@ -41,10 +41,10 @@ void ServerProtocol::getRelocationData
     goal.second = ntohs(goal_y);
 }
 
-void ServerProtocol::getUnitData(uint16_t &unit, coordenada_t &position) {
+void ServerProtocol::getEnityData(uint16_t &type, coordenada_t &position) {
     uint16_t aux;
     socket.recvall(&aux, sizeof(aux));
-    unit = ntohs(aux);
+    type = ntohs(aux);
     socket.recvall(&aux, sizeof(aux));
     position.first = ntohs(aux);
     socket.recvall(&aux, sizeof(aux));

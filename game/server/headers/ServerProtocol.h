@@ -38,7 +38,7 @@ public:
 
     void assignPlayerId(int id);
 
-    void getUnitData(uint16_t &unit, coordenada_t &position);
+    void getEnityData(uint16_t &type, coordenada_t &position);
 
     void sendSnapshot(const std::vector<uint16_t> &snapshot);
 

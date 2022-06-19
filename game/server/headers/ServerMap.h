@@ -10,6 +10,8 @@
 
 class ServerMap {
 private:
+    int rows;
+    int columns;
     // Key: id del jugador, valor mapa con key id de la entidad y valor un puntero a la entidad
     std::map<int, std::map<int, std::shared_ptr<Building>>> buildings;
     std::map<int, std::map<int, std::shared_ptr<Unit>>> units;

@@ -3,7 +3,7 @@
 #include "../headers/units/LightInfantry.h"
 #include "../headers/buildings/Barracks.h"
 
-ServerMap::ServerMap(int rows, int columns) :
+ServerMap::ServerMap(int rows, int columns) : rows(rows), columns(columns),
 map(rows, std::vector<ServerCell>(columns)), entityId(1) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
@@ -44,20 +44,28 @@ void ServerMap::spawnUnit(int playerId, int unit, coordenada_t position) {
 }
 
 void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t position) {
-    // TODO Chequear que las coordenadas estén dentro del mapa
     if (buildingType == BUILDING_BARRACKS) {
-        buildings[playerId].insert(std::pair<int, Barracks *>(
-                entityId, new Barracks(entityId, position)));
-
         int x = position.first, y = position.second;
 
-        // TODO Hay que hacer un chequeo de terreno antes de construir
+        int aux = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {
-                map[y + i][x + j].building = buildings.at(playerId).at(entityId);
+                if ((y + i) <= rows && (x + j) <= columns && map[x][y].ground == TERRAIN_ROCKS) {
+                    aux++;
+                }
             }
         }
-        entityId++;
+
+        if (aux == 6) {
+            buildings[playerId].insert(std::pair<int, Barracks *>(
+                    entityId, new Barracks(entityId, position)));
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 2; j++) {
+                    map[y + i][x + j].building = buildings.at(playerId).at(entityId);
+                }
+            }
+            entityId++;
+        }
     }
 }
 

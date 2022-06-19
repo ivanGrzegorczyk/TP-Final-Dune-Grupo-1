@@ -4,6 +4,7 @@
 #include "../headers/ThCLient.h"
 #include "../headers/events/RepositionEvent.h"
 #include "../headers/events/SpawnUnitEvent.h"
+#include "../headers/events/CreateBuildingEvent.h"
 
 ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id):
         protectedQueue(protectedQueue), keep_talking(true), is_running(true),
@@ -40,10 +41,18 @@ void ThClient::manageCommand(int command) {
             spawnUnit();
             break;
         }
+        case CREATE_BUILDING_EVENT: {
+            createBuilding();
+            break;
+        }
         default: {
             throw std::runtime_error("Unknown command: " + std::to_string(command));
         }
     }
+}
+
+void ThClient::sendSnapshot(const std::vector<uint16_t> &snapshot) {
+    protocol.sendSnapshot(snapshot);
 }
 
 void ThClient::repositionUnit() {
@@ -57,11 +66,15 @@ void ThClient::repositionUnit() {
 void ThClient::spawnUnit() {
     uint16_t unit;
     coordenada_t position;
-    protocol.getUnitData(unit, position);
+    protocol.getEnityData(unit, position);
     ServerEvent *event = new SpawnUnitEvent(playerId, unit, position);
     protectedQueue.push(event);
 }
 
-void ThClient::sendSnapshot(const std::vector<uint16_t> &snapshot) {
-    protocol.sendSnapshot(snapshot);
+void ThClient::createBuilding() {
+    uint16_t building;
+    coordenada_t position;
+    protocol.getEnityData(building, position);
+    ServerEvent *event = new CreateBuildingEvent(playerId, building, position);
+    protectedQueue.push(event);
 }
