@@ -10,14 +10,16 @@ private:
     std::list<ThClient *> clients;
     std::mutex mutex;
 
-    void clean();
     static bool cleanClient(ThClient *client);
-
 public:
+
     ~ClientsMonitor();
 
     void push(ThClient *client);
     void broadCast(const std::vector<uint16_t> &snapshot);
+    void clean();
+
+    void clearAll();
 };
 
 #endif  // CLIENTSMONITOR_H_

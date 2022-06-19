@@ -46,12 +46,17 @@ typedef std::pair<int, int> coordenada_t;
 #define BARRACKS_COST 300
 #define BARRACKS_POINTS 300
 
-// Terrain
+//terrain
 #define TERRAIN_SAND 0
 #define TERRAIN_DUNES 1
 #define TERRAIN_ROCKS 2
 #define TERRAIN_TOPS 3
 #define TERRAIN_CLIFFS 4
+
+//houses
+#define HOUSE_ATREIDES 0
+#define HOUSE_HARKONNEN 1
+#define HOUSE_ORDOS 2
 
 #define GAME_LOOP_RATE (1.0 / 30.0)
 

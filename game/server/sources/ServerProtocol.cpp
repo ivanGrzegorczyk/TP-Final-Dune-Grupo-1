@@ -41,10 +41,10 @@ void ServerProtocol::getRelocationData
     goal.second = ntohs(goal_y);
 }
 
-void ServerProtocol::getUnitData(uint16_t &unit, coordenada_t &position) {
+void ServerProtocol::getEnityData(uint16_t &type, coordenada_t &position) {
     uint16_t aux;
     socket.recvall(&aux, sizeof(aux));
-    unit = ntohs(aux);
+    type = ntohs(aux);
     socket.recvall(&aux, sizeof(aux));
     position.first = ntohs(aux);
     socket.recvall(&aux, sizeof(aux));
@@ -65,31 +65,14 @@ void ServerProtocol::sendSnapshot(const std::vector<uint16_t> &snapshot) {
     }
 }
 
-void ServerProtocol::sendTerrain() {
-    std::ifstream file;
-    std::string line;
-
-    file.open("../terrain.txt", std::ifstream::in);
-    if (!file.is_open())
-        std::cout << "No se abrio el archivo" << std::endl;
-
+void ServerProtocol::sendTerrain(std::vector<uint8_t> &&terrain) {
     uint16_t size = 50;
     size = htons(size);
     // Envio la cantidad de filas y columnas del mapa
     socket.sendall(&size, sizeof(size));
     socket.sendall(&size, sizeof(size));
-
-    // Pongo todos los datos en un vector
-    while (getline(file, line)) {
-        for (char c : line) {
-            if (c == 'O') {                 // Rocas
-                uint8_t ground = TERRAIN_ROCKS;
-                socket.sendall(&ground, sizeof(ground));
-            } else if (c == 'X') {          // Arena
-                uint8_t ground = TERRAIN_SAND;
-                socket.sendall(&ground, sizeof(ground));
-            }
-        }
+    
+    for (const uint8_t &ground : terrain) {
+        socket.sendall(&ground, sizeof(ground));
     }
-    file.close();
 }

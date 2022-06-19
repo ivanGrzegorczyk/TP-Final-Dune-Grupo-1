@@ -17,9 +17,9 @@ private:
 public:
     BlockingQueue() : closed(false) {}
 
-    void push(T t) {
+    void push(T &t) {
         std::unique_lock<std::mutex> uniqueLock(mutex);
-        data.push(t);
+        data.push(std::move(t));
         conditionVariable.notify_all();
     }
     T pop() {
@@ -30,7 +30,7 @@ public:
             conditionVariable.wait(uniqueLock);
         }
 
-        T t = data.front();
+        T t = std::move(data.front());
         data.pop();
 
         return t;
