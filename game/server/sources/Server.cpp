@@ -59,7 +59,7 @@ void Server::manageEvents() {
         event->performEvent(map);
         event = protectedQueue.pop();
     }
-    map.updateUnitPositions();
+    map.updateUnitsPosition();
     std::vector<uint16_t> snapshot(createSnapshot());
     blockingQueue.push(snapshot);
 }
