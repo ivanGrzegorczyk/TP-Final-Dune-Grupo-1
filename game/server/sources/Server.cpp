@@ -44,10 +44,11 @@ void Server::acceptClients() {
             auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId);
             client->start();
             clients.push(client);
+            clients.clean();
             nextPlayerId++;
         }
     } catch(const std::exception &e) {
-        // TODO Manejar excepcion
+        clients.clearAll();
         std::cout << "Catchea en el acceptClients y sale" << std::endl;
         return;
     }
