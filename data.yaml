@@ -4,13 +4,13 @@ map:
   rows: 5
   columns: 5
   cells:
-    - terrain: mountain
+    - terrain: default
       buildings:
         []
       pos:
         - 0
         - 0
-    - terrain: mountain
+    - terrain: default
       buildings:
         []
       pos:
@@ -34,13 +34,13 @@ map:
       pos:
         - 0
         - 4
-    - terrain: mountain
+    - terrain: default
       buildings:
         []
       pos:
         - 1
         - 0
-    - terrain: mountain
+    - terrain: default
       buildings:
         []
       pos:
@@ -64,13 +64,13 @@ map:
       pos:
         - 1
         - 4
-    - terrain: mountain
+    - terrain: default
       buildings:
         []
       pos:
         - 2
         - 0
-    - terrain: default
+    - terrain: mountain
       buildings:
         []
       pos:
@@ -82,66 +82,66 @@ map:
       pos:
         - 2
         - 2
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 2
+        - 3
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 2
+        - 4
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 3
+        - 0
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 3
+        - 1
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 3
+        - 2
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 3
+        - 3
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 3
+        - 4
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 4
+        - 0
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 4
+        - 1
     - terrain: default
       buildings:
         - name: Construction Center
           size:
             - 2
             - 2
-      pos:
-        - 2
-        - 3
-    - terrain: default
-      buildings:
-        []
-      pos:
-        - 2
-        - 4
-    - terrain: default
-      buildings:
-        []
-      pos:
-        - 3
-        - 0
-    - terrain: default
-      buildings:
-        []
-      pos:
-        - 3
-        - 1
-    - terrain: default
-      buildings:
-        []
-      pos:
-        - 3
-        - 2
-    - terrain: default
-      buildings:
-        []
-      pos:
-        - 3
-        - 3
-    - terrain: default
-      buildings:
-        []
-      pos:
-        - 3
-        - 4
-    - terrain: default
-      buildings:
-        []
-      pos:
-        - 4
-        - 0
-    - terrain: default
-      buildings:
-        []
-      pos:
-        - 4
-        - 1
-    - terrain: default
-      buildings:
-        []
       pos:
         - 4
         - 2

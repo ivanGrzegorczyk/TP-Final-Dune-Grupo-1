@@ -20,11 +20,14 @@ EditorWindow::EditorWindow(QWidget *parent)
     auto lambda2 =  [this]() { this->open_map(); };
     connect(button, &QPushButton::clicked, this, lambda);
     connect(button2, &QPushButton::clicked, this, lambda2);
-    
 }
 
 void EditorWindow::open_map() {
-    std::shared_ptr<MapaEditor> map(new MapaEditor(5,5));
+    int x = ui_map->x->value();
+    int y = ui_map->y->value();
+    int num_players = ui_map->num_players->value();
+    std::shared_ptr<MapaEditor> map(new MapaEditor(x,y));
+    std::cout << "xy size: " << std::to_string(x) << " " << std::to_string(y) << std::endl;
     MainWindow* w = new MainWindow(map);
     w->open_map(this);
 }
@@ -33,21 +36,4 @@ void EditorWindow::open_map() {
 EditorWindow::~EditorWindow()
 {
     delete ui_map;
-}
-
-MapaEditor setup() {
-    MapaEditor m(5,5);
-    coordenada_t construccion = {1,3};
-    m.colocar_centro_construccion(construccion);
-
-    coordenada_t construccion2 = {4,0};
-    m.colocar_centro_construccion(construccion2);
-    std::vector<coordenada_t> celdas_montania;
-    celdas_montania.push_back({3,3});
-    celdas_montania.push_back({3,4});
-
-    std::string name("mountain"); //TODO centralize all terrains
-    std::shared_ptr<Terrain> terr(new Terrain(name));
-    m.place_terrain(celdas_montania, terr);
-    return m;
 }

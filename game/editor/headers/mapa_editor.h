@@ -13,20 +13,20 @@ typedef std::vector<CeldaEditor> fila_t;
 
 class MapaEditor {
     matriz_t mapa;
-    int filas; int columnas;
+    int x; int y;
     coordenada_t ubicacion_centro_construccion = {-1,-1};
     public:
     MapaEditor(MapaEditor& other) = delete;
     MapaEditor& operator=(MapaEditor& other) = delete;
     MapaEditor(MapaEditor&& other) = default;
     MapaEditor& operator=(MapaEditor&& other) = default;
-    MapaEditor(int filas, int columnas) : filas(filas), columnas(columnas) {
+    MapaEditor(int x, int y) : x(x), y(y) {
         std::string name("default"); //TODO centralize all terrains
         std::shared_ptr<Terrain> terr(new Terrain(name));
-        for(int i = 0; i < filas; i++) {
+        for(int i = 0; i < y; i++) {
             fila_t fila;
-            for(int j = 0; j < columnas; j++) {
-                CeldaEditor c({i, j}, terr);
+            for(int j = 0; j < x; j++) {
+                CeldaEditor c({j, i}, terr);
                 fila.push_back(c);
             }
             mapa.push_back(fila);
@@ -58,7 +58,6 @@ class MapaEditor {
         }
     }
     std::string to_yaml() {
-        std::cout << "First cell is:" << mapa[0][0].terrain->name() << std::endl;
         YAML::Emitter out;
         out << YAML::BeginMap;
             out << YAML::Key << "name";
@@ -69,14 +68,14 @@ class MapaEditor {
             out << YAML::Value 
                 << YAML::BeginMap
                 << YAML::Key << "rows"
-                << YAML::Value << std::to_string(filas)
+                << YAML::Value << std::to_string(x)
                 << YAML::Key << "columns"
-                << YAML::Value << std::to_string(columnas)
+                << YAML::Value << std::to_string(y)
                 << YAML::Key << "cells"
                 << YAML::Value  
                     << YAML::BeginSeq;
-        for(int i = 0; i < filas; i++) {
-            for(int j = 0; j < columnas; j++) {
+        for(int i = 0; i < x; i++) {
+            for(int j = 0; j < y; j++) {
                 std::string terrain(cell({i,j}).terrain->name());
                 out 
                     << YAML::BeginMap
@@ -119,7 +118,7 @@ class MapaEditor {
         public:
         int32_t num = 0;
         MapIterator(MapaEditor& mapa, int _num = 0) : 
-            _mapa(mapa), max(mapa.filas * mapa.columnas), num(_num) {}
+            _mapa(mapa), max(mapa.x * mapa.y), num(_num) {}
         MapIterator& operator++() {
             if (num < max) num++;
             return *this;
@@ -137,8 +136,9 @@ class MapaEditor {
             return !(*this == other);
         }
         const CeldaEditor& operator*() {
-            int y = int(num / _mapa.columnas);
-            int x = int(num % _mapa.columnas);
+            int x = int(num / _mapa.y);
+            int y = int(num % _mapa.y);
+            std::cout << "updating:" << std::to_string(x) << " " << std::to_string(y) << std::endl;
             coordenada_t coord = {x,y};
             return _mapa.cell(coord);
         }
@@ -153,7 +153,7 @@ class MapaEditor {
         return MapIterator(*this, 0);
     }
     MapIterator end() {
-        return MapIterator(*this, filas * columnas);
+        return MapIterator(*this, x * y);
     }
 };
 
