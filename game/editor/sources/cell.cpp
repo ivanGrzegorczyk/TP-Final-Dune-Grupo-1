@@ -22,7 +22,7 @@ void Cell::update()
     QImage terrain_texture = map->cell(position).terrain->image();
     currentTexture = QPixmap::fromImage(terrain_texture);
     this->setPixmap(currentTexture);
-    if(position == map->construction_center()) {
+    if(map->is_construction_center(position)) {
         QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect();
         effect->setColor(Qt::red);
         this->setGraphicsEffect(effect);

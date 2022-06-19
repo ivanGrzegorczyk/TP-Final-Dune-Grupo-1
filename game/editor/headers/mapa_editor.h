@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <algorithm>
 #include <iostream>
 #include "yaml-cpp/yaml.h"
 #include "celda_editor.h"
@@ -42,21 +43,17 @@ class MapaEditor {
     void colocar_centro_construccion(coordenada_t& coord) {
         // coordenada es valida
         // TODO sistema de propiedades mejor, clase mapa
-        if(!construction_center_location.empty()) {
-            mapa[construction_center().second][construction_center().first]
-                .propiedades.clear();
-            construction_center_location.clear();
-        }
         construction_center_location.push_back(coord);
         mapa[coord.second][coord.first]
             .propiedades.emplace_back("centro_construccion");
     }
-    coordenada_t construction_center() {
-        if(construction_center_location.empty()) {
-            return {-1,-1};
-        } else {
-            return construction_center_location[0];
-        }
+    bool is_construction_center(coordenada_t coordinate) {
+        auto it = std::find(
+                construction_center_location.begin(), 
+                construction_center_location.end(), 
+                coordinate);
+        return (it != construction_center_location.end());
+
     }
     void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain) {
         for(coordenada_t celda : celdas) {
@@ -71,7 +68,7 @@ class MapaEditor {
             out << YAML::Key << "name";
             out << YAML::Value << "My cool map";
             out << YAML::Key << "num_players";
-            out << YAML::Value << "12345"; // TODO set in ui
+            out << YAML::Value << num_players;
             out << YAML::Key << "map";
             out << YAML::Value 
                 << YAML::BeginMap
@@ -93,7 +90,7 @@ class MapaEditor {
                         << YAML::BeginSeq;
                         // building is always defined at its rightmost position
                         coordenada_t current({i,j});
-                        if(construction_center() == current) {
+                        if(is_construction_center(current)) {
                             out << YAML::BeginMap
                                 << YAML::Key << "name"
                                 << YAML::Value << "Construction Center"
