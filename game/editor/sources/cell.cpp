@@ -61,7 +61,7 @@ void Cell::move_building() {
     try {
         map->colocar_centro_construccion(position);
     } catch(std::invalid_argument e) {
-        //TODO play sound effect
+        std::cout << e.what(); 
     }
     GraphicsMap* parent = qgraphicsitem_cast<GraphicsMap*>(this->parentItem());
     parent->update();

@@ -48,7 +48,9 @@ class MapaEditor {
     }
 
     bool is_buildable_cell(coordenada_t coordinate) const {
-        return is_cell(coordinate) && cell(coordinate).terrain->name() == "rock";
+        return is_cell(coordinate) 
+            && cell(coordinate).terrain->name() == "rock"
+            && !(is_construction_center(coordinate));
     }
 
     //TODO building class with this logic
@@ -60,14 +62,14 @@ class MapaEditor {
         Ordered first by y/height and then by x/width.
     */
     std::vector<coordenada_t> get_positions(
-            const int x, const int y, const int size_x, const int size_y){
+            const int x, const int y, const int size_x, const int size_y) const {
         std::vector<coordenada_t> myvect;
         for (char _y = 0; _y < size_y; _y++) {
             for (char _x = 0; _x < size_x; _x++) {
                 int block_x = x + _x;
                 int block_y = y + _y;
-                coordenada_t location({x,y});
-                myvect.push_back(location);
+                coordenada_t _block({block_x,block_y});
+                myvect.push_back(_block);
             }
         }
         return myvect;
@@ -89,13 +91,18 @@ class MapaEditor {
         mapa[coord.second][coord.first]
             .propiedades.emplace_back("centro_construccion");
     }
-    bool is_construction_center(coordenada_t coordinate) {
-        auto it = std::find(
-                construction_center_location.begin(), 
-                construction_center_location.end(), 
-                coordinate);
-        return (it != construction_center_location.end());
-
+    /*
+    For every construction center. do any of their cells intersect this one?
+    */
+    bool is_construction_center(coordenada_t coordinate) const {
+        for(coordenada_t l : construction_center_location) {
+            auto positions = get_positions(l.first, l.second, 2,2);
+            auto found = std::find(positions.begin(), positions.end(), coordinate);
+            if(found != positions.end()) {
+                return true;
+            }
+        }
+        return false;
     }
     void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain) {
         for(coordenada_t celda : celdas) {
