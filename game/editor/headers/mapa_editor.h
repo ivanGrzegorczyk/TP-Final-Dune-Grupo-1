@@ -5,22 +5,26 @@
 #include <string>
 #include <iostream>
 #include "yaml-cpp/yaml.h"
-
 #include "celda_editor.h"
+#define MIN_PLAYERS 1
+#define MIN_X 2
+#define MIN_Y 2
 
 typedef std::vector<std::vector<CeldaEditor>> matriz_t;
 typedef std::vector<CeldaEditor> fila_t;
 
 class MapaEditor {
     matriz_t mapa;
-    int x; int y;
-    coordenada_t ubicacion_centro_construccion = {-1,-1};
+    int x; int y; int num_players;
+    std::vector<coordenada_t> construction_center_location;
     public:
     MapaEditor(MapaEditor& other) = delete;
     MapaEditor& operator=(MapaEditor& other) = delete;
     MapaEditor(MapaEditor&& other) = default;
     MapaEditor& operator=(MapaEditor&& other) = default;
-    MapaEditor(int x, int y) : x(x), y(y) {
+    MapaEditor(int x, int y, int num_players) : x(x), y(y), num_players(num_players) {
+        if(x < MIN_X || y < MIN_Y || num_players < MIN_PLAYERS)
+            throw std::invalid_argument("bad user input");
         std::string name("default"); //TODO centralize all terrains
         std::shared_ptr<Terrain> terr(new Terrain(name));
         for(int i = 0; i < y; i++) {
@@ -35,20 +39,24 @@ class MapaEditor {
     const CeldaEditor& cell(coordenada_t coordinate) const {
         return mapa[coordinate.second][coordinate.first];
     }
-    void colocar_centro_construccion(coordenada_t& coordenada) {
+    void colocar_centro_construccion(coordenada_t& coord) {
         // coordenada es valida
         // TODO sistema de propiedades mejor, clase mapa
-        coordenada_t nula = {-1, -1};
-        if(ubicacion_centro_construccion != nula) {
-            mapa[ubicacion_centro_construccion.second][ubicacion_centro_construccion.first]
+        if(!construction_center_location.empty()) {
+            mapa[construction_center().second][construction_center().first]
                 .propiedades.clear();
+            construction_center_location.clear();
         }
-        ubicacion_centro_construccion = coordenada;
-        mapa[coordenada.second][coordenada.first]
+        construction_center_location.push_back(coord);
+        mapa[coord.second][coord.first]
             .propiedades.emplace_back("centro_construccion");
     }
     coordenada_t construction_center() {
-        return ubicacion_centro_construccion;
+        if(construction_center_location.empty()) {
+            return {-1,-1};
+        } else {
+            return construction_center_location[0];
+        }
     }
     void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain) {
         for(coordenada_t celda : celdas) {
@@ -85,7 +93,7 @@ class MapaEditor {
                         << YAML::BeginSeq;
                         // building is always defined at its rightmost position
                         coordenada_t current({i,j});
-                        if(ubicacion_centro_construccion == current) {
+                        if(construction_center() == current) {
                             out << YAML::BeginMap
                                 << YAML::Key << "name"
                                 << YAML::Value << "Construction Center"

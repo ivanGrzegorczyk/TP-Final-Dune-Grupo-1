@@ -26,9 +26,15 @@ void EditorWindow::open_map() {
     int x = ui_map->x->value();
     int y = ui_map->y->value();
     int num_players = ui_map->num_players->value();
-    std::shared_ptr<MapaEditor> map(new MapaEditor(x,y));
+    MapaEditor* map = nullptr;
+    try {
+        map = new MapaEditor(x,y,num_players);
+    } catch (std::exception e) {
+        return;
+    }
+    std::shared_ptr<MapaEditor> _map(map);
     std::cout << "xy size: " << std::to_string(x) << " " << std::to_string(y) << std::endl;
-    MainWindow* w = new MainWindow(map);
+    MainWindow* w = new MainWindow(_map);
     w->open_map(this);
 }
 

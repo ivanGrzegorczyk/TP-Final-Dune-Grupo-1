@@ -13,7 +13,8 @@ GameScene::GameScene(std::shared_ptr<MapaEditor> map) : map(map)
     GraphicsMap* gm = new GraphicsMap();
     for(auto it = map->begin(); it != map->end(); ++it) {
         auto cell = *it;
-        Cell* p = new Cell(map, brush, cell.id);
+        coordenada_t coord = cell.id;
+        Cell* p = new Cell(map, brush, coord);
         p->setParentItem(gm);
         p->setAcceptHoverEvents(true);
         p->setPos(cell.id.first*30,cell.id.second*30);

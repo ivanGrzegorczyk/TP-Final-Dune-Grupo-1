@@ -8,8 +8,12 @@
 #include <QGraphicsColorizeEffect>
 #include <QGraphicsEffect>
 class GraphicsMap;
-Cell::Cell(std::shared_ptr<MapaEditor> map, std::shared_ptr<EditorState> brush, coordenada_t position): 
-        hovering(false), map(map), position(position), current_brush(brush) {
+Cell::Cell(std::shared_ptr<MapaEditor> map, 
+    std::shared_ptr<EditorState> brush, 
+    coordenada_t position): 
+        map(map), 
+        position(position), 
+        current_brush(brush) {
     this->update();
 }
 
