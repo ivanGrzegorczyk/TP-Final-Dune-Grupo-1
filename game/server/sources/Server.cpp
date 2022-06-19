@@ -55,13 +55,13 @@ void Server::acceptClients() {
 
 void Server::manageEvents() {
     ServerEvent *event = protectedQueue.pop();
-    if (event != nullptr) {
+    while (event != nullptr) {
         event->performEvent(map);
-        blockingQueue.push(createSnapshot());
+        event = protectedQueue.pop();
     }
-    if (map.updateUnitPositions()) {
-        blockingQueue.push(createSnapshot());
-    }
+    map.updateUnitPositions();
+    std::vector<uint16_t> snapshot(createSnapshot());
+    blockingQueue.push(snapshot);
 }
 
 void Server::broadCast() {
