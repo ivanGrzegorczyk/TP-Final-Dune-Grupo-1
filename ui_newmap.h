@@ -12,9 +12,12 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -29,14 +32,22 @@ public:
     QWidget *widget;
     QGraphicsView *view;
     QWidget *verticalLayoutWidget;
-    QVBoxLayout *button_container;
+    QVBoxLayout *create_box;
     QLabel *label;
-    QPushButton *edit_button_1;
-    QPushButton *edit_button_2;
-    QPushButton *edit_button_3;
-    QPushButton *building_button;
-    QPushButton *save_button;
-    QSpinBox *spinBox;
+    QLabel *label_2;
+    QHBoxLayout *map_size;
+    QSpinBox *x;
+    QSpinBox *y;
+    QLabel *label_3;
+    QSpinBox *num_players;
+    QPushButton *create_button;
+    QWidget *verticalLayoutWidget_2;
+    QVBoxLayout *open_box;
+    QLabel *label_4;
+    QLabel *label_5;
+    QLineEdit *filename;
+    QSpacerItem *verticalSpacer;
+    QPushButton *open_button;
 
     void setupUi(QMainWindow *NewMap)
     {
@@ -56,44 +67,79 @@ public:
         view->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         verticalLayoutWidget = new QWidget(widget);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(250, 110, 120, 230));
-        button_container = new QVBoxLayout(verticalLayoutWidget);
-        button_container->setObjectName(QString::fromUtf8("button_container"));
-        button_container->setContentsMargins(0, 0, 0, 0);
+        verticalLayoutWidget->setGeometry(QRect(190, 110, 126, 230));
+        create_box = new QVBoxLayout(verticalLayoutWidget);
+        create_box->setObjectName(QString::fromUtf8("create_box"));
+        create_box->setContentsMargins(0, 0, 0, 0);
         label = new QLabel(verticalLayoutWidget);
         label->setObjectName(QString::fromUtf8("label"));
 
-        button_container->addWidget(label);
+        create_box->addWidget(label);
 
-        edit_button_1 = new QPushButton(verticalLayoutWidget);
-        edit_button_1->setObjectName(QString::fromUtf8("edit_button_1"));
+        label_2 = new QLabel(verticalLayoutWidget);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
 
-        button_container->addWidget(edit_button_1);
+        create_box->addWidget(label_2);
 
-        edit_button_2 = new QPushButton(verticalLayoutWidget);
-        edit_button_2->setObjectName(QString::fromUtf8("edit_button_2"));
+        map_size = new QHBoxLayout();
+        map_size->setObjectName(QString::fromUtf8("map_size"));
+        x = new QSpinBox(verticalLayoutWidget);
+        x->setObjectName(QString::fromUtf8("x"));
 
-        button_container->addWidget(edit_button_2);
+        map_size->addWidget(x);
 
-        edit_button_3 = new QPushButton(verticalLayoutWidget);
-        edit_button_3->setObjectName(QString::fromUtf8("edit_button_3"));
+        y = new QSpinBox(verticalLayoutWidget);
+        y->setObjectName(QString::fromUtf8("y"));
 
-        button_container->addWidget(edit_button_3);
+        map_size->addWidget(y);
 
-        building_button = new QPushButton(verticalLayoutWidget);
-        building_button->setObjectName(QString::fromUtf8("building_button"));
 
-        button_container->addWidget(building_button);
+        create_box->addLayout(map_size);
 
-        save_button = new QPushButton(verticalLayoutWidget);
-        save_button->setObjectName(QString::fromUtf8("save_button"));
+        label_3 = new QLabel(verticalLayoutWidget);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
 
-        button_container->addWidget(save_button);
+        create_box->addWidget(label_3);
 
-        spinBox = new QSpinBox(verticalLayoutWidget);
-        spinBox->setObjectName(QString::fromUtf8("spinBox"));
+        num_players = new QSpinBox(verticalLayoutWidget);
+        num_players->setObjectName(QString::fromUtf8("num_players"));
 
-        button_container->addWidget(spinBox);
+        create_box->addWidget(num_players);
+
+        create_button = new QPushButton(verticalLayoutWidget);
+        create_button->setObjectName(QString::fromUtf8("create_button"));
+
+        create_box->addWidget(create_button);
+
+        verticalLayoutWidget_2 = new QWidget(widget);
+        verticalLayoutWidget_2->setObjectName(QString::fromUtf8("verticalLayoutWidget_2"));
+        verticalLayoutWidget_2->setGeometry(QRect(410, 109, 127, 231));
+        open_box = new QVBoxLayout(verticalLayoutWidget_2);
+        open_box->setObjectName(QString::fromUtf8("open_box"));
+        open_box->setContentsMargins(0, 0, 0, 0);
+        label_4 = new QLabel(verticalLayoutWidget_2);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        open_box->addWidget(label_4);
+
+        label_5 = new QLabel(verticalLayoutWidget_2);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+
+        open_box->addWidget(label_5);
+
+        filename = new QLineEdit(verticalLayoutWidget_2);
+        filename->setObjectName(QString::fromUtf8("filename"));
+
+        open_box->addWidget(filename);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        open_box->addItem(verticalSpacer);
+
+        open_button = new QPushButton(verticalLayoutWidget_2);
+        open_button->setObjectName(QString::fromUtf8("open_button"));
+
+        open_box->addWidget(open_button);
 
 
         verticalLayout->addWidget(widget);
@@ -108,12 +154,13 @@ public:
     void retranslateUi(QMainWindow *NewMap)
     {
         NewMap->setWindowTitle(QCoreApplication::translate("NewMap", "New Map", nullptr));
-        label->setText(QCoreApplication::translate("NewMap", "creatng new map", nullptr));
-        edit_button_1->setText(QCoreApplication::translate("NewMap", "Mountain", nullptr));
-        edit_button_2->setText(QCoreApplication::translate("NewMap", "Sand", nullptr));
-        edit_button_3->setText(QCoreApplication::translate("NewMap", "Rock", nullptr));
-        building_button->setText(QCoreApplication::translate("NewMap", "Building", nullptr));
-        save_button->setText(QCoreApplication::translate("NewMap", "Save", nullptr));
+        label->setText(QCoreApplication::translate("NewMap", "create new map", nullptr));
+        label_2->setText(QCoreApplication::translate("NewMap", "map size", nullptr));
+        label_3->setText(QCoreApplication::translate("NewMap", "number of players", nullptr));
+        create_button->setText(QCoreApplication::translate("NewMap", "Create", nullptr));
+        label_4->setText(QCoreApplication::translate("NewMap", "open existing map", nullptr));
+        label_5->setText(QCoreApplication::translate("NewMap", "enter filename:", nullptr));
+        open_button->setText(QCoreApplication::translate("NewMap", "Open", nullptr));
     } // retranslateUi
 
 };

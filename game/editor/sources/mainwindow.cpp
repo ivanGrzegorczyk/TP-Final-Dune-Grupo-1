@@ -12,10 +12,28 @@ MainWindow::MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent)
     scene(map)
 {
     ui_map->setupUi(this);
-    QPushButton *button = ui_map->edit_button_1;
-    auto lambda =  [button, this]() { this->open_map(); };
+    QPushButton *button = ui_map->open_button;
+    QPushButton *button2 = ui_map->create_button;
+    auto lambda =  [this]() { this->open_map(); };
+    auto lambda2 =  [this]() { this->open_map(); };
     connect(button, &QPushButton::clicked, this, lambda);
-    /*
+    connect(button2, &QPushButton::clicked, this, lambda2);
+    
+}
+
+void MainWindow::toggle_button(QPushButton *button) {
+    std::string std(button->text().toStdString());
+    scene.set_active_texture(std);
+}
+
+void MainWindow::place_building() {
+    std::string std("building");
+    scene.set_active_texture(std);
+}
+
+void MainWindow::open_map() {
+    ui->setupUi(this);
+    
     ui->view->setScene(&this->scene);
 
     std::vector<QString> textures;
@@ -41,21 +59,7 @@ MainWindow::MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent)
     auto lambda_build =  [this]() { this->place_building(); };
     connect(ui->save_button, &QPushButton::clicked, this, lambda_save);
     connect(ui->building_button, &QPushButton::clicked, this, lambda_build);
-    */
-}
-
-void MainWindow::toggle_button(QPushButton *button) {
-    std::string std(button->text().toStdString());
-    scene.set_active_texture(std);
-}
-
-void MainWindow::place_building() {
-    std::string std("building");
-    scene.set_active_texture(std);
-}
-
-void MainWindow::open_map() {
-    ui->setupUi(this);
+    
 }
 
 
