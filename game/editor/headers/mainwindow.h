@@ -10,17 +10,19 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; class NewMap; }
 QT_END_NAMESPACE
 
+MapaEditor setup();
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
     Ui::NewMap *ui_map;
+    MapaEditor map;
     GameScene scene;
     void toggle_button(QPushButton *text);
     void place_building();

@@ -16,7 +16,7 @@ map:
       pos:
         - 0
         - 1
-    - terrain: default
+    - terrain: mountain
       buildings:
         []
       pos:
@@ -46,7 +46,7 @@ map:
       pos:
         - 1
         - 1
-    - terrain: mountain
+    - terrain: default
       buildings:
         []
       pos:
@@ -64,7 +64,7 @@ map:
       pos:
         - 1
         - 4
-    - terrain: default
+    - terrain: mountain
       buildings:
         []
       pos:
@@ -76,7 +76,7 @@ map:
       pos:
         - 2
         - 1
-    - terrain: mountain
+    - terrain: default
       buildings:
         []
       pos:
@@ -94,24 +94,24 @@ map:
       pos:
         - 2
         - 4
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 3
+        - 0
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 3
+        - 1
     - terrain: default
       buildings:
         - name: Construction Center
           size:
             - 2
             - 2
-      pos:
-        - 3
-        - 0
-    - terrain: mountain
-      buildings:
-        []
-      pos:
-        - 3
-        - 1
-    - terrain: default
-      buildings:
-        []
       pos:
         - 3
         - 2
