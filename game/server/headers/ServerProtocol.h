@@ -42,7 +42,7 @@ public:
 
     void sendSnapshot(const std::vector<uint16_t> &snapshot);
 
-    void sendTerrain();
+    void sendTerrain(std::vector<uint8_t> &&terrain);
 };
 
 #endif  // SERVERPROTOCOL_H_

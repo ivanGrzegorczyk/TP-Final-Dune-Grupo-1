@@ -6,13 +6,13 @@
 #include "../headers/events/SpawnUnitEvent.h"
 #include "../headers/events/CreateBuildingEvent.h"
 
-ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id):
+ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id, std::vector<uint8_t> &terrain):
         protectedQueue(protectedQueue), keep_talking(true), is_running(true),
-        protocol(std::move(peer)), playerId(id) {}
+        protocol(std::move(peer)), playerId(id), terrain(std::move(terrain)) {}
 
 void ThClient::run() {
     protocol.assignPlayerId(playerId);
-    protocol.sendTerrain();
+    protocol.sendTerrain(std::move(terrain));
 
     while (keep_talking) {
         int command = protocol.commandReceive();

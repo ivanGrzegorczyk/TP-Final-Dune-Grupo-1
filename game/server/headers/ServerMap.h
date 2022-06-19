@@ -33,7 +33,7 @@ public:
 
     void addSnapshotData(std::vector<uint16_t> &snapshot);
 
-    void initializeTerrain();
+    void initializeTerrain(std::vector<uint8_t> &terrain);
 
     bool validPosition(coordenada_t position) const;
 };

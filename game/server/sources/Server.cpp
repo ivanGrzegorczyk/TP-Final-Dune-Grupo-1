@@ -2,11 +2,12 @@
 #include <iostream>
 #include <thread>
 #include "../headers/Server.h"
+#include "common/headers/Chronometer.h"
 
 Server::Server(const std::string &host, int rows, int columns) :
-    map(rows, rows), protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
+    map(rows, columns), protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
     // TODO las dimensiones del mapa están hardcodeadas en 50x50 por ahora
-    map.initializeTerrain();
+    map.initializeTerrain(terrain);
 }
 
 void Server::run() {
@@ -41,7 +42,7 @@ void Server::acceptClients() {
         while (keep_accepting) {
             Socket peer = protocol.accept();
             std::cout << "Acepta un cliente" << std::endl;
-            auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId);
+            auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId, terrain);
             client->start();
             clients.push(client);
             clients.clean();

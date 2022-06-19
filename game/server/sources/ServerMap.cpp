@@ -80,7 +80,7 @@ void ServerMap::addSnapshotData(std::vector<uint16_t> &snapshot) {
     }
 }
 
-void ServerMap::initializeTerrain() {
+void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
     std::ifstream file;
     std::string line;
 
@@ -95,8 +95,10 @@ void ServerMap::initializeTerrain() {
             y++;
             if (c == 'O') { // Rocas
                 map[x][y].ground = TERRAIN_ROCKS;
+                terrain.push_back(TERRAIN_ROCKS);
             } else if (c == 'X') {           // Arena
                 map[x][y].ground = TERRAIN_SAND;
+                terrain.push_back(TERRAIN_SAND);
             }
         }
         x++;
