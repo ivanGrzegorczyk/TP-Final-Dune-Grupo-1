@@ -26,8 +26,7 @@ EditorWindow::EditorWindow(QWidget *parent)
 void EditorWindow::open_map() {
     std::shared_ptr<MapaEditor> map(new MapaEditor(5,5));
     MainWindow* w = new MainWindow(map);
-    w->open_map();
-    w->show();
+    w->open_map(this);
 }
 
 

@@ -23,9 +23,8 @@ void MainWindow::place_building() {
     scene.set_active_texture(std);
 }
 
-void MainWindow::open_map() {
-    ui->setupUi(this);
-    
+void MainWindow::open_map(QMainWindow *parent) {
+    ui->setupUi(parent);
     ui->view->setScene(&this->scene);
 
     std::vector<QString> textures;

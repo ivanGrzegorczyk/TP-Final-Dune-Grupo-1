@@ -16,7 +16,7 @@ map:
       pos:
         - 0
         - 1
-    - terrain: mountain
+    - terrain: default
       buildings:
         []
       pos:
@@ -82,30 +82,6 @@ map:
       pos:
         - 2
         - 2
-    - terrain: default
-      buildings:
-        []
-      pos:
-        - 2
-        - 3
-    - terrain: default
-      buildings:
-        []
-      pos:
-        - 2
-        - 4
-    - terrain: default
-      buildings:
-        []
-      pos:
-        - 3
-        - 0
-    - terrain: default
-      buildings:
-        []
-      pos:
-        - 3
-        - 1
     - terrain: default
       buildings:
         - name: Construction Center
@@ -113,15 +89,39 @@ map:
             - 2
             - 2
       pos:
+        - 2
+        - 3
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 2
+        - 4
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 3
+        - 0
+    - terrain: default
+      buildings:
+        []
+      pos:
+        - 3
+        - 1
+    - terrain: default
+      buildings:
+        []
+      pos:
         - 3
         - 2
-    - terrain: mountain
+    - terrain: default
       buildings:
         []
       pos:
         - 3
         - 3
-    - terrain: mountain
+    - terrain: default
       buildings:
         []
       pos:

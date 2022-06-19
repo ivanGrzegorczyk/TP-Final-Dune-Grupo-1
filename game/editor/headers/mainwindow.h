@@ -18,7 +18,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent = nullptr);
     ~MainWindow();
-    void open_map();
+    void open_map(QMainWindow *parent);
 
 private:
     Ui::MainWindow *ui;
