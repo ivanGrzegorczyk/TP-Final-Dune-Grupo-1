@@ -1,7 +1,8 @@
 #ifndef SERVEREVENT_H_
 #define SERVEREVENT_H_
 
-#include "server/headers/model/map/ServerMap.h"
+
+#include "server/headers/map/ServerMap.h"
 #include "../../../common/headers/BlockingQueue.h"
 
 class ServerEvent {
