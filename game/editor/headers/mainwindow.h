@@ -16,16 +16,15 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent = nullptr);
     ~MainWindow();
+    void open_map();
 
 private:
     Ui::MainWindow *ui;
-    Ui::NewMap *ui_map;
-    MapaEditor map;
+    std::shared_ptr<MapaEditor> map;
     GameScene scene;
     void toggle_button(QPushButton *text);
     void place_building();
-    void open_map();
 };
 #endif // MAINWINDOW_H

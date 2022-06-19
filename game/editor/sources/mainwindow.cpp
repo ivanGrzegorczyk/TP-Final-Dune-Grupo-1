@@ -2,27 +2,16 @@
 
 #include "../../game/editor/headers/mainwindow.h"
 #include <QString>
+#include "../../game/editor/headers/editorwindow.h"
 #include "ui_mainwindow.h"
 #include "ui_newmap.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent)
     : QMainWindow(parent), 
     ui(new Ui::MainWindow),
-    ui_map(new Ui::NewMap),
-    map(std::move(setup())),
-    scene(std::shared_ptr<MapaEditor>(&map))
-{
-
-    //setup
-    ui_map->setupUi(this);
-    QPushButton *button = ui_map->open_button;
-    QPushButton *button2 = ui_map->create_button;
-    auto lambda =  [this]() { this->open_map(); };
-    auto lambda2 =  [this]() { this->open_map(); };
-    connect(button, &QPushButton::clicked, this, lambda);
-    connect(button2, &QPushButton::clicked, this, lambda2);
-    
-}
+    map(map),
+    scene(map) //Todo dont create shared pointer
+{}
 
 void MainWindow::toggle_button(QPushButton *button) {
     std::string std(button->text().toStdString());
@@ -62,29 +51,10 @@ void MainWindow::open_map() {
     auto lambda_build =  [this]() { this->place_building(); };
     connect(ui->save_button, &QPushButton::clicked, this, lambda_save);
     connect(ui->building_button, &QPushButton::clicked, this, lambda_build);
-    
 }
 
 
 MainWindow::~MainWindow()
 {
-    delete ui_map;
     delete ui;
-}
-
-MapaEditor setup() {
-    MapaEditor m(5,5);
-    coordenada_t construccion = {1,3};
-    m.colocar_centro_construccion(construccion);
-
-    coordenada_t construccion2 = {4,0};
-    m.colocar_centro_construccion(construccion2);
-    std::vector<coordenada_t> celdas_montania;
-    celdas_montania.push_back({3,3});
-    celdas_montania.push_back({3,4});
-
-    std::string name("mountain"); //TODO centralize all terrains
-    std::shared_ptr<Terrain> terr(new Terrain(name));
-    m.place_terrain(celdas_montania, terr);
-    return m;
 }
