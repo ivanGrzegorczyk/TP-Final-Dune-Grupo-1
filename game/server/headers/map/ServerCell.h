@@ -21,7 +21,7 @@ public:
     explicit ServerCell(coordenada_t coord);
 
     virtual int ground() = 0;
-    virtual bool receiveUnit() = 0;
+    virtual unsigned int harvest() = 0;
 };
 
 #endif  // SERVERCELL_H_

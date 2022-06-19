@@ -7,7 +7,7 @@ class RockCell : public ServerCell {
 public:
     RockCell(coordenada_t coord);
     int ground() override;
-    bool receiveUnit() override;
+    unsigned int harvest() override;
 };
 
 #endif  // ROCKCELL_H_

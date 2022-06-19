@@ -6,6 +6,7 @@
 #include <vector>
 #include "common/headers/Unit.h"
 #include "common/headers/Building.h"
+#include "common/headers/Vehicle.h"
 
 class Player {
 private:
@@ -14,6 +15,7 @@ private:
     int money;
     std::map<int, std::shared_ptr<Unit>> units;
     std::map<int, std::shared_ptr<Building>> buildings;
+    std::map<int, std::shared_ptr<Vehicle>> vehicles;
 
 public:
     Player() = default;

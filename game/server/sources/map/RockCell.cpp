@@ -2,11 +2,11 @@
 
 RockCell::RockCell(coordenada_t coord) : ServerCell(coord) {}
 
-bool RockCell::receiveUnit() {
-    return false;
-}
-
 int RockCell::ground() {
     return TERRAIN_ROCKS;
+}
+
+unsigned int RockCell::harvest() {
+    throw std::runtime_error("Cannot harvest on rocks");
 }
 
