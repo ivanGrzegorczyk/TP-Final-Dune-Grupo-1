@@ -1,9 +1,9 @@
 #include "../headers/Navigator.h"
 
-Navigator::Navigator(std::vector<std::vector<ServerCell>> &map) : nodeMap(map.size(), std::vector<Node>(map.at(0).size())) {
+Navigator::Navigator(std::vector<std::vector<ServerCell *>> &map) : nodeMap(map.size(), std::vector<Node>(map.at(0).size())) {
     for (size_t i = 0; i < 50; i++) {
         for (size_t j = 0; j < 50; j++) {
-            nodeMap[j][i] = Node(coordenada_t {j, i}, map[i][j].ground);
+            nodeMap[j][i] = Node(coordenada_t {j, i}, map[i][j]->ground());
         }
     }
 }

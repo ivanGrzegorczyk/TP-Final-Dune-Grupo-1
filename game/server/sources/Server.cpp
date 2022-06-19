@@ -7,6 +7,7 @@
 Server::Server(const std::string &host, int rows, int columns) :
     map(rows, columns), protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
     // TODO las dimensiones del mapa están hardcodeadas en 50x50 por ahora
+    std::cout << "Inicialza el terreno" << std::endl;
     map.initializeTerrain(terrain);
 }
 

@@ -43,8 +43,8 @@ ADD_DEFINITIONS(-DDATA_PATH="${PROJECT_SOURCE_DIR}/game/assets/")
 include_directories(extern)
 include_directories(${SDL2PP_INCLUDE_DIRS})
 
-FILE(GLOB HEADER_SERVER_FILES ${PROJECT_SOURCE_DIR}/game/server/headers/*.h ${PROJECT_SOURCE_DIR}/game/server/headers/events/*.h ${PROJECT_SOURCE_DIR}/game/server/headers/units/*.h ${PROJECT_SOURCE_DIR}/game/server/headers/buildings/*.h)
-FILE(GLOB SRC_SERVER_FILES ${PROJECT_SOURCE_DIR}/game/server/sources/*.cpp ${PROJECT_SOURCE_DIR}/game/server/sources/events/*.cpp ${PROJECT_SOURCE_DIR}/game/server/sources/units/*.cpp ${PROJECT_SOURCE_DIR}/game/server/sources/buildings/*.cpp)
+FILE(GLOB HEADER_SERVER_FILES ${PROJECT_SOURCE_DIR}/game/server/headers/*.h ${PROJECT_SOURCE_DIR}/game/server/headers/events/*.h ${PROJECT_SOURCE_DIR}/game/server/headers/units/*.h ${PROJECT_SOURCE_DIR}/game/server/headers/buildings/*.h ${PROJECT_SOURCE_DIR}/game/server/headers/model/map/*.h)
+FILE(GLOB SRC_SERVER_FILES ${PROJECT_SOURCE_DIR}/game/server/sources/*.cpp ${PROJECT_SOURCE_DIR}/game/server/sources/events/*.cpp ${PROJECT_SOURCE_DIR}/game/server/sources/units/*.cpp ${PROJECT_SOURCE_DIR}/game/server/sources/buildings/*.cpp ${PROJECT_SOURCE_DIR}/game/server/sources/model/map/*.cpp)
 
 FILE(GLOB HEADER_COMMON_FILES ${PROJECT_SOURCE_DIR}/game/common/headers/*.h)
 FILE(GLOB SRC_COMMON_FILES ${PROJECT_SOURCE_DIR}/game/common/sources/*.cpp)

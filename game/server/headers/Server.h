@@ -6,7 +6,7 @@
 #include <chrono>
 
 #include "ServerProtocol.h"
-#include "ServerMap.h"
+#include "server/headers/model/map/ServerMap.h"
 #include "../../common/headers/BlockingQueue.h"
 #include "../../common/headers/ProtectedQueue.h"
 #include "ClientsMonitor.h"

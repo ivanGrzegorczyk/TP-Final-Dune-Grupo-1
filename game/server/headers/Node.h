@@ -1,7 +1,7 @@
 #ifndef NODE_H_
 #define NODE_H_
 
-#include "ServerCell.h"
+#include "server/headers/model/map/ServerCell.h"
 
 #define COST_STRAIGHT 10
 #define COST_DIAGONAL 14
