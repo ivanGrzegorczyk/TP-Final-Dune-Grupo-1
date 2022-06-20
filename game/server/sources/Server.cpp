@@ -2,11 +2,12 @@
 #include <iostream>
 #include <thread>
 #include "../headers/Server.h"
+#include "common/headers/Chronometer.h"
 
 Server::Server(const std::string &host, int rows, int columns) :
-    map(rows, rows), protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
+    map(rows, columns), protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
     // TODO las dimensiones del mapa están hardcodeadas en 50x50 por ahora
-    map.initializeTerrain();
+    map.initializeTerrain(terrain);
 }
 
 void Server::run() {
@@ -41,13 +42,14 @@ void Server::acceptClients() {
         while (keep_accepting) {
             Socket peer = protocol.accept();
             std::cout << "Acepta un cliente" << std::endl;
-            auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId);
+            auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId, terrain);
             client->start();
             clients.push(client);
+            clients.clean();
             nextPlayerId++;
         }
     } catch(const std::exception &e) {
-        // TODO Manejar excepcion
+        clients.clearAll();
         std::cout << "Catchea en el acceptClients y sale" << std::endl;
         return;
     }
@@ -55,13 +57,13 @@ void Server::acceptClients() {
 
 void Server::manageEvents() {
     ServerEvent *event = protectedQueue.pop();
-    if (event != nullptr) {
+    while (event != nullptr) {
         event->performEvent(map);
-        blockingQueue.push(createSnapshot());
+        event = protectedQueue.pop();
     }
-    if (map.updateUnitPositions()) {
-        blockingQueue.push(createSnapshot());
-    }
+    map.updateUnitsPosition();
+    std::vector<uint16_t> snapshot(createSnapshot());
+    blockingQueue.push(snapshot);
 }
 
 void Server::broadCast() {

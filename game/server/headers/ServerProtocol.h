@@ -38,11 +38,11 @@ public:
 
     void assignPlayerId(int id);
 
-    void getUnitData(uint16_t &unit, coordenada_t &position);
+    void getEnityData(uint16_t &type, coordenada_t &position);
 
     void sendSnapshot(const std::vector<uint16_t> &snapshot);
 
-    void sendTerrain();
+    void sendTerrain(std::vector<uint8_t> &&terrain);
 };
 
 #endif  // SERVERPROTOCOL_H_

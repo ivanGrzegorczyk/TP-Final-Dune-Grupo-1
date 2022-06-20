@@ -14,23 +14,26 @@ private:
     ServerProtocol protocol;
     ProtectedQueue<ServerEvent *> &protectedQueue;
     int playerId;
+    std::vector<uint8_t> terrain;
 
     void manageCommand(int command);
     void repositionUnit();
     void spawnUnit();
+    void createBuilding();
 
 protected:
+
     void run() override;
-
 public:
-    ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id);
 
+    ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id, std::vector<uint8_t> &terrain);
     bool isDead();
+
     void stop();
 
     void sendSnapshot(const std::vector<uint16_t> &snapshot);
-
     ThClient(const ThClient&) = delete;
+
     ThClient& operator=(const ThClient&) = delete;
 };
 

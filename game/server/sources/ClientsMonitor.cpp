@@ -8,7 +8,6 @@ ClientsMonitor::~ClientsMonitor() {
 void ClientsMonitor::push(ThClient *client) {
     std::lock_guard<std::mutex> lock(mutex);
     clients.push_back(client);
-    clean();
 }
 
 void ClientsMonitor::clean() {
@@ -23,6 +22,16 @@ bool ClientsMonitor::cleanClient(ThClient *client) {
         return true;
     }
     return false;
+}
+
+void ClientsMonitor::clearAll() {
+    std::lock_guard<std::mutex> lock(mutex);
+    for (ThClient *client : clients) {
+        client->stop();
+        client->join();
+        delete client;
+    }
+    clients.clear();
 }
 
 void ClientsMonitor::broadCast(const std::vector<uint16_t> &snapshot) {

@@ -13,9 +13,9 @@ private:
 public:
     ProtectedQueue() = default;
 
-    void push(T t) {
+    void push(T &t) {
         std::lock_guard<std::mutex> lock(mutex);
-        data.push(t);
+        data.push(std::move(t));
     }
 
     T pop() {
@@ -24,7 +24,7 @@ public:
         if (data.empty())
             return nullptr;
 
-        T t = data.front();
+        T t = std::move(data.front());
         data.pop();
         return t;
     }

@@ -22,6 +22,7 @@ private:
     std::atomic<bool> active_game;
     ClientsMonitor clients;
     int nextPlayerId;
+    std::vector<uint8_t> terrain;
 
     void finish();
     void broadCast();
