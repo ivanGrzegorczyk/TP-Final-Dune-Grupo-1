@@ -12,7 +12,7 @@ class EditorState {
     std::string _state;
     unsigned int _seed;
     public:
-    EditorState(std::shared_ptr<Terrain> t) : terrain(t), _state("terrain") {}
+    EditorState(std::shared_ptr<Terrain> t) : terrain(t), _state("terrain"), _seed(0) {}
     void change_brush(std::shared_ptr<Terrain> t) {
         _state = "terrain";
         terrain = t;

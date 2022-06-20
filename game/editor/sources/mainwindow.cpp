@@ -46,6 +46,8 @@ void MainWindow::open_map(QMainWindow *parent) {
         auto lambda =  [button, this]() { this->toggle_button(button); };
         connect(buttons[i], &QPushButton::clicked, this, lambda);
     }
+    ui->spinBox->setSingleStep(300); //TODO constant ought to be inside model
+    ui->spinBox->setSingleStep(300); 
     auto lambda_save =  [this]() { this->scene.save(); };
     auto lambda_build =  [this]() { this->place_building(); };
     auto lambda_seed =  [this](int i) { this->scene.brush->set_seed(i); };

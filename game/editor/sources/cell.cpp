@@ -19,13 +19,25 @@ Cell::Cell(std::shared_ptr<MapaEditor> map,
 
 void Cell::update()
 {
-    QImage terrain_texture = map->cell(position).terrain->image();
+    const CeldaEditor cell = map->cell(position);
+    QImage terrain_texture = cell.terrain->image();
     currentTexture = QPixmap::fromImage(terrain_texture);
+    int seed_level = cell.seed_level();
     this->setPixmap(currentTexture);
+    QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect();
     if(map->is_construction_center(position)) {
-        QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect();
-        effect->setColor(Qt::red);
+        effect->setColor(Qt::blue);
         this->setGraphicsEffect(effect);
+    } else if(cell.terrain->name() == "sand"){
+        if(seed_level > 0 && seed_level <= 600) {
+            effect->setColor(Qt::red);
+            this->setGraphicsEffect(effect);
+        } else if(seed_level > 600){
+            effect->setColor(Qt::darkRed);
+            this->setGraphicsEffect(effect);
+        } else {
+            this->setGraphicsEffect(nullptr);
+        }
     }
     else {
         this->setGraphicsEffect(nullptr);

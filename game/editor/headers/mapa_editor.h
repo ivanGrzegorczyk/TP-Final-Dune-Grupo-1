@@ -26,7 +26,7 @@ class MapaEditor {
     MapaEditor(int x, int y, int num_players) : x(x), y(y), num_players(num_players) {
         if(x < MIN_X || y < MIN_Y || num_players < MIN_PLAYERS)
             throw std::invalid_argument("bad user input");
-        std::string name("default"); //TODO centralize all terrains
+        std::string name("rock"); //TODO centralize all terrains
         std::shared_ptr<Terrain> terr(new Terrain(name));
         for(int i = 0; i < y; i++) {
             fila_t fila;
