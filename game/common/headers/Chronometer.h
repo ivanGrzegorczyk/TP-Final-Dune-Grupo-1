@@ -1,30 +1,15 @@
-#ifndef CHRONOMETER_H_
-#define CHRONOMETER_H_
-
 #include <chrono>
 #include <ostream>
 
-#define CHRONO_PRECISION 2
-#define CHRONO_UNIT "us"
+using _clock = std::chrono::high_resolution_clock;
+using _duration = std::chrono::duration<uint64_t, std::nano>;
 
 class Chronometer {
 public:
     Chronometer();
     ~Chronometer() = default;
-    /**
-     * Devuelve el tiempo parcial desde que se construyó el chronómetro
-     * @return tiempo en milisegundos
-     */
-    double tick();
+
+    uint64_t tick();
 private:
-    std::chrono::high_resolution_clock::time_point start;
+    std::chrono::time_point<std::chrono::system_clock> start;
 };
-
-/**
- * Imprime el tiempo formateado en el flujo de salida que se le pase
- * @param os
- * @return
- */
-std::ostream& operator<<(std::ostream &os, Chronometer &chrono);
-
-#endif  // CHRONOMETER_H_
