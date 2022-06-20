@@ -48,7 +48,10 @@ void MainWindow::open_map(QMainWindow *parent) {
     }
     ui->spinBox->setSingleStep(300); //TODO constant ought to be inside model
     ui->spinBox->setMaximum(900);
-    auto lambda_save =  [this]() { this->scene.save(); };
+    auto lambda_save =  [this]() { 
+        std::string filename = this->ui->filename->text().toStdString();
+        this->scene.save(filename); 
+    };
     auto lambda_build =  [this]() { this->place_building(); };
     auto lambda_seed =  [this](int i) { this->scene.brush->set_seed(i); };
     connect(ui->save_button, &QPushButton::clicked, this, lambda_save);

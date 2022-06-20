@@ -37,8 +37,8 @@ void GameScene::set_active_texture(std::string& texture) {
     brush->change_brush(*found);
 }
 
-void GameScene::save() {
-    std::ofstream my_file("data.yaml");
+void GameScene::save(std::string& filename) {
+    std::ofstream my_file(filename);
     my_file << map->to_yaml();
     my_file.close();
 }

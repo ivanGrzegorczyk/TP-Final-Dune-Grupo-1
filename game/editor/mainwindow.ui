@@ -23,7 +23,7 @@
       <widget class="QGraphicsView" name="view">
        <property name="geometry">
         <rect>
-         <x>-10</x>
+         <x>-20</x>
          <y>0</y>
          <width>782</width>
          <height>566</height>
@@ -36,31 +36,17 @@
       <widget class="QWidget" name="verticalLayoutWidget">
        <property name="geometry">
         <rect>
-         <x>580</x>
+         <x>523</x>
          <y>10</y>
-         <width>114</width>
-         <height>230</height>
+         <width>171</width>
+         <height>371</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="button_container">
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Hi! This is a label</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="edit_button_1">
-          <property name="text">
-           <string>Mountain</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="edit_button_2">
-          <property name="text">
-           <string>Sand</string>
+           <string>Tools</string>
           </property>
          </widget>
         </item>
@@ -72,11 +58,55 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="building_button">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="edit_button_2">
+            <property name="text">
+             <string>Sand</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="spinBox"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="edit_button_1">
           <property name="text">
-           <string>Building</string>
+           <string>Mountain</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="building_button">
+          <property name="text">
+           <string>Construction center</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Save as</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="filename"/>
         </item>
         <item>
          <widget class="QPushButton" name="save_button">
@@ -84,9 +114,6 @@
            <string>Save</string>
           </property>
          </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="spinBox"/>
         </item>
        </layout>
       </widget>
