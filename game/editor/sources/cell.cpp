@@ -25,7 +25,7 @@ void Cell::update()
     int seed_level = cell.seed_level();
     this->setPixmap(currentTexture);
     QGraphicsColorizeEffect* effect = new QGraphicsColorizeEffect();
-    if(map->is_construction_center(position)) {
+    if(map->is_in_construction_center(position)) {
         effect->setColor(Qt::blue);
         this->setGraphicsEffect(effect);
     } else if(cell.terrain->name() == "sand"){

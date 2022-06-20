@@ -4,8 +4,8 @@
 #include <algorithm>
 GameScene::GameScene(std::shared_ptr<MapaEditor> map) : map(map)
 {
-    std::vector<std::string> names = {"rock", "mountain", "sand"};
-    for(std::string name : names) { 
+    std::vector<std::string> terrains = {"rock", "mountain", "sand"};
+    for(std::string name : terrains) { 
         std::shared_ptr<Terrain> terr(new Terrain(name));
         terrain_types.push_back(terr);
     }

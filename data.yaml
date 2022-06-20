@@ -1,10 +1,10 @@
 name: My cool map
 num_players: 5
 map:
-  rows: 5
+  rows: 8
   columns: 5
   cells:
-    - terrain: rock
+    - terrain: mountain
       buildings:
         []
       pos:
@@ -38,6 +38,24 @@ map:
       buildings:
         []
       pos:
+        - 0
+        - 5
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 0
+        - 6
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 0
+        - 7
+    - terrain: mountain
+      buildings:
+        []
+      pos:
         - 1
         - 0
     - terrain: rock
@@ -51,118 +69,184 @@ map:
         []
       pos:
         - 1
+        - 2
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 1
+        - 3
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 1
+        - 4
+    - terrain: rock
+      buildings:
+        - name: Construction Center
+          size:
+            - 2
+            - 2
+      pos:
+        - 1
+        - 5
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 1
+        - 6
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 1
+        - 7
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 2
+        - 0
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 2
+        - 1
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 2
+        - 2
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 2
+        - 3
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 2
+        - 4
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 2
+        - 5
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 2
+        - 6
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 2
+        - 7
+    - terrain: rock
+      buildings:
+        - name: Construction Center
+          size:
+            - 2
+            - 2
+      pos:
+        - 3
+        - 0
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 3
+        - 1
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 3
+        - 2
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 3
+        - 3
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 3
+        - 4
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 3
+        - 5
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 3
+        - 6
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 3
+        - 7
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 4
+        - 0
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 4
+        - 1
+    - terrain: rock
+      buildings:
+        []
+      pos:
+        - 4
         - 2
     - terrain: sand
       buildings:
         []
       pos:
-        - 1
-        - 3
-    - terrain: rock
-      buildings:
-        []
-      pos:
-        - 1
         - 4
-    - terrain: rock
-      buildings:
-        []
-      pos:
-        - 2
-        - 0
-    - terrain: rock
-      buildings:
-        []
-      pos:
-        - 2
-        - 1
+        - 3
     - terrain: sand
       buildings:
         []
       pos:
-        - 2
-        - 2
-    - terrain: rock
-      buildings:
-        []
-      pos:
-        - 2
-        - 3
-    - terrain: rock
-      buildings:
-        []
-      pos:
-        - 2
         - 4
-    - terrain: rock
-      buildings:
-        - name: Construction Center
-          size:
-            - 2
-            - 2
-      pos:
-        - 3
-        - 0
-    - terrain: rock
-      buildings:
-        - name: Construction Center
-          size:
-            - 2
-            - 2
-      pos:
-        - 3
-        - 1
-    - terrain: rock
-      buildings:
-        []
-      pos:
-        - 3
-        - 2
+        - 4
     - terrain: sand
       buildings:
         []
       pos:
-        - 3
-        - 3
-    - terrain: rock
+        - 4
+        - 5
+    - terrain: sand
       buildings:
         []
       pos:
-        - 3
         - 4
-    - terrain: rock
-      buildings:
-        - name: Construction Center
-          size:
-            - 2
-            - 2
-      pos:
-        - 4
-        - 0
-    - terrain: rock
-      buildings:
-        - name: Construction Center
-          size:
-            - 2
-            - 2
-      pos:
-        - 4
-        - 1
+        - 6
     - terrain: rock
       buildings:
         []
       pos:
         - 4
-        - 2
-    - terrain: rock
-      buildings:
-        []
-      pos:
-        - 4
-        - 3
-    - terrain: rock
-      buildings:
-        []
-      pos:
-        - 4
-        - 4
+        - 7

@@ -66,7 +66,7 @@ class MapaEditor {
     bool is_buildable_cell(coordenada_t coordinate) const {
         return is_cell(coordinate) 
             && cell(coordinate).terrain->name() == "rock"
-            && !(is_construction_center(coordinate));
+            && !(is_in_construction_center(coordinate));
     }
 
     //TODO building class with this logic
@@ -99,8 +99,17 @@ class MapaEditor {
         // check if building fits and terrain works
         std::vector<coordenada_t> occupied_cells = get_positions(coord.first, coord.second, 2,2);
         for(coordenada_t cell : occupied_cells) {
-            if(!is_buildable_cell(cell)) 
-                throw std::invalid_argument("cant place that building!");
+            if(!is_buildable_cell(cell)) {
+                std::string message("cant place that building!");
+                if(!is_cell(cell)) {
+                    message.append(" Not a cell.");
+                } else if(is_construction_center(cell)) {
+                    message.append(" There's a building already.");
+                } else {
+                    message.append(" Wrong terrain.");
+                }
+                throw std::invalid_argument(message);
+            }
         }
         
         construction_center_location.push_back(coord);
@@ -110,13 +119,22 @@ class MapaEditor {
     /*
     For every construction center. do any of their cells intersect this one?
     */
-    bool is_construction_center(coordenada_t coordinate) const {
+    bool is_in_construction_center(coordenada_t coordinate) const {
         for(coordenada_t l : construction_center_location) {
             auto positions = get_positions(l.first, l.second, 2,2);
             auto found = std::find(positions.begin(), positions.end(), coordinate);
             if(found != positions.end()) {
                 return true;
             }
+        }
+        return false;
+    }
+    /*
+    True if it is the top left corner of a construction center.
+    */
+    bool is_construction_center(coordenada_t coordinate) const {
+        for(coordenada_t l : construction_center_location) {
+            if(l == coordinate) return true;
         }
         return false;
     }
@@ -189,7 +207,7 @@ class MapaEditor {
         int num_players = read["num_players"].as<int>();
         int y = read["map"]["rows"].as<int>();
         int x = read["map"]["columns"].as<int>();
-        MapaEditor* m = new MapaEditor(x,y,num_players);
+        MapaEditor* map = new MapaEditor(x,y,num_players);
         for(YAML::Node cell : read["map"]["cells"]) {
             x = cell["pos"][0].as<int>();
             y = cell["pos"][1].as<int>();
@@ -197,9 +215,21 @@ class MapaEditor {
             std::vector<coordenada_t> cells{cell_pos};
             std::string terr = cell["terrain"].as<std::string>();
             std::shared_ptr<Terrain> terrain_ptr(new Terrain(terr)); //TODO dont create new terrain
-            m->place_terrain(cells, terrain_ptr); //TODO centralized system
+            map->place_terrain(cells, terrain_ptr); //TODO centralized system
+            for(YAML::Node building : cell["buildings"]) {
+                if(building["name"].as<std::string>() == "Construction Center") {
+                    std::cout 
+                        << "construction center!" 
+                        << std::to_string(x) 
+                        <<","
+                        << std::to_string(y)
+                        << std::endl;
+                    map->colocar_centro_construccion(cell_pos);
+                    break;
+                }
+            }
         }
-        return m;
+        return map;
     }
 
     //iterator

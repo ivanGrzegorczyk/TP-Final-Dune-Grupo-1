@@ -29,7 +29,8 @@ void EditorWindow::open_new_map() {
     MapaEditor* map = nullptr;
     try {
         map = new MapaEditor(x,y,num_players);
-    } catch (std::exception e) {
+    } catch (std::exception& e) {
+        std::cout << e.what() << std::endl;
         return;
     }
     std::shared_ptr<MapaEditor> _map(map);
@@ -42,7 +43,8 @@ void EditorWindow::open_existing_map() {
     MapaEditor* map = nullptr;
     try {
         map = MapaEditor::from_yaml("data.yaml");
-    } catch (std::exception e) {
+    } catch (std::exception& e) {
+        std::cout << e.what() << std::endl;
         return;
     }
     std::shared_ptr<MapaEditor> _map(map);
