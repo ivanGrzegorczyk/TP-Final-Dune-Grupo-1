@@ -14,15 +14,15 @@ EditorWindow::EditorWindow(QWidget *parent)
 
     //setup
     ui_map->setupUi(this);
-    QPushButton *button = ui_map->open_button;
-    QPushButton *button2 = ui_map->create_button;
-    auto lambda =  [this]() { this->open_map(); };
-    auto lambda2 =  [this]() { this->open_map(); };
-    connect(button, &QPushButton::clicked, this, lambda);
-    connect(button2, &QPushButton::clicked, this, lambda2);
+    QPushButton *open = ui_map->open_button;
+    QPushButton *create = ui_map->create_button;
+    auto create_action =  [this]() { this->open_new_map(); };
+    auto open_action =  [this]() { this->open_existing_map(); };
+    connect(open, &QPushButton::clicked, this, open_action);
+    connect(create, &QPushButton::clicked, this, create_action);
 }
 
-void EditorWindow::open_map() {
+void EditorWindow::open_new_map() {
     int x = ui_map->x->value();
     int y = ui_map->y->value();
     int num_players = ui_map->num_players->value();
@@ -34,6 +34,19 @@ void EditorWindow::open_map() {
     }
     std::shared_ptr<MapaEditor> _map(map);
     std::cout << "xy size: " << std::to_string(x) << " " << std::to_string(y) << std::endl;
+    MainWindow* w = new MainWindow(_map);
+    w->open_map(this);
+}
+
+void EditorWindow::open_existing_map() {
+    MapaEditor* map = nullptr;
+    try {
+        map = MapaEditor::from_yaml("data.yaml");
+    } catch (std::exception e) {
+        return;
+    }
+    std::shared_ptr<MapaEditor> _map(map);
+    std::cout << "xy size: " << map->width() << " " << map->height() << std::endl;
     MainWindow* w = new MainWindow(_map);
     w->open_map(this);
 }

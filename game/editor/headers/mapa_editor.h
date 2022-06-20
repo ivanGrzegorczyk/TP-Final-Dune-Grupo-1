@@ -7,6 +7,7 @@
 #include <iostream>
 #include "yaml-cpp/yaml.h"
 #include "celda_editor.h"
+#include "terrain.h"
 #define MIN_PLAYERS 1
 #define MIN_X 2
 #define MIN_Y 2
@@ -18,12 +19,18 @@ class MapaEditor {
     matriz_t mapa;
     int x; int y; int num_players;
     std::vector<coordenada_t> construction_center_location;
+    std::vector<std::string> names = {"rock", "mountain", "sand"};
+    std::vector<std::shared_ptr<Terrain>> terrain_types; 
     public:
     MapaEditor(MapaEditor& other) = delete;
     MapaEditor& operator=(MapaEditor& other) = delete;
     MapaEditor(MapaEditor&& other) = default;
     MapaEditor& operator=(MapaEditor&& other) = default;
     MapaEditor(int x, int y, int num_players) : x(x), y(y), num_players(num_players) {
+        for(std::string name : names) { 
+            std::shared_ptr<Terrain> terr(new Terrain(name));
+            terrain_types.push_back(terr);
+        }
         if(x < MIN_X || y < MIN_Y || num_players < MIN_PLAYERS)
             throw std::invalid_argument("bad user input");
         std::string name("rock"); //TODO centralize all terrains
@@ -36,6 +43,15 @@ class MapaEditor {
             }
             mapa.push_back(fila);
         }
+    }
+    int width() const {
+        return x;
+    }
+    int height() const {
+        return y;
+    }
+    int get_num_players() const {
+        return num_players;
     }
     const CeldaEditor& cell(coordenada_t coordinate) const {
         if(!is_cell(coordinate)) {
@@ -123,9 +139,9 @@ class MapaEditor {
             out << YAML::Value 
                 << YAML::BeginMap
                 << YAML::Key << "rows"
-                << YAML::Value << std::to_string(x)
-                << YAML::Key << "columns"
                 << YAML::Value << std::to_string(y)
+                << YAML::Key << "columns"
+                << YAML::Value << std::to_string(x)
                 << YAML::Key << "cells"
                 << YAML::Value  
                     << YAML::BeginSeq;
@@ -166,6 +182,27 @@ class MapaEditor {
         << YAML::EndMap;
         return std::string(out.c_str());
     }
+
+    // create from yaml, using first terrain type as default.
+    static MapaEditor* from_yaml(std::string path) {
+        YAML::Node read = YAML::LoadFile(path);
+        int num_players = read["num_players"].as<int>();
+        int y = read["map"]["rows"].as<int>();
+        int x = read["map"]["columns"].as<int>();
+        MapaEditor* m = new MapaEditor(x,y,num_players);
+        for(YAML::Node cell : read["map"]["cells"]) {
+            x = cell["pos"][0].as<int>();
+            y = cell["pos"][1].as<int>();
+            coordenada_t cell_pos = {x,y};
+            std::vector<coordenada_t> cells{cell_pos};
+            std::string terr = cell["terrain"].as<std::string>();
+            std::shared_ptr<Terrain> terrain_ptr(new Terrain(terr)); //TODO dont create new terrain
+            m->place_terrain(cells, terrain_ptr); //TODO centralized system
+        }
+        return m;
+    }
+
+    //iterator
     
     class MapIterator {
         const MapaEditor& _mapa;

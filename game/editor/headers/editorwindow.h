@@ -22,6 +22,7 @@ public:
 private:
     Ui::NewMap *ui_map;
     std::shared_ptr<MainWindow> window;
-    void open_map();
+    void open_new_map();
+    void open_existing_map();
 };
 #endif // MAINWINDOW_H
