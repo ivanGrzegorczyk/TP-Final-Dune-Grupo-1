@@ -146,6 +146,7 @@ class MapaEditor {
             }
         }
     }
+
     std::string to_yaml() {
         YAML::Emitter out;
         out << YAML::BeginMap;
@@ -166,10 +167,13 @@ class MapaEditor {
         for(int i = 0; i < x; i++) {
             for(int j = 0; j < y; j++) {
                 std::string terrain(cell({i,j}).terrain->name());
+                unsigned int seed = cell({i,j}).seed_level();
                 out 
                     << YAML::BeginMap
                         << YAML::Key << "terrain"
                         << YAML::Value <<  terrain
+                        << YAML::Key << "seed"
+                        << YAML::Value <<  seed
                         << YAML::Key << "buildings"
                         << YAML::BeginSeq;
                         // building is always defined at its rightmost position
@@ -214,8 +218,14 @@ class MapaEditor {
             coordenada_t cell_pos = {x,y};
             std::vector<coordenada_t> cells{cell_pos};
             std::string terr = cell["terrain"].as<std::string>();
+
+            //todo: terrain objects handle / conceal seed
+            unsigned int seed = cell["seed"].as<unsigned int>();
             std::shared_ptr<Terrain> terrain_ptr(new Terrain(terr)); //TODO dont create new terrain
-            map->place_terrain(cells, terrain_ptr); //TODO centralized system
+            map->place_terrain(cells, terrain_ptr, seed); //TODO centralized system
+
+            
+
             for(YAML::Node building : cell["buildings"]) {
                 if(building["name"].as<std::string>() == "Construction Center") {
                     std::cout 
