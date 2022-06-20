@@ -40,9 +40,10 @@ void EditorWindow::open_new_map() {
 }
 
 void EditorWindow::open_existing_map() {
+    QString filename = ui_map->filename->text();
     MapaEditor* map = nullptr;
     try {
-        map = MapaEditor::from_yaml("data.yaml");
+        map = MapaEditor::from_yaml(filename.toStdString());
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;
         return;
