@@ -15,14 +15,31 @@ void Server::run() {
     std::thread broadcastThread(&Server::broadCast, this);
     std::thread finishThread(&Server::finish, this);  // TODO Multiples partidas
 
-    do {
-        manageEvents();
-        usleep(10000000.0f/50.0f);  // TODO Poner el tiempo bien
-    } while (active_game);
+    gameLoop();
 
     acceptingThread.join();
     broadcastThread.join();
     finishThread.join();
+}
+
+void Server::gameLoop() {
+    Chronometer chronometer;
+    auto t1 = chronometer.tick();
+    while (active_game) {
+        auto test1 = chronometer.tick();
+        manageEvents();  // Acá se manejan los eventos de la cola protegida
+        auto t2 = chronometer.tick();
+        auto rest =  - (t2 - t1);
+        if (rest < 0) {
+            auto behind = -rest;
+            rest = 1 / 30 - behind % (1 / 30);
+            auto lost = behind + rest;
+            t1 += lost;
+        }
+
+        usleep(rest);
+        t1 += 1 / 30;
+    }
 }
 
 void Server::finish() {

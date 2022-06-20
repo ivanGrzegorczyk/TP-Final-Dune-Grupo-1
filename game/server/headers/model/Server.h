@@ -28,6 +28,7 @@ private:
     void broadCast();
     void acceptClients();
     void manageEvents();
+    void gameLoop();
 
 public:
 
