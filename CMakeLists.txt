@@ -77,5 +77,6 @@ add_executable(Client ${HEADER_COMMON_FILES} ${SRC_COMMON_FILES} ${HEADER_CLIENT
 target_link_libraries (Server Threads::Threads)
 target_link_libraries (Client Threads::Threads)
 
+target_link_libraries (Server ${YAML_CPP_LIBRARIES})
 target_link_libraries (Editor ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core ${YAML_CPP_LIBRARIES})
 target_link_libraries (Client ${SDL2PP_LIBRARIES})

@@ -21,6 +21,8 @@ private:
     std::stack<coordenada_t> A_star(coordenada_t start, coordenada_t end);
 
 public:
+    ServerMap() = default;
+
     ServerMap(int rows, int columns);
 
     void reposition(int playerId, int unitId, coordenada_t goal);

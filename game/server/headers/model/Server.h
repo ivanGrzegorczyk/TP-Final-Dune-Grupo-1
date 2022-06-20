@@ -32,7 +32,7 @@ private:
 
 public:
 
-    Server(const std::string &host, int rows, int columns);
+    Server(const std::string &host);
     // Gameloop
     void run();
 

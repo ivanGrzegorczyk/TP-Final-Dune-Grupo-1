@@ -4,9 +4,8 @@
 #include "server/headers/model/Server.h"
 #include "common/headers/Chronometer.h"
 
-Server::Server(const std::string &host, int rows, int columns) :
-    map(rows, columns), protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
-    // TODO las dimensiones del mapa están hardcodeadas en 50x50 por ahora
+Server::Server(const std::string &host) :
+protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
     map.initializeTerrain(terrain);
 }
 
@@ -23,22 +22,9 @@ void Server::run() {
 }
 
 void Server::gameLoop() {
-    Chronometer chronometer;
-    auto t1 = chronometer.tick();
     while (active_game) {
-        auto test1 = chronometer.tick();
-        manageEvents();  // Acá se manejan los eventos de la cola protegida
-        auto t2 = chronometer.tick();
-        auto rest =  - (t2 - t1);
-        if (rest < 0) {
-            auto behind = -rest;
-            rest = 1 / 30 - behind % (1 / 30);
-            auto lost = behind + rest;
-            t1 += lost;
-        }
-
-        usleep(rest);
-        t1 += 1 / 30;
+        manageEvents();
+        usleep(100000);
     }
 }
 

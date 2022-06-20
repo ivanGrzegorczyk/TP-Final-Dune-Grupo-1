@@ -1,10 +1,11 @@
 #include <fstream>
+#include "yaml-cpp/yaml.h"
 #include "server/headers/map/ServerMap.h"
 #include "server/headers/map/RockCell.h"
 #include "server/headers/map/SandCell.h"
 
 ServerMap::ServerMap(int rows, int columns) : rows(rows), columns(columns),
-map(rows, std::vector<ServerCell *>(columns)), entityId(1) {}
+                                              map(rows, std::vector<ServerCell *>(columns)), entityId(1) {}
 
 std::stack<coordenada_t> ServerMap::A_star(
         coordenada_t start, coordenada_t end) {
@@ -64,7 +65,7 @@ void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t posi
 
 void ServerMap::updateUnitsPosition() {
     for (auto & [id, player] : players) {
-       player.updateUnitsPosition();
+        player.updateUnitsPosition();
     }
 }
 
@@ -77,34 +78,30 @@ void ServerMap::addSnapshotData(std::vector<uint16_t> &snapshot) {
 }
 
 void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
-    std::ifstream file;
-    std::string line;
+    YAML::Node config = YAML::LoadFile("../data.yaml");
+    rows = config["map"]["rows"].as<int>();
+    columns = config["map"]["columns"].as<int>();
 
-    file.open("../terrain.txt", std::ifstream::in);
-    if (!file.is_open())
-        std::cout << "No se abrio el archivo" << std::endl;
+    map = std::vector<std::vector<ServerCell *>>(
+            rows, std::vector<ServerCell *>(columns));
 
-    int x = 0;
-    while (getline(file, line)) {
-        int y = -1;
-        for (char c : line) {
-            y++;
-            if (c == 'O') {
-                map[x][y] = new RockCell({x, y});
-                map[x][y]->coords = {x, y};
-                terrain.push_back(TERRAIN_ROCKS);
-            } else if (c == 'X') {
-                map[x][y] = new SandCell({x, y}, 0);
-                map[x][y]->coords = {x, y};
-                terrain.push_back(TERRAIN_SAND);
-            }
+    for(YAML::Node cell : config["map"]["cells"]) {
+        auto x = cell["pos"][0].as<int>();
+        auto y = cell["pos"][1].as<int>();
+        auto _terrain = cell["terrain"].as<std::string>();
+
+        if (_terrain == "rock") {
+            map[x][y] = new RockCell({x, y});
+            terrain.push_back(TERRAIN_ROCKS);
+        } else {
+            map[x][y] = new SandCell({x, y}, 0);
+            terrain.push_back(TERRAIN_SAND);
         }
-        x++;
     }
-    file.close();
 }
 
 bool ServerMap::validPosition(coordenada_t position) const {
     return position.first >= 0 && position.first < columns
-    && position.second >= 0 && position.second < rows;
+           && position.second >= 0 && position.second < rows;
 }
+
