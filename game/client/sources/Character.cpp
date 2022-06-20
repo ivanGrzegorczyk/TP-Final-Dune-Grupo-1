@@ -12,8 +12,7 @@ void Character::render() {
 }
 
 Character::Character(SDL2pp::Renderer &renderer, int id, coordenada_t coord, int type) : Unit(id, 0, 0, 0, type, coord), rnd(renderer), selected(false),
-                                                                               t(Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp")
-                                                    .SetColorKey(true, 0))) {
+                                                                               t(Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp").SetColorKey(true, 0))) {
 }
 
 void Character::normalColor() {
@@ -40,7 +39,6 @@ Request *Character::walkEvent(int x, int y) {
         selected = false;
         this->normalColor();
         coordenada_t coord({x, y});
-        std::cout << "goal: (" << x << " " << y << ")" << std::endl;
         Request *query = new MoveQuery(id, std::move(coord));
         return query;
     }

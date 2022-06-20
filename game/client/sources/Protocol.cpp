@@ -1,17 +1,14 @@
 #include <stack>
 #include "../headers/Protocol.h"
 
-Protocol::Protocol(std::string hostname, std::string servicename) : id(-1), skt(hostname.c_str(), servicename.c_str()){
+Protocol::Protocol(const std::string& hostname, const std::string& servicename) :
+            id(-1), skt(hostname.c_str(), servicename.c_str()){
 }
 
 int Protocol::receiveId() {
     uint16_t id;
     int idHost;
     skt.recvall(&id, sizeof(id));
-
-    //this->id = ntohs(idProtocol);
-    //this->id = 1; //TODO sacar el hardcodeo
-    std::cout << "ID RECIBIDO: " << unsigned(ntohs(id))<< std::endl;
     idHost = ntohs(id);
     return idHost;
 }
@@ -92,12 +89,11 @@ Response* Protocol::recvResponse() {
     return response;
 }
 
-void Protocol::send(int command, std::vector<uint16_t> vector) {
+void Protocol::send(int command, const std::vector<uint16_t>& vector) {
     uint16_t aux;
     uint8_t cmd = command;
     skt.sendall(&cmd, sizeof(cmd));
     for(uint16_t data : vector) {
-        std::cout << "data: " << unsigned(data) << std::endl;
         aux = htons(data);
         skt.sendall(&aux, sizeof(aux));
     }
