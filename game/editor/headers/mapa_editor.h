@@ -104,11 +104,12 @@ class MapaEditor {
         }
         return false;
     }
-    void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain) {
+    void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain, unsigned int seed = -1) {
         for(coordenada_t celda : celdas) {
-            std::cout <<  "from " << mapa[celda.second][celda.first].terrain->name();
             mapa[celda.second][celda.first].terrain = terrain;
-            std::cout << "to" << mapa[celda.second][celda.first].terrain->name() << std::endl;
+            if(terrain->name() == "sand") {
+                mapa[celda.second][celda.first].set_seed_level(seed);
+            }
         }
     }
     std::string to_yaml() {

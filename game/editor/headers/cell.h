@@ -19,7 +19,7 @@ public:
     enum {Type = UserType + 1};
     Cell(std::shared_ptr<MapaEditor> map, std::shared_ptr<EditorState> brush, coordenada_t position);
     virtual ~Cell() = default;
-    void place_tile(std::shared_ptr<Terrain> terrain);
+    void place_tile(std::shared_ptr<Terrain> terrain, unsigned int seed = -1);
     void move_building();
     void update();
     int type() const override {

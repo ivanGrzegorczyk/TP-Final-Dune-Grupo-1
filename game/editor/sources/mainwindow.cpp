@@ -48,8 +48,10 @@ void MainWindow::open_map(QMainWindow *parent) {
     }
     auto lambda_save =  [this]() { this->scene.save(); };
     auto lambda_build =  [this]() { this->place_building(); };
+    auto lambda_seed =  [this](int i) { this->scene.brush->set_seed(i); };
     connect(ui->save_button, &QPushButton::clicked, this, lambda_save);
     connect(ui->building_button, &QPushButton::clicked, this, lambda_build);
+    connect(ui->spinBox,QOverload<int>::of(&QSpinBox::valueChanged), this, lambda_seed);
 }
 
 

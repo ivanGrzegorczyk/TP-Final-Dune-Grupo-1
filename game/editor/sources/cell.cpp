@@ -47,13 +47,13 @@ void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if(current_brush->state() == "building") {
         move_building();
     } else {
-        place_tile(current_brush->brush());
+        place_tile(current_brush->brush(), current_brush->seed());
     }
 }
 
-void Cell::place_tile(std::shared_ptr<Terrain> terrain) {
+void Cell::place_tile(std::shared_ptr<Terrain> terrain, unsigned int seed) {
     std::vector<coordenada_t> coordinates{position};
-    map->place_terrain(coordinates, terrain);
+    map->place_terrain(coordinates, terrain, seed);
     update();
 }
 
