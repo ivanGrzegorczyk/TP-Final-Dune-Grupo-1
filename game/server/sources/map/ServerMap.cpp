@@ -111,11 +111,11 @@ bool ServerMap::validPosition(coordenada_t position) const {
            && position.second >= 0 && position.second < rows;
 }
 
-int ServerMap::getRows() {
+int ServerMap::getRows() const {
     return rows;
 }
 
-int ServerMap::getColumns() {
+int ServerMap::getColumns() const {
     return columns;
 }
 

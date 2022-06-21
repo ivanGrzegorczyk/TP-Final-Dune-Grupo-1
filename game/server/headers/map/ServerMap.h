@@ -39,9 +39,9 @@ public:
 
     bool validPosition(coordenada_t position) const;
 
-    int getRows();
+    int getRows() const;
 
-    int getColumns();
+    int getColumns() const;
 };
 
 #endif  // SERVERMAP_H_

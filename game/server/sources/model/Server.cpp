@@ -22,9 +22,22 @@ void Server::run() {
 }
 
 void Server::gameLoop() {
+    Chronometer chronometer;
+    uint64_t t1 = chronometer.now();
+
     while (active_game) {
-        manageEvents();
-        usleep(100000);
+        manageEvents();  // Acá se manejan los eventos de la cola protegida
+        uint64_t t2 = chronometer.now();
+        uint64_t rest = GAME_LOOP_RATE - (t2 - t1);
+        if (rest < 0) {
+            uint64_t behind =- rest;
+            uint64_t lost = GAME_LOOP_RATE - behind % GAME_LOOP_RATE;
+            t1 += lost;
+        } else {
+            usleep(rest);
+        }
+
+        t1 += GAME_LOOP_RATE;
     }
 }
 
