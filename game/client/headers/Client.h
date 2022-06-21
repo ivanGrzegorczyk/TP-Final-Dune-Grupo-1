@@ -36,13 +36,12 @@ public:
             usleep(GAME_LOOP_RATE - delta.count());
     }
 
-    Client(std::string hostname, std::string servicename, Renderer &rnd, std::string file);
+    Client(const std::string& hostname, const std::string& servicename, Renderer &rnd);
     void run();
+
     void sendToServer();
 
     void receiveOfServer();
-
-    //Event GetEventByid(int i);
 
     Request* createEvent();
 

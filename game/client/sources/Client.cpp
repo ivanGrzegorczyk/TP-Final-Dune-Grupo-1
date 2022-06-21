@@ -6,8 +6,8 @@
 
 using namespace SDL2pp;
 
-Client::Client(std::string hostname, std::string  servicename, Renderer &rnd, std::string  file) :
-    protocol(std::move(hostname), std::move(servicename)), mapUi(rnd, std::move(file)),clientId(), running(true) {
+Client::Client(const std::string& hostname, const std::string&  servicename, Renderer &rnd) :
+    protocol(hostname, servicename), mapUi(rnd),clientId(), running(true) {
 }
 
 void Client::run() {
@@ -40,6 +40,7 @@ void Client::ProcessInput() {
 
 Request* Client::createEvent() {
     SDL_Event event;
+    Request* req = nullptr;
     SDL_PollEvent(&event);
     switch (event.type) {
         case SDL_QUIT:
@@ -51,7 +52,8 @@ Request* Client::createEvent() {
                     int x = -1 ,y = -1;
                     SDL_GetMouseState(&x, &y);
                     Request *unit = new CreateLightInfantry(x / 16, y / 16);
-                    return unit;
+                    req = unit;
+                    break;
             }
         case SDL_MOUSEBUTTONUP:
             if(event.button.button ==  SDL_BUTTON_RIGHT) {
@@ -60,7 +62,7 @@ Request* Client::createEvent() {
                 x = event.button.x;
                 y = event.button.y;
                 request = mapUi.moveCharacter(x / 16, y / 16, clientId);
-                return request;
+                req = request;
             }
             if(event.button.button == SDL_BUTTON_LEFT) {
                 Request* r;
@@ -68,13 +70,14 @@ Request* Client::createEvent() {
                 x = event.button.x;
                 y = event.button.y;
                 r =  mapUi.mouseEvent(x, y, clientId);
-                return r;
+                req = r;
+                break;
             }
         default:
             break;
     }
 
-    return nullptr;
+    return req;
 }
 
 void Client::update() {
