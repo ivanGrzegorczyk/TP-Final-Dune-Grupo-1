@@ -7,7 +7,6 @@ int main(int argc, char* argv[]) {
     Window window("Client", SDL_WINDOWPOS_UNDEFINED,
                   SDL_WINDOWPOS_UNDEFINED,640, 480, SDL_WINDOW_RESIZABLE);
     Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
-    std::string file("terrain.txt");
-    Client client(argv[1], argv[2], render, file);
+    Client client(argv[1], argv[2], render);
     client.run();
 }

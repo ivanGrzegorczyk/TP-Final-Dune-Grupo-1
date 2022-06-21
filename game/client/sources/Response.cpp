@@ -1,10 +1,6 @@
 #include "../headers/Response.h"
 #include "../headers/Character.h"
 
-/*void Response::addResponseChunk(uint16_t chunk) {
-    response.push_back(chunk);
-}*/
-
 void Response::add(int playerId, int type, int characterId, coordenada_t coord) {
     if(units.find(playerId) != units.end()) {
         units.at(playerId).push_back(std::make_tuple(characterId, type, coord));

@@ -1,57 +1,30 @@
 #include "../headers/MapUi.h"
 
-#include <utility>
-
-MapUi::MapUi(Renderer &renderer, std::string terrain) : rdr(renderer), ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
-                                               ground2(renderer, Surface(DATA_PATH "/d2k_BLOXXMAS.bmp")),
-                                               ground3(renderer, Surface(DATA_PATH "/d2k_BLOXTREE.bmp")){
-    std::cout << "Entra al constructor de MapUI" << std::endl;
-    src.SetX(SRC);
-    src.SetY(SRC);
-    src.SetW(WIDTH_TEXTURE);
-    src.SetH(HEIGHT_TEXTURE);
-    dst.SetW(WIDTH_TEXTURE);
-    dst.SetH(HEIGHT_TEXTURE);
-    dst.SetX(SRC);
-    dst.SetY(SRC);
-    map.resize(50, std::vector<CeldaUi>(160));
+MapUi::MapUi(Renderer &renderer) : rdr(renderer), ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")){
+    dst.SetX(0) = dst.SetY(0);
+    dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
 }
+
 void MapUi::update(Response *response) {
     response->update(this->units, rdr);
 }
 
-
 void MapUi::receiveMap(Protocol &protocol) {
     this->terrain = protocol.receiveTerrain();
-    map = std::vector<std::vector<CeldaUi>>(
-            terrain.first.first, std::vector<CeldaUi>(terrain.first.second));
 }
 
-
 void MapUi::draw() {
-    std::cout << "Entra al MapUi.draw()" << std::endl;
-    std::string line;
-    std::string columns; //frente 150 en y, 0 en x
-    Rect s(0, 0, 8, 8);
-    Rect r(8, 0, 8, 8);
-    Rect sp(0, 312, 8, 8);
-    //Rect rs(0, 0, 13,16);
-    sand = s;
-    rock = r;
-    specie = sp;
     int k = 0;
     for(int i = 0; i < this->terrain.first.first; i++) {
         for (int j = 0; j < this->terrain.first.second; j++) {
             coordenada_t coord(i, j);
-            dst.SetX(j * WIDTH_TEXTURE);
-            dst.SetY(i * HEIGHT_TEXTURE);
+            dst.SetX(j * LENGTH_TILE);
+            dst.SetY(i * LENGTH_TILE);
             uint8_t type = this->terrain.second.at(k);
             if(type == TERRAIN_ROCKS) {
-                CeldaUi cell(&ground3, coord, dst, r);
-                map[i][j] = cell;
+                this->addRocks(coord, dst);
             }else {
-                CeldaUi cell(&ground, coord, dst, s);
-                map[i][j] = cell;
+                this->addSand(coord, dst);
             }
             k++;
         }
@@ -60,13 +33,11 @@ void MapUi::draw() {
 
 void MapUi::render() {
     rdr.Clear();
-    //rdr.Copy(ground, s, Rect(1000, 900, 32, 32));
-    for(auto& row : map) {
-        for(auto& col : row) {
-            col.render(rdr);
-        }
+    Rect r(100, 220, 8, 8);
+    rdr.Copy(ground, r, Rect(1500 , 1500 , 8, 8));
+    for(auto& tile : map) {
+        tile.render(rdr);
     }
-    //std::cout << "tamaño de arreglo: " << units.size() << std::endl;
     for(auto const& [playerId, unitsMap] : units) {
        for(auto const& [unitId, unit]: unitsMap) {
            unit->render();
@@ -90,6 +61,19 @@ Request* MapUi::moveCharacter(int x, int y, int playerId) {
             return request;
     }
     return nullptr;
+}
+
+void MapUi::addRocks(coordenada_t coord, Rect destination) {
+    Rect rockRect(100, 220, 8, 8);
+    CeldaUi cell(&ground, coord, destination, rockRect);
+    map.push_back(cell);
+}
+
+void MapUi::addSand(coordenada_t coord, Rect destination) {
+   Rect sandRect(0, 0, 8, 8);
+   CeldaUi cell(&ground, coord, destination, sandRect);
+   map.push_back(cell);
+
 }
 
 MapUi::~MapUi() = default;

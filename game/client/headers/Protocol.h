@@ -8,6 +8,7 @@
 #include "../../common/headers/Socket.h"
 #include "../../common/headers/Constantes.h"
 #include "Response.h"
+#include "common/headers/ProtectedQueue.h"
 
 
 class Protocol {
@@ -17,7 +18,7 @@ private:
     void _fillVector(std::vector<uint8_t> &vector, int x, int y);
 
 public:
-    Protocol(std::string hostname, std::string servicename);
+    Protocol(const std::string& hostname, const std::string& servicename);
     int commandReceive();
     void moveQuery(int idunity ,coordenada_t dest);
     void createBuilding(int clientId, int buildingId, coordenada_t coord);
@@ -26,9 +27,9 @@ public:
 
     void createUnidadLigera(int id);
 
-    Response *recvResponse();
+    Response* recvResponse();
 
-    void send(int command, std::vector<uint16_t> vector);
+    void send(int command, const std::vector<uint16_t>& vector);
 
     std::pair<coordenada_t, std::vector<uint8_t>> receiveTerrain();
 };

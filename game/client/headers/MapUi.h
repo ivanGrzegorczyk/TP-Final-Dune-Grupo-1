@@ -5,6 +5,7 @@
 #include "CeldaUi.h"
 #include "Response.h"
 #include "Protocol.h"
+#include "common/headers/Building.h"
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -12,30 +13,21 @@
 #include <memory>
 
 
-#define WIDTH_TEXTURE 16
-#define HEIGHT_TEXTURE 16
-#define SRC 0
-
+#define LENGTH_TILE 16
 using namespace SDL2pp;
 
 class MapUi {
 private:
-    Rect src;
     Rect dst;
     Renderer& rdr;
     Texture ground;
-    Texture ground2;
-    Texture ground3;
-    Rect rock;
-    Rect sand;
-    Rect specie;
     std::pair<coordenada_t, std::vector<uint8_t>> terrain;
-    //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings;
+    std::map<int, std::map<int, std::shared_ptr<Building>>> buildings;
     std::map<int, std::map<int, std::shared_ptr<Character>>> units;
-    std::vector<std::vector<CeldaUi>> map;
+    std::vector<CeldaUi> map;
 
 public:
-    MapUi(Renderer& renderer, std::string terrain);
+    explicit MapUi(Renderer& renderer);
     ~MapUi();
     void draw();
     //std::string  terrain;
@@ -45,6 +37,9 @@ public:
     void render();
 
     Request* moveCharacter(int x, int y, int playerId);
+
+    void addRocks(coordenada_t coord, Rect destination);
+    void addSand(coordenada_t coord, Rect destination);
 
 };
 

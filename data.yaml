@@ -44,7 +44,6 @@ map:
       buildings:
         []
       pos:
-        - 1
         - 0
     - terrain: sand
       seed: 900
@@ -79,7 +78,6 @@ map:
       buildings:
         []
       pos:
-        - 2
         - 0
     - terrain: rock
       seed: 0
@@ -114,7 +112,6 @@ map:
       buildings:
         []
       pos:
-        - 3
         - 0
     - terrain: rock
       seed: 0
@@ -149,7 +146,6 @@ map:
       buildings:
         []
       pos:
-        - 4
         - 0
     - terrain: rock
       seed: 0
@@ -159,7 +155,111 @@ map:
             - 2
             - 2
       pos:
+        - 1
         - 4
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 5
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 6
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 7
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 8
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 9
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 10
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 11
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 12
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 13
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 14
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 15
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 16
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 17
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
+        - 1
+        - 18
+    - terrain: rock
+      seed: 0
+      buildings:
+        []
+      pos:
         - 1
     - terrain: rock
       seed: 0

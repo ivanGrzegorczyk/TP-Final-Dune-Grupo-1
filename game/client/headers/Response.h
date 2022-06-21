@@ -20,7 +20,6 @@ public:
     void update(std::map<int, std::map<int, std::shared_ptr<Character>>> &unitsInfo, Renderer &rdr);
     void iterate(std::map<int, std::map<int, std::shared_ptr<Character>>> &unitsData,
     std::vector<std::tuple<int, int, coordenada_t>>,Renderer &rdr, bool containsPlayer, int player);
-    //void addResponseChunk(uint16_t chunk);
 };
 
 #endif //TP_FINAL_DUNE_GRUPO_1_RESPONSE_H
