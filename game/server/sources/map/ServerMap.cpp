@@ -23,6 +23,7 @@ void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
 }
 
 void ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
+    std::cout << "Reposicionando..." << std::endl;
     try {
         if (players.at(playerId).getUnit(unitId)->getPosition() == goal) {
             std::cout << "Ya esta en esa posicion" << std::endl;
@@ -80,7 +81,7 @@ void ServerMap::addSnapshotData(std::vector<uint16_t> &snapshot) {
 void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
     // TODO Colocar el edificio central y crear más terrenos cuando
     // el cliente los pueda renderizas
-    YAML::Node config = YAML::LoadFile("../data.yaml");
+    YAML::Node config = YAML::LoadFile("data.yaml");
     rows = config["map"]["rows"].as<int>();
     columns = config["map"]["columns"].as<int>();
 
