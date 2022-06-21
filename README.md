@@ -5,7 +5,32 @@ Padrón: 104084
 Nombre: Iván Grzegorczyk
 
 ## Introducción
+Este proyecto consiste en una reimplementación del juego clásico Dune 2000.
 
+## Instalación
+Este proyecto sólo es ejecutable en Ubuntu 20.04 hasta 21.04
+### Dependencias
+Para compilar el código es necesario instalar los siguientes paquetes:
+cmake (3.22.4+)
+make
+yaml-cpp
+Qt5
+SDL
+SDL2cpp
+
+### Línea de compilación
+El juego puede ser compilado desde la línea de comandos mediante:
+cmake . && make
+
+## Ejecución
+Para ejecutar el servidor podrá hacerlo con la línea:
+./Server \[puerto]
+
+El cliente:
+./Client \[nombre de host] \[puerto]
+
+Y finalmente el editor:
+./Editor
 
 ## Implementación
 
@@ -43,3 +68,6 @@ Todas las entidades están identificadas por un id designado al momento de ser c
 Las entidades que están parcialmente implementadas desde el servidor son la _infantería ligera_, el _cuartel_ y la _cosechadora_. Solo la infantería ligera tiene un comportamiento que se pueda observar en una partida.
 
 [algoritmo A-Star]: <https://en.wikipedia.org/wiki/A*_search_algorithm>
+
+## Editor
+El editor es un módulo independiente del resto del juego que utiliza QT y YAML para permitirle al usuario crear y editar mapas. Estos mapas pueden definir el tamaño, terreno, cantidad de jugadores, cantidad de especia y ubicación de centros de construcción de un juego inicial.
