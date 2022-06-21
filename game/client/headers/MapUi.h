@@ -1,17 +1,17 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_MAPUI_H
 #define TP_FINAL_DUNE_GRUPO_1_MAPUI_H
 #include "SDL2pp/SDL2pp.hh"
-#include "Character.h"
 #include "CeldaUi.h"
-#include "Response.h"
 #include "Protocol.h"
+class Response;
+
 #include "common/headers/Building.h"
+#include "Character.h"
 #include <vector>
 #include <fstream>
 #include <sstream>
 #include <map>
 #include <memory>
-
 
 #define LENGTH_TILE 16
 using namespace SDL2pp;
@@ -22,15 +22,14 @@ private:
     Renderer& rdr;
     Texture ground;
     std::pair<coordenada_t, std::vector<uint8_t>> terrain;
-    std::map<int, std::map<int, std::shared_ptr<Building>>> buildings;
-    std::map<int, std::map<int, std::shared_ptr<Character>>> units;
+    //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades
+    std::map<int, Character*> units;
     std::vector<CeldaUi> map;
 
 public:
     explicit MapUi(Renderer& renderer);
     ~MapUi();
     void draw();
-    //std::string  terrain;
     Request* mouseEvent(int x, int y, int playerId);
     void update(Response *response);
     void receiveMap(Protocol &protocol);

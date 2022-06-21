@@ -7,8 +7,8 @@
 #include <string>
 #include "../../common/headers/Socket.h"
 #include "../../common/headers/Constantes.h"
-#include "Response.h"
 #include "common/headers/ProtectedQueue.h"
+class Response;
 
 
 class Protocol {
@@ -27,11 +27,13 @@ public:
 
     void createUnidadLigera(int id);
 
-    Response* recvResponse();
+    std::vector<Response*> recvResponse();
 
     void send(int command, const std::vector<uint16_t>& vector);
 
     std::pair<coordenada_t, std::vector<uint8_t>> receiveTerrain();
+
+    void createResponse(uint16_t &eventType, int player, std::vector<Response *> &vector);
 };
 
 

@@ -3,6 +3,8 @@
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"
 #include "../headers/CreateLightInfantry.h"
+#include "client/headers/ReceiveThread.h"
+#include "client/headers/SendThread.h"
 
 using namespace SDL2pp;
 
@@ -14,8 +16,13 @@ void Client::run() {
     this->clientId = protocol.receiveId();
     this->mapUi.receiveMap(protocol);
     this->mapUi.draw();
-    std::thread threadReceive(&Client::receiveOfServer, this);
-    std::thread threadSend(&Client::sendToServer, this);
+    ReceiveThread receiveThread(this->recvQueue);
+    SendThread sendThread(this->sendQueue);
+    receiveThread.start();
+    sendThread.start();
+
+    /*std::thread threadReceive(&Client::receiveOfServer, this);
+    std::thread threadSend(&Client::sendToServer, this);*/
 
 
     auto t1 = std::chrono::system_clock::now();
@@ -27,8 +34,12 @@ void Client::run() {
         auto delta = simDeltaTime(t1, t2);
         sleep(t1, t2, delta);
     }
-    threadReceive.join();
-    threadSend.join();
+    receiveThread.close();
+    sendThread.close();
+    receiveThread.join();
+    sendThread.join();
+    /*threadReceive.join();
+    threadSend.join();*/
 }
 
 void Client::ProcessInput() {
@@ -100,8 +111,8 @@ void Client::sendToServer() {
 
 void Client::receiveOfServer() {
     while(running) {
-        Response *response = protocol.recvResponse();
-        this->recvQueue.push(response);
+        //std::vector<response*> = protocol.recvResponse();
+        //this->recvQueue.push(response);
     }
 }
 

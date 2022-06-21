@@ -6,7 +6,8 @@ MapUi::MapUi(Renderer &renderer) : rdr(renderer), ground (renderer, Surface(DATA
 }
 
 void MapUi::update(Response *response) {
-    response->update(this->units, rdr);
+    //for response in responses:
+        //response->modify(this);
 }
 
 void MapUi::receiveMap(Protocol &protocol) {
@@ -32,9 +33,7 @@ void MapUi::draw() {
 }
 
 void MapUi::render() {
-    rdr.Clear();
-    Rect r(100, 220, 8, 8);
-    rdr.Copy(ground, r, Rect(1500 , 1500 , 8, 8));
+    /*rdr.Clear();
     for(auto& tile : map) {
         tile.render(rdr);
     }
@@ -43,24 +42,24 @@ void MapUi::render() {
            unit->render();
        }
     }
-    rdr.Present();
+    rdr.Present();*/
 }
 
 Request* MapUi::mouseEvent(int x, int y, int playerId) {
-    for (auto const& [unitId, unit] : units[playerId]) {
+  /*  for (auto const& [unitId, unit] : units[playerId]) {
         unit->reactToEvent(x, y);
     }
-    return nullptr;
+    return nullptr;*/
 }
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
-    Request *request;
-    for (auto const& [unitId, unit] : units[playerId]) {
+   /* Request *request;
+    for (auto const& unit : units) {
         request = unit->walkEvent(x, y);
         if (request != nullptr)
             return request;
     }
-    return nullptr;
+    return nullptr;*/
 }
 
 void MapUi::addRocks(coordenada_t coord, Rect destination) {

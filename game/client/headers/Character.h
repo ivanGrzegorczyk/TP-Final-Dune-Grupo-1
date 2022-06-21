@@ -20,7 +20,6 @@ public:
     bool mouseOverCharacter(int x, int y) const;
     void render();
     Request* reactToEvent(int x, int y);
-    //void update(MapUi *map);
 };
 
 

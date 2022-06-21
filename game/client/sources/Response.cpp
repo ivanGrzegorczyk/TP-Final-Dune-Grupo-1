@@ -9,14 +9,14 @@ void Response::add(int playerId, int type, int characterId, coordenada_t coord) 
     }
 }
 
-void Response::update(std::map<int, std::map<int, std::shared_ptr<Character>>> &unitsMap, Renderer &rdr) {
-    for (auto const &[player, playerData]: this->units) {
-        if (unitsMap.find(player) != unitsMap.end()) { //me fijo si existe el jugador
+void Response::update(std::map<int, Character*> &unitsMap, Renderer &rdr) {
+    /*for (auto const &[player, playerData]: this->units) {
+        if (unitsMap.find(player) != unitsMap.end()) {
             this->iterate(unitsMap, playerData, rdr, true, player);
         } else {
             this->iterate(unitsMap, playerData, rdr, false, player);
         }
-    }
+    }*/
 }
 
 void Response::iterate(std::map<int, std::map<int, std::shared_ptr<Character>>> &unitsData,

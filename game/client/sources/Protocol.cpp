@@ -1,5 +1,7 @@
 #include <stack>
 #include "../headers/Protocol.h"
+#include "client/headers/UpdateUnit.h"
+#include "client/headers/UpdateBuilding.h"
 
 Protocol::Protocol(const std::string& hostname, const std::string& servicename) :
             id(-1), skt(hostname.c_str(), servicename.c_str()){
@@ -53,19 +55,17 @@ void Protocol::createUnidadLigera(int id) {
     skt.sendall((&unityId), sizeof(unityId));
 }
 
-Response* Protocol::recvResponse() {
+std::vector<Response*> Protocol::recvResponse() { //retorna un vector<Response*>
     int offset = 0;
+    std::vector<Response*> responses;
     uint16_t lengthResponse;
     skt.recvall(&lengthResponse, sizeof(lengthResponse));
     lengthResponse = ntohs(lengthResponse);
-    auto* response = new Response();
-
+    //auto* response = new Response();
+    uint16_t eventType;
     uint16_t idPlayer;
     uint16_t amount;
-    uint16_t type;
-    uint16_t characterId;
-    uint16_t posX;
-    uint16_t posY;
+
 
     while(offset < lengthResponse) {
         skt.recvall(&idPlayer, sizeof(idPlayer));
@@ -73,22 +73,38 @@ Response* Protocol::recvResponse() {
         int player = ntohs(idPlayer);
         int amountHost = ntohs(amount);
         for(int j = 0; j < amountHost; j++){
-            skt.recvall(&type, sizeof(type));
-            skt.recvall(&characterId, sizeof(characterId));
+            //new UpdateUnits();
+            //new updateVehicules()
+            //new UpdateBuilding()
+            //new atacar()
+            //new Disparar
+            //
+            //falta recibir que accion se quiere realizar
+            skt.recvall(&eventType, sizeof(eventType));
+            this->createResponse(eventType, player, responses);
+            /*skt.recvall(&type, sizeof(type));
+            skt.recvall(&entityId, sizeof(entityId));
             skt.recvall(&posX, sizeof(posX));
             skt.recvall(&posY, sizeof(posY));
             int typeHost = ntohs(type);
-            int characterIdHost = ntohs(characterId);
+            int characterIdHost = ntohs(entityId);
             int posxHost = ntohs(posX);
-            int posyHost = ntohs(posY);
-            coordenada_t coord({posxHost * 2, posyHost * 2});
-            response->add(player, typeHost, characterIdHost, coord);
+            int posyHost = ntohs(posY);*/
+            //coordenada_t coord({posxHost * 2, posyHost * 2});
+           // response->add(player, typeHost, characterIdHost, coord);
         }
         offset += (amountHost * 4) + 2;
     }
-    return response;
+    return responses;
 }
 
+//TODO
+//std::vector<Event*>
+//for response in responses:
+    //response.modify(map)
+    //metodo de arriba llama al metodo del mapa -> map.updateUnit(idPlayer, idUnit, coordX, coordY)
+//response -> tiene como atributo al vector de eventos
+//TODO
 void Protocol::send(int command, const std::vector<uint16_t>& vector) {
     uint16_t aux;
     uint8_t cmd = command;
@@ -126,4 +142,28 @@ std::pair<coordenada_t, std::vector<uint8_t>> Protocol::receiveTerrain() {
     return terrain;
 }
 
-
+void Protocol::createResponse(uint16_t &eventType, int player, std::vector<Response *> &vector) {
+    uint16_t type;
+    uint16_t entityId;
+    uint16_t posX;
+    uint16_t posY;
+    Response *event;
+    skt.recvall(&type, sizeof(type));
+    skt.recvall(&entityId, sizeof(entityId));
+    skt.recvall(&posX, sizeof(posX));
+    skt.recvall(&posY, sizeof(posY));
+    int typeHost = ntohs(type);
+    int characterIdHost = ntohs(entityId);
+    int posxHost = ntohs(posX);
+    int posyHost = ntohs(posY);
+    coordenada_t coord({posxHost * 2, posyHost * 2});
+    switch (eventType) {
+        case UNIT:
+           event = new UpdateUnit(player, typeHost, characterIdHost, coord);
+            break;
+        case BUILDING:
+            event = new UpdateBuilding();
+            break;
+    }
+    vector.push_back(event);
+}
