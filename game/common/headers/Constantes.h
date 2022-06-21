@@ -64,6 +64,6 @@ typedef std::pair<int, int> coordenada_t;
 #define HOUSE_HARKONNEN 1
 #define HOUSE_ORDOS 2
 
-#define GAME_LOOP_RATE 333333
+#define GAME_LOOP_RATE 111111
 
 #endif //TP_FINAL_DUNE_GRUPO_1_CONSTANTES_H

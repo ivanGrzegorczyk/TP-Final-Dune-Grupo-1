@@ -32,8 +32,8 @@ public:
 
     void sleep(const chrono &t1, const chrono &t2, duration &delta) const {
         delta = t2 - t1;
-        if (delta.count() < GAME_LOOP_RATE)
-            usleep(GAME_LOOP_RATE - delta.count());
+        if (delta.count() < (1.0 / 30))
+            usleep((1.0 / 30) - delta.count());
     }
 
     Client(const std::string& hostname, const std::string& servicename, Renderer &rnd);
