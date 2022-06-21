@@ -4,6 +4,9 @@ Integrantes:
 Padrón: 104084
 Nombre: Iván Grzegorczyk
 
+Padrón: 104082
+Nombre: Daniel Aceval
+
 ## Introducción
 
 
@@ -43,3 +46,26 @@ Todas las entidades están identificadas por un id designado al momento de ser c
 Las entidades que están parcialmente implementadas desde el servidor son la _infantería ligera_, el _cuartel_ y la _cosechadora_. Solo la infantería ligera tiene un comportamiento que se pueda observar en una partida.
 
 [algoritmo A-Star]: <https://en.wikipedia.org/wiki/A*_search_algorithm>
+
+## Cliente
+
+En el caso del cliente la estructura es similar con respecto a los hilos. Se tienen 3 de ellos cada uno con una función diferente.
+- Hilo Principal: El cual como en el **servidor** es el encargado de llevar el gameloop.
+- Hilo de envío: Este hilo en su interior maneja una cola bloqueante encargada de llevar cada una de las solicitudes del usuario al servidor que es procesada por el protocolo para su correcto envío.
+- Hilo para recibir cada una de las respuestas ya procesadas por el servidor para luego modificar el estado de juego. Este hilo manipula una cola protegida para recibir dichas respuestas.
+
+### Mapa
+El mapa consta momentáneamente de un diccionario para las unidades/edificios, en él se contiene como clave el id del jugador y cada una de las unidades/edificios que le pertenecen, tiene un vector de clase **Celda** que poseen una textura y la capacidad de copiar una porción de su textura en el render y además un vector con cada uno de los tipos de terreno que hay en el mapa.
+
+
+El mapa es lo primero que se carga en el cliente dado que al iniciar la comunicación con el servidor este le envía cada una de las características del terreno para que se construya utilizando la clase **Celda** mencionada anteriormente para luego ser renderizada y mostrada al usuario.
+
+### Solicitudes
+Por el momento el cliente posee la solicitud de caminar y de spawn de personaje que son accionadas por un evento del mouse y teclado respectivamente. La solicitud de caminar posee la posición en el cual el personaje se quiere mover capturando las posiciones __x__ e __y__ del mouse junto con el id del personaje para que el servidor pueda identificarlo. Esta solicitud es procesada por el servidor y como respuesta devuelve el estado actual del juego incluyendo la nueva posición del personaje que accionó el evento de caminar.
+Para mover al personaje se tiene que hacer click con el botón izquierdo para seleccionarlo y elegir con el botón derecho la celda objetivo para disparar dicha solicitud.
+
+
+Por otro lado, para hacer aparecer personajes en diferentes lugares del mapa se tiene que pulsar la tecla **a** que generará la solicitud de spawn de personaje al servidor con las coordenadas de donde se desea posicionar.
+### Response
+Esta clase es la encargada de llevar toda la información de la respuesta del servidor al cliente para actualizar el estado del mapa. Se recibe por parámetro todas las unidades para luego posicionarlas en su nuevo lugar si es que sufrieron algún cambio de posición o crear nuevos personajes si no estaban.
+Esta clase se tiene que refactorizar, ya que se tiene que si se tiene que actualizar edificios, vehículos tal como está momentáneamente implementada se duplicaría en tamaño y mucho de ese código sería repetido.
