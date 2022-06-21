@@ -32,17 +32,16 @@ public:
 
     void sleep(const chrono &t1, const chrono &t2, duration &delta) const {
         delta = t2 - t1;
-        if (delta.count() < GAME_LOOP_RATE)
-            usleep(GAME_LOOP_RATE - delta.count());
+        if (delta.count() < (1.0 / 30))
+            usleep((1.0 / 30) - delta.count());
     }
 
-    Client(std::string hostname, std::string servicename, Renderer &rnd, std::string file);
+    Client(const std::string& hostname, const std::string& servicename, Renderer &rnd);
     void run();
+
     void sendToServer();
 
     void receiveOfServer();
-
-    //Event GetEventByid(int i);
 
     Request* createEvent();
 

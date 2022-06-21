@@ -41,18 +41,29 @@ typedef std::pair<int, int> coordenada_t;
 #define LIGHT_INFANTRY_SPEED 16
 #define LIGHT_INFANTRY_HP 50
 
+//harvester data
+#define HARVESTER_RANGE 0
+#define HARVESTER_SPEED 12
+#define HARVESTER_COST 300
+#define HARVESTER_HP 600
+
 //barracks data
 #define BARRACKS_ENERGY 100
 #define BARRACKS_COST 300
 #define BARRACKS_POINTS 300
 
-// Terrain
+//terrain
 #define TERRAIN_SAND 0
 #define TERRAIN_DUNES 1
 #define TERRAIN_ROCKS 2
 #define TERRAIN_TOPS 3
 #define TERRAIN_CLIFFS 4
 
-#define GAME_LOOP_RATE (1.0 / 30.0)
+//houses
+#define HOUSE_ATREIDES 0
+#define HOUSE_HARKONNEN 1
+#define HOUSE_ORDOS 2
+
+#define GAME_LOOP_RATE 111111
 
 #endif //TP_FINAL_DUNE_GRUPO_1_CONSTANTES_H

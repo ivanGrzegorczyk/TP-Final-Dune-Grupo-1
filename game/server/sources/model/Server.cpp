@@ -1,12 +1,12 @@
 #include <unistd.h>
 #include <iostream>
 #include <thread>
-#include "../headers/Server.h"
+#include "server/headers/model/Server.h"
+#include "common/headers/Chronometer.h"
 
-Server::Server(const std::string &host, int rows, int columns) :
-    map(rows, rows), protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
-    // TODO las dimensiones del mapa están hardcodeadas en 50x50 por ahora
-    map.initializeTerrain();
+Server::Server(const std::string &host) :
+protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
+    map.initializeTerrain(terrain);
 }
 
 void Server::run() {
@@ -14,14 +14,31 @@ void Server::run() {
     std::thread broadcastThread(&Server::broadCast, this);
     std::thread finishThread(&Server::finish, this);  // TODO Multiples partidas
 
-    do {
-        manageEvents();
-        usleep(10000000.0f/50.0f);  // TODO Poner el tiempo bien
-    } while (active_game);
+    gameLoop();
 
     acceptingThread.join();
     broadcastThread.join();
     finishThread.join();
+}
+
+void Server::gameLoop() {
+    Chronometer chronometer;
+    uint64_t t1 = chronometer.now();
+
+    while (active_game) {
+        manageEvents();  // Acá se manejan los eventos de la cola protegida
+        uint64_t t2 = chronometer.now();
+        uint64_t rest = GAME_LOOP_RATE - (t2 - t1);
+        if (rest < 0) {
+            uint64_t behind =- rest;
+            uint64_t lost = GAME_LOOP_RATE - behind % GAME_LOOP_RATE;
+            t1 += lost;
+        } else {
+            usleep(rest);
+        }
+
+        t1 += GAME_LOOP_RATE;
+    }
 }
 
 void Server::finish() {
@@ -41,13 +58,14 @@ void Server::acceptClients() {
         while (keep_accepting) {
             Socket peer = protocol.accept();
             std::cout << "Acepta un cliente" << std::endl;
-            auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId);
+            auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId, map.getRows(), map.getColumns(), terrain);
             client->start();
             clients.push(client);
+            clients.clean();
             nextPlayerId++;
         }
     } catch(const std::exception &e) {
-        // TODO Manejar excepcion
+        clients.clearAll();
         std::cout << "Catchea en el acceptClients y sale" << std::endl;
         return;
     }
@@ -55,13 +73,13 @@ void Server::acceptClients() {
 
 void Server::manageEvents() {
     ServerEvent *event = protectedQueue.pop();
-    if (event != nullptr) {
+    while (event != nullptr) {
         event->performEvent(map);
-        blockingQueue.push(createSnapshot());
+        event = protectedQueue.pop();
     }
-    if (map.updateUnitPositions()) {
-        blockingQueue.push(createSnapshot());
-    }
+    map.updateUnitsPosition();
+    std::vector<uint16_t> snapshot(createSnapshot());
+    blockingQueue.push(snapshot);
 }
 
 void Server::broadCast() {

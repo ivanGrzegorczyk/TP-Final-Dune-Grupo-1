@@ -1,16 +1,12 @@
-#include <iomanip>
-#include "../headers/Chronometer.h"
+#include "common/headers/Chronometer.h"
 
-Chronometer::Chronometer(): start(std::chrono::high_resolution_clock::now()) {}
+using _clock = std::chrono::system_clock;
+using _duration = std::chrono::microseconds;
 
-double Chronometer::tick() {
-    auto current = std::chrono::high_resolution_clock::now();
-    return std::chrono::duration<double, std::milli>(current - this->start)
-            .count();
-}
+Chronometer::Chronometer(): start(_clock::now()) {}
 
-std::ostream &operator<<(std::ostream &os, Chronometer &chrono) {
-    os << std::fixed << std::setprecision(CHRONO_PRECISION) << chrono.tick()
-       << CHRONO_UNIT;
-    return os;
+uint64_t Chronometer::now() {
+    auto current = _clock::now();
+    _duration diff = std::chrono::duration_cast<_duration>(current - this->start);
+    return diff.count();
 }
