@@ -29,7 +29,6 @@ void Server::gameLoop() {
         manageEvents();  // Acá se manejan los eventos de la cola protegida
         uint64_t t2 = chronometer.now();
         long rest = GAME_LOOP_RATE - (long)(t2 - t1);
-        std::cout << rest << std::endl; 
         if (rest < 0) {
             uint64_t behind =- rest;
             uint64_t lost = GAME_LOOP_RATE - behind % GAME_LOOP_RATE;
