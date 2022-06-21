@@ -64,12 +64,14 @@ void ServerProtocol::sendSnapshot(const std::vector<uint16_t> &snapshot) {
     }
 }
 
-void ServerProtocol::sendTerrain(std::vector<uint8_t> &&terrain) {
-    uint16_t size = 50;
-    size = htons(size);
+void ServerProtocol::sendTerrain(int rows, int columns, std::vector<uint8_t> &&terrain) {
+    uint16_t _rows = rows;
+    uint16_t _columns = rows;
+    _rows = htons(_rows);
+    _columns = htons(_columns);
     // Envio la cantidad de filas y columnas del mapa
-    socket.sendall(&size, sizeof(size));
-    socket.sendall(&size, sizeof(size));
+    socket.sendall(&_rows, sizeof(_rows));
+    socket.sendall(&_columns, sizeof(_columns));
     
     for (const uint8_t &ground : terrain) {
         socket.sendall(&ground, sizeof(ground));

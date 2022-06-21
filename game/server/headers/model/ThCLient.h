@@ -14,6 +14,8 @@ private:
     ServerProtocol protocol;
     ProtectedQueue<ServerEvent *> &protectedQueue;
     int playerId;
+    int rows;
+    int columns;
     std::vector<uint8_t> terrain;
 
     void manageCommand(int command);
@@ -26,7 +28,7 @@ protected:
     void run() override;
 public:
 
-    ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id, std::vector<uint8_t> &terrain);
+    ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id, int rows, int columns, std::vector<uint8_t> &terrain);
     bool isDead();
 
     void stop();

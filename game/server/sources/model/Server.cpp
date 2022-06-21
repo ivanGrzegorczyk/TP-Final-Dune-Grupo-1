@@ -45,7 +45,7 @@ void Server::acceptClients() {
         while (keep_accepting) {
             Socket peer = protocol.accept();
             std::cout << "Acepta un cliente" << std::endl;
-            auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId, terrain);
+            auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId, map.getRows(), map.getColumns(), terrain);
             client->start();
             clients.push(client);
             clients.clean();

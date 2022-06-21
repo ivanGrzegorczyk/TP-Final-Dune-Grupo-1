@@ -38,6 +38,10 @@ public:
     void initializeTerrain(std::vector<uint8_t> &terrain);
 
     bool validPosition(coordenada_t position) const;
+
+    int getRows();
+
+    int getColumns();
 };
 
 #endif  // SERVERMAP_H_
