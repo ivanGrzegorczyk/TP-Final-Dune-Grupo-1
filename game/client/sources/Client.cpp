@@ -61,12 +61,10 @@ Request* Client::createEvent() {
                 int x, y;
                 x = event.button.x;
                 y = event.button.y;
-                std::cout << "click derecho" <<  x / 16 << "," << y / 16 << std::endl;
                 request = mapUi.moveCharacter(x / 16, y / 16, clientId);
                 req = request;
             }
             else if(event.button.button == SDL_BUTTON_LEFT) {
-                std::cout << "click izquierdo" << std::endl;
                 Request* r;
                 int x, y;
                 x = event.button.x;

@@ -52,13 +52,10 @@ class MapaEditor {
     }
     void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain) {
         for(coordenada_t celda : celdas) {
-            std::cout <<  "from " << mapa[celda.second][celda.first].terrain->name();
             mapa[celda.second][celda.first].terrain = terrain;
-            std::cout << "to" << mapa[celda.second][celda.first].terrain->name() << std::endl;
         }
     }
     std::string to_yaml() {
-        std::cout << "First cell is:" << mapa[0][0].terrain->name() << std::endl;
         YAML::Emitter out;
         out << YAML::BeginMap;
             out << YAML::Key << "name";

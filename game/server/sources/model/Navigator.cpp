@@ -31,11 +31,9 @@ std::stack<coordenada_t> Navigator::reconstructPath(coordenada_t start) {
     int x = start.first, y = start.second;
     while (current.id.first != x || current.id.second != y) {
         path.push(current.id);
-        std::cout << current.id.first << "," << current.id.second << " pushed" <<std::endl;
         current = nodeMap[current.previous_id.first][current.previous_id.second];
     }
     path.push(current.id);
-    std::cout << current.id.first << "," << current.id.second << " pushed." <<std::endl;
 
     return path;
 }

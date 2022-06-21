@@ -20,7 +20,6 @@ public:
 
     T pop() {
         std::lock_guard<std::mutex> lock(mutex);
-
         if (data.empty())
             return nullptr;
 

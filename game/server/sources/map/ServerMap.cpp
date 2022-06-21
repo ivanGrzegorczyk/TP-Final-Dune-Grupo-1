@@ -23,7 +23,6 @@ void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
 }
 
 void ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
-    std::cout << "Reposicionando..." << std::endl;
     try {
         if (players.at(playerId).getUnit(unitId)->getPosition() == goal) {
             std::cout << "Ya esta en esa posicion" << std::endl;
