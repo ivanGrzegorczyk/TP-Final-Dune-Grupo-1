@@ -57,9 +57,12 @@ Request* MapUi::moveCharacter(int x, int y, int playerId) {
     Request *request;
     for (auto const& [unitId, unit] : units[playerId]) {
         request = unit->walkEvent(x, y);
-        if (request != nullptr)
-        std::cout << "Enviando..." << std::endl;
+        if (request != nullptr) {
+            std::cout << "Enviando..." << std::endl;
             return request;
+        } else {
+            std::cout << "Bad request" << std::endl;
+        }
     }
     return nullptr;
 }
