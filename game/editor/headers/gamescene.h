@@ -19,7 +19,7 @@ public:
     GameScene(std::shared_ptr<MapaEditor> map);
     virtual ~GameScene() = default;
     void set_active_texture(std::string& texture);
-    void save();
+    void save(std::string& filename);
     std::shared_ptr<EditorState> brush;
 
 private slots:

@@ -4,8 +4,8 @@
 #include <algorithm>
 GameScene::GameScene(std::shared_ptr<MapaEditor> map) : map(map)
 {
-    std::vector<std::string> names = {"rock", "mountain", "sand"};
-    for(std::string name : names) { 
+    std::vector<std::string> terrains = {"rock", "mountain", "sand"};
+    for(std::string name : terrains) { 
         std::shared_ptr<Terrain> terr(new Terrain(name));
         terrain_types.push_back(terr);
     }
@@ -13,7 +13,8 @@ GameScene::GameScene(std::shared_ptr<MapaEditor> map) : map(map)
     GraphicsMap* gm = new GraphicsMap();
     for(auto it = map->begin(); it != map->end(); ++it) {
         auto cell = *it;
-        Cell* p = new Cell(map, brush, cell.id);
+        coordenada_t coord = cell.id;
+        Cell* p = new Cell(map, brush, coord);
         p->setParentItem(gm);
         p->setAcceptHoverEvents(true);
         p->setPos(cell.id.first*30,cell.id.second*30);
@@ -36,8 +37,8 @@ void GameScene::set_active_texture(std::string& texture) {
     brush->change_brush(*found);
 }
 
-void GameScene::save() {
-    std::ofstream my_file("data.yaml");
+void GameScene::save(std::string& filename) {
+    std::ofstream my_file(filename);
     my_file << map->to_yaml();
     my_file.close();
 }
