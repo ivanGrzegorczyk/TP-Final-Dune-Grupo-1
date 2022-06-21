@@ -7,9 +7,10 @@
 #include "mapa_editor.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class MainWindow; class NewMap; }
 QT_END_NAMESPACE
 
+MapaEditor setup();
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -17,9 +18,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(std::shared_ptr<MapaEditor> map, QWidget *parent = nullptr);
     ~MainWindow();
+    void open_map(QMainWindow *parent);
 
 private:
     Ui::MainWindow *ui;
+    std::shared_ptr<MapaEditor> map;
     GameScene scene;
     void toggle_button(QPushButton *text);
     void place_building();

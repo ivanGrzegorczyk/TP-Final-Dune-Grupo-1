@@ -3,87 +3,182 @@
 
 #include <vector>
 #include <string>
+#include <algorithm>
 #include <iostream>
 #include "yaml-cpp/yaml.h"
-
 #include "celda_editor.h"
+#include "terrain.h"
+#define MIN_PLAYERS 1
+#define MIN_X 2
+#define MIN_Y 2
 
 typedef std::vector<std::vector<CeldaEditor>> matriz_t;
 typedef std::vector<CeldaEditor> fila_t;
 
 class MapaEditor {
     matriz_t mapa;
-    int filas; int columnas;
-    coordenada_t ubicacion_centro_construccion = {-1,-1};
+    int x; int y; int num_players;
+    std::vector<coordenada_t> construction_center_location;
+    std::vector<std::string> names = {"rock", "mountain", "sand"};
+    std::vector<std::shared_ptr<Terrain>> terrain_types; 
     public:
     MapaEditor(MapaEditor& other) = delete;
     MapaEditor& operator=(MapaEditor& other) = delete;
     MapaEditor(MapaEditor&& other) = default;
     MapaEditor& operator=(MapaEditor&& other) = default;
-    MapaEditor(int filas, int columnas) : filas(filas), columnas(columnas) {
-        std::string name("default"); //TODO centralize all terrains
+    MapaEditor(int x, int y, int num_players) : x(x), y(y), num_players(num_players) {
+        for(std::string name : names) { 
+            std::shared_ptr<Terrain> terr(new Terrain(name));
+            terrain_types.push_back(terr);
+        }
+        if(x < MIN_X || y < MIN_Y || num_players < MIN_PLAYERS)
+            throw std::invalid_argument("bad user input");
+        std::string name("rock"); //TODO centralize all terrains
         std::shared_ptr<Terrain> terr(new Terrain(name));
-        for(int i = 0; i < filas; i++) {
+        for(int i = 0; i < y; i++) {
             fila_t fila;
-            for(int j = 0; j < columnas; j++) {
-                CeldaEditor c({i, j}, terr);
+            for(int j = 0; j < x; j++) {
+                CeldaEditor c({j, i}, terr);
                 fila.push_back(c);
             }
             mapa.push_back(fila);
         }
     }
+    int width() const {
+        return x;
+    }
+    int height() const {
+        return y;
+    }
+    int get_num_players() const {
+        return num_players;
+    }
     const CeldaEditor& cell(coordenada_t coordinate) const {
+        if(!is_cell(coordinate)) {
+            throw std::invalid_argument("not a cell in the map\n");
+        }
         return mapa[coordinate.second][coordinate.first];
     }
-    void colocar_centro_construccion(coordenada_t& coordenada) {
-        // coordenada es valida
-        // TODO sistema de propiedades mejor, clase mapa
-        coordenada_t nula = {-1, -1};
-        if(ubicacion_centro_construccion != nula) {
-            mapa[ubicacion_centro_construccion.second][ubicacion_centro_construccion.first]
-                .propiedades.clear();
+    bool is_cell(coordenada_t coordinate) const {
+        return coordinate.first < x && coordinate.second < y;
+    }
+
+    bool is_buildable_cell(coordenada_t coordinate) const {
+        return is_cell(coordinate) 
+            && cell(coordinate).terrain->name() == "rock"
+            && !(is_in_construction_center(coordinate));
+    }
+
+    //TODO building class with this logic
+    /*
+        Gets all positions that would be occupied by the 
+        building if placed on the map,
+        with its top left corner at <position>.
+        Does not take into account if a position is invalid.
+        Ordered first by y/height and then by x/width.
+    */
+    std::vector<coordenada_t> get_positions(
+            const int x, const int y, const int size_x, const int size_y) const {
+        std::vector<coordenada_t> myvect;
+        for (char _y = 0; _y < size_y; _y++) {
+            for (char _x = 0; _x < size_x; _x++) {
+                int block_x = x + _x;
+                int block_y = y + _y;
+                coordenada_t _block({block_x,block_y});
+                myvect.push_back(_block);
+            }
         }
-        ubicacion_centro_construccion = coordenada;
-        mapa[coordenada.second][coordenada.first]
+        return myvect;
+    }
+    void colocar_centro_construccion(coordenada_t& coord) {
+        // TODO better property system
+        // TODO building class
+        if(construction_center_location.size() >= num_players) {
+            throw std::invalid_argument("cant place any more construction centers!");
+        }
+        // check if building fits and terrain works
+        std::vector<coordenada_t> occupied_cells = get_positions(coord.first, coord.second, 2,2);
+        for(coordenada_t cell : occupied_cells) {
+            if(!is_buildable_cell(cell)) {
+                std::string message("cant place that building!");
+                if(!is_cell(cell)) {
+                    message.append(" Not a cell.");
+                } else if(is_construction_center(cell)) {
+                    message.append(" There's a building already.");
+                } else {
+                    message.append(" Wrong terrain.");
+                }
+                throw std::invalid_argument(message);
+            }
+        }
+        
+        construction_center_location.push_back(coord);
+        mapa[coord.second][coord.first]
             .propiedades.emplace_back("centro_construccion");
     }
-    coordenada_t construction_center() {
-        return ubicacion_centro_construccion;
+    /*
+    For every construction center. do any of their cells intersect this one?
+    */
+    bool is_in_construction_center(coordenada_t coordinate) const {
+        for(coordenada_t l : construction_center_location) {
+            auto positions = get_positions(l.first, l.second, 2,2);
+            auto found = std::find(positions.begin(), positions.end(), coordinate);
+            if(found != positions.end()) {
+                return true;
+            }
+        }
+        return false;
     }
-    void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain) {
+    /*
+    True if it is the top left corner of a construction center.
+    */
+    bool is_construction_center(coordenada_t coordinate) const {
+        for(coordenada_t l : construction_center_location) {
+            if(l == coordinate) return true;
+        }
+        return false;
+    }
+    void place_terrain(std::vector<coordenada_t> celdas, std::shared_ptr<Terrain> terrain, unsigned int seed = -1) {
         for(coordenada_t celda : celdas) {
             mapa[celda.second][celda.first].terrain = terrain;
+            if(terrain->name() == "sand") {
+                mapa[celda.second][celda.first].set_seed_level(seed);
+            }
         }
     }
+
     std::string to_yaml() {
         YAML::Emitter out;
         out << YAML::BeginMap;
             out << YAML::Key << "name";
             out << YAML::Value << "My cool map";
             out << YAML::Key << "num_players";
-            out << YAML::Value << "12345"; // TODO set in ui
+            out << YAML::Value << num_players;
             out << YAML::Key << "map";
             out << YAML::Value 
                 << YAML::BeginMap
                 << YAML::Key << "rows"
-                << YAML::Value << std::to_string(filas)
+                << YAML::Value << std::to_string(y)
                 << YAML::Key << "columns"
-                << YAML::Value << std::to_string(columnas)
+                << YAML::Value << std::to_string(x)
                 << YAML::Key << "cells"
                 << YAML::Value  
                     << YAML::BeginSeq;
-        for(int i = 0; i < filas; i++) {
-            for(int j = 0; j < columnas; j++) {
+        for(int i = 0; i < x; i++) {
+            for(int j = 0; j < y; j++) {
                 std::string terrain(cell({i,j}).terrain->name());
+                unsigned int seed = cell({i,j}).seed_level();
                 out 
                     << YAML::BeginMap
                         << YAML::Key << "terrain"
                         << YAML::Value <<  terrain
+                        << YAML::Key << "seed"
+                        << YAML::Value <<  seed
                         << YAML::Key << "buildings"
                         << YAML::BeginSeq;
                         // building is always defined at its rightmost position
                         coordenada_t current({i,j});
-                        if(ubicacion_centro_construccion == current) {
+                        if(is_construction_center(current)) {
                             out << YAML::BeginMap
                                 << YAML::Key << "name"
                                 << YAML::Value << "Construction Center"
@@ -109,6 +204,45 @@ class MapaEditor {
         << YAML::EndMap;
         return std::string(out.c_str());
     }
+
+    // create from yaml, using first terrain type as default.
+    static MapaEditor* from_yaml(std::string path) {
+        YAML::Node read = YAML::LoadFile(path);
+        int num_players = read["num_players"].as<int>();
+        int y = read["map"]["rows"].as<int>();
+        int x = read["map"]["columns"].as<int>();
+        MapaEditor* map = new MapaEditor(x,y,num_players);
+        for(YAML::Node cell : read["map"]["cells"]) {
+            x = cell["pos"][0].as<int>();
+            y = cell["pos"][1].as<int>();
+            coordenada_t cell_pos = {x,y};
+            std::vector<coordenada_t> cells{cell_pos};
+            std::string terr = cell["terrain"].as<std::string>();
+
+            //todo: terrain objects handle / conceal seed
+            unsigned int seed = cell["seed"].as<unsigned int>();
+            std::shared_ptr<Terrain> terrain_ptr(new Terrain(terr)); //TODO dont create new terrain
+            map->place_terrain(cells, terrain_ptr, seed); //TODO centralized system
+
+            
+
+            for(YAML::Node building : cell["buildings"]) {
+                if(building["name"].as<std::string>() == "Construction Center") {
+                    std::cout 
+                        << "construction center!" 
+                        << std::to_string(x) 
+                        <<","
+                        << std::to_string(y)
+                        << std::endl;
+                    map->colocar_centro_construccion(cell_pos);
+                    break;
+                }
+            }
+        }
+        return map;
+    }
+
+    //iterator
     
     class MapIterator {
         const MapaEditor& _mapa;
@@ -116,7 +250,7 @@ class MapaEditor {
         public:
         int32_t num = 0;
         MapIterator(MapaEditor& mapa, int _num = 0) : 
-            _mapa(mapa), max(mapa.filas * mapa.columnas), num(_num) {}
+            _mapa(mapa), max(mapa.x * mapa.y), num(_num) {}
         MapIterator& operator++() {
             if (num < max) num++;
             return *this;
@@ -134,8 +268,9 @@ class MapaEditor {
             return !(*this == other);
         }
         const CeldaEditor& operator*() {
-            int y = int(num / _mapa.columnas);
-            int x = int(num % _mapa.columnas);
+            int x = int(num / _mapa.y);
+            int y = int(num % _mapa.y);
+            std::cout << "updating:" << std::to_string(x) << " " << std::to_string(y) << std::endl;
             coordenada_t coord = {x,y};
             return _mapa.cell(coord);
         }
@@ -150,7 +285,7 @@ class MapaEditor {
         return MapIterator(*this, 0);
     }
     MapIterator end() {
-        return MapIterator(*this, filas * columnas);
+        return MapIterator(*this, x * y);
     }
 };
 
