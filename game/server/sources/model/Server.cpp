@@ -1,12 +1,11 @@
 #include <unistd.h>
 #include <iostream>
 #include <thread>
-#include "../headers/Server.h"
+#include "server/headers/model/Server.h"
 #include "common/headers/Chronometer.h"
 
-Server::Server(const std::string &host, int rows, int columns) :
-    map(rows, columns), protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
-    // TODO las dimensiones del mapa están hardcodeadas en 50x50 por ahora
+Server::Server(const std::string &host) :
+protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
     map.initializeTerrain(terrain);
 }
 
@@ -15,14 +14,18 @@ void Server::run() {
     std::thread broadcastThread(&Server::broadCast, this);
     std::thread finishThread(&Server::finish, this);  // TODO Multiples partidas
 
-    do {
-        manageEvents();
-        usleep(10000000.0f/50.0f);  // TODO Poner el tiempo bien
-    } while (active_game);
+    gameLoop();
 
     acceptingThread.join();
     broadcastThread.join();
     finishThread.join();
+}
+
+void Server::gameLoop() {
+    while (active_game) {
+        manageEvents();
+        usleep(100000);
+    }
 }
 
 void Server::finish() {

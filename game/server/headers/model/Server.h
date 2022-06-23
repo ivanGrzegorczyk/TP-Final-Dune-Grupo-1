@@ -6,11 +6,11 @@
 #include <chrono>
 
 #include "ServerProtocol.h"
-#include "ServerMap.h"
-#include "../../common/headers/BlockingQueue.h"
-#include "../../common/headers/ProtectedQueue.h"
+#include "server/headers/map/ServerMap.h"
+#include "common/headers/BlockingQueue.h"
+#include "common/headers/ProtectedQueue.h"
 #include "ClientsMonitor.h"
-#include "events/ServerEvent.h"
+#include "server/headers/events/ServerEvent.h"
 
 class Server {
 private:
@@ -28,10 +28,11 @@ private:
     void broadCast();
     void acceptClients();
     void manageEvents();
+    void gameLoop();
 
 public:
 
-    Server(const std::string &host, int rows, int columns);
+    Server(const std::string &host);
     // Gameloop
     void run();
 
