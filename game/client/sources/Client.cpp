@@ -1,5 +1,4 @@
 #include <thread>
-#include <utility>
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"
 #include "../headers/CreateLightInfantry.h"
@@ -16,10 +15,10 @@ void Client::run() {
     this->clientId = protocol.receiveId();
     this->mapUi.receiveMap(protocol);
     this->mapUi.draw();
-    ReceiveThread receiveThread(this->recvQueue);
-    SendThread sendThread(this->sendQueue);
-    receiveThread.start();
-    sendThread.start();
+    std::thread threadReceive(&Client::receiveOfServer, this);
+    std::thread threadSend(&Client::sendToServer, this);
+    /*receiveThread.start();
+    sendThread.start();*/
 
     /*std::thread threadReceive(&Client::receiveOfServer, this);
     std::thread threadSend(&Client::sendToServer, this);*/
@@ -34,17 +33,19 @@ void Client::run() {
         auto delta = simDeltaTime(t1, t2);
         sleep(t1, t2, delta);
     }
-    receiveThread.close();
-    sendThread.close();
-    receiveThread.join();
-    sendThread.join();
-    /*threadReceive.join();
-    threadSend.join();*/
+   /* receiveThread.close();
+    sendThread.close();*/
+    /*receiveThread.join();
+    sendThread.join();*/
+    threadReceive.join();
+    threadSend.join();
 }
 
 void Client::ProcessInput() {
     Request *event = createEvent();
     if(event != nullptr) {
+        std::cout << "pusheo" << std::endl;
+
         sendQueue.push(event);
     }
 }
@@ -74,6 +75,7 @@ Request* Client::createEvent() {
                 y = event.button.y;
                 request = mapUi.moveCharacter(x / 16, y / 16, clientId);
                 req = request;
+                break;
             }
             if(event.button.button == SDL_BUTTON_LEFT) {
                 Request* r;
@@ -102,17 +104,22 @@ void Client::sendToServer() {
     while(running) {
         std::vector<uint16_t> data;
         Request *event = this->sendQueue.pop();
+        std::cout << "entroooo a pop" << std::endl;
+
         if (event != nullptr) {
+            std::cout << "data" << std::endl;
             data = event->getData();
             protocol.send(event->getCommand(), data);
         }
+        std::cout << "nulo" << std::endl;
+
     }
 }
 
 void Client::receiveOfServer() {
     while(running) {
-        //std::vector<response*> = protocol.recvResponse();
-        //this->recvQueue.push(response);
+        Response* response =  protocol.recvResponse();
+        this->recvQueue.push(response);
     }
 }
 

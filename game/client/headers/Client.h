@@ -19,7 +19,7 @@ private:
     std::atomic<bool> running;
     BlockingQueue<Request *> sendQueue;
     //cambiar a std::vector<Response*>
-    ProtectedQueue<Response *> recvQueue;
+    ProtectedQueue<Response*> recvQueue;
 
 
 public:

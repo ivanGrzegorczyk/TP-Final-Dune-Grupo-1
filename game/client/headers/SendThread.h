@@ -6,6 +6,7 @@
 #include "common/headers/Thread.h"
 #include "Response.h"
 #include "common/headers/BlockingQueue.h"
+#include "Request.h"
 
 class SendThread : public Thread {
 private:

@@ -3,8 +3,6 @@
 #include "SDL2pp/SDL2pp.hh"
 #include "CeldaUi.h"
 #include "Protocol.h"
-class Response;
-
 #include "common/headers/Building.h"
 #include "Character.h"
 #include <vector>
@@ -23,7 +21,7 @@ private:
     Texture ground;
     std::pair<coordenada_t, std::vector<uint8_t>> terrain;
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades
-    std::map<int, Character*> units;
+    std::map<int, std::map<int, Character*>> units;
     std::vector<CeldaUi> map;
 
 public:
@@ -40,6 +38,7 @@ public:
     void addRocks(coordenada_t coord, Rect destination);
     void addSand(coordenada_t coord, Rect destination);
 
+    void updateUnits(int player, int type, int characterId, coordenada_t coord);
 };
 
 

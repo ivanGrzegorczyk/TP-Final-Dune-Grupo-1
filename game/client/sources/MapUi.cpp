@@ -6,8 +6,10 @@ MapUi::MapUi(Renderer &renderer) : rdr(renderer), ground (renderer, Surface(DATA
 }
 
 void MapUi::update(Response *response) {
+    response->update(this , rdr);
     //for response in responses:
         //response->modify(this);
+
 }
 
 void MapUi::receiveMap(Protocol &protocol) {
@@ -33,7 +35,7 @@ void MapUi::draw() {
 }
 
 void MapUi::render() {
-    /*rdr.Clear();
+    rdr.Clear();
     for(auto& tile : map) {
         tile.render(rdr);
     }
@@ -42,24 +44,28 @@ void MapUi::render() {
            unit->render();
        }
     }
-    rdr.Present();*/
+    rdr.Present();
 }
 
 Request* MapUi::mouseEvent(int x, int y, int playerId) {
-  /*  for (auto const& [unitId, unit] : units[playerId]) {
+    for (auto const& [unitId, unit] : units[playerId]) {
         unit->reactToEvent(x, y);
     }
-    return nullptr;*/
+    return nullptr;
+    //return nullptr;
 }
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
-   /* Request *request;
-    for (auto const& unit : units) {
-        request = unit->walkEvent(x, y);
-        if (request != nullptr)
-            return request;
+    Request *request;
+
+    for(auto& [player, unitsPlayer]: units) {
+        for(auto& [type, unit]: unitsPlayer) {
+            request = unit->walkEvent(x, y);
+            if (request != nullptr)
+                return request; //retornar una array de request
+        }
     }
-    return nullptr;*/
+    return nullptr;
 }
 
 void MapUi::addRocks(coordenada_t coord, Rect destination) {
@@ -73,6 +79,20 @@ void MapUi::addSand(coordenada_t coord, Rect destination) {
    CeldaUi cell(&ground, coord, destination, sandRect);
    map.push_back(cell);
 
+}
+
+void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coord) {
+    std::cout << "entroooo" << std::endl;
+    if(units.find(player) != units.end()) {
+        if(units[player].find(characterId) != units[player].end()) {
+            units.at(player).at(characterId)->setPosition(coord);
+        } else {
+            units.at(player).insert(std::make_pair<int, Character*>
+                    (int{characterId}, new Character(rdr, characterId, coord, type)));
+        }
+    } else {
+        units[player].insert(std::make_pair<int, Character *>(int{characterId}, new Character(rdr, characterId, coord, type)));
+    }
 }
 
 MapUi::~MapUi() = default;
