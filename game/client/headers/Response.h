@@ -5,21 +5,23 @@
 #include <map>
 #include <memory>
 #include "../../common/headers/Constantes.h"
-#include "Character.h"
+#include "SDL2pp/Renderer.hh"
 class MapUi;
-
+#include "Event.h"
 
 class Response {
 protected:
-    std::map<int, std::vector<std::tuple<int, int, coordenada_t>>> units;
+    std::vector<Event*> events;
 
 public:
     Response() = default;
-    virtual void modify(MapUi &mapUi) = 0;
-    void add(int playerId, int type, int characterId, coordenada_t coord);
-    void update(std::map<int, Character*> &unitsInfo, Renderer &rdr);
-    void iterate(std::map<int, std::map<int, std::shared_ptr<Character>>> &unitsData,
-    std::vector<std::tuple<int, int, coordenada_t>>,Renderer &rdr, bool containsPlayer, int player);
+    void add(Event *event);
+    void update(MapUi *mapUi, SDL2pp::Renderer &renderer);
 };
 
 #endif //TP_FINAL_DUNE_GRUPO_1_RESPONSE_H
+
+/*
+response -> mapUi, event
+mapui -> response, protocol, request, celda
+event -> mapUi*/
