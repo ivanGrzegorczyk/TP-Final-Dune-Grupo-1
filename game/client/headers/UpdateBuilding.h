@@ -1,11 +1,12 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_UPDATEBUILDING_H
 #define TP_FINAL_DUNE_GRUPO_1_UPDATEBUILDING_H
 
-#include "Response.h"
+#include "Event.h"
+#include "MapUi.h"
 
-class UpdateBuilding : public Response {
+class UpdateBuilding : public Event {
 public:
-    void modify(MapUi &mapUi) override;
+    void modify(MapUi *mapUi) override;
 };
 
 
