@@ -55,13 +55,12 @@ void Protocol::createUnidadLigera(int id) {
     skt.sendall((&unityId), sizeof(unityId));
 }
 
-std::vector<Response*> Protocol::recvResponse() { //retorna un vector<Response*>
+Response* Protocol::recvResponse() {
     int offset = 0;
-    std::vector<Response*> responses;
+    auto* response = new Response();
     uint16_t lengthResponse;
     skt.recvall(&lengthResponse, sizeof(lengthResponse));
     lengthResponse = ntohs(lengthResponse);
-    //auto* response = new Response();
     uint16_t eventType;
     uint16_t idPlayer;
     uint16_t amount;
@@ -73,43 +72,22 @@ std::vector<Response*> Protocol::recvResponse() { //retorna un vector<Response*>
         int player = ntohs(idPlayer);
         int amountHost = ntohs(amount);
         for(int j = 0; j < amountHost; j++){
-            //new UpdateUnits();
-            //new updateVehicules()
-            //new UpdateBuilding()
-            //new atacar()
-            //new Disparar
-            //
-            //falta recibir que accion se quiere realizar
-            skt.recvall(&eventType, sizeof(eventType));
-            this->createResponse(eventType, player, responses);
-            /*skt.recvall(&type, sizeof(type));
-            skt.recvall(&entityId, sizeof(entityId));
-            skt.recvall(&posX, sizeof(posX));
-            skt.recvall(&posY, sizeof(posY));
-            int typeHost = ntohs(type);
-            int characterIdHost = ntohs(entityId);
-            int posxHost = ntohs(posX);
-            int posyHost = ntohs(posY);*/
-            //coordenada_t coord({posxHost * 2, posyHost * 2});
-           // response->add(player, typeHost, characterIdHost, coord);
+            uint16_t eventTypeHarcodeado = 80;
+            this->createResponse(eventTypeHarcodeado, player, response);
+
         }
         offset += (amountHost * 4) + 2;
     }
-    return responses;
+    return response;
 }
 
-//TODO
-//std::vector<Event*>
-//for response in responses:
-    //response.modify(map)
-    //metodo de arriba llama al metodo del mapa -> map.updateUnit(idPlayer, idUnit, coordX, coordY)
-//response -> tiene como atributo al vector de eventos
-//TODO
 void Protocol::send(int command, const std::vector<uint16_t>& vector) {
     uint16_t aux;
     uint8_t cmd = command;
     skt.sendall(&cmd, sizeof(cmd));
     for(uint16_t data : vector) {
+        std::cout << "data" << data << std::endl;
+
         aux = htons(data);
         skt.sendall(&aux, sizeof(aux));
     }
@@ -142,12 +120,13 @@ std::pair<coordenada_t, std::vector<uint8_t>> Protocol::receiveTerrain() {
     return terrain;
 }
 
-void Protocol::createResponse(uint16_t &eventType, int player, std::vector<Response *> &vector) {
+
+void Protocol::createResponse(uint16_t &eventType, int player, Response* response) {
     uint16_t type;
     uint16_t entityId;
     uint16_t posX;
     uint16_t posY;
-    Response *event;
+    Event *event;
     skt.recvall(&type, sizeof(type));
     skt.recvall(&entityId, sizeof(entityId));
     skt.recvall(&posX, sizeof(posX));
@@ -160,10 +139,10 @@ void Protocol::createResponse(uint16_t &eventType, int player, std::vector<Respo
     switch (eventType) {
         case UNIT:
            event = new UpdateUnit(player, typeHost, characterIdHost, coord);
-            break;
+           break;
         case BUILDING:
             event = new UpdateBuilding();
             break;
     }
-    vector.push_back(event);
+    response->add(event);
 }
