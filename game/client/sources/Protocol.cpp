@@ -76,11 +76,12 @@ Response* Protocol::recvResponse() {
         int player = ntohs(idPlayer);
         int amountHost = ntohs(amount);
         for(int j = 0; j < amountHost; j++){
-            uint16_t eventTypeHarcodeado = 80;
-            this->createResponse(eventTypeHarcodeado, player, response);
+            skt.recvall(&eventType, sizeof(eventType));
+            eventType = ntohs(eventType);
+            this->createResponse(eventType, player, response);
 
         }
-        offset += (amountHost * 4) + 2;
+        offset += (amountHost * 5) + 2;
     }
     return response;
 }
