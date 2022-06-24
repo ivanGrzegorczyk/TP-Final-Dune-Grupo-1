@@ -6,8 +6,14 @@
 typedef std::pair<int, int> coordenada_t;
 // CONSTANTES DESPUES VAN EN EL YAML
 
+//tipo de respuestas
+#define BUILDING 50
+#define VEHICLE 60
+#define ATTACK 70
+#define UNIT 80
+
 //units
-#define UNIT_LIGHT_INFANTRY 10  // cambiar a UNIT_LIGHT_INFANTRY
+#define UNIT_LIGHT_INFANTRY 10
 #define UNIT_HEAVY_INFANTRY 11
 #define UNIT_FREMEN 12
 #define UNIT_SARDAUKAR 13

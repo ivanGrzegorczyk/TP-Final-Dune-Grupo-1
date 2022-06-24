@@ -18,7 +18,8 @@ private:
     MapUi mapUi;
     std::atomic<bool> running;
     BlockingQueue<Request *> sendQueue;
-    ProtectedQueue<Response *> recvQueue;
+    //cambiar a std::vector<Response*>
+    ProtectedQueue<Response*> recvQueue;
 
 
 public:
