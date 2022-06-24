@@ -17,9 +17,12 @@ include_directories(${PROJECT_SOURCE_DIR}/game)
 # a partir de un archivo .ui
 # Los nombres de los headers generados se guardan en la variable pasada
 # como primer parámetro.
-qt5_wrap_ui(UIS_HEADERS
+qt5_wrap_ui(UIS_HEADERS_EDITOR
         game/editor/newmap.ui
         game/editor/mainwindow.ui
+)
+qt5_wrap_ui(UIS_HEADERS_CLIENT
+        game/client/mainwindow.ui
 )
 
 # Habilito el automoc para poder hacer autoconnect de señales
@@ -30,7 +33,7 @@ set(CMAKE_AUTORCC ON)
 message("Agregando '${PROJECT_BINARY_DIR}' como directorio de includes")
 include_directories(${PROJECT_BINARY_DIR})
 
-message("Headers generados: ${UIS_HEADERS}")
+message("Headers generados: ${UIS_HEADERS_EDITOR} ${UIS_HEADERS_CLIENT}")
 
 # ////////////////////////////////////////////////
 
@@ -72,12 +75,12 @@ FILE(GLOB SRC_CLIENT_FILES ${PROJECT_SOURCE_DIR}/game/client/sources/*.cpp)
 find_package (Threads)
 
 add_executable(Server ${HEADER_COMMON_FILES} ${SRC_COMMON_FILES} ${HEADER_SERVER_FILES} ${SRC_SERVER_FILES})
-add_executable(Editor ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES} ${UIS_HEADERS} game/assets/resources.qrc)
-add_executable(Client ${HEADER_COMMON_FILES} ${SRC_COMMON_FILES} ${HEADER_CLIENT_FILES} ${SRC_CLIENT_FILES})
+add_executable(Editor ${HEADER_EDITOR_FILES} ${SRC_EDITOR_FILES} ${UIS_HEADERS_EDITOR} game/assets/resources.qrc)
+add_executable(Client ${HEADER_COMMON_FILES} ${SRC_COMMON_FILES}  ${UIS_HEADERS_CLIENT} ${HEADER_CLIENT_FILES} ${SRC_CLIENT_FILES})
 
 target_link_libraries (Server Threads::Threads)
 target_link_libraries (Client Threads::Threads)
 
 target_link_libraries (Server ${YAML_CPP_LIBRARIES})
 target_link_libraries (Editor ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core ${YAML_CPP_LIBRARIES})
-target_link_libraries (Client ${SDL2PP_LIBRARIES})
+target_link_libraries (Client ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core)
