@@ -57,13 +57,11 @@ Request* MapUi::mouseEvent(int x, int y, int playerId) {
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
     Request *request;
-
-    for(auto& [player, unitsPlayer]: units) {
-        for(auto& [type, unit]: unitsPlayer) {
-            request = unit->walkEvent(x, y);
-            if (request != nullptr)
-                return request; //retornar una array de request
-        }
+    for (auto const& [unitId, unit] : units[playerId]) {
+        request = unit->walkEvent(x, y);
+        if (request != nullptr) {
+            return request;
+        } 
     }
     return nullptr;
 }
