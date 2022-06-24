@@ -15,7 +15,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow( QWidget *parent = nullptr);
     ~MainWindow();
-    std::string state;
+    std::string house_chosen;
+    void select_house(QPushButton *button);
 
 private:
     Ui::ClientMainWindow *ui;

@@ -37,7 +37,7 @@ public:
             usleep((1.0 / 30) - delta.count());
     }
 
-    Client(const std::string& hostname, const std::string& servicename, Renderer &rnd);
+    Client(const std::string& hostname, const std::string& servicename, Renderer &rnd, std::string house);
     void run();
 
     void sendToServer();

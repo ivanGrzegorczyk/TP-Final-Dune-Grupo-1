@@ -7,7 +7,7 @@
 
 using namespace SDL2pp;
 
-Client::Client(const std::string& hostname, const std::string&  servicename, Renderer &rnd) :
+Client::Client(const std::string& hostname, const std::string&  servicename, Renderer &rnd, std::string house) :
     protocol(hostname, servicename), mapUi(rnd),clientId(), running(true) {
 }
 

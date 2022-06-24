@@ -13,12 +13,8 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -32,22 +28,12 @@ public:
     QWidget *widget;
     QGraphicsView *view;
     QWidget *verticalLayoutWidget;
-    QVBoxLayout *create_box;
-    QLabel *label;
-    QLabel *label_2;
-    QHBoxLayout *map_size;
-    QSpinBox *x;
-    QSpinBox *y;
-    QLabel *label_3;
-    QSpinBox *num_players;
-    QPushButton *create_button;
-    QWidget *verticalLayoutWidget_2;
-    QVBoxLayout *open_box;
-    QLabel *label_4;
-    QLabel *label_5;
-    QLineEdit *filename;
-    QSpacerItem *verticalSpacer;
-    QPushButton *open_button;
+    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *house_button_1;
+    QPushButton *house_button_2;
+    QPushButton *house_button_3;
+    QPushButton *start_button;
 
     void setupUi(QMainWindow *ClientMainWindow)
     {
@@ -67,79 +53,34 @@ public:
         view->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         verticalLayoutWidget = new QWidget(widget);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(190, 110, 126, 230));
-        create_box = new QVBoxLayout(verticalLayoutWidget);
-        create_box->setObjectName(QString::fromUtf8("create_box"));
-        create_box->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(verticalLayoutWidget);
-        label->setObjectName(QString::fromUtf8("label"));
+        verticalLayoutWidget->setGeometry(QRect(130, 110, 342, 80));
+        verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        house_button_1 = new QPushButton(verticalLayoutWidget);
+        house_button_1->setObjectName(QString::fromUtf8("house_button_1"));
 
-        create_box->addWidget(label);
+        horizontalLayout->addWidget(house_button_1);
 
-        label_2 = new QLabel(verticalLayoutWidget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
+        house_button_2 = new QPushButton(verticalLayoutWidget);
+        house_button_2->setObjectName(QString::fromUtf8("house_button_2"));
 
-        create_box->addWidget(label_2);
+        horizontalLayout->addWidget(house_button_2);
 
-        map_size = new QHBoxLayout();
-        map_size->setObjectName(QString::fromUtf8("map_size"));
-        x = new QSpinBox(verticalLayoutWidget);
-        x->setObjectName(QString::fromUtf8("x"));
+        house_button_3 = new QPushButton(verticalLayoutWidget);
+        house_button_3->setObjectName(QString::fromUtf8("house_button_3"));
 
-        map_size->addWidget(x);
-
-        y = new QSpinBox(verticalLayoutWidget);
-        y->setObjectName(QString::fromUtf8("y"));
-
-        map_size->addWidget(y);
+        horizontalLayout->addWidget(house_button_3);
 
 
-        create_box->addLayout(map_size);
+        verticalLayout_2->addLayout(horizontalLayout);
 
-        label_3 = new QLabel(verticalLayoutWidget);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
+        start_button = new QPushButton(verticalLayoutWidget);
+        start_button->setObjectName(QString::fromUtf8("start_button"));
 
-        create_box->addWidget(label_3);
-
-        num_players = new QSpinBox(verticalLayoutWidget);
-        num_players->setObjectName(QString::fromUtf8("num_players"));
-
-        create_box->addWidget(num_players);
-
-        create_button = new QPushButton(verticalLayoutWidget);
-        create_button->setObjectName(QString::fromUtf8("create_button"));
-
-        create_box->addWidget(create_button);
-
-        verticalLayoutWidget_2 = new QWidget(widget);
-        verticalLayoutWidget_2->setObjectName(QString::fromUtf8("verticalLayoutWidget_2"));
-        verticalLayoutWidget_2->setGeometry(QRect(410, 109, 127, 231));
-        open_box = new QVBoxLayout(verticalLayoutWidget_2);
-        open_box->setObjectName(QString::fromUtf8("open_box"));
-        open_box->setContentsMargins(0, 0, 0, 0);
-        label_4 = new QLabel(verticalLayoutWidget_2);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-
-        open_box->addWidget(label_4);
-
-        label_5 = new QLabel(verticalLayoutWidget_2);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
-
-        open_box->addWidget(label_5);
-
-        filename = new QLineEdit(verticalLayoutWidget_2);
-        filename->setObjectName(QString::fromUtf8("filename"));
-
-        open_box->addWidget(filename);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        open_box->addItem(verticalSpacer);
-
-        open_button = new QPushButton(verticalLayoutWidget_2);
-        open_button->setObjectName(QString::fromUtf8("open_button"));
-
-        open_box->addWidget(open_button);
+        verticalLayout_2->addWidget(start_button);
 
 
         verticalLayout->addWidget(widget);
@@ -154,13 +95,10 @@ public:
     void retranslateUi(QMainWindow *ClientMainWindow)
     {
         ClientMainWindow->setWindowTitle(QCoreApplication::translate("ClientMainWindow", "New Map", nullptr));
-        label->setText(QCoreApplication::translate("ClientMainWindow", "create new map", nullptr));
-        label_2->setText(QCoreApplication::translate("ClientMainWindow", "map size", nullptr));
-        label_3->setText(QCoreApplication::translate("ClientMainWindow", "number of players", nullptr));
-        create_button->setText(QCoreApplication::translate("ClientMainWindow", "Create", nullptr));
-        label_4->setText(QCoreApplication::translate("ClientMainWindow", "open existing map", nullptr));
-        label_5->setText(QCoreApplication::translate("ClientMainWindow", "enter filename:", nullptr));
-        open_button->setText(QCoreApplication::translate("ClientMainWindow", "Open", nullptr));
+        house_button_1->setText(QCoreApplication::translate("ClientMainWindow", "1", nullptr));
+        house_button_2->setText(QCoreApplication::translate("ClientMainWindow", "2", nullptr));
+        house_button_3->setText(QCoreApplication::translate("ClientMainWindow", "3", nullptr));
+        start_button->setText(QCoreApplication::translate("ClientMainWindow", "Start Game", nullptr));
     } // retranslateUi
 
 };
