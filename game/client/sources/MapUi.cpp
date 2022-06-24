@@ -6,7 +6,10 @@ MapUi::MapUi(Renderer &renderer) : rdr(renderer), ground (renderer, Surface(DATA
 }
 
 void MapUi::update(Response *response) {
-    response->update(this->units, rdr);
+    response->update(this , rdr);
+    //for response in responses:
+        //response->modify(this);
+
 }
 
 void MapUi::receiveMap(Protocol &protocol) {
@@ -33,8 +36,6 @@ void MapUi::draw() {
 
 void MapUi::render() {
     rdr.Clear();
-    Rect r(100, 220, 8, 8);
-    rdr.Copy(ground, r, Rect(1500 , 1500 , 8, 8));
     for(auto& tile : map) {
         tile.render(rdr);
     }
@@ -51,6 +52,7 @@ Request* MapUi::mouseEvent(int x, int y, int playerId) {
         unit->reactToEvent(x, y);
     }
     return nullptr;
+    //return nullptr;
 }
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
@@ -75,6 +77,20 @@ void MapUi::addSand(coordenada_t coord, Rect destination) {
    CeldaUi cell(&ground, coord, destination, sandRect);
    map.push_back(cell);
 
+}
+
+void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coord) {
+    std::cout << "entroooo" << std::endl;
+    if(units.find(player) != units.end()) {
+        if(units[player].find(characterId) != units[player].end()) {
+            units.at(player).at(characterId)->setPosition(coord);
+        } else {
+            units.at(player).insert(std::make_pair<int, Character*>
+                    (int{characterId}, new Character(rdr, characterId, coord, type)));
+        }
+    } else {
+        units[player].insert(std::make_pair<int, Character *>(int{characterId}, new Character(rdr, characterId, coord, type)));
+    }
 }
 
 MapUi::~MapUi() = default;

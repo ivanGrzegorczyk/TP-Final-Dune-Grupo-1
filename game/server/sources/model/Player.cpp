@@ -46,6 +46,8 @@ void Player::updateUnitsPosition() {
 void Player::addUnitData(std::vector<uint16_t> &snapshot) {
     snapshot.push_back(units.size());  // Cantidad de unidades para este jugador
     for (auto const& [unitId, unit] : units) {
+        uint16_t eventType = UNIT;
+        snapshot.push_back(eventType);
         snapshot.push_back((uint16_t) unit->getType());  // Tipo de unidad
         snapshot.push_back((uint16_t) unitId);  // Id de la unidad
         snapshot.push_back(
@@ -56,8 +58,8 @@ void Player::addUnitData(std::vector<uint16_t> &snapshot) {
 }
 
 void Player::addBuildingData(std::vector<uint16_t> &snapshot) {
-    snapshot.push_back(
-            buildings.size());  // Cantidad de edificios para este jugador
+    snapshot.push_back(buildings.size());  // Cantidad de edificios para este jugador
+    snapshot.push_back(BUILDING);
     for (auto const& [buildingId, building] : buildings) {
         snapshot.push_back((uint16_t) building->getType());  // Tipo de unidad
         snapshot.push_back((uint16_t) buildingId);  // Id de la unidad
