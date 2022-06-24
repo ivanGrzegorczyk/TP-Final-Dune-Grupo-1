@@ -22,7 +22,7 @@ qt5_wrap_ui(UIS_HEADERS_EDITOR
         game/editor/mainwindow.ui
 )
 qt5_wrap_ui(UIS_HEADERS_CLIENT
-        game/client/mainwindow.ui
+        game/client/clientmainwindow.ui
 )
 
 # Habilito el automoc para poder hacer autoconnect de señales

@@ -1,7 +1,7 @@
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"
 #include "../../game/client/headers/MainWindowLobby.h"
-#include "ui_mainwindow.h"
+#include "ui_clientmainwindow.h"
 #include <QApplication>
 
 using namespace  SDL2pp;

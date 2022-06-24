@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>NewMap</class>
+ <widget class="QMainWindow" name="ClientMainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>New Map</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -23,7 +23,7 @@
       <widget class="QGraphicsView" name="view">
        <property name="geometry">
         <rect>
-         <x>-20</x>
+         <x>-10</x>
          <y>0</y>
          <width>782</width>
          <height>566</height>
@@ -36,54 +36,82 @@
       <widget class="QWidget" name="verticalLayoutWidget">
        <property name="geometry">
         <rect>
-         <x>523</x>
-         <y>10</y>
-         <width>171</width>
-         <height>371</height>
+         <x>190</x>
+         <y>110</y>
+         <width>126</width>
+         <height>230</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="button_container">
+       <layout class="QVBoxLayout" name="create_box">
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Tools</string>
+           <string>create new map</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="edit_button_3">
+         <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Rock</string>
+           <string>map size</string>
           </property>
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QHBoxLayout" name="map_size">
           <item>
-           <widget class="QPushButton" name="edit_button_2">
-            <property name="text">
-             <string>Sand</string>
-            </property>
-           </widget>
+           <widget class="QSpinBox" name="x"/>
           </item>
           <item>
-           <widget class="QSpinBox" name="spinBox"/>
+           <widget class="QSpinBox" name="y"/>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="edit_button_1">
+         <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>Mountain</string>
+           <string>number of players</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="building_button">
+         <widget class="QSpinBox" name="num_players"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="create_button">
           <property name="text">
-           <string>Construction center</string>
+           <string>Create</string>
           </property>
          </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="verticalLayoutWidget_2">
+       <property name="geometry">
+        <rect>
+         <x>410</x>
+         <y>109</y>
+         <width>127</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="open_box">
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>open existing map</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>enter filename:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="filename"/>
         </item>
         <item>
          <spacer name="verticalSpacer">
@@ -99,19 +127,9 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="label_2">
+         <widget class="QPushButton" name="open_button">
           <property name="text">
-           <string>Save as</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="filename"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="save_button">
-          <property name="text">
-           <string>Save</string>
+           <string>Open</string>
           </property>
          </widget>
         </item>
