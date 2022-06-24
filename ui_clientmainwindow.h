@@ -24,7 +24,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_NewMap
+class Ui_ClientMainWindow
 {
 public:
     QWidget *centralwidget;
@@ -153,20 +153,20 @@ public:
 
     void retranslateUi(QMainWindow *ClientMainWindow)
     {
-        ClientMainWindow->setWindowTitle(QCoreApplication::translate("NewMap", "New Map", nullptr));
-        label->setText(QCoreApplication::translate("NewMap", "create new map", nullptr));
-        label_2->setText(QCoreApplication::translate("NewMap", "map size", nullptr));
-        label_3->setText(QCoreApplication::translate("NewMap", "number of players", nullptr));
-        create_button->setText(QCoreApplication::translate("NewMap", "Create", nullptr));
-        label_4->setText(QCoreApplication::translate("NewMap", "open existing map", nullptr));
-        label_5->setText(QCoreApplication::translate("NewMap", "enter filename:", nullptr));
-        open_button->setText(QCoreApplication::translate("NewMap", "Open", nullptr));
+        ClientMainWindow->setWindowTitle(QCoreApplication::translate("ClientMainWindow", "New Map", nullptr));
+        label->setText(QCoreApplication::translate("ClientMainWindow", "create new map", nullptr));
+        label_2->setText(QCoreApplication::translate("ClientMainWindow", "map size", nullptr));
+        label_3->setText(QCoreApplication::translate("ClientMainWindow", "number of players", nullptr));
+        create_button->setText(QCoreApplication::translate("ClientMainWindow", "Create", nullptr));
+        label_4->setText(QCoreApplication::translate("ClientMainWindow", "open existing map", nullptr));
+        label_5->setText(QCoreApplication::translate("ClientMainWindow", "enter filename:", nullptr));
+        open_button->setText(QCoreApplication::translate("ClientMainWindow", "Open", nullptr));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class NewMap: public Ui_NewMap {};
+    class ClientMainWindow: public Ui_ClientMainWindow {};
 } // namespace Ui
 
 QT_END_NAMESPACE

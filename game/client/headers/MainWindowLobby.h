@@ -5,7 +5,7 @@
 #include <memory>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class ClientMainWindow; }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -17,6 +17,6 @@ public:
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::ClientMainWindow *ui;
 };
 #endif // MAINWINDOW_H

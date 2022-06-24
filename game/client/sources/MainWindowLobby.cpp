@@ -2,13 +2,14 @@
 
 #include "../../game/client/headers/MainWindowLobby.h"
 #include <QString>
-#include "ui_mainwindow.h"
-#include "ui_newmap.h"
+#include "ui_clientmainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), 
-    ui(new Ui::MainWindow) //Todo dont create shared pointer
-{}
+    ui(new Ui::ClientMainWindow) //Todo dont create shared pointer
+{
+    ui->setupUi(this);
+}
 
 MainWindow::~MainWindow()
 {
