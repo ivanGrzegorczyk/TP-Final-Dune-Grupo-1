@@ -19,11 +19,17 @@ int main(int argc, char* argv[]) {
     if (app.exec()) {
         throw std::runtime_error("La aplicación QT finalizó de forma incorrecta");
     }
+
+    if(ui_window.state == "goodbwye") {
+        SDL sdl(SDL_INIT_VIDEO);
+        Window window("Client", SDL_WINDOWPOS_UNDEFINED,
+                    SDL_WINDOWPOS_UNDEFINED,640, 480, SDL_WINDOW_RESIZABLE);
+        Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
+        Client client(argv[1], argv[2], render);
+        client.run();
+    } else {
+        std::cout << "Oh no!" << std::endl;
+    }
     
-    SDL sdl(SDL_INIT_VIDEO);
-    Window window("Client", SDL_WINDOWPOS_UNDEFINED,
-                  SDL_WINDOWPOS_UNDEFINED,640, 480, SDL_WINDOW_RESIZABLE);
-    Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
-    Client client(argv[1], argv[2], render);
-    client.run();
+    
 }

@@ -6,9 +6,11 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), 
-    ui(new Ui::ClientMainWindow) //Todo dont create shared pointer
+    ui(new Ui::ClientMainWindow),
+    state("hewwo")
 {
     ui->setupUi(this);
+    state = "goodbwye";
 }
 
 MainWindow::~MainWindow()
