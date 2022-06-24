@@ -45,8 +45,9 @@ void Player::updateUnitsPosition() {
 
 void Player::addUnitData(std::vector<uint16_t> &snapshot) {
     snapshot.push_back(units.size());  // Cantidad de unidades para este jugador
-    snapshot.push_back(UNIT);
     for (auto const& [unitId, unit] : units) {
+        uint16_t eventType = UNIT;
+        snapshot.push_back(eventType);
         snapshot.push_back((uint16_t) unit->getType());  // Tipo de unidad
         snapshot.push_back((uint16_t) unitId);  // Id de la unidad
         snapshot.push_back(
