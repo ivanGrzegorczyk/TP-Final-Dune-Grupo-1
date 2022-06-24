@@ -13,7 +13,7 @@ typedef std::pair<int, int> coordenada_t;
 #define UNIT 80
 
 //units
-#define UNIT_LIGHT_INFANTRY 10  // cambiar a UNIT_LIGHT_INFANTRY
+#define UNIT_LIGHT_INFANTRY 10
 #define UNIT_HEAVY_INFANTRY 11
 #define UNIT_FREMEN 12
 #define UNIT_SARDAUKAR 13
@@ -46,6 +46,12 @@ typedef std::pair<int, int> coordenada_t;
 #define LIGHT_INFANTRY_RANGE 3
 #define LIGHT_INFANTRY_SPEED 16
 #define LIGHT_INFANTRY_HP 50
+
+//harvester data
+#define HARVESTER_RANGE 0
+#define HARVESTER_SPEED 12
+#define HARVESTER_COST 300
+#define HARVESTER_HP 600
 
 //barracks data
 #define BARRACKS_ENERGY 100
