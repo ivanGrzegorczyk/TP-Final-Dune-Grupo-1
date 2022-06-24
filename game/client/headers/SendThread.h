@@ -5,15 +5,17 @@
 #include <atomic>
 #include "common/headers/Thread.h"
 #include "Response.h"
-#include "common/headers/BlockingQueue.h"
 #include "Request.h"
+#include "Protocol.h"
+#include "common/headers/BlockingQueue.h"
 
 class SendThread : public Thread {
 private:
     std::atomic<bool> running;
-    BlockingQueue<Request *> &queue;
+    BlockingQueue<Request*> &queue;
+    Protocol &protocol;
 public:
-    explicit SendThread(BlockingQueue<Request *> &queue);
+    explicit SendThread(BlockingQueue<Request *> &queue, Protocol &protocol);
     void run() override;
     void close();
 };

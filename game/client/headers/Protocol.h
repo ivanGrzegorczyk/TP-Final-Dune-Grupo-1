@@ -34,6 +34,8 @@ public:
     std::pair<coordenada_t, std::vector<uint8_t>> receiveTerrain();
 
     void createResponse(uint16_t &eventType, int player, Response *response);
+
+    void shutdown();
 };
 
 

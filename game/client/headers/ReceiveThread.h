@@ -5,18 +5,20 @@
 #include <atomic>
 #include "common/headers/Thread.h"
 #include "Response.h"
-#include "common/headers/ProtectedQueue.h"
+#include "Protocol.h"
+
 
 class ReceiveThread : public Thread {
 private:
     std::atomic<bool> running;
     ProtectedQueue<Response *>  &queue;
+    Protocol &protocol;
 public:
     void run() override;
 
     void close();
 
-    explicit ReceiveThread(ProtectedQueue<Response *> &queue);
+    explicit ReceiveThread(ProtectedQueue<Response *> &queue, Protocol &protocol);
 };
 
 

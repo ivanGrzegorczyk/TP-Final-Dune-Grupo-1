@@ -2,16 +2,15 @@
 
 void ReceiveThread::run() {
     while(running) {
-        //Response *response = protocol.recvResponse();
-        //this->recvQueue.push(response);
+        Response* response =  protocol.recvResponse();
+        this->queue.push(response);
     }
 }
 
 void ReceiveThread::close() {
     running = false;
-    //shutdown
 }
 
-ReceiveThread::ReceiveThread(ProtectedQueue<Response *> &queue): queue(queue), running(true){
+ReceiveThread::ReceiveThread(ProtectedQueue<Response *> &queue, Protocol &protocol): queue(queue), protocol(protocol),running(true){
 
 }

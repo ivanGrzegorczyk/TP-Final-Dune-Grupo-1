@@ -15,6 +15,10 @@ int Protocol::receiveId() {
     return idHost;
 }
 
+void Protocol::shutdown() {
+    skt.shutdown(SHUT_RDWR);
+    skt.close();
+}
 int Protocol::commandReceive() {
     uint8_t command;
     skt.recvall(&command, sizeof(command));

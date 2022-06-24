@@ -3,16 +3,22 @@
 
 void SendThread::run() {
     while(running) {
-        //Response *response = protocol.recvResponse();
-        //this->recvQueue.push(response);
+        std::vector<uint16_t> data;
+        Request *event = this->queue.pop();
+
+        if (event != nullptr) {
+            std::cout << "data" << std::endl;
+            data = event->getData();
+            protocol.send(event->getCommand(), data);
+        }
     }
 }
 
 void SendThread::close() {
+    queue.stop();
     running = false;
-    //shutdown
 }
 
-SendThread::SendThread(BlockingQueue<Request *> &queue): queue(queue) {
+SendThread::SendThread(BlockingQueue<Request*> &queue, Protocol &protocol): running(true),queue(queue), protocol(protocol) {
 
 }
