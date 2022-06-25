@@ -5,7 +5,14 @@
 #include "MapUi.h"
 
 class UpdateBuilding : public Event {
+private:
+    int player;
+    int type;
+    int buildingId;
+    coordenada_t coord;
 public:
+public:
+    UpdateBuilding(int player, int type, int buildingId, coordenada_t coord);
     void modify(MapUi *mapUi) override;
 };
 

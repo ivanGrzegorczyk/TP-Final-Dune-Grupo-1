@@ -15,6 +15,9 @@ public:
     int getType() const;
     coordenada_t getPosition();
     Entity(int id, int HP, int type, coordenada_t coord);
+
+    Entity();
+
     virtual ~Entity() = default;
 };
 

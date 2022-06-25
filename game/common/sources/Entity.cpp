@@ -11,3 +11,5 @@ int Entity::getType() const {
 coordenada_t Entity::getPosition() {
     return coord;
 }
+
+Entity::Entity() {}

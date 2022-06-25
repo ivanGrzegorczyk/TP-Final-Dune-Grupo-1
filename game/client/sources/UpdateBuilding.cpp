@@ -1,6 +1,11 @@
 #include "client/headers/UpdateBuilding.h"
 
+#include <utility>
+
 void UpdateBuilding::modify(MapUi *mapUi) {
-    mapUi->mouseEvent(2, 2, 6);
-    //llama a un metodo de mapUi para modificar el vector de edificios de este
+    mapUi->updateBuilding(player, type, buildingId, coord);
+}
+
+UpdateBuilding::UpdateBuilding(int player, int type, int buildingId, coordenada_t coord) :
+    player(player),type(type), buildingId(buildingId), coord(std::move(coord)) {
 }
