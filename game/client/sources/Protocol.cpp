@@ -127,3 +127,8 @@ std::pair<coordenada_t, std::vector<uint8_t>> Protocol::receiveTerrain() {
 }
 
 
+
+void Protocol::close() {
+    this->skt.shutdown(SHUT_RDWR);
+    this->skt.close();
+}

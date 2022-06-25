@@ -32,6 +32,7 @@ public:
     void send(int command, const std::vector<uint16_t>& vector);
 
     std::pair<coordenada_t, std::vector<uint8_t>> receiveTerrain();
+    void close();
 };
 
 

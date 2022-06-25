@@ -33,6 +33,7 @@ private:
 public:
 
     Server(const std::string &host);
+    ~Server();
     // Gameloop
     void run();
 
