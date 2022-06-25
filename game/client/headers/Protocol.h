@@ -36,6 +36,7 @@ public:
     void createResponse(uint16_t &eventType, int player, Response *response);
 
     void shutdown();
+    void close();
 };
 
 

@@ -5,6 +5,7 @@
 #include <queue>
 #include <condition_variable>
 #include <atomic>
+#include <exception>
 
 template<class T>
 class BlockingQueue {
@@ -26,7 +27,7 @@ public:
         std::unique_lock<std::mutex> uniqueLock(mutex);
         while (data.empty()) {
             if (closed)
-                return {};
+                throw std::runtime_error("cierro queue");
             conditionVariable.wait(uniqueLock);
         }
 

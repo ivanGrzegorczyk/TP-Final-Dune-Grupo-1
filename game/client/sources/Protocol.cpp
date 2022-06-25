@@ -151,3 +151,8 @@ void Protocol::createResponse(uint16_t &eventType, int player, Response* respons
     }
     response->add(event);
 }
+
+void Protocol::close() {
+    this->skt.shutdown(SHUT_RDWR);
+    this->skt.close();
+}
