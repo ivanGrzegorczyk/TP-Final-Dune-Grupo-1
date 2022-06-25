@@ -50,7 +50,7 @@ void MapUi::render() {
     // render gui
     Texture* texture = nullptr;
     Rect zero;
-    Rect target(200,0,200,500);
+    Rect target(400,0,100,200);
     GUI gui(target);
     gui.render(rdr);
 
