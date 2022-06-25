@@ -76,7 +76,7 @@ Request* Client::createEvent() {
                 int x, y;
                 x = event.button.x;
                 y = event.button.y;
-                request = mapUi.moveCharacter(x / 16, y / 16, clientId);
+                request = mapUi.clickScreen(x,y,this->clientId);
                 req = request;
                 break;
             }

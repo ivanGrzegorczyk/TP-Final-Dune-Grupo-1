@@ -3,6 +3,14 @@
 GUI::GUI(Rect area) : area(area){
 }
 
+bool GUI::isOverPoint(int x, int y) {
+    return area.Contains(x,y);
+}
+
+void GUI::clickOver(int x, int y) {
+    std::cout << "clicked on the menu" << std::endl;
+}
+
 void GUI::render(Renderer &rdr) {
     int menu_rows = 4;
     int menu_columns = 2;
@@ -20,5 +28,5 @@ void GUI::render(Renderer &rdr) {
     }
     rdr.SetDrawColor(255,0,0,255);
     std::vector<std::string> buildings = {"Bil1", "Bil2", "bil3"};
-    //rdr.DrawRect(area);
+    rdr.DrawRect(area);
 }

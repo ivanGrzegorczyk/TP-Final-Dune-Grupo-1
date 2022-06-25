@@ -11,6 +11,8 @@ private:
 public:
     GUI(Rect area);
     void render(Renderer &render);
+    bool isOverPoint(int x, int y);
+    void clickOver(int x, int y);
 };
 
 

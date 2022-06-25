@@ -53,16 +53,26 @@ void MapUi::render() {
     Texture* texture = nullptr;
     Rect zero;
     gui.render(rdr);
-
     rdr.Present();
 }
 
+// TODO: replace with less generic name, use inside clickScreen
 Request* MapUi::mouseEvent(int x, int y, int playerId) {
     for (auto const& [unitId, unit] : units[playerId]) {
         unit->reactToEvent(x, y);
     }
     return nullptr;
     //return nullptr;
+}
+
+// todo take type of click as input or specify it in function name
+Request* MapUi::clickScreen(int x, int y, int playerId) {
+    if(gui.isOverPoint(x,y)) {
+        gui.clickOver(x,y);
+        return nullptr;
+    }
+    //TODO make proper math to translate click coordinate to map coordinate
+    return this->moveCharacter(x/16,y/16,playerId);
 }
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {

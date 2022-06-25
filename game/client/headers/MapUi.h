@@ -35,6 +35,7 @@ public:
     void receiveMap(Protocol &protocol);
     void render();
 
+    Request* clickScreen(int x, int y, int playerId);
     Request* moveCharacter(int x, int y, int playerId);
 
     void addRocks(coordenada_t coord, Rect destination);
