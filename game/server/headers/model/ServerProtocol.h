@@ -4,6 +4,7 @@
 #include <utility>
 #include <string>
 #include <vector>
+#include <atomic>
 
 #include "common/headers/Socket.h"
 #include "common/headers/Entity.h"
@@ -12,7 +13,7 @@
 class ServerProtocol {
 private:
     Socket socket;
-    bool socket_closed;
+    std::atomic<bool> socket_closed;
 
 public:
     explicit ServerProtocol(const std::string& host);

@@ -3,17 +3,20 @@
 
 #include "SDL2pp/SDL2pp.hh"
 #include "common/headers/Building.h"
+#include "client/headers/SdlEntity.h"
 
 using namespace SDL2pp;
-class BarracksUi : public Building {
+
+class BarracksUi : public Building, public SdlEntity{
 private:
     Texture texture;
     Rect location;
     Renderer &renderer;
 public:
     explicit BarracksUi(coordenada_t coord, int id ,Renderer &rdr);
-    void render();
-    void update();
+    void render() override;
+    void update() override;
+
 };
 
 

@@ -5,8 +5,8 @@ class Chronometer {
 public:
     Chronometer();
     ~Chronometer() = default;
-
-    uint64_t now();
+    void tick();
+    uint64_t tack();
 private:
     std::chrono::time_point<std::chrono::system_clock> start;
 };

@@ -89,8 +89,8 @@ Socket::Socket(int skt) {
 
 Socket::~Socket() {
     if (not this->closed) {
-        ::shutdown(this->skt, 2);
         ::close(this->skt);
+        this->closed = true;
     }
 }
 int Socket::recvsome(void *data, unsigned int sz) {

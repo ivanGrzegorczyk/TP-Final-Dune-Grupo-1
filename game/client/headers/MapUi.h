@@ -4,7 +4,9 @@
 #include "CeldaUi.h"
 #include "Protocol.h"
 #include "common/headers/Building.h"
+#include "client/headers/gui/gui.h"
 #include "Character.h"
+#include "SdlEntity.h"
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -20,9 +22,10 @@ private:
     Renderer& rdr;
     Texture ground;
     Texture harvester;
+    GUI gui;
     std::pair<coordenada_t, std::vector<uint8_t>> terrain;
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades
-    std::map<int, std::map<int, Building*>> buildings;
+    std::map<int, std::map<int, SdlEntity*>> buildings;
     std::map<int, std::map<int, Character*>> units;
     std::vector<CeldaUi> map;
 
@@ -35,6 +38,7 @@ public:
     void receiveMap(Protocol &protocol);
     void render();
 
+    Request* clickScreen(int x, int y, int playerId);
     Request* moveCharacter(int x, int y, int playerId);
 
     void addRocks(coordenada_t coord, Rect destination);

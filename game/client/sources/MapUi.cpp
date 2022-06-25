@@ -1,8 +1,12 @@
 #include "../headers/MapUi.h"
 #include "client/headers/BuildingFactory.h"
 
-MapUi::MapUi(Renderer &renderer) : rdr(renderer), ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
-                                   harvester(Texture(renderer, Surface(DATA_PATH "/harvester.png"))){
+
+MapUi::MapUi(Renderer &renderer) : 
+    rdr(renderer), 
+    ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
+    harvester(Texture(renderer, Surface(DATA_PATH "/harvester.png"))),
+    gui(Rect(400,0,100,200)){
     dst.SetX(0) = dst.SetY(0);
     dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
 }
@@ -35,22 +39,46 @@ void MapUi::draw() {
 
 void MapUi::render() {
     rdr.Clear();
+    // render tiles
     for(auto& tile : map) {
         tile.render(rdr);
     }
+    // render units
     for(auto const& [playerId, unitsMap] : units) {
        for(auto const& [unitId, unit]: unitsMap) {
            unit->render();
        }
     }
+
+    for(auto const& [playerId, building] : buildings) {
+        for(auto  [buildingId, b]: building) {
+            b->render();
+        }
+    }
+
+    // render gui
+    Texture* texture = nullptr;
+    Rect zero;
+    gui.render(rdr);
     rdr.Present();
 }
 
+// TODO: replace with less generic name, use inside clickScreen
 Request* MapUi::mouseEvent(int x, int y, int playerId) {
     for (auto const& [unitId, unit] : units[playerId]) {
         unit->reactToEvent(x, y);
     }
     return nullptr;
+}
+
+// todo take type of click as input or specify it in function name
+Request* MapUi::clickScreen(int x, int y, int playerId) {
+    if(gui.isOverPoint(x,y)) {
+        gui.clickOver(x,y);
+        return nullptr;
+    }
+    //TODO make proper math to translate click coordinate to map coordinate
+    return this->moveCharacter(x/16,y/16,playerId);
 }
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
@@ -91,7 +119,7 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
 
 void MapUi::updateBuilding(int player, int type, int buildingId, coordenada_t coord) {
     BuildingFactory factory;
-    buildings[player].insert(std::make_pair<int, Building*>
+    buildings[player].insert(std::make_pair<int, SdlEntity*>
             (int{buildingId}, factory.createBuilding(type, buildingId, coord, rdr)));
 }
 

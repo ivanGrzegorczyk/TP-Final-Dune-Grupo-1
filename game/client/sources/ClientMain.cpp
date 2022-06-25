@@ -1,10 +1,17 @@
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"
+#include <sstream>
 #include "../../game/client/headers/MainWindowLobby.h"
 #include <QApplication>
 
 using namespace  SDL2pp;
 int main(int argc, char* argv[]) {
+  if (argc != 3) {
+    std::cerr << "Usage: " << argv[0] << " <hostname> <service>" << std::endl;
+    return -1;
+  }
+
+  try{
     // Clase que contiene el loop principal
     QApplication app(argc, argv);
     // Instancio la ventana principal
@@ -27,6 +34,14 @@ int main(int argc, char* argv[]) {
     std::string house = ui_window.house_chosen;
     Client client(argv[1], argv[2], render, house);
     client.run();
+  } catch (std::exception &e) {
+    std::ostringstream oss;
+    oss << "[main]: " << e.what() << std::endl;
+    // Para evitar RC en el flujo de error
+    std::cerr << oss.str();
+    return -1;
+  }
+  return 0;
     
     
 }

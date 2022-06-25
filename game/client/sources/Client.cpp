@@ -1,7 +1,11 @@
 #include <thread>
+#include <utility>
+#include <sstream>
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"
 #include "../headers/CreateLightInfantry.h"
+#include "common/headers/Chronometer.h"
+#include "common/headers/Constantes.h"
 #include "client/headers/ReceiveThread.h"
 #include "client/headers/SendThread.h"
 #include "client/headers/CreateBarracks.h"
@@ -26,17 +30,17 @@ void Client::run() {
     /*std::thread threadReceive(&Client::receiveOfServer, this);
     std::thread threadSend(&Client::sendToServer, this);*/
 
-
-    auto t1 = std::chrono::system_clock::now();
+    Chronometer chronometer;
     while(running) {
+        chronometer.tick();
+
         ProcessInput();
         update();
         renderer();
-        auto t2 = std::chrono::system_clock::now();
-        auto delta = simDeltaTime(t1, t2);
-        sleep(t1, t2, delta);
+        uint64_t delta = chronometer.tack();
+        if (delta < GAME_LOOP_RATE)
+            usleep(GAME_LOOP_RATE - delta);
     }
-    protocol.shutdown();
     receiveThread.close();
     sendThread.close();
     receiveThread.join();
@@ -46,63 +50,48 @@ void Client::run() {
 }
 
 void Client::ProcessInput() {
-    Request *event = createEvent();
-    if(event != nullptr) {
-        std::cout << "pusheo" << std::endl;
-
-        sendQueue.push(event);
-    }
-}
-
-Request* Client::createEvent() {
     int x, y;
     SDL_Event event;
     Request* req = nullptr;
-    SDL_PollEvent(&event);
-    switch (event.type) {
-        case SDL_QUIT:
-            running = false;
-            break;
-        case SDL_KEYDOWN:
-            switch (event.key.keysym.sym)
-                case SDLK_a:
+    while (running && SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT:
+                std::cout << "QUIT" << std::endl;
+                running = false;
+                break;
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.sym) {
+                    case SDLK_a:
+                        SDL_GetMouseState(&x, &y);
+                        req = new CreateLightInfantry(x / 16, y / 16);
+                        sendQueue.push(req);
+                        break;
+                    case SDLK_b:
+                        SDL_GetMouseState(&x, &y);
+                        req = new CreateBarracks(x / 16, y / 16);
+                        sendQueue.push(req);
+                        break;
+                }
+            case SDL_MOUSEBUTTONUP:
+                if(event.button.button ==  SDL_BUTTON_RIGHT) {
                     //int x, y;
-                   // x = -1, y = -1;
-                    SDL_GetMouseState(&x, &y);
-                    req = new CreateLightInfantry(x / 16, y / 16);
-                   // req = unit;
+                    x = event.button.x;
+                    y = event.button.y;
+                    req = mapUi.clickScreen(x,y,this->clientId);
+                    sendQueue.push(req);
+                }
+                else if(event.button.button == SDL_BUTTON_LEFT) {
+                    int x, y;
+                    x = event.button.x;
+                    y = event.button.y;
+                    req =  mapUi.mouseEvent(x, y, clientId);
+                    sendQueue.push(req);
                     break;
-                case SDLK_b:
-                    SDL_GetMouseState(&x, &y);
-                    req = new CreateBarracks(x / 16, y / 16);
-                    //req = new create(x / 16, y / 16);
-                    break;
-
-
-        case SDL_MOUSEBUTTONUP:
-            if(event.button.button ==  SDL_BUTTON_RIGHT) {
-                Request* request;
-                //int x, y;
-                x = event.button.x;
-                y = event.button.y;
-                request = mapUi.moveCharacter(x / 16, y / 16, clientId);
-                req = request;
+                }
+            default:
                 break;
-            }
-            else if(event.button.button == SDL_BUTTON_LEFT) {
-                Request* r;
-                //int x, y;
-                x = event.button.x;
-                y = event.button.y;
-                r =  mapUi.mouseEvent(x, y, clientId);
-                req = r;
-                break;
-            }
-        default:
-            break;
+        }
     }
-
-    return req;
 }
 
 void Client::update() {

@@ -11,15 +11,19 @@ ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue,
         protocol(std::move(peer)), playerId(id), rows(rows), columns(columns), terrain(terrain) {}
 
 void ThClient::run() {
-    protocol.assignPlayerId(playerId);
-    protocol.sendTerrain(rows, columns, terrain);
+    try {
+        protocol.assignPlayerId(playerId);
+        protocol.sendTerrain(rows, columns, std::move(terrain));
 
-    while (keep_talking) {
-        int command = protocol.commandReceive();
-        manageCommand(command);
+        while (keep_talking) {
+            int command = protocol.commandReceive();
+            manageCommand(command);
+        }
+
+        is_running = false;
+    } catch (std::exception &e) {
+        std::cerr << "[hilo thclient]: " << e.what() << std::endl;
     }
-
-    is_running = false;
 }
 
 void ThClient::stop() {

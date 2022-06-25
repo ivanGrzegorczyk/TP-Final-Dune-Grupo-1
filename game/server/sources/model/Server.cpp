@@ -1,12 +1,19 @@
 #include <unistd.h>
 #include <iostream>
 #include <thread>
+#include <sstream>
 #include "server/headers/model/Server.h"
 #include "common/headers/Chronometer.h"
 
 Server::Server(const std::string &host) :
 protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
     map.initializeTerrain(terrain);
+}
+
+Server::~Server() {
+    // Esto lanza una excepción al hacer el shutdown del cliente y mata el server con un sigabort
+    // investigar por qué (estoy generoso, pero tampoco tanto) (esto se dio en clase)
+    clients.clearAll();
 }
 
 void Server::run() {
@@ -23,34 +30,35 @@ void Server::run() {
 
 void Server::gameLoop() {
     Chronometer chronometer;
-    uint64_t t1 = chronometer.now();
 
     while (active_game) {
+        chronometer.tick();
         manageEvents();  // Acá se manejan los eventos de la cola protegida
-        uint64_t t2 = chronometer.now();
-        long rest = GAME_LOOP_RATE - (long)(t2 - t1);
-        if (rest < 0) {
-            uint64_t behind =- rest;
-            uint64_t lost = GAME_LOOP_RATE - behind % GAME_LOOP_RATE;
-            t1 += lost;
-        } else {
-            usleep(rest);
-        }
-
-        t1 += GAME_LOOP_RATE;
+        uint64_t delta = chronometer.tack();
+        if (delta < GAME_LOOP_RATE)
+            usleep(GAME_LOOP_RATE - delta);
     }
 }
 
 void Server::finish() {
-    char c;
-    do {
-        std::cin >> c;
-    } while (c != 'q');
+    try {
+        char c;
+        do {
+            std::cin >> c;
+        } while (c != 'q');
 
-    protocol.shutdown(SHUT_RDWR);
-    active_game = false;
-    keep_accepting = false;
-    blockingQueue.stop();
+        protocol.shutdown(SHUT_RDWR);
+        active_game = false;
+        keep_accepting = false;
+        // TODO: si algo lanza excepción, nunca vas a parar esta queue, falta aplicar RAII acá y en los hilos que lanzás.
+        blockingQueue.stop();
+    } catch (std::exception &e) {
+        std::ostringstream oss;
+        oss << "[finish]: " << e.what() << std::endl;
+        // Para evitar RC en el flujo de error
+        std::cerr << oss.str();
+    }
+
 }
 
 void Server::acceptClients() {
@@ -65,8 +73,11 @@ void Server::acceptClients() {
             nextPlayerId++;
         }
     } catch(const std::exception &e) {
-        clients.clearAll();
-        std::cout << "Catchea en el acceptClients y sale" << std::endl;
+        // clients.clearAll(); leak si tenés una salida sin excepción. esto va en el destructor
+        std::ostringstream oss;
+        oss << "[aceptador]: " << e.what() << std::endl;
+        // Para evitar RC en el flujo de error
+        std::cout << oss.str();
         return;
     }
 }
@@ -83,12 +94,20 @@ void Server::manageEvents() {
 }
 
 void Server::broadCast() {
-    while (active_game) {
-        std::vector<uint16_t> snapshot = blockingQueue.pop();
-        if (!active_game) {
-            return;
+    try {
+        // Si es una partida de 4, y uno se desconecta, debe terminar la partida?
+        while (active_game) {
+            std::vector<uint16_t> snapshot = blockingQueue.pop();
+            if (!active_game) {
+                return;
+            }
+            clients.broadCast(snapshot);  // Actualizo a todos los clientes
         }
-        clients.broadCast(snapshot);  // Actualizo a todos los clientes
+    } catch (std::exception &e) {
+        std::ostringstream oss;
+        oss << "[broadcast]: " << e.what() << std::endl;
+        // Para evitar RC en el flujo de error
+        std::cout << oss.str();
     }
 }
 
