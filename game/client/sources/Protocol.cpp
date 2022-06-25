@@ -91,7 +91,7 @@ void Protocol::send(int command, const std::vector<uint16_t>& vector) {
     uint8_t cmd = command;
     skt.sendall(&cmd, sizeof(cmd));
     for(uint16_t data : vector) {
-        std::cout << "data" << data << std::endl;
+        std::cout << "data: " << data << std::endl;
 
         aux = htons(data);
         skt.sendall(&aux, sizeof(aux));
@@ -144,7 +144,7 @@ void Protocol::createResponse(uint16_t &eventType, int player, Response* respons
     switch (eventType) {
         case UNIT:
            event = new UpdateUnit(player, typeHost, entityIdHost, coord);
-           break;int x, y;
+           break;
         case BUILDING:
             event = new UpdateBuilding(player, type, entityIdHost, coord);
             break;

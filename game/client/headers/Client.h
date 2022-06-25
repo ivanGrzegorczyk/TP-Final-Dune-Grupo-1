@@ -7,6 +7,9 @@
 #include "MapUi.h"
 #include "Protocol.h"
 
+typedef std::chrono::time_point<std::chrono::system_clock> chrono;
+typedef std::chrono::duration<double, std::milli> duration;
+
 class Client {
 private:
     Protocol protocol;
@@ -14,7 +17,6 @@ private:
     MapUi mapUi;
     std::atomic<bool> running;
     BlockingQueue<Request *> sendQueue;
-    //cambiar a std::vector<Response*>
     ProtectedQueue<Response*> recvQueue;
 
 
@@ -36,9 +38,9 @@ public:
     Client(const std::string& hostname, const std::string& servicename, Renderer &rnd, std::string house);
     void run();
 
-    void sendToServer();
+   /* void sendToServer();
 
-    void receiveOfServer();
+    void receiveOfServer();*/
 
     void ProcessInput();
 

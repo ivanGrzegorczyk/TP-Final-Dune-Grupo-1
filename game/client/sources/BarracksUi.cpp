@@ -13,7 +13,7 @@ void BarracksUi::update() {
 }
 
 BarracksUi::BarracksUi(coordenada_t coord, int id ,Renderer &rdr) : texture(Texture(rdr,
-          Surface(DATA_PATH "/barracks.png").SetColorKey(true, 0))),
+          Surface(DATA_PATH "/barracks.png"))),
           renderer(rdr), Building(id, 0, BUILDING_BARRACKS, coord, BARRACKS_ENERGY, BARRACKS_COST){
             //TODO: ver que pasa con el hp en los edificios
 }

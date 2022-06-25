@@ -41,7 +41,6 @@ void Client::run() {
         if (delta < GAME_LOOP_RATE)
             usleep(GAME_LOOP_RATE - delta);
     }
-    protocol.shutdown();
     receiveThread.close();
     sendThread.close();
     receiveThread.join();
@@ -51,6 +50,7 @@ void Client::run() {
 }
 
 void Client::ProcessInput() {
+    int x, y;
     SDL_Event event;
     Request* req = nullptr;
     while (running && SDL_PollEvent(&event)) {
@@ -62,16 +62,21 @@ void Client::ProcessInput() {
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym) {
                     case SDLK_a:
-                        int x = -1 ,y = -1;
+                        //int x = -1 ,y = -1;
                         SDL_GetMouseState(&x, &y);
-                        Request *unit = new CreateLightInfantry(x / 16, y / 16);
-                        sendQueue.push(unit);
+                        req = new CreateLightInfantry(x / 16, y / 16);
+                        sendQueue.push(req);
+                        break;
+                    case SDLK_b:
+                        SDL_GetMouseState(&x, &y);
+                        req = new CreateBarracks(x / 16, y / 16);
+                        sendQueue.push(req);
                         break;
                 }
             case SDL_MOUSEBUTTONUP:
                 if(event.button.button ==  SDL_BUTTON_RIGHT) {
                     Request* request;
-                    int x, y;
+                    //int x, y;
                     x = event.button.x;
                     y = event.button.y;
                     request = mapUi.moveCharacter(x / 16, y / 16, clientId);
