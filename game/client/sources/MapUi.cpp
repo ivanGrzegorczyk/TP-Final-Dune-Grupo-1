@@ -1,4 +1,5 @@
 #include "../headers/MapUi.h"
+#include "../headers/gui/gui.h"
 
 MapUi::MapUi(Renderer &renderer) : rdr(renderer), ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")){
     dst.SetX(0) = dst.SetY(0);
@@ -36,14 +37,23 @@ void MapUi::draw() {
 
 void MapUi::render() {
     rdr.Clear();
+    // render tiles
     for(auto& tile : map) {
         tile.render(rdr);
     }
+    // render units
     for(auto const& [playerId, unitsMap] : units) {
        for(auto const& [unitId, unit]: unitsMap) {
            unit->render();
        }
     }
+    // render gui
+    Texture* texture = nullptr;
+    Rect zero;
+    Rect target(200,0,200,500);
+    GUI gui(target);
+    gui.render(rdr);
+
     rdr.Present();
 }
 
