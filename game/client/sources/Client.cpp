@@ -62,7 +62,6 @@ void Client::ProcessInput() {
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym) {
                     case SDLK_a:
-                        //int x = -1 ,y = -1;
                         SDL_GetMouseState(&x, &y);
                         req = new CreateLightInfantry(x / 16, y / 16);
                         sendQueue.push(req);
@@ -75,20 +74,18 @@ void Client::ProcessInput() {
                 }
             case SDL_MOUSEBUTTONUP:
                 if(event.button.button ==  SDL_BUTTON_RIGHT) {
-                    Request* request;
                     //int x, y;
                     x = event.button.x;
                     y = event.button.y;
-                    request = mapUi.moveCharacter(x / 16, y / 16, clientId);
-                    sendQueue.push(request);
+                    req = mapUi.clickScreen(x,y,this->clientId);
+                    sendQueue.push(req);
                 }
                 else if(event.button.button == SDL_BUTTON_LEFT) {
-                    Request* r;
                     int x, y;
                     x = event.button.x;
                     y = event.button.y;
-                    r =  mapUi.mouseEvent(x, y, clientId);
-                    sendQueue.push(r);
+                    req =  mapUi.mouseEvent(x, y, clientId);
+                    sendQueue.push(req);
                     break;
                 }
             default:
