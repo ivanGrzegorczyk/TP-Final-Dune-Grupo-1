@@ -4,6 +4,7 @@
 #include "CeldaUi.h"
 #include "Protocol.h"
 #include "common/headers/Building.h"
+#include "client/headers/gui/gui.h"
 #include "Character.h"
 #include <vector>
 #include <fstream>
@@ -23,6 +24,7 @@ private:
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades
     std::map<int, std::map<int, Character*>> units;
     std::vector<CeldaUi> map;
+    GUI gui;
 
 public:
     explicit MapUi(Renderer& renderer);

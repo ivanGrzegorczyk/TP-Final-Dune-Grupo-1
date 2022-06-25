@@ -1,7 +1,9 @@
 #include "../headers/MapUi.h"
-#include "../headers/gui/gui.h"
 
-MapUi::MapUi(Renderer &renderer) : rdr(renderer), ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")){
+MapUi::MapUi(Renderer &renderer) : 
+    rdr(renderer), 
+    ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
+    gui(Rect(400,0,100,200)){
     dst.SetX(0) = dst.SetY(0);
     dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
 }
@@ -50,8 +52,6 @@ void MapUi::render() {
     // render gui
     Texture* texture = nullptr;
     Rect zero;
-    Rect target(400,0,100,200);
-    GUI gui(target);
     gui.render(rdr);
 
     rdr.Present();
