@@ -1,15 +1,14 @@
 #include "../headers/MapUi.h"
+#include "client/headers/BuildingFactory.h"
 
-MapUi::MapUi(Renderer &renderer) : rdr(renderer), ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")){
+MapUi::MapUi(Renderer &renderer) : rdr(renderer), ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
+                                   harvester(Texture(renderer, Surface(DATA_PATH "/harvester.png"))){
     dst.SetX(0) = dst.SetY(0);
     dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
 }
 
 void MapUi::update(Response *response) {
     response->update(this , rdr);
-    //for response in responses:
-        //response->modify(this);
-
 }
 
 void MapUi::receiveMap(Protocol &protocol) {
@@ -52,7 +51,6 @@ Request* MapUi::mouseEvent(int x, int y, int playerId) {
         unit->reactToEvent(x, y);
     }
     return nullptr;
-    //return nullptr;
 }
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
@@ -73,10 +71,9 @@ void MapUi::addRocks(coordenada_t coord, Rect destination) {
 }
 
 void MapUi::addSand(coordenada_t coord, Rect destination) {
-   Rect sandRect(0, 0, 8, 8);
-   CeldaUi cell(&ground, coord, destination, sandRect);
-   map.push_back(cell);
-
+    Rect sandRect(0, 0, 8, 8);
+    CeldaUi cell(&ground, coord, destination, sandRect);
+    map.push_back(cell);
 }
 
 void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coord) {
@@ -90,6 +87,12 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
     } else {
         units[player].insert(std::make_pair<int, Character *>(int{characterId}, new Character(rdr, characterId, coord, type)));
     }
+}
+
+void MapUi::updateBuilding(int player, int type, int buildingId, coordenada_t coord) {
+    BuildingFactory factory;
+    buildings[player].insert(std::make_pair<int, Building*>
+            (int{buildingId}, factory.createBuilding(type, buildingId, coord, rdr)));
 }
 
 MapUi::~MapUi() = default;

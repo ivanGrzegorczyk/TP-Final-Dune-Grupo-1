@@ -137,16 +137,16 @@ void Protocol::createResponse(uint16_t &eventType, int player, Response* respons
     skt.recvall(&posX, sizeof(posX));
     skt.recvall(&posY, sizeof(posY));
     int typeHost = ntohs(type);
-    int characterIdHost = ntohs(entityId);
+    int entityIdHost = ntohs(entityId);
     int posxHost = ntohs(posX);
     int posyHost = ntohs(posY);
     coordenada_t coord({posxHost * 2, posyHost * 2});
     switch (eventType) {
         case UNIT:
-           event = new UpdateUnit(player, typeHost, characterIdHost, coord);
-           break;
+           event = new UpdateUnit(player, typeHost, entityIdHost, coord);
+           break;int x, y;
         case BUILDING:
-            event = new UpdateBuilding();
+            event = new UpdateBuilding(player, type, entityIdHost, coord);
             break;
     }
     response->add(event);

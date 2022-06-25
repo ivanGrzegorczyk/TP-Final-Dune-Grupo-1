@@ -4,6 +4,7 @@
 #include "../headers/CreateLightInfantry.h"
 #include "client/headers/ReceiveThread.h"
 #include "client/headers/SendThread.h"
+#include "client/headers/CreateBarracks.h"
 
 using namespace SDL2pp;
 
@@ -54,6 +55,7 @@ void Client::ProcessInput() {
 }
 
 Request* Client::createEvent() {
+    int x, y;
     SDL_Event event;
     Request* req = nullptr;
     SDL_PollEvent(&event);
@@ -62,18 +64,25 @@ Request* Client::createEvent() {
             running = false;
             break;
         case SDL_KEYDOWN:
-            switch (event.key.keysym.sym) {
+            switch (event.key.keysym.sym)
                 case SDLK_a:
-                    int x = -1 ,y = -1;
+                    //int x, y;
+                   // x = -1, y = -1;
                     SDL_GetMouseState(&x, &y);
-                    Request *unit = new CreateLightInfantry(x / 16, y / 16);
-                    req = unit;
+                    req = new CreateLightInfantry(x / 16, y / 16);
+                   // req = unit;
                     break;
-            }
+                case SDLK_b:
+                    SDL_GetMouseState(&x, &y);
+                    req = new CreateBarracks(x / 16, y / 16);
+                    //req = new create(x / 16, y / 16);
+                    break;
+
+
         case SDL_MOUSEBUTTONUP:
             if(event.button.button ==  SDL_BUTTON_RIGHT) {
                 Request* request;
-                int x, y;
+                //int x, y;
                 x = event.button.x;
                 y = event.button.y;
                 request = mapUi.moveCharacter(x / 16, y / 16, clientId);
@@ -82,7 +91,7 @@ Request* Client::createEvent() {
             }
             else if(event.button.button == SDL_BUTTON_LEFT) {
                 Request* r;
-                int x, y;
+                //int x, y;
                 x = event.button.x;
                 y = event.button.y;
                 r =  mapUi.mouseEvent(x, y, clientId);
