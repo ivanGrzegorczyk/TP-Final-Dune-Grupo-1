@@ -1,6 +1,5 @@
 #include "../headers/Character.h"
 #include "../headers/MoveQuery.h"
-#include "../headers/MapUi.h"
 
 void Character::render() {
     current.SetX(coord.first * 8);

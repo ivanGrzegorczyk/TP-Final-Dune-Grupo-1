@@ -43,6 +43,13 @@ void MapUi::render() {
            unit->render();
        }
     }
+
+    for(auto const& [playerId, building] : buildings) {
+        for(auto  [buildingId, b]: building) {
+            b->render();
+        }
+    }
+
     rdr.Present();
 }
 
@@ -91,7 +98,7 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
 
 void MapUi::updateBuilding(int player, int type, int buildingId, coordenada_t coord) {
     BuildingFactory factory;
-    buildings[player].insert(std::make_pair<int, Building*>
+    buildings[player].insert(std::make_pair<int, SdlEntity*>
             (int{buildingId}, factory.createBuilding(type, buildingId, coord, rdr)));
 }
 

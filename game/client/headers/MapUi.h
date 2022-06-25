@@ -3,8 +3,8 @@
 #include "SDL2pp/SDL2pp.hh"
 #include "CeldaUi.h"
 #include "Protocol.h"
-#include "common/headers/Building.h"
 #include "Character.h"
+#include "SdlEntity.h"
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -22,7 +22,7 @@ private:
     Texture harvester;
     std::pair<coordenada_t, std::vector<uint8_t>> terrain;
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades
-    std::map<int, std::map<int, Building*>> buildings;
+    std::map<int, std::map<int, SdlEntity*>> buildings;
     std::map<int, std::map<int, Character*>> units;
     std::vector<CeldaUi> map;
 
