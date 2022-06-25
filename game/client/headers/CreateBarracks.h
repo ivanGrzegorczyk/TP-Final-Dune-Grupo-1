@@ -7,12 +7,11 @@
 
 class CreateBuilding : public Request{
 private:
-    int idClient;
-    int idBuilding;
     coordenada_t coord;
 public:
-    CreateBuilding(int idClient, int idBuilding, coordenada_t &&coord);
+    CreateBuilding(int x, int y);
     std::vector<uint16_t> getData() override;
+    int getCommand() override;
 };
 
 
