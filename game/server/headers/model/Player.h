@@ -7,6 +7,7 @@
 #include "common/headers/Unit.h"
 #include "common/headers/Building.h"
 #include "common/headers/Vehicle.h"
+#include "server/headers/map/ServerCell.h"
 
 class Player {
 private:
@@ -29,7 +30,7 @@ public:
 
     std::shared_ptr<Building> getBuilding(int buildingId);
 
-    void updateUnitsPosition();
+    void updateUnitsPosition(std::vector<std::vector<ServerCell *>> &map);
 
     void addUnitData(std::vector<uint16_t> &snapshot);
 

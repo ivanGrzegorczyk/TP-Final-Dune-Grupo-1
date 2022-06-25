@@ -9,13 +9,14 @@ void Unit::setPath(std::stack<coordenada_t> _path) {
     this->path = std::move(_path);
 }
 
-bool Unit::relocate() {
+coordenada_t Unit::relocate() {
     if (path.empty())
-        return false;
+        return {-1, -1};
 
+    coordenada_t free = coord;
     coord = path.top();
     path.pop();
-    return true;
+    return free;
 }
 
 void Unit::setPosition(coordenada_t newPosition) {
