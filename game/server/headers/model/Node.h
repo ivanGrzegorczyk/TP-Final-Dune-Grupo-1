@@ -16,7 +16,7 @@ public:
     coordenada_t previous_id;
 
     Node();
-    explicit Node(coordenada_t id, int terrain);
+    explicit Node(coordenada_t id, int terrain, bool occupied);
 
     double getG() const;
     void setG(double g);

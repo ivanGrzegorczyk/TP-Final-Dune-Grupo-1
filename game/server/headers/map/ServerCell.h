@@ -14,8 +14,7 @@
 class ServerCell {
 public:
     coordenada_t coords;
-    std::shared_ptr<Building> building;
-    std::vector<std::weak_ptr<Unit>> cellUnits;
+    bool occupied;
 
     ServerCell();
     explicit ServerCell(coordenada_t coord);

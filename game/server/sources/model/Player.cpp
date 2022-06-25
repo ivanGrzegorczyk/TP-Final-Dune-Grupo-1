@@ -37,9 +37,12 @@ std::shared_ptr<Building> Player::getBuilding(int buildingId) {
     return buildings.at(buildingId);
 }
 
-void Player::updateUnitsPosition() {
+void Player::updateUnitsPosition(std::vector<std::vector<ServerCell *>> &map) {
     for (auto const& [unitId, unit] : units) {
-        unit->relocate();
+        coordenada_t free = unit->relocate();
+        map[unit->getPosition().first][unit->getPosition().second]->occupied = true;
+        if (free.first != -1 && free.second != -1)
+            map[free.first][free.second]->occupied = false;
     }
 }
 

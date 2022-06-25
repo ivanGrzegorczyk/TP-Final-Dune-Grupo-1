@@ -7,10 +7,13 @@ Node::Node() {
     blocked = false;
 }
 
-Node::Node(coordenada_t id, int terrain) {
+Node::Node(coordenada_t id, int terrain, bool occupied) {
     this->id = id;
     this->previous_id = {-1, -1};
-    blocked = terrain != TERRAIN_ROCKS;
+    blocked = terrain != TERRAIN_ROCKS || occupied;
+    if (occupied) {
+        std::cout << id.first << " " << id.second << std::endl;
+    }
     f = g = INFINITY;
 }
 

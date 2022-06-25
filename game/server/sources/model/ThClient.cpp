@@ -8,11 +8,11 @@
 
 ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id, int rows, int columns, std::vector<uint8_t> &terrain):
         protectedQueue(protectedQueue), keep_talking(true), is_running(true),
-        protocol(std::move(peer)), playerId(id), rows(rows), columns(columns), terrain(std::move(terrain)) {}
+        protocol(std::move(peer)), playerId(id), rows(rows), columns(columns), terrain(terrain) {}
 
 void ThClient::run() {
     protocol.assignPlayerId(playerId);
-    protocol.sendTerrain(rows, columns, std::move(terrain));
+    protocol.sendTerrain(rows, columns, terrain);
 
     while (keep_talking) {
         int command = protocol.commandReceive();
