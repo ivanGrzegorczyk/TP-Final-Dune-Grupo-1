@@ -1,13 +1,16 @@
-#include "../headers/CreateBuilding.h"
+#include "../headers/CreateBarracks.h"
 
-std::vector<uint16_t> CreateBuilding::getData() {
-    return {};
+std::vector<uint16_t> CreateBarracks::getData() {
+    std::vector<uint16_t> data;
+    data.push_back((uint16_t) BUILDING_BARRACKS);
+    data.push_back((uint16_t)coord.first);
+    data.push_back((uint16_t)coord.second);
+    return data;
 }
 
-CreateBuilding::CreateBuilding(int x, int y) : coord({x, y}) {
-    
+CreateBarracks::CreateBarracks(int x, int y) : coord({x, y}) {
 }
 
-int CreateBuilding::getCommand() {
+int CreateBarracks::getCommand() {
     return CREATE_BUILDING_EVENT;
 }
