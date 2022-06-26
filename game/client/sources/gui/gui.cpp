@@ -1,5 +1,6 @@
 #include "game/client/headers/gui/gui.h"
 #include "game/client/headers/gui/ButtonUi.h"
+#include "game/client/headers/gui/BuildingButtonUi.h"
 #include <vector>
 #include <string>
 GUI::GUI(Rect area) : area(area){
@@ -19,7 +20,8 @@ GUI::GUI(Rect area) : area(area){
             // TODO button object
             Point item_origin = origin + Point(width_item, 0) * j + Point(0, height_item) * i;
             Rect item(item_origin, size_item);
-            buttons.push_back(ButtonUi(nullptr, item));
+            BuildingButtonUi* b = new BuildingButtonUi(nullptr, item, this);
+            buttons.push_back(b);
             std::cout << *it;
             ++it;
             
@@ -33,8 +35,8 @@ bool GUI::isOverPoint(int x, int y) {
 
 void GUI::clickOver(int x, int y) {
     for(auto it = buttons.begin(); it != buttons.end(); ++it) {
-        if((*it).Contains(x,y)) {
-            std::cout << "Clicked on a button!" << std::endl;
+        if((*it)->Contains(x,y)) {
+            (*it)->press();
         }
     }
 }
@@ -43,7 +45,7 @@ void GUI::clickOver(int x, int y) {
 void GUI::render(Renderer &rdr) {
     rdr.SetDrawColor(255,0,0,255);
     for(auto it = buttons.begin(); it != buttons.end(); ++it) {
-        (*it).render(rdr);
+        (*it)->render(rdr);
     }
     rdr.DrawRect(area);
 }

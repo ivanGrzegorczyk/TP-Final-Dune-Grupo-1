@@ -9,7 +9,7 @@ class GUI {
 private:
     Texture *texture;
     Rect area;
-    std::vector<ButtonUi> buttons;
+    std::vector<ButtonUi*> buttons;
 public:
     GUI(Rect area);
     void render(Renderer &render);

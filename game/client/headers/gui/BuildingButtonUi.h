@@ -5,17 +5,13 @@
 #include <utility>
 using namespace SDL2pp;
 class GUI;
-class BuildingButtonUi : public virtual ButtonUi {
+class BuildingButtonUi : public ButtonUi {
 private:
-    std::pair<int,int> coordinate;
     Texture *texture;
-    Rect rectangle;
     GUI* ui;
 public:
     BuildingButtonUi(Texture *texture, Rect dst, GUI* ui);
-    bool Contains(int x, int y);
-    void render(Renderer &render);
-    void press();
+    void press() override;
 };
 
 

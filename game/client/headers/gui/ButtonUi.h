@@ -5,15 +5,13 @@
 using namespace SDL2pp;
 
 class ButtonUi {
-private:
-    std::pair<int,int> coordinate;
-    Texture *texture;
+protected:
     Rect rectangle;
-    Rect area;
 public:
-    ButtonUi(Texture *texture, Rect dst);
-    bool Contains(int x, int y);
-    void render(Renderer &render);
+    ButtonUi();
+    virtual bool Contains(int x, int y);
+    virtual void render(Renderer &render);
+    virtual void press() = 0;
 };
 
 

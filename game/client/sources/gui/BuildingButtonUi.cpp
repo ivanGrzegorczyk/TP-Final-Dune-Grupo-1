@@ -3,18 +3,10 @@
 
 // TODO inherit with CeldaUi
 BuildingButtonUi::BuildingButtonUi(Texture *texture, Rect dst, GUI* ui) 
-: texture(texture), rectangle(dst), ui(ui), ButtonUi(texture, dst) {
-
-}
-
-void BuildingButtonUi::render(Renderer &rdr) {
-    rdr.DrawRect(rectangle);
-}
-
-bool BuildingButtonUi::Contains(int x, int y) {
-    return rectangle.Contains(x,y);
+: texture(texture), ui(ui) {
+    rectangle = dst;
 }
 
 void BuildingButtonUi::press() {
-    
+    std::cout << "picking building" << std::endl;
 }

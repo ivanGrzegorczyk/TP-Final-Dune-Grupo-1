@@ -1,9 +1,5 @@
 #include "game/client/headers/gui/ButtonUi.h"
-// TODO inherit with CeldaUi
-ButtonUi::ButtonUi(Texture *texture, Rect dst) : texture(texture), rectangle(dst){
-
-}
-
+ButtonUi::ButtonUi() {}
 void ButtonUi::render(Renderer &rdr) {
     rdr.DrawRect(rectangle);
 }
