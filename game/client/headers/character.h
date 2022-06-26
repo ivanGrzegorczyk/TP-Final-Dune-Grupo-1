@@ -15,7 +15,7 @@ private:
     void normalColor();
     void highlight();
 public:
-    character(SDL2pp::Renderer &renderer, int id, coordenada_t coord, int type);
+    character(SDL2pp::Renderer &renderer, int player, int id, coordenada_t coord, int type);
     Request *walkEvent(int x, int y);
     bool mouseOverUnit(int x, int y) const;
     void render(); //sdl entity

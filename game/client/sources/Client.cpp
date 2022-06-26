@@ -81,7 +81,7 @@ void Client::ProcessInput() {
                     sendQueue.push(req);
                 }
                 else if(event.button.button == SDL_BUTTON_LEFT) {
-                    int x, y;
+                    //int x, y;
                     x = event.button.x;
                     y = event.button.y;
                     req =  mapUi.mouseEvent(x, y, clientId);

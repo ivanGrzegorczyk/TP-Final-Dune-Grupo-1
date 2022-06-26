@@ -10,7 +10,7 @@ void character::render() {
     rnd.Copy(t, Rect(0, 0, 13,16), current);
 }
 
-character::character(SDL2pp::Renderer &renderer, int id, coordenada_t coord, int type) : Unit(id, 0, 0, 0, type, coord), rnd(renderer), selected(false),
+character::character(SDL2pp::Renderer &renderer, int player, int id, coordenada_t coord, int type) : ClientUnit(player, id, 0, 0, 0, type, coord), rnd(renderer), selected(false),
                                                                                          t(Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp").SetColorKey(true, 0))) {
 }
 

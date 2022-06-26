@@ -110,10 +110,10 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
             units.at(player).at(characterId)->setPosition(coord);
         } else {
             units.at(player).insert(std::make_pair<int, character*>
-                    (int{characterId}, new character(rdr, characterId, coord, type)));
+                    (int{characterId}, new character(rdr, player, characterId, coord, type)));
         }
     } else {
-        units[player].insert(std::make_pair<int, character *>(int{characterId}, new character(rdr, characterId, coord, type)));
+        units[player].insert(std::make_pair<int, character *>(int{characterId}, new character(rdr, player, characterId, coord, type)));
     }
 }
 

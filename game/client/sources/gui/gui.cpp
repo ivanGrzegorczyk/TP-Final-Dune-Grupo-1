@@ -1,4 +1,6 @@
-#include "game/client/headers/gui/gui.h"
+
+
+#include "client/headers/gui/gui.h"
 
 GUI::GUI(Rect area) : area(area){
 }
