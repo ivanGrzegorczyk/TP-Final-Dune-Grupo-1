@@ -5,8 +5,8 @@
 #include "server/headers/model/Server.h"
 #include "common/headers/Chronometer.h"
 
-Server::Server(const std::string &host) :
-protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
+Server::Server(const std::string &port) :
+        protocol(port), keep_accepting(true), active_game(true), nextPlayerId(1) {
     map.initializeTerrain(terrain);
 }
 
