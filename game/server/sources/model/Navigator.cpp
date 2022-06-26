@@ -1,9 +1,12 @@
 #include "server/headers/model/Navigator.h"
 
-Navigator::Navigator(std::vector<std::vector<ServerCell *>> &map) : nodeMap(map.size(), std::vector<Node>(map.at(0).size())) {
+Navigator::Navigator(std::vector<std::vector<ServerCell *>> &map) : nodeMap(
+        map.size(), std::vector<Node>(map.at(0).size())) {
     for (size_t i = 0; i < map.size(); i++) {
         for (size_t j = 0; j < map.at(0).size(); j++) {
-            nodeMap[j][i] = Node(coordenada_t{j, i}, map[i][j]->ground(), map[j][i]->occupied);
+            nodeMap[j][i] = Node(
+                    coordenada_t{j, i},
+                    map[i][j]->ground(), map[j][i]->occupied);
         }
     }
 }
@@ -19,7 +22,8 @@ void Navigator::manageNeighbour(coordenada_t neighbour, coordenada_t end) {
             nodeMap[x][y].setF(tentativeG + heuristic);
             if (heuristic < closest.calculateH(end))
                 closest = nodeMap[x][y];
-            if (std::find(openSet.begin(), openSet.end(), nodeMap[x][y]) == openSet.end()) {
+            if (std::find(openSet.begin(), openSet.end(),
+                          nodeMap[x][y]) == openSet.end()) {
                 openSet.push_back(nodeMap[x][y]);
             }
         }
@@ -38,7 +42,8 @@ std::stack<coordenada_t> Navigator::reconstructPath(coordenada_t start) {
     return path;
 }
 
-std::stack<coordenada_t> Navigator::A_star(coordenada_t start, coordenada_t end) {
+std::stack<coordenada_t> Navigator::A_star(
+        coordenada_t start, coordenada_t end) {
     current = nodeMap[start.first][start.second];
     current.setG(0);
     current.setF(current.getG() + current.calculateH(end));
@@ -54,14 +59,17 @@ std::stack<coordenada_t> Navigator::A_star(coordenada_t start, coordenada_t end)
             return reconstructPath(start);
         }
 
-        openSet.erase(std::remove(openSet.begin(), openSet.end(), current), openSet.end());
+        openSet.erase(std::remove(
+                openSet.begin(),
+                openSet.end(), current), openSet.end());
         // Recorro los vecinos
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 // Reviso que el vecino se encuentre dentro del mapa
                 if (current.id.first + i >= 0 && current.id.second + j >= 0
                     && current.id.first + i < nodeMap.size()
-                    && current.id.second + j < nodeMap.at(0).size() && !(i == 0 && j == 0)) {
+                    && current.id.second + j < nodeMap.at(
+                            0).size() && !(i == 0 && j == 0)) {
                     int x = current.id.first + i;
                     int y = current.id.second + j;
                     manageNeighbour(coordenada_t {x, y}, end);
@@ -70,8 +78,11 @@ std::stack<coordenada_t> Navigator::A_star(coordenada_t start, coordenada_t end)
         }
     }
 
-    for (int i = 0; i < 50; i++) {
-        for (int j = 0; j < 50; j++) {
+    // Si llego a este punto es porque no hay un camino posible.
+    // Lo que hago es resetear los valores del algoritmo y calcular el
+    // recorrido hasta el punto mas cercano al objetivo original
+    for (int i = 0; i < nodeMap.size(); i++) {
+        for (int j = 0; j < nodeMap.at(0).size(); j++) {
             nodeMap[i][j].previous_id = {-1, -1};
             nodeMap[i][j].setF(INFINITY);
             nodeMap[i][j].setG(INFINITY);
