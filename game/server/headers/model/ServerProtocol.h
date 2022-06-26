@@ -47,6 +47,8 @@ public:
     void sendTerrain(int rows, int columns, std::vector<uint8_t> &terrain);
 
     void sendUnitData(std::vector<std::shared_ptr<Unit>> &units);
+
+    void sendBuildingData(std::vector<std::shared_ptr<Building>> &buildings);
 };
 
 #endif  // SERVERPROTOCOL_H_
