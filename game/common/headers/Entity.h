@@ -6,15 +6,16 @@
 
 class Entity {  // Va terminar siendo una clase abstracta
 protected:
+    int playerId;
     int id;
-    int HP;
+    double HP;
     int type;
     coordenada_t coord;
 
 public:
     int getType() const;
     coordenada_t getPosition();
-    Entity(int id, int HP, int type, coordenada_t coord);
+    Entity(int playerId, int id, double HP, int type, coordenada_t coord);
 
     Entity();
 

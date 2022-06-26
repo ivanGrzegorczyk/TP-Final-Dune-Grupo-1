@@ -59,10 +59,11 @@ void ServerProtocol::assignPlayerId(int id) {
     socket.sendall(&playerId, sizeof(playerId));
 }
 
-void ServerProtocol::sendSnapshot(const std::vector<uint16_t> &snapshot) {
-    for (auto msg : snapshot) {
-        uint16_t aux = htons(msg);
-        socket.sendall(&aux, sizeof(aux));
+void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
+    for (auto playerId : snapshot.getPlayers()) {
+        std::vector<Unit *> units = snapshot.getUnits(playerId);
+        std::vector<Unit *> buildings = snapshot.getBuildings(playerId);
+        std::vector<Vehicle *> vehicles = snapshot.getVehicles(playerId);
     }
 }
 

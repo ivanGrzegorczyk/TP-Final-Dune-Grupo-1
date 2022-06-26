@@ -4,6 +4,7 @@
 #include <list>
 
 #include "ThCLient.h"
+#include "Snapshot.h"
 
 class ClientsMonitor {
 private:
@@ -16,7 +17,7 @@ public:
     ~ClientsMonitor();
 
     void push(ThClient *client);
-    void broadCast(const std::vector<uint16_t> &snapshot);
+    void broadCast(Snapshot &snapshot);
     void clean();
 
     void clearAll();

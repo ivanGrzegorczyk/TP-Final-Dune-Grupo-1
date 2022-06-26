@@ -55,7 +55,7 @@ void ThClient::manageCommand(int command) {
     }
 }
 
-void ThClient::sendSnapshot(const std::vector<uint16_t> &snapshot) {
+void ThClient::sendSnapshot(Snapshot &snapshot) {
     protocol.sendSnapshot(snapshot);
 }
 

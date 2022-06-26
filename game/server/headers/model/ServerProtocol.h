@@ -9,6 +9,7 @@
 #include "common/headers/Socket.h"
 #include "common/headers/Entity.h"
 #include "common/headers/Constantes.h"
+#include "Snapshot.h"
 
 class ServerProtocol {
 private:
@@ -41,7 +42,7 @@ public:
 
     void getEnityData(uint16_t &type, coordenada_t &position);
 
-    void sendSnapshot(const std::vector<uint16_t> &snapshot);
+    void sendSnapshot(Snapshot &snapshot);
 
     void sendTerrain(int rows, int columns, std::vector<uint8_t> &terrain);
 };

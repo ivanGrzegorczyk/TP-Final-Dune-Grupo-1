@@ -9,7 +9,7 @@
 #include <memory>
 
 #include "common/headers/Building.h"
-#include "common/headers/Unit.h"
+#include "server/headers/model/Unit.h"
 
 class ServerCell {
 public:

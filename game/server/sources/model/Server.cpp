@@ -97,7 +97,7 @@ void Server::broadCast() {
     try {
         // Si es una partida de 4, y uno se desconecta, debe terminar la partida?
         while (active_game) {
-            std::vector<uint16_t> snapshot = blockingQueue.pop();
+            Snapshot snapshot = blockingQueue.pop();
             if (!active_game) {
                 return;
             }

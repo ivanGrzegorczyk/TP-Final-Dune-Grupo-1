@@ -10,7 +10,7 @@ protected:
     int cost;
 
 public:
-    Building(int id, int hp, int type, coordenada_t coords, int energy, int cost);
+    Building(int playerId, int id, int hp, int type, coordenada_t coords, int energy, int cost);
 };
 
 #endif  // BUILDING_H_
