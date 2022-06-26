@@ -49,6 +49,8 @@ public:
     void sendUnitData(std::vector<std::shared_ptr<Unit>> &units);
 
     void sendBuildingData(std::vector<std::shared_ptr<Building>> &buildings);
+
+    void sendVehicleData(std::vector<std::shared_ptr<Vehicle>> &vehicles);
 };
 
 #endif  // SERVERPROTOCOL_H_
