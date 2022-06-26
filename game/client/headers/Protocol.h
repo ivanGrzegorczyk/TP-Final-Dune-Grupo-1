@@ -35,7 +35,7 @@ public:
 
     void createResponse(uint8_t &eventType, int player, Response *response);
 
-    void receiveEntityInfo(int &entityType, int &entityId, int &coordX, int &coordY)
+    void receiveEntityInfo(int &entityType, int &entityId, int &coordX, int &coordY);
     void shutdown();
     void close();
 };

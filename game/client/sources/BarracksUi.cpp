@@ -12,9 +12,10 @@ void BarracksUi::update() {
         //TODO
 }
 
-BarracksUi::BarracksUi(coordenada_t coord, int id ,Renderer &rdr) : texture(Texture(rdr,
+BarracksUi::BarracksUi(int player, coordenada_t coord, int id ,Renderer &rdr) : texture(Texture(rdr,
           Surface(DATA_PATH "/barracks.png"))),
-          renderer(rdr), Building(id, 0, BUILDING_BARRACKS, coord, BARRACKS_ENERGY, BARRACKS_COST){
+          renderer(rdr), Building(player, id, BARRACKS_POINTS,
+          BUILDING_BARRACKS, coord, BARRACKS_ENERGY, BARRACKS_COST){
             //TODO: ver que pasa con el hp en los edificios
 }
 

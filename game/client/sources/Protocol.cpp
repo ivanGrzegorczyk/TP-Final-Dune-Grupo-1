@@ -100,26 +100,24 @@ std::pair<coordenada_t, std::vector<uint8_t>> Protocol::receiveTerrain() {
 }
 
 Response* Protocol::recvResponse() {
-    int offset = 0;
     auto* response = new Response();
-    uint16_t lengthResponse;
-    skt.recvall(&lengthResponse, sizeof(lengthResponse));
-    lengthResponse = ntohs(lengthResponse);
+    uint16_t players;
+    skt.recvall(&players, sizeof(players));
+    players = ntohs(players);
     uint8_t eventType;
     uint16_t idPlayer;
     uint16_t amount;
 
-    while(offset < lengthResponse) {
+    for(int p = 0; p < players; p++) {
         skt.recvall(&idPlayer, sizeof(idPlayer));
+        skt.recvall(&eventType, sizeof(eventType));
         skt.recvall(&amount, sizeof(amount));
         int player = ntohs(idPlayer);
         int amountHost = ntohs(amount);
         for(int j = 0; j < amountHost; j++){
-            skt.recvall(&eventType, sizeof(eventType));
             eventType = ntohs(eventType);
             this->createResponse(eventType, player, response);
         }
-        offset += (amountHost * 5) + 2;
     }
     return response;
 }

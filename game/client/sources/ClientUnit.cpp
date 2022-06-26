@@ -1,49 +1,9 @@
-#include "../headers/ClientUnit.h"
-#include "../headers/MoveQuery.h"
+#include "client/headers/ClientUnit.h"
 
-void ClientUnit::render() {
-    current.SetX(coord.first * 8);
-    current.SetY(coord.second * 8);
-    current.SetW(24);
-    current.SetH(32);
-
-    rnd.Copy(t, Rect(0, 0, 13,16), current);
+ClientUnit::ClientUnit(int playerId, int id, double hp, int range, int speed, int type, coordenada_t coord) :
+        Entity(playerId, id, hp, type, coord), range(range), speed(speed) {
 }
 
-ClientUnit::ClientUnit(SDL2pp::Renderer &renderer, int id, coordenada_t coord, int type) : Unit(id, 0, 0, 0, type, coord), rnd(renderer), selected(false),
-                                                                                           t(Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp").SetColorKey(true, 0))) {
-}
-
-void ClientUnit::normalColor() {
-    t.SetColorMod(255, 255, 0);
-}
-
-void ClientUnit::highlight() {
-    t.SetColorMod(255, 0, 0);
-}
-
-Request* ClientUnit::reactToEvent(int x, int y) {
-    if (mouseOverUnit(x, y) && !selected) {
-        selected = true;
-        this->highlight();
-    } else {
-        selected = false;
-        this->normalColor();
-    }
-    return nullptr;
-}
-
-Request *ClientUnit::walkEvent(int x, int y) {
-    if (!mouseOverUnit(x, y) && selected) {
-        selected = false;
-        this->normalColor();
-        coordenada_t coord({x, y});
-        Request *query = new MoveQuery(id, std::move(coord));
-        return query;
-    }
-    return nullptr;
-}
-
-bool ClientUnit::mouseOverUnit(int x, int y) const {
-    return current.Contains(x, y);
+void ClientUnit::setPosition(coordenada_t newPosition) {
+    this->coord = newPosition;
 }
