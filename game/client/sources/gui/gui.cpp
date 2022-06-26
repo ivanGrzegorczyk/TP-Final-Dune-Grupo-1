@@ -39,7 +39,6 @@ void GUI::render(Renderer &rdr) {
     rdr.SetDrawColor(255,0,0,255);
     for(auto it = buttons.begin(); it != buttons.end(); ++it) {
         rdr.DrawRect(*it);
-        std::cout << "drawing button" << std::endl;
     }
     rdr.DrawRect(area);
 }
