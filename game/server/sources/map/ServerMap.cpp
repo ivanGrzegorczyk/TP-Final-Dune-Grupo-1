@@ -68,9 +68,9 @@ void ServerMap::updateUnitsPosition() {
     }
 }
 
-void ServerMap::addSnapshotData(std::vector<uint16_t> &snapshot) {
+void ServerMap::addSnapshotData(Snapshot &snapshot) {
     for (auto & [playerId, player] : players) {
-        snapshot.push_back((uint16_t) playerId);
+        snapshot.addPlayer(playerId);
         player.addUnitData(snapshot);
         //player.addBuildingData(snapshot);
     }

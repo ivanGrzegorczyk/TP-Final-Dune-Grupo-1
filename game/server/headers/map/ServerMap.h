@@ -8,6 +8,7 @@
 #include "ServerCell.h"
 #include "server/headers/model/Navigator.h"
 #include "server/headers/model/Player.h"
+#include "server/headers/model/Snapshot.h"
 
 class ServerMap {
 private:
@@ -33,7 +34,7 @@ public:
 
     void createBuilding(int playerId, int buildingType, coordenada_t position);
 
-    void addSnapshotData(std::vector<uint16_t> &snapshot);
+    void addSnapshotData(Snapshot &snapshot);
 
     void initializeTerrain(std::vector<uint8_t> &terrain);
 

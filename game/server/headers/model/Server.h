@@ -38,7 +38,7 @@ public:
     // Gameloop
     void run();
 
-    std::vector<uint16_t> createSnapshot();
+    Snapshot createSnapshot();
 
 };
 

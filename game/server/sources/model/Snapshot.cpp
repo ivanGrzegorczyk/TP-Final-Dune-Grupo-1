@@ -16,6 +16,10 @@ std::vector<std::shared_ptr<Vehicle>> Snapshot::getVehicles(int playerId) {
     return vehicles[playerId];
 }
 
-void Snapshot::addUnit(Unit *unit) {
+void Snapshot::addPlayer(const int playerId) {
+    players.push_back(playerId);
+}
 
+void Snapshot::addUnit(int playerId, const std::shared_ptr<Unit>& unit) {
+    units[playerId].push_back(unit);
 }

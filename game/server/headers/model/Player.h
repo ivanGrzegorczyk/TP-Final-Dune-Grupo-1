@@ -8,10 +8,11 @@
 #include "common/headers/Building.h"
 #include "common/headers/Vehicle.h"
 #include "server/headers/map/ServerCell.h"
+#include "Snapshot.h"
 
 class Player {
 private:
-    int id;
+    int playerId;
     int house;
     int money;
     std::map<int, std::shared_ptr<Unit>> units;
@@ -32,7 +33,7 @@ public:
 
     void updateUnitsPosition(std::vector<std::vector<ServerCell *>> &map);
 
-    void addUnitData(std::vector<uint16_t> &snapshot);
+    void addUnitData(Snapshot &snapshot);
 
     void addBuildingData(std::vector<uint16_t> &snapshot);
 };

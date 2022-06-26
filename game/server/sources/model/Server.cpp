@@ -89,7 +89,7 @@ void Server::manageEvents() {
         event = protectedQueue.pop();
     }
     map.updateUnitsPosition();
-    std::vector<uint16_t> snapshot(createSnapshot());
+    Snapshot snapshot = createSnapshot();
     blockingQueue.push(snapshot);
 }
 
@@ -111,10 +111,9 @@ void Server::broadCast() {
     }
 }
 
-std::vector<uint16_t> Server::createSnapshot() {
-    std::vector<uint16_t> snapshot;
+Snapshot Server::createSnapshot() {
+    Snapshot snapshot;
     map.addSnapshotData(snapshot);
-    uint16_t size = snapshot.size();
-    snapshot.insert(snapshot.begin(), size);
-    return snapshot;
+
+    return std::move(snapshot);
 }
