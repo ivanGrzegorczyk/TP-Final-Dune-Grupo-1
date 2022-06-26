@@ -1,4 +1,5 @@
 #include "game/client/headers/gui/gui.h"
+#include "game/client/headers/gui/ButtonUi.h"
 #include <vector>
 #include <string>
 GUI::GUI(Rect area) : area(area){
@@ -18,7 +19,7 @@ GUI::GUI(Rect area) : area(area){
             // TODO button object
             Point item_origin = origin + Point(width_item, 0) * j + Point(0, height_item) * i;
             Rect item(item_origin, size_item);
-            buttons.push_back(item);
+            buttons.push_back(ButtonUi(nullptr, item));
             std::cout << *it;
             ++it;
             
@@ -42,7 +43,7 @@ void GUI::clickOver(int x, int y) {
 void GUI::render(Renderer &rdr) {
     rdr.SetDrawColor(255,0,0,255);
     for(auto it = buttons.begin(); it != buttons.end(); ++it) {
-        rdr.DrawRect(*it);
+        (*it).render(rdr);
     }
     rdr.DrawRect(area);
 }
