@@ -8,6 +8,10 @@ int Entity::getType() const {
     return type;
 }
 
+int Entity::getId() const {
+    return id;
+}
+
 coordenada_t Entity::getPosition() {
     return coord;
 }

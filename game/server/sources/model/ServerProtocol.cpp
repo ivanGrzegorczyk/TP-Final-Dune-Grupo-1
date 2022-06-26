@@ -60,10 +60,34 @@ void ServerProtocol::assignPlayerId(int id) {
 }
 
 void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
-    for (auto playerId : snapshot.getPlayers()) {
-        std::vector<Unit *> units = snapshot.getUnits(playerId);
-        std::vector<Unit *> buildings = snapshot.getBuildings(playerId);
-        std::vector<Vehicle *> vehicles = snapshot.getVehicles(playerId);
+    std::vector<int> players = snapshot.getPlayers();
+    uint16_t playerAmount = htons(players.size());
+    socket.sendall(&playerAmount, sizeof(playerAmount));
+
+    for (auto playerId : players) {
+        std::vector<std::shared_ptr<Unit>> units = snapshot.getUnits(playerId);
+        std::vector<std::shared_ptr<Building>> buildings = snapshot.getBuildings(playerId);
+        std::vector<std::shared_ptr<Vehicle>> vehicles = snapshot.getVehicles(playerId);
+
+        sendUnitData(units);
+    }
+}
+
+void ServerProtocol::sendUnitData(std::vector<std::shared_ptr<Unit>> &units) {
+    uint8_t eventType = UNIT;
+    socket.sendall(&eventType, sizeof(eventType));
+    uint16_t amount = htons(units.size());
+    socket.sendall(&amount, sizeof(amount));
+    
+    for (const auto& unit : units) {
+        uint8_t type = htons((uint8_t)unit->getType());
+        uint16_t unitId = htons((uint16_t)unit->getId());
+        uint16_t position_x = htons((uint16_t)unit->getPosition().first);
+        uint16_t position_y = htons((uint16_t)unit->getPosition().second);
+        socket.sendall(&type, sizeof(type));
+        socket.sendall(&unitId, sizeof(unitId));
+        socket.sendall(&position_x, sizeof(position_x));
+        socket.sendall(&position_y, sizeof(position_y));
     }
 }
 

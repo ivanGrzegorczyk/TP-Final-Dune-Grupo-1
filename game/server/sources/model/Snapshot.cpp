@@ -4,15 +4,15 @@ std::vector<int> Snapshot::getPlayers() {
     return players;
 }
 
-std::vector<Unit *> Snapshot::getUnits(int playerId) {
+std::vector<std::shared_ptr<Unit>> Snapshot::getUnits(int playerId) {
     return units[playerId];
 }
 
-std::vector<Unit *> Snapshot::getBuildings(int playerId) {
-    return std::vector<Unit *>();
+std::vector<std::shared_ptr<Building>> Snapshot::getBuildings(int playerId) {
+    return buildings[playerId];
 }
 
-std::vector<Vehicle *> Snapshot::getVehicles(int playerId) {
+std::vector<std::shared_ptr<Vehicle>> Snapshot::getVehicles(int playerId) {
     return vehicles[playerId];
 }
 

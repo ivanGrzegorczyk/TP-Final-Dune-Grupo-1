@@ -14,6 +14,7 @@ protected:
 
 public:
     int getType() const;
+    int getId() const;
     coordenada_t getPosition();
     Entity(int playerId, int id, double HP, int type, coordenada_t coord);
 

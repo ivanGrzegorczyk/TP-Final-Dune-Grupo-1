@@ -45,6 +45,8 @@ public:
     void sendSnapshot(Snapshot &snapshot);
 
     void sendTerrain(int rows, int columns, std::vector<uint8_t> &terrain);
+
+    void sendUnitData(std::vector<std::shared_ptr<Unit>> &units);
 };
 
 #endif  // SERVERPROTOCOL_H_
