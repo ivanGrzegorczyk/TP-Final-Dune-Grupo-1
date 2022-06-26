@@ -1,4 +1,4 @@
-#include "server/headers/model/Navigator.h"
+#include "server/headers/map/Navigator.h"
 
 Navigator::Navigator(std::vector<std::vector<ServerCell *>> &map) : nodeMap(
         map.size(), std::vector<Node>(map.at(0).size())) {

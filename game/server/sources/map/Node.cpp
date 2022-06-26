@@ -1,4 +1,4 @@
-#include "server/headers/model/Node.h"
+#include "server/headers/map/Node.h"
 
 Node::Node() {
     this->id = {-1, -1};

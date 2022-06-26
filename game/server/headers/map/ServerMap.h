@@ -6,7 +6,7 @@
 #include <mutex>
 
 #include "ServerCell.h"
-#include "server/headers/model/Navigator.h"
+#include "Navigator.h"
 #include "server/headers/model/Player.h"
 #include "server/headers/model/Snapshot.h"
 
