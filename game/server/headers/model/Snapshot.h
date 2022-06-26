@@ -26,7 +26,9 @@ public:
 
     void addUnit(int playerId, const std::shared_ptr<Unit>& unit);
 
-    void addPlayer(const int playerId);
+    void addPlayer(int playerId);
+
+    void addBuilding(int playerId, const std::shared_ptr<Building> &building);
 };
 
 #endif  // SNAPSHOT_H_

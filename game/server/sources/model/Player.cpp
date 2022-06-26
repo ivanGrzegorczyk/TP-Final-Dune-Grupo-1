@@ -53,15 +53,8 @@ void Player::addUnitData(Snapshot &snapshot) {
     }
 }
 
-void Player::addBuildingData(std::vector<uint16_t> &snapshot) {
-    snapshot.push_back(buildings.size());  // Cantidad de edificios para este jugador
-    snapshot.push_back(BUILDING);
+void Player::addBuildingData(Snapshot &snapshot) {
     for (auto const& [buildingId, building] : buildings) {
-        snapshot.push_back((uint16_t) building->getType());  // Tipo de unidad
-        snapshot.push_back((uint16_t) buildingId);  // Id de la unidad
-        snapshot.push_back(
-                (uint16_t) building->getPosition().first);  // Coordenada x
-        snapshot.push_back(
-                (uint16_t) building->getPosition().second);  // Coordenada y
+        snapshot.addBuilding(playerId, building);
     }
 }

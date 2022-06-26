@@ -35,7 +35,7 @@ public:
 
     void addUnitData(Snapshot &snapshot);
 
-    void addBuildingData(std::vector<uint16_t> &snapshot);
+    void addBuildingData(Snapshot &snapshot);
 };
 
 #endif  // PLAYER_H_

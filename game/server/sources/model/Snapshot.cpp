@@ -20,6 +20,10 @@ void Snapshot::addPlayer(const int playerId) {
     players.push_back(playerId);
 }
 
-void Snapshot::addUnit(int playerId, const std::shared_ptr<Unit>& unit) {
+void Snapshot::addUnit(int playerId, const std::shared_ptr<Unit> &unit) {
     units[playerId].push_back(unit);
+}
+
+void Snapshot::addBuilding(int playerId, const std::shared_ptr<Building> &building) {
+    buildings[playerId].push_back(building);
 }
