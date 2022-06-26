@@ -17,7 +17,7 @@ public:
     Unit(int id, double hp, int range, int speed, int type, coordenada_t coord);
     void setPath(std::stack<coordenada_t> _path);
     void setPosition(coordenada_t newPosition);
-    bool relocate();
+    coordenada_t relocate();
 };
 
 #endif  // UNITY_H_

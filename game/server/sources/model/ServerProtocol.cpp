@@ -66,7 +66,7 @@ void ServerProtocol::sendSnapshot(const std::vector<uint16_t> &snapshot) {
     }
 }
 
-void ServerProtocol::sendTerrain(int rows, int columns, std::vector<uint8_t> &&terrain) {
+void ServerProtocol::sendTerrain(int rows, int columns, std::vector<uint8_t> &terrain) {
     uint16_t _rows = rows;
     uint16_t _columns = rows;
     _rows = htons(_rows);

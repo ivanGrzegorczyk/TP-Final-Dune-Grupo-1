@@ -16,8 +16,7 @@ std::stack<coordenada_t> ServerMap::A_star(
 void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
     if (validPosition(position)) {
         players[playerId].addUnit(entityId, type, position);
-        map[position.first][position.second]->cellUnits.push_back(
-                players.at(playerId).getUnit(entityId));
+        map[position.first][position.second]->occupied = true;
         entityId++;
     }
 }
@@ -55,7 +54,7 @@ void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t posi
             players[playerId].addBuilding(entityId, buildingType, position);
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 2; j++) {
-                    map[y + i][x + j]->building = players.at(playerId).getBuilding(entityId);
+                    map[y + i][x + j]->occupied = true;
                 }
             }
             entityId++;
@@ -65,7 +64,7 @@ void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t posi
 
 void ServerMap::updateUnitsPosition() {
     for (auto & [id, player] : players) {
-        player.updateUnitsPosition();
+        player.updateUnitsPosition(map);
     }
 }
 
@@ -80,7 +79,7 @@ void ServerMap::addSnapshotData(std::vector<uint16_t> &snapshot) {
 void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
     // TODO Colocar el edificio central y crear más terrenos cuando
     // el cliente los pueda renderizas
-    std::ifstream file("../game/assets/data.yaml");
+    std::ifstream file(MAPS_PATH "data.yaml");
     YAML::Node config = YAML::Load(file);
     rows = config["map"]["rows"].as<int>();
     columns = config["map"]["columns"].as<int>();
