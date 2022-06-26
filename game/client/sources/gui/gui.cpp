@@ -31,7 +31,11 @@ bool GUI::isOverPoint(int x, int y) {
 }
 
 void GUI::clickOver(int x, int y) {
-    std::cout << "clicked on the menu" << std::endl;
+    for(auto it = buttons.begin(); it != buttons.end(); ++it) {
+        if((*it).Contains(x,y)) {
+            std::cout << "Clicked on a button!" << std::endl;
+        }
+    }
 }
 
 // todo cache some of this logic as as object state
