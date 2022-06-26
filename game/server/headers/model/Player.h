@@ -36,6 +36,8 @@ public:
     void addUnitData(Snapshot &snapshot);
 
     void addBuildingData(Snapshot &snapshot);
+
+    void addVehicleData(Snapshot &snapshot);
 };
 
 #endif  // PLAYER_H_

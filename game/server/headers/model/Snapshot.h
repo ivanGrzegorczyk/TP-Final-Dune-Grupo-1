@@ -24,11 +24,13 @@ public:
 
     std::vector<std::shared_ptr<Vehicle>> getVehicles(int playerId);
 
-    void addUnit(int playerId, const std::shared_ptr<Unit>& unit);
-
     void addPlayer(int playerId);
 
+    void addUnit(int playerId, const std::shared_ptr<Unit> &unit);
+
     void addBuilding(int playerId, const std::shared_ptr<Building> &building);
+
+    void addVehicle(int playerId, const std::shared_ptr<Vehicle> &vehicle);
 };
 
 #endif  // SNAPSHOT_H_

@@ -27,3 +27,7 @@ void Snapshot::addUnit(int playerId, const std::shared_ptr<Unit> &unit) {
 void Snapshot::addBuilding(int playerId, const std::shared_ptr<Building> &building) {
     buildings[playerId].push_back(building);
 }
+
+void Snapshot::addVehicle(int playerId, const std::shared_ptr<Vehicle> &vehicle) {
+    vehicles[playerId].push_back(vehicle);
+}

@@ -73,6 +73,7 @@ void ServerMap::addSnapshotData(Snapshot &snapshot) {
         snapshot.addPlayer(playerId);
         player.addUnitData(snapshot);
         player.addBuildingData(snapshot);
+        player.addVehicleData(snapshot);
     }
 }
 

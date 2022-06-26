@@ -58,3 +58,9 @@ void Player::addBuildingData(Snapshot &snapshot) {
         snapshot.addBuilding(playerId, building);
     }
 }
+
+void Player::addVehicleData(Snapshot &snapshot) {
+    for (auto const& [vehicleId, vehicle] : vehicles) {
+        snapshot.addVehicle(playerId, vehicle);
+    }
+}
