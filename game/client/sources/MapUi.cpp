@@ -109,11 +109,11 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
         if(units[player].find(characterId) != units[player].end()) {
             units.at(player).at(characterId)->setPosition(coord);
         } else {
-            units.at(player).insert(std::make_pair<int, Character*>
-                    (int{characterId}, new Character(rdr, characterId, coord, type)));
+            units.at(player).insert(std::make_pair<int, ClientUnit*>
+                    (int{characterId}, new ClientUnit(rdr, characterId, coord, type)));
         }
     } else {
-        units[player].insert(std::make_pair<int, Character *>(int{characterId}, new Character(rdr, characterId, coord, type)));
+        units[player].insert(std::make_pair<int, ClientUnit *>(int{characterId}, new ClientUnit(rdr, characterId, coord, type)));
     }
 }
 

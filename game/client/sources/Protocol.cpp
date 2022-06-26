@@ -59,32 +59,6 @@ void Protocol::createUnidadLigera(int id) {
     skt.sendall((&unityId), sizeof(unityId));
 }
 
-Response* Protocol::recvResponse() {
-    int offset = 0;
-    auto* response = new Response();
-    uint16_t lengthResponse;
-    skt.recvall(&lengthResponse, sizeof(lengthResponse));
-    lengthResponse = ntohs(lengthResponse);
-    uint16_t eventType;
-    uint16_t idPlayer;
-    uint16_t amount;
-
-
-    while(offset < lengthResponse) {
-        skt.recvall(&idPlayer, sizeof(idPlayer));
-        skt.recvall(&amount, sizeof(amount));
-        int player = ntohs(idPlayer);
-        int amountHost = ntohs(amount);
-        for(int j = 0; j < amountHost; j++){
-            skt.recvall(&eventType, sizeof(eventType));
-            eventType = ntohs(eventType);
-            this->createResponse(eventType, player, response);
-
-        }
-        offset += (amountHost * 5) + 2;
-    }
-    return response;
-}
 
 void Protocol::send(int command, const std::vector<uint16_t>& vector) {
     uint16_t aux;
@@ -125,31 +99,70 @@ std::pair<coordenada_t, std::vector<uint8_t>> Protocol::receiveTerrain() {
     return terrain;
 }
 
+Response* Protocol::recvResponse() {
+    int offset = 0;
+    auto* response = new Response();
+    uint16_t lengthResponse;
+    skt.recvall(&lengthResponse, sizeof(lengthResponse));
+    lengthResponse = ntohs(lengthResponse);
+    uint8_t eventType;
+    uint16_t idPlayer;
+    uint16_t amount;
 
-void Protocol::createResponse(uint16_t &eventType, int player, Response* response) {
-    uint16_t type;
-    uint16_t entityId;
-    uint16_t posX;
-    uint16_t posY;
+    while(offset < lengthResponse) {
+        skt.recvall(&idPlayer, sizeof(idPlayer));
+        skt.recvall(&amount, sizeof(amount));
+        int player = ntohs(idPlayer);
+        int amountHost = ntohs(amount);
+        for(int j = 0; j < amountHost; j++){
+            skt.recvall(&eventType, sizeof(eventType));
+            eventType = ntohs(eventType);
+            this->createResponse(eventType, player, response);
+        }
+        offset += (amountHost * 5) + 2;
+    }
+    return response;
+}
+
+void Protocol::createResponse(uint8_t &eventType, int player, Response* response) {
     Event *event;
-    skt.recvall(&type, sizeof(type));
-    skt.recvall(&entityId, sizeof(entityId));
-    skt.recvall(&posX, sizeof(posX));
-    skt.recvall(&posY, sizeof(posY));
-    int typeHost = ntohs(type);
-    int entityIdHost = ntohs(entityId);
-    int posxHost = ntohs(posX);
-    int posyHost = ntohs(posY);
-    coordenada_t coord({posxHost * 2, posyHost * 2});
+    int entityType;
+    int entityId;
+    int posX;
+    int posY;
+    this->receiveEntityInfo(entityType, entityId, posX, posY);
+    coordenada_t coord({posX * 2, posY * 2});
+
     switch (eventType) {
         case UNIT:
-           event = new UpdateUnit(player, typeHost, entityIdHost, coord);
+           event = new UpdateUnit(player, entityType, entityId, coord);
            break;
         case BUILDING:
-            event = new UpdateBuilding(player, type, entityIdHost, coord);
+            event = new UpdateBuilding(player, entityType, entityId, coord);
+            break;
+        case VEHICLE:
+            //TODO: crear vehiculo
             break;
     }
     response->add(event);
+}
+
+void Protocol::receiveEntityInfo(int &entityType, int &entityId, int &coordX, int &coordY) {
+    uint16_t type;
+    uint16_t idEntity;
+    uint16_t posX;
+    uint16_t posY;
+
+    skt.recvall(&type, sizeof(type));
+    skt.recvall(&idEntity, sizeof(idEntity));
+    skt.recvall(&posX, sizeof(posX));
+    skt.recvall(&posY, sizeof(posY));
+
+    entityType = (int)ntohs(type);
+    entityId = (int)ntohs(entityId);
+    coordX = (int)ntohs(posX);
+    coordY = (int)ntohs(posY);
+
 }
 
 void Protocol::close() {
