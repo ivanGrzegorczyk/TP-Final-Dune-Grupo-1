@@ -13,13 +13,17 @@ MainWindow::MainWindow(QWidget *parent)
     port_ui(new Ui::EnterPortWindow),match_ui(new Ui::PickMatchWindow),ui(new Ui::ClientMainWindow), _hostname("localhost"), _servicename("8080")
 {
     port_ui->setupUi(this);
+    port_ui->hostname->setText(QString::fromStdString(_hostname));
+    port_ui->servicename->setText(QString::fromStdString(_servicename));
     QPushButton *start_button = port_ui->start_button;
-    auto pick_match =  [this, start_button]() { this->show_pick_match(); };
+    auto pick_match =  [this]() { this->show_pick_match(); };
     std::cout << "connecting start button" << std::endl;
     connect(start_button, &QPushButton::clicked, this, pick_match);
 }
 
 void MainWindow::show_pick_match() {
+    _hostname = port_ui->hostname->text().toStdString();
+    _servicename = port_ui->servicename->text().toStdString();
     match_ui->setupUi(this);
     // TODO buttons come from a config file
     std::vector<std::string> matches = {"match1", "match2"};
@@ -68,9 +72,7 @@ void MainWindow::select_house(QPushButton *button) {
 
 Protocol MainWindow::generateFromUserInput() {
     //TODO use seprate window to initialize protocol
-    std::string hostname = _hostname;
-    std::string servicename = _servicename;
-    Protocol protocol(hostname, servicename);
+    Protocol protocol(_hostname, _servicename);
     return protocol;
 }
 
