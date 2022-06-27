@@ -14,6 +14,9 @@ std::stack<coordenada_t> ServerMap::A_star(
 }
 
 void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
+    if (players.find(playerId) == players.end()) {
+        players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
+    }
     if (validPosition(position)) {
         players[playerId].addUnit(entityId, type, position);
         map[position.first][position.second]->occupied = true;
