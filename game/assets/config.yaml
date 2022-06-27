@@ -46,6 +46,33 @@ buildings:
     points: 200
     features:
       capacity: 1000
+  - name: Silo2
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
+  - name: Silo3
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
+  - name: Silo4
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
 
 weapons:
 - name: Rifles de Asalto

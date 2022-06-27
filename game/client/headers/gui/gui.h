@@ -1,6 +1,7 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_GUI_H
 #define TP_FINAL_DUNE_GRUPO_1_GUI_H
 #include "SDL2pp/SDL2pp.hh"
+#include "yaml-cpp/yaml.h"
 #include "game/client/headers/gui/ButtonUi.h"
 #include <utility>
 using namespace SDL2pp;

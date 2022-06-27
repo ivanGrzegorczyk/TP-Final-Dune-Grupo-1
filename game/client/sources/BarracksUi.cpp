@@ -11,7 +11,7 @@ void BarracksUi::render() {
 void BarracksUi::update() {
         //TODO
 }
-
+// TODO improve encapsulation
 BarracksUi::BarracksUi(int player, coordenada_t coord, int id ,Renderer &rdr) : texture(Texture(rdr,
           Surface(DATA_PATH "/barracks.png"))),
           renderer(rdr), Building(player, id, BARRACKS_POINTS,

@@ -1,6 +1,7 @@
 #include "game/client/headers/gui/gui.h"
 #include "game/client/headers/gui/ButtonUi.h"
 #include "game/client/headers/gui/BuildingButtonUi.h"
+#include <fstream>
 #include <vector>
 #include <string>
 GUI::GUI(Rect area) : area(area){
@@ -11,7 +12,15 @@ GUI::GUI(Rect area) : area(area){
     //std::cout << width_item << "," << height_item << std::endl;
     Point size_item(width_item, height_item);
     Point origin = area.GetTopLeft();
-    std::vector<std::string> buildings = {"Bil1", "Bil2", "bil3", "bil4", "bil5"};
+    std::ifstream file(DATA_PATH "config.yaml");
+    YAML::Node config = YAML::Load(file);
+
+    // TODO: Create 'SDLBuilding class tht combines sdl entity with building properties
+    std::vector<std::string> buildings;
+    for(YAML::Node building_node : config["buildings"]) {
+        std::string name = building_node["name"].as<std::string>();
+        buildings.push_back(name);
+    }
     auto it = buildings.begin();
     //TODO more legantly iterate over matrix
     for(int i = 0; i < menu_rows; i++) {
