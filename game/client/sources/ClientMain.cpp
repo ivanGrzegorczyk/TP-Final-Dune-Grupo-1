@@ -6,11 +6,6 @@
 
 using namespace  SDL2pp;
 int main(int argc, char* argv[]) {
-  if (argc != 3) {
-    std::cerr << "Usage: " << argv[0] << " <hostname> <service>" << std::endl;
-    return -1;
-  }
-
   try{
     // Clase que contiene el loop principal
     QApplication app(argc, argv);

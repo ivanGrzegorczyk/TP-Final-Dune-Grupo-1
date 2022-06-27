@@ -13,6 +13,8 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
@@ -30,9 +32,12 @@ public:
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout;
-    QPushButton *house_button_1;
-    QPushButton *house_button_2;
-    QPushButton *house_button_3;
+    QVBoxLayout *verticalLayout_3;
+    QLabel *label;
+    QLineEdit *hostname;
+    QVBoxLayout *verticalLayout_4;
+    QLabel *label_2;
+    QLineEdit *servicename;
     QPushButton *start_button;
 
     void setupUi(QMainWindow *EnterPortWindow)
@@ -53,26 +58,41 @@ public:
         view->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         verticalLayoutWidget = new QWidget(widget);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(130, 110, 342, 80));
+        verticalLayoutWidget->setGeometry(QRect(130, 110, 342, 116));
         verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        house_button_1 = new QPushButton(verticalLayoutWidget);
-        house_button_1->setObjectName(QString::fromUtf8("house_button_1"));
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        label = new QLabel(verticalLayoutWidget);
+        label->setObjectName(QString::fromUtf8("label"));
 
-        horizontalLayout->addWidget(house_button_1);
+        verticalLayout_3->addWidget(label);
 
-        house_button_2 = new QPushButton(verticalLayoutWidget);
-        house_button_2->setObjectName(QString::fromUtf8("house_button_2"));
+        hostname = new QLineEdit(verticalLayoutWidget);
+        hostname->setObjectName(QString::fromUtf8("hostname"));
 
-        horizontalLayout->addWidget(house_button_2);
+        verticalLayout_3->addWidget(hostname);
 
-        house_button_3 = new QPushButton(verticalLayoutWidget);
-        house_button_3->setObjectName(QString::fromUtf8("house_button_3"));
 
-        horizontalLayout->addWidget(house_button_3);
+        horizontalLayout->addLayout(verticalLayout_3);
+
+        verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        label_2 = new QLabel(verticalLayoutWidget);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+
+        verticalLayout_4->addWidget(label_2);
+
+        servicename = new QLineEdit(verticalLayoutWidget);
+        servicename->setObjectName(QString::fromUtf8("servicename"));
+
+        verticalLayout_4->addWidget(servicename);
+
+
+        horizontalLayout->addLayout(verticalLayout_4);
 
 
         verticalLayout_2->addLayout(horizontalLayout);
@@ -95,10 +115,9 @@ public:
     void retranslateUi(QMainWindow *EnterPortWindow)
     {
         EnterPortWindow->setWindowTitle(QCoreApplication::translate("EnterPortWindow", "New Map", nullptr));
-        house_button_1->setText(QCoreApplication::translate("EnterPortWindow", "1", nullptr));
-        house_button_2->setText(QCoreApplication::translate("EnterPortWindow", "2", nullptr));
-        house_button_3->setText(QCoreApplication::translate("EnterPortWindow", "3", nullptr));
-        start_button->setText(QCoreApplication::translate("EnterPortWindow", "Start Game", nullptr));
+        label->setText(QCoreApplication::translate("EnterPortWindow", "host name", nullptr));
+        label_2->setText(QCoreApplication::translate("EnterPortWindow", "service name", nullptr));
+        start_button->setText(QCoreApplication::translate("EnterPortWindow", "Ok", nullptr));
     } // retranslateUi
 
 };
