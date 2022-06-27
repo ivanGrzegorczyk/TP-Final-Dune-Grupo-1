@@ -90,6 +90,7 @@ void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
 
     map = std::vector<std::vector<ServerCell *>>(
             rows, std::vector<ServerCell *>(columns));
+    entityId = 1;
 
     for(YAML::Node cell : config["map"]["cells"]) {
         auto x = cell["pos"][0].as<int>();
