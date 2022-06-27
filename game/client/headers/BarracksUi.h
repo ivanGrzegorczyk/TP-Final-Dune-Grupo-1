@@ -13,7 +13,7 @@ private:
     Rect location;
     Renderer &renderer;
 public:
-    explicit BarracksUi(coordenada_t coord, int id ,Renderer &rdr);
+    explicit BarracksUi(int player, coordenada_t coord, int id ,Renderer &rdr);
     void render() override;
     void update() override;
 

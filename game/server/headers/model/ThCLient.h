@@ -6,6 +6,7 @@
 #include "common/headers/Thread.h"
 #include "common/headers/ProtectedQueue.h"
 #include "server/headers/events/ServerEvent.h"
+#include "Snapshot.h"
 
 class ThClient: public Thread {
 private:
@@ -33,7 +34,7 @@ public:
 
     void stop();
 
-    void sendSnapshot(const std::vector<uint16_t> &snapshot);
+    void sendSnapshot(Snapshot &snapshot);
     ThClient(const ThClient&) = delete;
 
     ThClient& operator=(const ThClient&) = delete;

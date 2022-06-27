@@ -2,11 +2,11 @@
 #define TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #include "SDL2pp/SDL2pp.hh"
 #include "Request.h"
-#include "../../common/headers/Unit.h"
+#include "ClientUnit.h"
 
 using namespace SDL2pp;
 
-class Character : public Unit {
+class character : public ClientUnit {
 private:
     SDL2pp::Texture t;
     Renderer& rnd;
@@ -15,11 +15,11 @@ private:
     void normalColor();
     void highlight();
 public:
-    Character(SDL2pp::Renderer &renderer, int id, coordenada_t coord, int type);
+    character(SDL2pp::Renderer &renderer, int player, int id, coordenada_t coord, int type);
     Request *walkEvent(int x, int y);
-    bool mouseOverCharacter(int x, int y) const;
-    void render();
-    Request* reactToEvent(int x, int y);
+    bool mouseOverUnit(int x, int y) const;
+    void render(); //sdl entity
+    Request* reactToEvent(int x, int y); //sdl entity
 };
 
 

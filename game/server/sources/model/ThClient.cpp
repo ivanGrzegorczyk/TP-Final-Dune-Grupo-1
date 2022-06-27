@@ -14,7 +14,6 @@ void ThClient::run() {
     try {
         protocol.assignPlayerId(playerId);
         protocol.sendTerrain(rows, columns, terrain);
-
         while (keep_talking) {
             int command = protocol.commandReceive();
             manageCommand(command);
@@ -55,7 +54,7 @@ void ThClient::manageCommand(int command) {
     }
 }
 
-void ThClient::sendSnapshot(const std::vector<uint16_t> &snapshot) {
+void ThClient::sendSnapshot(Snapshot &snapshot) {
     protocol.sendSnapshot(snapshot);
 }
 

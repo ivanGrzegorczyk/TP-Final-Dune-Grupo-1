@@ -33,10 +33,13 @@ public:
 
     std::pair<coordenada_t, std::vector<uint8_t>> receiveTerrain();
 
-    void createResponse(uint16_t &eventType, int player, Response *response);
+    void createResponse(uint8_t &eventType, int player, Response *response);
 
+    void receiveEntityInfo(int &entityType, int &entityId, int &coordX, int &coordY);
     void shutdown();
     void close();
+
+    void deserializeEvents(uint16_t playerId, Response *response);
 };
 
 

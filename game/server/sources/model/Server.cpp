@@ -5,8 +5,8 @@
 #include "server/headers/model/Server.h"
 #include "common/headers/Chronometer.h"
 
-Server::Server(const std::string &host) :
-protocol(host), keep_accepting(true), active_game(true), nextPlayerId(1) {
+Server::Server(const std::string &port) :
+        protocol(port), keep_accepting(true), active_game(true), nextPlayerId(1) {
     map.initializeTerrain(terrain);
 }
 
@@ -89,7 +89,7 @@ void Server::manageEvents() {
         event = protectedQueue.pop();
     }
     map.updateUnitsPosition();
-    std::vector<uint16_t> snapshot(createSnapshot());
+    Snapshot snapshot = createSnapshot();
     blockingQueue.push(snapshot);
 }
 
@@ -97,7 +97,7 @@ void Server::broadCast() {
     try {
         // Si es una partida de 4, y uno se desconecta, debe terminar la partida?
         while (active_game) {
-            std::vector<uint16_t> snapshot = blockingQueue.pop();
+            Snapshot snapshot = blockingQueue.pop();
             if (!active_game) {
                 return;
             }
@@ -111,10 +111,9 @@ void Server::broadCast() {
     }
 }
 
-std::vector<uint16_t> Server::createSnapshot() {
-    std::vector<uint16_t> snapshot;
+Snapshot Server::createSnapshot() {
+    Snapshot snapshot;
     map.addSnapshotData(snapshot);
-    uint16_t size = snapshot.size();
-    snapshot.insert(snapshot.begin(), size);
-    return snapshot;
+
+    return std::move(snapshot);
 }

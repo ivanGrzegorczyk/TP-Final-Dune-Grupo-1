@@ -11,12 +11,13 @@
 #include "common/headers/ProtectedQueue.h"
 #include "ClientsMonitor.h"
 #include "server/headers/events/ServerEvent.h"
+#include "Snapshot.h"
 
 class Server {
 private:
     ServerMap map;
     ProtectedQueue<ServerEvent *> protectedQueue;
-    BlockingQueue<std::vector<uint16_t>> blockingQueue;
+    BlockingQueue<Snapshot> blockingQueue;
     ServerProtocol protocol;
     std::atomic<bool> keep_accepting;
     std::atomic<bool> active_game;
@@ -32,12 +33,12 @@ private:
 
 public:
 
-    Server(const std::string &host);
+    Server(const std::string &port);
     ~Server();
     // Gameloop
     void run();
 
-    std::vector<uint16_t> createSnapshot();
+    Snapshot createSnapshot();
 
 };
 

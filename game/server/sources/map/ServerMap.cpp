@@ -14,6 +14,9 @@ std::stack<coordenada_t> ServerMap::A_star(
 }
 
 void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
+    if (players.find(playerId) == players.end()) {
+        players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
+    }
     if (validPosition(position)) {
         players[playerId].addUnit(entityId, type, position);
         map[position.first][position.second]->occupied = true;
@@ -68,11 +71,12 @@ void ServerMap::updateUnitsPosition() {
     }
 }
 
-void ServerMap::addSnapshotData(std::vector<uint16_t> &snapshot) {
+void ServerMap::addSnapshotData(Snapshot &snapshot) {
     for (auto & [playerId, player] : players) {
-        snapshot.push_back((uint16_t) playerId);
+        snapshot.addPlayer(playerId);
         player.addUnitData(snapshot);
-        //player.addBuildingData(snapshot);
+        player.addBuildingData(snapshot);
+        player.addVehicleData(snapshot);
     }
 }
 
@@ -86,6 +90,7 @@ void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
 
     map = std::vector<std::vector<ServerCell *>>(
             rows, std::vector<ServerCell *>(columns));
+    entityId = 1;
 
     for(YAML::Node cell : config["map"]["cells"]) {
         auto x = cell["pos"][0].as<int>();

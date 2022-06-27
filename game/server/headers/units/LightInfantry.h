@@ -1,7 +1,7 @@
 #ifndef LIGHTINFANTRY_H_
 #define LIGHTINFANTRY_H_
 
-#include "../../../common/headers/Unit.h"
+#include "Unit.h"
 
 class LightInfantry : public Unit {
 public:

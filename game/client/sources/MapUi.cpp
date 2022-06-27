@@ -44,11 +44,13 @@ void MapUi::render() {
         tile.render(rdr);
     }
     // render units
+    //std::cout << "size: " << units.size() << std::endl;
     for(auto const& [playerId, unitsMap] : units) {
        for(auto const& [unitId, unit]: unitsMap) {
            unit->render();
        }
     }
+    //std::cout << "size despues: " << units.size() << std::endl;
 
     for(auto const& [playerId, building] : buildings) {
         for(auto  [buildingId, b]: building) {
@@ -105,22 +107,23 @@ void MapUi::addSand(coordenada_t coord, Rect destination) {
 }
 
 void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coord) {
+    std::cout << "actualizo unidades" << std::endl;
     if(units.find(player) != units.end()) {
         if(units[player].find(characterId) != units[player].end()) {
             units.at(player).at(characterId)->setPosition(coord);
         } else {
-            units.at(player).insert(std::make_pair<int, Character*>
-                    (int{characterId}, new Character(rdr, characterId, coord, type)));
+            units.at(player).insert(std::make_pair<int, character*>
+                    (int{characterId}, new character(rdr, player, characterId, coord, type)));
         }
     } else {
-        units[player].insert(std::make_pair<int, Character *>(int{characterId}, new Character(rdr, characterId, coord, type)));
+        units[player].insert(std::make_pair<int, character *>(int{characterId}, new character(rdr, player, characterId, coord, type)));
     }
 }
 
 void MapUi::updateBuilding(int player, int type, int buildingId, coordenada_t coord) {
     BuildingFactory factory;
     buildings[player].insert(std::make_pair<int, SdlEntity*>
-            (int{buildingId}, factory.createBuilding(type, buildingId, coord, rdr)));
+            (int{buildingId}, factory.createBuilding(player ,type, buildingId, coord, rdr)));
 }
 
 MapUi::~MapUi() = default;

@@ -8,7 +8,7 @@ GUI::GUI(Rect area) : area(area){
     int menu_columns = 2;
     int width_item = int(area.GetW() / menu_columns);
     int height_item = int(area.GetH() / menu_rows);
-    std::cout << width_item << "," << height_item << std::endl;
+    //std::cout << width_item << "," << height_item << std::endl;
     Point size_item(width_item, height_item);
     Point origin = area.GetTopLeft();
     std::vector<std::string> buildings = {"Bil1", "Bil2", "bil3", "bil4", "bil5"};

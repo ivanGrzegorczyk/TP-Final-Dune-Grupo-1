@@ -1,5 +1,6 @@
 #include "server/headers/model/ThCLient.h"
 #include "server/headers/model/ClientsMonitor.h"
+#include "server/headers/model/Snapshot.h"
 
 ClientsMonitor::~ClientsMonitor() {
     clean();
@@ -34,7 +35,7 @@ void ClientsMonitor::clearAll() {
     clients.clear();
 }
 
-void ClientsMonitor::broadCast(const std::vector<uint16_t> &snapshot) {
+void ClientsMonitor::broadCast(Snapshot &snapshot) {
     std::lock_guard<std::mutex> lock(mutex);
     for (ThClient *client : clients) {
         client->sendSnapshot(snapshot);

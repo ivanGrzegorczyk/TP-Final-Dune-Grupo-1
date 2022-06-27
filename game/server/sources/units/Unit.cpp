@@ -1,9 +1,9 @@
 #include <stack>
 #include <utility>
-#include "../headers/Unit.h"
+#include "server/headers/units/Unit.h"
 
-Unit::Unit(int id, double hp, int range, int speed, int type, coordenada_t coord) :
-        Entity(id, hp, type, coord), range(range), speed(speed) {}
+Unit::Unit(int playerId, int id, double hp, int range, int speed, int type, coordenada_t coord) :
+        Entity(playerId, id, hp, type, coord), range(range), speed(speed) {}
 
 void Unit::setPath(std::stack<coordenada_t> _path) {
     this->path = std::move(_path);

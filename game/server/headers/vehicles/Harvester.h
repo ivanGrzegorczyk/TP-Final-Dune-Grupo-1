@@ -9,7 +9,7 @@ private:
     unsigned int spice;
 
 public:
-    Harvester(int id, coordenada_t coord);
+    Harvester(int playerId, int id, coordenada_t coord);
 
     void harvest(ServerCell *cell);
 };

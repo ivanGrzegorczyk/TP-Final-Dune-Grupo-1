@@ -1,8 +1,9 @@
 #include "server/headers/model/Player.h"
 #include "server/headers/units/LightInfantry.h"
 #include "server/headers/buildings/Barracks.h"
+#include "server/headers/model/Snapshot.h"
 
-Player::Player(int id, int house) : id(id), house(house), money(0) {}
+Player::Player(int id, int house) : playerId(id), house(house), money(0) {}
 
 void Player::addUnit(int unitId, int type, coordenada_t position) {
     switch (type) {
@@ -46,29 +47,20 @@ void Player::updateUnitsPosition(std::vector<std::vector<ServerCell *>> &map) {
     }
 }
 
-void Player::addUnitData(std::vector<uint16_t> &snapshot) {
-    snapshot.push_back(units.size());  // Cantidad de unidades para este jugador
+void Player::addUnitData(Snapshot &snapshot) {
     for (auto const& [unitId, unit] : units) {
-        uint16_t eventType = UNIT;
-        snapshot.push_back(eventType);
-        snapshot.push_back((uint16_t) unit->getType());  // Tipo de unidad
-        snapshot.push_back((uint16_t) unitId);  // Id de la unidad
-        snapshot.push_back(
-                (uint16_t) unit->getPosition().first);  // Coordenada x
-        snapshot.push_back(
-                (uint16_t) unit->getPosition().second);  // Coordenada y
+        snapshot.addUnit(playerId, unit);
     }
 }
 
-void Player::addBuildingData(std::vector<uint16_t> &snapshot) {
-    snapshot.push_back(buildings.size());  // Cantidad de edificios para este jugador
-    snapshot.push_back(BUILDING);
+void Player::addBuildingData(Snapshot &snapshot) {
     for (auto const& [buildingId, building] : buildings) {
-        snapshot.push_back((uint16_t) building->getType());  // Tipo de unidad
-        snapshot.push_back((uint16_t) buildingId);  // Id de la unidad
-        snapshot.push_back(
-                (uint16_t) building->getPosition().first);  // Coordenada x
-        snapshot.push_back(
-                (uint16_t) building->getPosition().second);  // Coordenada y
+        snapshot.addBuilding(playerId, building);
+    }
+}
+
+void Player::addVehicleData(Snapshot &snapshot) {
+    for (auto const& [vehicleId, vehicle] : vehicles) {
+        snapshot.addVehicle(playerId, vehicle);
     }
 }

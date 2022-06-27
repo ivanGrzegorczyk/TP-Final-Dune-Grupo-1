@@ -10,7 +10,7 @@ protected:
     unsigned int cost;
 
 public:
-    Vehicle(int id, int hp, int range, int speed, int type, unsigned int cost, coordenada_t coord);
+    Vehicle(int playerId, int id, int hp, int range, int speed, int type, unsigned int cost, coordenada_t coord);
 };
 
 #endif  // VEHICLE_H_
