@@ -5,6 +5,7 @@
 #include "Protocol.h"
 #include "common/headers/Building.h"
 #include "client/headers/gui/gui.h"
+#include "client/headers/building_type/BuildingType.h"
 #include "character.h"
 #include "SdlEntity.h"
 #include <vector>
@@ -12,6 +13,7 @@
 #include <sstream>
 #include <map>
 #include <memory>
+#include "client/headers/BuildingFactory.h"
 
 #define LENGTH_TILE 16
 using namespace SDL2pp;
@@ -22,6 +24,8 @@ private:
     Renderer& rdr;
     Texture ground;
     Texture harvester;
+    BuildingFactory factory;
+    std::vector<BuildingType> building_types;
     GUI gui;
     std::pair<coordenada_t, std::vector<uint8_t>> terrain;
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades

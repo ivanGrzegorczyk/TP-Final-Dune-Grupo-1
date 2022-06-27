@@ -80,7 +80,7 @@ weapons:
   animation: None
   frequency: 6 #shots per second
   bonus:
-    units: [Infantería ligera, Infantería pesafe]
+    units: [Infantería ligera, Infantería pesada]
     value: 1
 
 - name: Lanza Misiles
