@@ -107,7 +107,6 @@ void MapUi::addSand(coordenada_t coord, Rect destination) {
 }
 
 void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coord) {
-    std::cout << "actualizo unidades" << std::endl;
     if(units.find(player) != units.end()) {
         if(units[player].find(characterId) != units[player].end()) {
             units.at(player).at(characterId)->setPosition(coord);
