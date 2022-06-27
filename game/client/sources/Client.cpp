@@ -12,12 +12,12 @@
 
 using namespace SDL2pp;
 
-Client::Client(Protocol&& protocol, Renderer &rnd, std::string house) :
-    protocol(std::move(protocol)), mapUi(rnd),clientId(), running(true) {
+Client::Client(std::shared_ptr<Protocol> protocol, Renderer &rnd, std::string house) :
+    protocol(protocol), mapUi(rnd),clientId(), running(true) {
 }
 
 void Client::run() {
-    this->clientId = protocol.receiveId();
+    this->clientId = protocol->receiveId();
     this->mapUi.receiveMap(protocol);
     this->mapUi.draw();
    /* std::thread threadReceive(&Client::receiveOfServer, this);
@@ -100,29 +100,6 @@ void Client::update() {
         this->mapUi.update(response);
     }
 }
-
-/*void Client::sendToServer() {
-    while(running) {
-        std::vector<uint16_t> data;
-        Request *event = this->sendQueue.pop();
-        std::cout << "entroooo a pop" << std::endl;
-
-        if (event != nullptr) {
-            std::cout << "data" << std::endl;
-            data = event->getData();
-            protocol.send(event->getCommand(), data);
-        }
-        std::cout << "nulo" << std::endl;
-
-    }
-}*/
-
-/*void Client::receiveOfServer() {
-    while(running) {
-        Response* response =  protocol.recvResponse();
-        this->recvQueue.push(response);
-    }
-}*/
 
 void Client::renderer() {
     mapUi.render();

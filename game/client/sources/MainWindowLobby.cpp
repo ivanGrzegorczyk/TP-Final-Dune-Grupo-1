@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::show_pick_match() {
     _hostname = port_ui->hostname->text().toStdString();
     _servicename = port_ui->servicename->text().toStdString();
+    protocol.reset(new Protocol(_hostname, _servicename));
     match_ui->setupUi(this);
     // TODO buttons come from a config file
     std::vector<std::string> matches = {"match1", "match2"};
@@ -70,13 +71,9 @@ void MainWindow::select_house(QPushButton *button) {
     house_chosen = (button->text().toStdString());
 }
 
-Protocol MainWindow::transferProtocol() {
-    //TODO use seprate window to initialize protocol
-    Protocol protocol(_hostname, _servicename);
-    return protocol;
-}
-
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete port_ui;
+    delete match_ui;
 }

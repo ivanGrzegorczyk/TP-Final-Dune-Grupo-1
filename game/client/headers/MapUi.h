@@ -35,7 +35,7 @@ public:
     void draw();
     Request* mouseEvent(int x, int y, int playerId);
     void update(Response *response);
-    void receiveMap(Protocol &protocol);
+    void receiveMap(std::shared_ptr<Protocol> protocol);
     void render();
 
     Request* clickScreen(int x, int y, int playerId);

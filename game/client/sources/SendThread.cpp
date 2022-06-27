@@ -9,7 +9,7 @@ void SendThread::run() {
         if (event != nullptr) {
             std::cout << "data" << std::endl;
             data = event->getData();
-            protocol.send(event->getCommand(), data);
+            protocol->send(event->getCommand(), data);
         }
     }
 }
@@ -19,6 +19,6 @@ void SendThread::close() {
     running = false;
 }
 
-SendThread::SendThread(BlockingQueue<Request*> &queue, Protocol &protocol): running(true),queue(queue), protocol(protocol) {
+SendThread::SendThread(BlockingQueue<Request*> &queue, std::shared_ptr<Protocol> protocol): running(true),queue(queue), protocol(protocol) {
 
 }

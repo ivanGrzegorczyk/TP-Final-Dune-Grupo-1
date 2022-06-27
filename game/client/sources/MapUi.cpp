@@ -15,8 +15,8 @@ void MapUi::update(Response *response) {
     response->update(this , rdr);
 }
 
-void MapUi::receiveMap(Protocol &protocol) {
-    this->terrain = protocol.receiveTerrain();
+void MapUi::receiveMap(std::shared_ptr<Protocol> protocol) {
+    this->terrain = protocol->receiveTerrain();
 }
 
 void MapUi::draw() {

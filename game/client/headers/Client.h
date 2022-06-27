@@ -12,7 +12,7 @@ typedef std::chrono::duration<double, std::milli> duration;
 
 class Client {
 private:
-    Protocol protocol;
+    std::shared_ptr<Protocol> protocol;
     int clientId;
     MapUi mapUi;
     std::atomic<bool> running;
@@ -21,7 +21,7 @@ private:
 
 
 public:
-    Client(Protocol&& protocol, Renderer &rnd, std::string house);
+    Client(std::shared_ptr<Protocol>, Renderer &rnd, std::string house);
     duration simDeltaTime(chrono &t1, chrono &t2) {
         t2= std::chrono::system_clock::now();
         auto delta= t2 - t1;

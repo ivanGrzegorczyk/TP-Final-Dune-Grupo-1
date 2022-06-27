@@ -12,13 +12,13 @@ class ReceiveThread : public Thread {
 private:
     std::atomic<bool> running;
     ProtectedQueue<Response *>  &queue;
-    Protocol &protocol;
+    std::shared_ptr<Protocol> protocol;
 public:
     void run() override;
 
     void close();
 
-    explicit ReceiveThread(ProtectedQueue<Response *> &queue, Protocol &protocol);
+    explicit ReceiveThread(ProtectedQueue<Response *> &queue, std::shared_ptr<Protocol> protocol);
 };
 
 

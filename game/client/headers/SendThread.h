@@ -13,9 +13,9 @@ class SendThread : public Thread {
 private:
     std::atomic<bool> running;
     BlockingQueue<Request*> &queue;
-    Protocol &protocol;
+    std::shared_ptr<Protocol> protocol;
 public:
-    explicit SendThread(BlockingQueue<Request *> &queue, Protocol &protocol);
+    explicit SendThread(BlockingQueue<Request *> &queue, std::shared_ptr<Protocol> protocol);
     void run() override;
     void close();
 };

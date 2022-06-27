@@ -21,7 +21,10 @@ int main(int argc, char* argv[]) {
     if (app.exec()) {
         throw std::runtime_error("La aplicación QT finalizó de forma incorrecta");
     }
-    Protocol protocol(std::move(ui_window.transferProtocol()));
+    // get connection from the qt app
+    std::shared_ptr<Protocol> protocol = ui_window.protocol;
+
+    // launch sdl app
     SDL sdl(SDL_INIT_VIDEO);
     Window window("Client", SDL_WINDOWPOS_UNDEFINED,
                 SDL_WINDOWPOS_UNDEFINED,640, 480, SDL_WINDOW_RESIZABLE);
@@ -30,7 +33,7 @@ int main(int argc, char* argv[]) {
     // parameters obtained from lobby
     std::string house = ui_window.house_chosen;
 
-    Client client(std::move(protocol), render, house);
+    Client client(protocol, render, house);
     client.run();
   } catch (std::exception &e) {
     std::ostringstream oss;
