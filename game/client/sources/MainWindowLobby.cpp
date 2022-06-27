@@ -17,7 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
     port_ui->servicename->setText(QString::fromStdString(_servicename));
     QPushButton *start_button = port_ui->start_button;
     auto pick_match =  [this]() { this->show_pick_match(); };
-    std::cout << "connecting start button" << std::endl;
     connect(start_button, &QPushButton::clicked, this, pick_match);
 }
 
@@ -41,7 +40,8 @@ void MainWindow::show_pick_match() {
         connect(buttons[i], &QPushButton::clicked, this, smatch);
     }
     QPushButton *start_button = match_ui->start_button;
-    connect(start_button, &QPushButton::clicked, this, &QMainWindow::close, Qt::QueuedConnection);
+    auto pick_house =  [this]() { this->show_pick_house(); };
+    connect(start_button, &QPushButton::clicked, this, pick_house);
 }
 
 void MainWindow::show_pick_house() {
