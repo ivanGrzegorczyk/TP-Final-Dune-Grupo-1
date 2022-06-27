@@ -1,4 +1,6 @@
-#include "game/client/headers/gui/ButtonUi.h"
+
+#include "client/headers/gui/ButtonUi.h"
+
 ButtonUi::ButtonUi() {}
 void ButtonUi::render(Renderer &rdr) {
     rdr.DrawRect(rectangle);

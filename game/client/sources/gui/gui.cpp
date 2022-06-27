@@ -1,8 +1,9 @@
-#include "game/client/headers/gui/gui.h"
-#include "game/client/headers/gui/ButtonUi.h"
-#include "game/client/headers/gui/BuildingButtonUi.h"
+
 #include <vector>
 #include <string>
+#include "client/headers/gui/gui.h"
+#include "client/headers/gui/BuildingButtonUi.h"
+
 GUI::GUI(Rect area) : area(area){
     int menu_rows = 4;
     int menu_columns = 2;
