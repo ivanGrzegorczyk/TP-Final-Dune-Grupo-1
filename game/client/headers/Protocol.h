@@ -38,6 +38,8 @@ public:
     void receiveEntityInfo(int &entityType, int &entityId, int &coordX, int &coordY);
     void shutdown();
     void close();
+
+    void deserializeEvents(uint16_t playerId, Response *response);
 };
 
 

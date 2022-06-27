@@ -44,11 +44,13 @@ void MapUi::render() {
         tile.render(rdr);
     }
     // render units
+    //std::cout << "size: " << units.size() << std::endl;
     for(auto const& [playerId, unitsMap] : units) {
        for(auto const& [unitId, unit]: unitsMap) {
            unit->render();
        }
     }
+    //std::cout << "size despues: " << units.size() << std::endl;
 
     for(auto const& [playerId, building] : buildings) {
         for(auto  [buildingId, b]: building) {
@@ -105,6 +107,7 @@ void MapUi::addSand(coordenada_t coord, Rect destination) {
 }
 
 void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coord) {
+    std::cout << "actualizo unidades" << std::endl;
     if(units.find(player) != units.end()) {
         if(units[player].find(characterId) != units[player].end()) {
             units.at(player).at(characterId)->setPosition(coord);

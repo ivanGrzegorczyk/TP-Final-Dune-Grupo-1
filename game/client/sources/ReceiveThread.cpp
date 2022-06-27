@@ -3,7 +3,9 @@
 void ReceiveThread::run() {
     while(running) {
         Response* response =  protocol.recvResponse();
-        this->queue.push(response);
+        if(response != nullptr) {
+            this->queue.push(response);
+        }
     }
 }
 
