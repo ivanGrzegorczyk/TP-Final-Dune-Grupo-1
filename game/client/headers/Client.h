@@ -21,6 +21,7 @@ private:
 
 
 public:
+    Client(Protocol&& protocol, Renderer &rnd, std::string house);
     duration simDeltaTime(chrono &t1, chrono &t2) {
         t2= std::chrono::system_clock::now();
         auto delta= t2 - t1;
@@ -35,7 +36,6 @@ public:
             usleep((1.0 / 30) - delta.count());
     }
 
-    Client(const std::string& hostname, const std::string& servicename, Renderer &rnd, std::string house);
     void run();
 
    /* void sendToServer();

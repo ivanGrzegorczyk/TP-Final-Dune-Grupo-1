@@ -16,6 +16,11 @@ int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
     // Instancio la ventana principal
     MainWindow ui_window;
+
+    std::string hostname = argv[1];
+    std::string servicename = argv[2];
+    Protocol protocol(hostname, servicename);
+
     ui_window.show();
     /*
         * QApplication::exec inicia el event loop y se queda esperando que finalice la aplicación. Cuando el usuario
@@ -31,8 +36,11 @@ int main(int argc, char* argv[]) {
     Window window("Client", SDL_WINDOWPOS_UNDEFINED,
                 SDL_WINDOWPOS_UNDEFINED,640, 480, SDL_WINDOW_RESIZABLE);
     Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
+
+    // parameters obtained from lobby
     std::string house = ui_window.house_chosen;
-    Client client(argv[1], argv[2], render, house);
+
+    Client client(std::move(protocol), render, house);
     client.run();
   } catch (std::exception &e) {
     std::ostringstream oss;
