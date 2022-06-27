@@ -41,6 +41,9 @@ void ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
 }
 
 void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t position) {
+    if (players.find(playerId) == players.end()) {
+        players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
+    }
     if (buildingType == BUILDING_BARRACKS) {
         int x = position.first, y = position.second;
 
