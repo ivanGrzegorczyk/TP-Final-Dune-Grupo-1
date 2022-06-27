@@ -46,8 +46,14 @@ void MainWindow::show_pick_match() {
 
 void MainWindow::show_pick_house() {
     ui->setupUi(this);
-    // TODO buttons come from a config file
-    std::vector<std::string> housenames = {NAME_ATREIDES, NAME_HARKONNEN, NAME_ORDOS};
+    // buttons come from a config file
+    std::ifstream file(DATA_PATH "config.yaml");
+    YAML::Node config = YAML::Load(file);
+    std::vector<std::string> housenames;
+    for(YAML::Node house : config["houses"]) {
+        housenames.push_back(house.as<std::string>());
+    }
+
     std::vector<QPushButton *> buttons;
     buttons.push_back(ui->house_button_1);
     buttons.push_back(ui->house_button_2);

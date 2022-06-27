@@ -90,4 +90,4 @@ target_link_libraries (Client Threads::Threads)
 
 target_link_libraries (Server ${YAML_CPP_LIBRARIES})
 target_link_libraries (Editor ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core ${YAML_CPP_LIBRARIES})
-target_link_libraries (Client ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core)
+target_link_libraries (Client ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core ${YAML_CPP_LIBRARIES})
