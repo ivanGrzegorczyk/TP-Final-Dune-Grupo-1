@@ -23,7 +23,7 @@ public:
     void select_match(QPushButton *button);
     void select_house(QPushButton *button);
     std::shared_ptr<Protocol> protocol;
-    Protocol generateFromUserInput();
+    Protocol transferProtocol();
 private:
     std::string _hostname;
     std::string _servicename;

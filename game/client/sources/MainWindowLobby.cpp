@@ -70,7 +70,7 @@ void MainWindow::select_house(QPushButton *button) {
     house_chosen = (button->text().toStdString());
 }
 
-Protocol MainWindow::generateFromUserInput() {
+Protocol MainWindow::transferProtocol() {
     //TODO use seprate window to initialize protocol
     Protocol protocol(_hostname, _servicename);
     return protocol;
