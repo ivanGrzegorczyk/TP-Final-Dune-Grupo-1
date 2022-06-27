@@ -1,8 +1,8 @@
 #include "server/headers/vehicles/Harvester.h"
 #include "server/headers/map/ServerCell.h"
 
-Harvester::Harvester(int playerId, int id, coordenada_t coord) :
-        Vehicle(playerId, id, HARVESTER_HP, HARVESTER_RANGE,
+Harvester::Harvester(int id, coordenada_t coord) :
+        Vehicle(id, HARVESTER_HP, HARVESTER_RANGE,
                 HARVESTER_SPEED, VEHICLE_HARVESTER, HARVESTER_COST, coord), spice(0) {}
 
 void Harvester::harvest(ServerCell *cell) {
@@ -13,4 +13,10 @@ void Harvester::harvest(ServerCell *cell) {
         std::cout << e.what() << std::endl;
         return;
     }
+}
+
+std::shared_ptr<Vehicle> Harvester::copy() {
+    auto copy = std::make_shared<Harvester>(this->getId(), this->getPosition());
+
+    return copy;
 }

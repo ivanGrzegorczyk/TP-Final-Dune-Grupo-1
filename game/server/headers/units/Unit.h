@@ -3,6 +3,7 @@
 
 #include <utility>
 #include <stack>
+#include <memory>
 
 #include "common/headers/Entity.h"
 #include "common/headers/Constantes.h"
@@ -14,10 +15,13 @@ protected:
     std::stack<coordenada_t> path;
 
 public:
-    Unit(int playerId, int id, double hp, int range, int speed, int type, coordenada_t coord);
+    Unit(int id, double hp, int range, int speed, int type, coordenada_t coord);
     void setPath(std::stack<coordenada_t> _path);
     void setPosition(coordenada_t newPosition);
     coordenada_t relocate();
+    virtual std::shared_ptr<Unit> copy() = 0;
+
+    virtual ~Unit() = default;
 };
 
 #endif  // UNITY_H_

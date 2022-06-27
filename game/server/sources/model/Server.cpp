@@ -11,8 +11,6 @@ Server::Server(const std::string &port) :
 }
 
 Server::~Server() {
-    // Esto lanza una excepción al hacer el shutdown del cliente y mata el server con un sigabort
-    // investigar por qué (estoy generoso, pero tampoco tanto) (esto se dio en clase)
     clients.clearAll();
 }
 

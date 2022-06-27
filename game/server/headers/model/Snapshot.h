@@ -5,8 +5,8 @@
 #include <vector>
 #include <memory>
 #include "server/headers/units/Unit.h"
-#include "common/headers/Vehicle.h"
-#include "common/headers/Building.h"
+#include "server/headers/vehicles/Vehicle.h"
+#include "server/headers/buildings/Building.h"
 
 class Snapshot {
 private:
