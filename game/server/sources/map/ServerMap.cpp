@@ -83,7 +83,7 @@ void ServerMap::addSnapshotData(Snapshot &snapshot) {
 void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
     // TODO Colocar el edificio central y crear más terrenos cuando
     // el cliente los pueda renderizas
-    std::ifstream file("../game/assets/data.yaml");
+    std::ifstream file(MAPS_PATH "data.yaml");
     YAML::Node config = YAML::Load(file);
     rows = config["map"]["rows"].as<int>();
     columns = config["map"]["columns"].as<int>();

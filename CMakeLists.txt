@@ -44,6 +44,7 @@ set(SDL2PP_WITH_IMAGE ON)
 set(SDL2PP_WITH_TTF ON)
 add_subdirectory(extern/libSDL2pp)
 ADD_DEFINITIONS(-DDATA_PATH="${PROJECT_SOURCE_DIR}/game/assets/")
+ADD_DEFINITIONS(-DMAPS_PATH="${PROJECT_SOURCE_DIR}/game/server/maps/")
 include_directories(extern)
 include_directories(${SDL2PP_INCLUDE_DIRS})
 
