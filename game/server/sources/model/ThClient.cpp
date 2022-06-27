@@ -12,9 +12,9 @@ ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue,
 
 void ThClient::run() {
     try {
+        protocol.assignPlayerId(playerId);
+        protocol.sendTerrain(rows, columns, terrain);
         while (keep_talking) {
-            protocol.assignPlayerId(playerId);
-            protocol.sendTerrain(rows, columns, terrain);
             int command = protocol.commandReceive();
             manageCommand(command);
         }
