@@ -5,21 +5,15 @@
 #include <QString>
 #include <QApplication>
 #include "ui_clientmainwindow.h"
-// TODO get this data from common file
-#define HOUSE_HARKONNEN "Harkonnen"
-#define HOUSE_ORDOS "Ordos"
-#define HOUSE_ATREIDES "Atreides"
-#define HOUSE_NONE ""
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), 
-    ui(new Ui::ClientMainWindow),
-    house_chosen(HOUSE_NONE)
+    ui(new Ui::ClientMainWindow), _hostname("localhost"), _servicename("8080")
 {
     ui->setupUi(this);
 
-    // set up house buttons
-    std::vector<std::string> housenames = {HOUSE_ATREIDES, HOUSE_HARKONNEN, HOUSE_ORDOS};
+    // TODO buttons come from a config file
+    std::vector<std::string> housenames = {NAME_ATREIDES, NAME_HARKONNEN, NAME_ORDOS};
     std::vector<QPushButton *> buttons;
     buttons.push_back(ui->house_button_1);
     buttons.push_back(ui->house_button_2);
@@ -37,7 +31,14 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::select_house(QPushButton *button) {
     std::string housename(button->text().toStdString());
-    
+}
+
+Protocol MainWindow::generateFromUserInput() {
+    //TODO use seprate window to initialize protocol
+    std::string hostname = _hostname;
+    std::string servicename = _servicename;
+    Protocol protocol(hostname, servicename);
+    return protocol;
 }
 
 MainWindow::~MainWindow()

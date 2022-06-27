@@ -70,6 +70,10 @@ typedef std::pair<int, int> coordenada_t;
 #define HOUSE_HARKONNEN 1
 #define HOUSE_ORDOS 2
 
+#define NAME_ATREIDES "Atreides"
+#define NAME_HARKONNEN "Harkonnen"
+#define NAME_ORDOS "Ordos"
+
 // 1000000 us / 20
 #define GAME_LOOP_RATE 50000
 
