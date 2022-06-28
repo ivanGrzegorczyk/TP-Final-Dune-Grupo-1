@@ -1,19 +1,19 @@
 #include "server/headers/model/Snapshot.h"
 
 std::vector<int> Snapshot::getPlayers() {
-    return players;
+    return std::move(players);
 }
 
 std::vector<std::shared_ptr<Unit>> Snapshot::getUnits(int playerId) {
-    return units[playerId];
+    return std::move(units[playerId]);
 }
 
 std::vector<std::shared_ptr<Building>> Snapshot::getBuildings(int playerId) {
-    return buildings[playerId];
+    return std::move(buildings[playerId]);
 }
 
 std::vector<std::shared_ptr<Vehicle>> Snapshot::getVehicles(int playerId) {
-    return vehicles[playerId];
+    return std::move(vehicles[playerId]);
 }
 
 void Snapshot::addPlayer(const int playerId) {

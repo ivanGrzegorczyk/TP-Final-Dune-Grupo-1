@@ -121,17 +121,18 @@ void Protocol::createResponse(uint8_t &eventType, int player, Response* response
     int entityType; int entityId;
     int posX; int posY;
     this->receiveEntityInfo(entityType, entityId, posX, posY);
-    coordenada_t coord({posX * 2, posY * 2});
-    switch (eventType) {
-        case UNIT:
-            event = new UpdateUnit(player, entityType, entityId, coord);
-            break;
-        case BUILDING:
-            event = new UpdateBuilding(player, entityType, entityId, coord);
-            break;
-        case VEHICLE:
+    coordenada_t coord({posX * (LENGTH_TILE/8), posY * (LENGTH_TILE/8)});
+    if(eventType == UNIT) {
+        event = new UpdateUnit(player, entityType, entityId, coord);
+            //break;
+    }
+    if(eventType == BUILDING) {
+        event = new UpdateBuilding(player, entityType, entityId, coord);
+            //break;
+    }
+    if(eventType == VEHICLE) {
             //TODO: crear vehiculo
-            break;
+            //break;
     }
     response->add(event);
 }
@@ -165,7 +166,6 @@ void Protocol::receiveEntityInfo(int &entityType, int &entityId, int &coordX, in
     coordX = (int)ntohs(posX);
     coordY = (int)ntohs(posY);
 }
-
 
 void Protocol::close() {
     this->skt.shutdown(SHUT_RDWR);

@@ -4,6 +4,9 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include "client/headers/gui/gui.h"
+#include "client/headers/gui/BuildingButtonUi.h"
+
 GUI::GUI(Rect area) : area(area){
     int menu_rows = 4;
     int menu_columns = 2;

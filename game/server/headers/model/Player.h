@@ -5,8 +5,8 @@
 #include <map>
 #include <vector>
 #include "server/headers/units/Unit.h"
-#include "common/headers/Building.h"
-#include "common/headers/Vehicle.h"
+#include "server/headers/buildings/Building.h"
+#include "server/headers/vehicles/Vehicle.h"
 #include "server/headers/map/ServerCell.h"
 #include "Snapshot.h"
 

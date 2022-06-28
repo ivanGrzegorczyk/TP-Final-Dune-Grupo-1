@@ -1,3 +1,4 @@
+#include <map>
 #include "client/headers/BuildingFactory.h"
 #include "client/headers/BarracksUi.h"
 
@@ -15,11 +16,11 @@ SdlEntity *BuildingFactory::createBuilding(int player, int type, int id, coorden
     SdlEntity* building;
     switch (type) {
         case BUILDING_BARRACKS:
-            building = new BarracksUi(player,coord, id, render);
+            //buildings[player].insert(std::make_pair<int, SdlEntity*>(int{id}, new BarracksUi(player,coord, id, render)));
             break;
         default:
             building = nullptr;
             break;
     }
-    return  building;
+    return building;
 }

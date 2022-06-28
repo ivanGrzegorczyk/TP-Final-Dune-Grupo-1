@@ -8,7 +8,7 @@
 #include <stack>
 #include <memory>
 
-#include "common/headers/Building.h"
+#include "server/headers/buildings/Building.h"
 #include "server/headers/units/Unit.h"
 
 class ServerCell {

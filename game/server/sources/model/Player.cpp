@@ -49,18 +49,21 @@ void Player::updateUnitsPosition(std::vector<std::vector<ServerCell *>> &map) {
 
 void Player::addUnitData(Snapshot &snapshot) {
     for (auto const& [unitId, unit] : units) {
-        snapshot.addUnit(playerId, unit);
+        auto _unit = unit->copy();
+        snapshot.addUnit(playerId, _unit);
     }
 }
 
 void Player::addBuildingData(Snapshot &snapshot) {
     for (auto const& [buildingId, building] : buildings) {
-        snapshot.addBuilding(playerId, building);
+        auto _building = building->copy();
+        snapshot.addBuilding(playerId, _building);
     }
 }
 
 void Player::addVehicleData(Snapshot &snapshot) {
     for (auto const& [vehicleId, vehicle] : vehicles) {
-        snapshot.addVehicle(playerId, vehicle);
+        auto _vehicle = vehicle->copy();
+        snapshot.addVehicle(playerId, _vehicle);
     }
 }
