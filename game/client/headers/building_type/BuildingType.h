@@ -7,13 +7,13 @@ using namespace SDL2pp;
 class BuildingType {
 private:
     int hp;
-    int type;
     coordenada_t size;
     int energy;
     int cost;
     Surface texture_file;
     Rect texture_location;
 public:
+    int type;
     explicit BuildingType(int hp, int type, int energy, int cost, coordenada_t size, std::string texture_name);
 };
 
