@@ -4,6 +4,7 @@
 #include "client/headers/building_type/BuildingType.h"
 #include "game/client/headers/gui/ButtonUi.h"
 #include <utility>
+#include <memory>
 using namespace SDL2pp;
 // TODO common parent with cell
 class GUI {
@@ -12,7 +13,7 @@ private:
     Rect area;
     std::vector<ButtonUi*> buttons;
 public:
-    GUI(Rect area, std::vector<BuildingType>& building_types);
+    GUI(Rect area, std::vector<std::shared_ptr<BuildingType>> building_types);
     void render(Renderer &render);
     bool isOverPoint(int x, int y);
     void clickOver(int x, int y);

@@ -7,7 +7,7 @@
 #include "client/headers/gui/gui.h"
 #include "client/headers/gui/BuildingButtonUi.h"
 
-GUI::GUI(Rect area, std::vector<BuildingType>& building_types) : area(area){
+GUI::GUI(Rect area, std::vector<std::shared_ptr<BuildingType>> building_types) : area(area){
     int menu_rows = 4;
     int menu_columns = 2;
     int width_item = int(area.GetW() / menu_columns);
@@ -23,10 +23,9 @@ GUI::GUI(Rect area, std::vector<BuildingType>& building_types) : area(area){
             if(it == building_types.end()) break;
             Point item_origin = origin + Point(width_item, 0) * j + Point(0, height_item) * i;
             Rect item(item_origin, size_item);
-            BuildingButtonUi* b = new BuildingButtonUi((*it).texture(), item, this);
+            BuildingButtonUi* b = new BuildingButtonUi((*it)->texture(), item, this);
             buttons.push_back(b);
             ++it;
-            
         }
     }
 }
