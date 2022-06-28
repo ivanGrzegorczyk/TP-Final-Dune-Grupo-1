@@ -61,8 +61,6 @@ void MapUi::render() {
     }
 
     // render gui
-    Texture* texture = nullptr;
-    Rect zero;
     gui.render(rdr);
     rdr.Present();
 }
