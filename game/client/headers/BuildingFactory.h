@@ -3,6 +3,8 @@
 
 #include "SDL2pp/SDL2pp.hh"
 #include "SdlEntity.h"
+#include "yaml-cpp/yaml.h"
+#include <fstream>
 #include "common/headers/Constantes.h"
 #include "client/headers/building_type/BuildingType.h"
 #include <memory>

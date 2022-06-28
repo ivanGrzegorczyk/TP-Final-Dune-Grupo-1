@@ -5,30 +5,19 @@
 std::vector<std::shared_ptr<BuildingType>>  BuildingFactory::createBuildingTypes(Renderer &render) {
     std::vector<std::shared_ptr<BuildingType>>  building_types;
     coordenada_t size = {2,2};
-    std::string texture_name = std::string("Barracks.png");
-    Surface surface(std::string(DATA_PATH "/") + texture_name );
-    Texture texture(render, surface);
-    Texture texture2(render, surface);
-    Texture texture3(render, surface);
-    std::string lol ("lol");
-    std::shared_ptr<BuildingType> type(new BuildingType(1,lol,3,4,size, std::move(texture)));
-    building_types.push_back(type);
-    type.reset(new BuildingType(1,lol,3,4,size, std::move(texture2)));
-    building_types.push_back(type);
-    type.reset(new BuildingType(1,lol,3,4,size, std::move(texture3)));
-    building_types.push_back(type);
+    std::ifstream file(DATA_PATH "config.yaml");
+    YAML::Node config = YAML::Load(file);
+
+    // todo load cost, energy etc onto Building Type
+    for(YAML::Node building : config["buildings"]) {
+        std::string texture_name = "Barracks.png";
+        Surface surface(std::string(DATA_PATH "/") + texture_name );
+        Texture texture(render, surface);
+        std::string name (building["name"].as<std::string>());
+        std::shared_ptr<BuildingType> type(new BuildingType(1,name,3,4,size, std::move(texture)));
+        building_types.push_back(type);
+    }
     return building_types;
 }
 
-SdlEntity *BuildingFactory::createBuilding(int player, int type, int id, coordenada_t coord, Renderer &render) {
-    SdlEntity* building;
-    switch (type) {
-        case BUILDING_BARRACKS:
-            //buildings[player].insert(std::make_pair<int, SdlEntity*>(int{id}, new BarracksUi(player,coord, id, render)));
-            break;
-        default:
-            building = nullptr;
-            break;
-    }
-    return building;
-}
+
