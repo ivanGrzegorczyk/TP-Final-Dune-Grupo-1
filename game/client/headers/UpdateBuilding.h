@@ -11,7 +11,6 @@ private:
     int buildingId;
     coordenada_t coord;
 public:
-public:
     UpdateBuilding(int player, int type, int buildingId, coordenada_t coord);
     void modify(MapUi *mapUi) override;
 };
