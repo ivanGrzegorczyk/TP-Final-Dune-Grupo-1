@@ -1,5 +1,6 @@
 #include "../headers/MapUi.h"
 #include "client/headers/BuildingFactory.h"
+#include "client/headers/BarracksUi.h"
 
 
 MapUi::MapUi(Renderer &renderer) : 
@@ -115,14 +116,17 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
                     (int{characterId}, new character(rdr, player, characterId, coord, type)));
         }
     } else {
-        units[player].insert(std::make_pair<int, character *>(int{characterId}, new character(rdr, player, characterId, coord, type)));
+        units[player].insert(std::make_pair<int, character *>
+                (int{characterId}, new character(rdr, player, characterId, coord, type)));
     }
 }
 
 void MapUi::updateBuilding(int player, int type, int buildingId, coordenada_t coord) {
     BuildingFactory factory;
-    buildings[player].insert(std::make_pair<int, SdlEntity*>
-            (int{buildingId}, factory.createBuilding(player ,type, buildingId, coord, rdr)));
+    //factory.createBuilding(player ,type, buildingId, coord, rdr, buildings);
+    buildings[player].insert(std::make_pair<int, SdlEntity*>(int{buildingId}, new BarracksUi(player,coord, buildingId, rdr)));
+    //buildings[player].emplace(buildingId, e);
+    //insert({buildingId, e});
 }
 
 MapUi::~MapUi() = default;

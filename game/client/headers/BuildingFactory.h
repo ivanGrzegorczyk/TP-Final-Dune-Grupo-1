@@ -10,7 +10,8 @@ using namespace SDL2pp;
 class BuildingFactory {
 public:
     BuildingFactory() = default;
-    SdlEntity * createBuilding(int player, int type, int id, coordenada_t coord,Renderer &render);
+    SdlEntity * createBuilding(int player, int type, int id,
+               coordenada_t coord,Renderer &render, std::map<int, std::map<int, SdlEntity*>> &buildings);
 };
 
 
