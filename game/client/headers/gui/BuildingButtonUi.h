@@ -8,10 +8,11 @@ using namespace SDL2pp;
 class GUI;
 class BuildingButtonUi : public ButtonUi {
 private:
-    Texture *texture;
+    Texture &texture;
     GUI* ui;
 public:
-    BuildingButtonUi(Texture *texture, Rect dst, GUI* ui);
+    BuildingButtonUi(Texture &texture, Rect dst, GUI* ui);
+    void render(Renderer& render) override;
     void press() override;
 };
 

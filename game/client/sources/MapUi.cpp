@@ -7,7 +7,7 @@ MapUi::MapUi(Renderer &renderer) :
         rdr(renderer), 
         ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
         harvester(Texture(renderer, Surface(DATA_PATH "/harvester.png"))),
-        building_types(std::move(factory.createBuildingTypes())),
+        building_types(std::move(factory.createBuildingTypes(rdr))),
         gui(Rect(400,0,100,200), building_types) {
     dst.SetX(0) = dst.SetY(0);
     dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);

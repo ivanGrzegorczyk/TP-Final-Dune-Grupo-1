@@ -21,10 +21,10 @@ GUI::GUI(Rect area, std::vector<BuildingType>& building_types) : area(area){
     for(int i = 0; i < menu_rows; i++) {
         for(int j = 0; j < menu_columns; j++) {
             if(it == building_types.end()) break;
-            std::cout << (*it).type << std::endl;
             Point item_origin = origin + Point(width_item, 0) * j + Point(0, height_item) * i;
-            Rect item(item_origin, size_item);
-            BuildingButtonUi* b = new BuildingButtonUi(nullptr, item, this);
+            Point texture_pos(0,0);
+            Rect item(texture_pos, size_item);
+            BuildingButtonUi* b = new BuildingButtonUi((*it).texture(), item, this);
             buttons.push_back(b);
             ++it;
             

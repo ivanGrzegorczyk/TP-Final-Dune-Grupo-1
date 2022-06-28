@@ -11,7 +11,7 @@ using namespace SDL2pp;
 class BuildingFactory {
 public:
     BuildingFactory() = default;
-    std::vector<BuildingType> createBuildingTypes();
+    std::vector<BuildingType> createBuildingTypes(Renderer &render);
     SdlEntity * createBuilding(int player, int type, int id, coordenada_t coord,Renderer &render);
 };
 

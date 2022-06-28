@@ -279,7 +279,7 @@ public:
 	/// This class is not copyable
 	///
 	////////////////////////////////////////////////////////////
-	Texture(const Texture& other) = delete;
+	Texture(Texture& other) = delete;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Deleted assignment operator
@@ -287,7 +287,7 @@ public:
 	/// This class is not copyable
 	///
 	////////////////////////////////////////////////////////////
-	Texture& operator=(const Texture& other) = delete;
+	Texture& operator=(Texture& other) = delete;
 
 	////////////////////////////////////////////////////////////
 	/// \brief Get pointer to managed SDL_Texture structure
