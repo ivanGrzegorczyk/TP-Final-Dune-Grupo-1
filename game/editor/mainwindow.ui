@@ -38,7 +38,7 @@
         <rect>
          <x>523</x>
          <y>10</y>
-         <width>171</width>
+         <width>220</width>
          <height>371</height>
         </rect>
        </property>
@@ -46,35 +46,60 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Tools</string>
+           <string>Terrains</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="edit_button_3">
-          <property name="text">
-           <string>Rock</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QVBoxLayout" name="terrain_container">
           <item>
-           <widget class="QPushButton" name="edit_button_2">
+           <layout class="QHBoxLayout" name="sand_continer">
+            <item>
+             <widget class="QPushButton" name="terrain_sand">
+              <property name="text">
+               <string>Sand</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinBox"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="terrain_cliff">
             <property name="text">
-             <string>Sand</string>
+             <string>Cliff</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spinBox"/>
+           <widget class="QPushButton" name="terrain_dune">
+            <property name="text">
+             <string>Dune</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="terrain_mountain">
+            <property name="text">
+             <string>Mountain</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="terrain_rock">
+            <property name="text">
+             <string>Rock</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="edit_button_1">
+         <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>Mountain</string>
+           <string>Place construction centers</string>
           </property>
          </widget>
         </item>

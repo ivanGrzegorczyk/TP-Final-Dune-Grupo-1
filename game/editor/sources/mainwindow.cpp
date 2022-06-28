@@ -28,17 +28,21 @@ void MainWindow::open_map(QMainWindow *parent) {
     ui->view->setScene(&this->scene);
 
     std::vector<QString> textures;
+    textures.push_back(QString::fromStdString("cliff"));
     textures.push_back(QString::fromStdString("mountain"));
-    textures.push_back(QString::fromStdString("sand"));
     textures.push_back(QString::fromStdString("rock"));
+    textures.push_back(QString::fromStdString("sand"));
+    textures.push_back(QString::fromStdString("dune"));
 
 
     std::vector<QPushButton *> buttons;
-    buttons.push_back(ui->edit_button_1);
-    buttons.push_back(ui->edit_button_2);
-    buttons.push_back(ui->edit_button_3);
+    buttons.push_back(ui->terrain_cliff);
+    buttons.push_back(ui->terrain_mountain);
+    buttons.push_back(ui->terrain_rock);
+    buttons.push_back(ui->terrain_sand);
+    buttons.push_back(ui->terrain_dune);
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < textures.size(); i++) {
         QString texture = textures[i];
         QPushButton *button = buttons[i];
         button->setCheckable(true);
