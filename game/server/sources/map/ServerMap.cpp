@@ -50,7 +50,7 @@ void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t posi
         int aux = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {
-                if ((y + i) <= rows && (x + j) <= columns && map[x][y]->ground() == TERRAIN_ROCKS) {
+                if ((x + i) <= columns && (y + j) <= rows && !map[x + i][y + j]->occupied) {
                     aux++;
                 }
             }
@@ -60,7 +60,7 @@ void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t posi
             players[playerId].addBuilding(entityId, buildingType, position);
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 2; j++) {
-                    map[y + i][x + j]->occupied = true;
+                    map[x + i][y + j]->occupied = true;
                 }
             }
             entityId++;
