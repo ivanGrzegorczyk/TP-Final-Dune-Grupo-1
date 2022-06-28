@@ -63,12 +63,12 @@ void Client::ProcessInput() {
                 switch (event.key.keysym.sym) {
                     case SDLK_a:
                         SDL_GetMouseState(&x, &y);
-                        req = new CreateLightInfantry(x / 16, y / 16);
+                        req = new CreateLightInfantry(x / LENGTH_TILE, y / LENGTH_TILE);
                         sendQueue.push(req);
                         break;
                     case SDLK_b:
                         SDL_GetMouseState(&x, &y);
-                        req = new CreateBarracks(x / 16, y / 16);
+                        req = new CreateBarracks(x / LENGTH_TILE, y / LENGTH_TILE);
                         sendQueue.push(req);
                         break;
                 }

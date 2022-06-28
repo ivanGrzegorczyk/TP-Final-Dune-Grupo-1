@@ -81,7 +81,7 @@ Request* MapUi::clickScreen(int x, int y, int playerId) {
         return nullptr;
     }
     //TODO make proper math to translate click coordinate to map coordinate
-    return this->moveCharacter(x/16,y/16,playerId);
+    return this->moveCharacter(x/LENGTH_TILE,y/LENGTH_TILE,playerId);
 }
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {

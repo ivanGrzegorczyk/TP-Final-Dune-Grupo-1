@@ -121,7 +121,7 @@ void Protocol::createResponse(uint8_t &eventType, int player, Response* response
     int entityType; int entityId;
     int posX; int posY;
     this->receiveEntityInfo(entityType, entityId, posX, posY);
-    coordenada_t coord({posX * 2, posY * 2});
+    coordenada_t coord({posX * (LENGTH_TILE/8), posY * (LENGTH_TILE/8)});
     if(eventType == UNIT) {
         event = new UpdateUnit(player, entityType, entityId, coord);
             //break;
