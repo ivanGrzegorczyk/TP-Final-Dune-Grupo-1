@@ -60,14 +60,14 @@ void Client::ProcessInput() {
                 running = false;
                 break;
             case SDL_KEYDOWN:
+                SDL_GetMouseState(&x, &y);
                 switch (event.key.keysym.sym) {
                     case SDLK_a:
-                        SDL_GetMouseState(&x, &y);
                         req = new CreateLightInfantry(x / LENGTH_TILE, y / LENGTH_TILE);
                         sendQueue.push(req);
                         break;
                     case SDLK_b:
-                        SDL_GetMouseState(&x, &y);
+                        uint16_t id = (uint16_t)(mapUi.selectedBuilding()->code());
                         // TODO different buildings
                         req = new CreateBuilding(x / LENGTH_TILE, y / LENGTH_TILE, BUILDING_BARRACKS);
                         sendQueue.push(req);

@@ -146,4 +146,9 @@ void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingTy
     //insert({buildingId, e});
 }
 
+std::shared_ptr<BuildingType> MapUi::selectedBuilding() {
+    return gui.getBuildingToBuild();
+}
+
 MapUi::~MapUi() = default;
+

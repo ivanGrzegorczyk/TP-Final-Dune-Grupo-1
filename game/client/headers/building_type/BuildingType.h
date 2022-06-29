@@ -9,12 +9,13 @@ private:
     int _hp;
     std::string _type;
     int _energy;
+    int _code;
     int _cost;
     coordenada_t _size;
     Texture _texture;
 public:
     explicit BuildingType(
-            int hp, std::string& type, int energy, 
+            int hp, std::string& type, int energy, int code,
             int cost, coordenada_t size, 
             Texture&& texture);
     int hp() const {
@@ -28,6 +29,9 @@ public:
     };
     int cost() const {
         return this->_cost;
+    };
+    int code() const {
+        return this->_code;
     };
     Texture& texture() {
         return _texture;

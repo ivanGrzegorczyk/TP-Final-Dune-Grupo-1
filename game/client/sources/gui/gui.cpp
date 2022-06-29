@@ -17,6 +17,8 @@ GUI::GUI(Rect area, std::vector<std::shared_ptr<BuildingType>> building_types) :
     Point origin = area.GetTopLeft();
     // TODO: Create 'SDLBuilding class tht combines sdl entity with building properties
     auto it = building_types.begin();
+    // by default, we place the first building available
+    selected = *it;
     //TODO more legantly iterate over matrix
     for(int i = 0; i < menu_rows; i++) {
         for(int j = 0; j < menu_columns; j++) {

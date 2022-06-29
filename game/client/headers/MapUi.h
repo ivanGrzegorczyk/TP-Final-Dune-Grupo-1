@@ -47,6 +47,7 @@ public:
     void addRocks(coordenada_t coord, Rect destination);
     void addSand(coordenada_t coord, Rect destination);
 
+    std::shared_ptr<BuildingType> selectedBuilding();
     void updateUnits(int player, int type, int characterId, coordenada_t coord);
     std::shared_ptr<BuildingType> getBuildingType(int type);
     void spawnBuilding(int playerId, int buildingId,  std::shared_ptr<BuildingType> type, coordenada_t coord) ;
