@@ -59,6 +59,11 @@ typedef std::pair<int, int> coordenada_t;
 #define BARRACKS_COST 300
 #define BARRACKS_POINTS 300
 
+//construction center data
+#define CONSTRUCTIONCENTER_ENERGY 0
+#define CONSTRUCTIONCENTER_COST 0
+#define CONSTRUCTIONCENTER_POINTS 3000
+
 //terrain
 #define TERRAIN_SAND 0
 #define TERRAIN_DUNES 1
