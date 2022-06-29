@@ -10,7 +10,8 @@ std::vector<std::shared_ptr<BuildingType>>  BuildingFactory::createBuildingTypes
 
     // todo load cost, energy etc onto Building Type
     for(YAML::Node building : config["buildings"]) {
-        std::string texture_name = "Barracks.png";
+        std::string texture_name = building["texture"].as<std::string>();
+        std::cout << texture_name << std::endl;
         Surface surface(std::string(DATA_PATH "/") + texture_name );
         Texture texture(render, surface);
         std::string name (building["name"].as<std::string>());

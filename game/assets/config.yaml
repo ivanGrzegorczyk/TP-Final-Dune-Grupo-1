@@ -30,6 +30,7 @@ units:
 
 buildings:
   - name: Trampas de Aire
+    texture: "Barracks.png"
     energy: 500
     cost: 800
     dimensions:
@@ -38,6 +39,7 @@ buildings:
     points: 500
     features: {}
   - name: Silo
+    texture: "Barracks.png"
     energy: 100
     cost: 200
     dimensions:
@@ -47,6 +49,7 @@ buildings:
     features:
       capacity: 1000
   - name: Silo2
+    texture: "Barracks.png"
     energy: 100
     cost: 200
     dimensions:
@@ -56,6 +59,7 @@ buildings:
     features:
       capacity: 1000
   - name: Silo3
+    texture: "Barracks.png"
     energy: 100
     cost: 200
     dimensions:
@@ -65,6 +69,7 @@ buildings:
     features:
       capacity: 1000
   - name: Silo4
+    texture: "Barracks.png"
     energy: 100
     cost: 200
     dimensions:
