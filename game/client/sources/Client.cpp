@@ -8,7 +8,7 @@
 #include "common/headers/Constantes.h"
 #include "client/headers/ReceiveThread.h"
 #include "client/headers/SendThread.h"
-#include "client/headers/CreateBarracks.h"
+#include "client/headers/CreateBuilding.h"
 
 using namespace SDL2pp;
 
@@ -68,7 +68,8 @@ void Client::ProcessInput() {
                         break;
                     case SDLK_b:
                         SDL_GetMouseState(&x, &y);
-                        req = new CreateBarracks(x / LENGTH_TILE, y / LENGTH_TILE);
+                        // TODO different buildings
+                        req = new CreateBuilding(x / LENGTH_TILE, y / LENGTH_TILE, BUILDING_BARRACKS);
                         sendQueue.push(req);
                         break;
                 }

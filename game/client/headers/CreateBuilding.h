@@ -5,11 +5,12 @@
 #include "../headers/Request.h"
 #include "../../common/headers/Constantes.h"
 
-class CreateBarracks : public Request{
+class CreateBuilding : public Request{
 private:
     coordenada_t coord;
+    int typeId;
 public:
-    CreateBarracks(int x, int y);
+    CreateBuilding(int x, int y, int typeId);
     std::vector<uint16_t> getData() override;
     int getCommand() override;
 };
