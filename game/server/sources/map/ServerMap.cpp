@@ -44,27 +44,38 @@ void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t posi
     if (players.find(playerId) == players.end()) {
         players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
     }
-    if (buildingType == BUILDING_BARRACKS) {
-        int x = position.first, y = position.second;
 
-        int aux = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 2; j++) {
-                if ((x + i) <= columns && (y + j) <= rows && !map[x + i][y + j]->occupied) {
-                    aux++;
-                }
-            }
+    switch (buildingType) {
+        case BUILDING_LIGHT_FACTORY: {
+            build(playerId, position, BUILDING_LIGHT_FACTORY, 3, 3);
+            break;
         }
-
-        if (aux == 6) {
-            players[playerId].addBuilding(entityId, buildingType, position);
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 2; j++) {
-                    map[x + i][y + j]->occupied = true;
-                }
-            }
-            entityId++;
+        case BUILDING_AIR_TRAP: {
+            build(playerId, position, BUILDING_AIR_TRAP, 3, 3);
+            break;
         }
+        case BUILDING_HEAVY_FACTORY: {
+            build(playerId, position, BUILDING_HEAVY_FACTORY, 4, 4);
+            break;
+        }
+        case BUILDING_REFINERY: {
+            build(playerId, position, BUILDING_REFINERY, 3, 3);
+            break;
+        }
+        case BUILDING_SILO: {
+            build(playerId, position, BUILDING_SILO, 1, 1);
+            break;
+        }
+        case BUILDING_BARRACKS: {
+            build(playerId, position, BUILDING_BARRACKS, 2, 3);
+            break;
+        }
+        case BUILDING_PALACE: {
+            build(playerId, position, BUILDING_PALACE, 3, 3);
+            break;
+        }
+        default:
+            throw std::runtime_error("Unkonwn building");
     }
 }
 
@@ -127,3 +138,25 @@ int ServerMap::getColumns() const {
     return columns;
 }
 
+void ServerMap::build(int playerId, coordenada_t &position, int buildingType, int size_x, int size_y) {
+    int x = position.first, y = position.second;
+
+    int aux = 0;
+    for (int i = 0; i < size_y; i++) {
+        for (int j = 0; j < size_x; j++) {
+            if ((x + i) <= columns && (y + j) <= rows && !map[x + i][y + j]->occupied) {
+                aux++;
+            }
+        }
+    }
+
+    if (aux == size_x * size_y) {
+        players[playerId].addBuilding(entityId, buildingType, position);
+        for (int i = 0; i < size_y; i++) {
+            for (int j = 0; j < size_x; j++) {
+                map[x + i][y + j]->occupied = true;
+            }
+        }
+        entityId++;
+    }
+}
