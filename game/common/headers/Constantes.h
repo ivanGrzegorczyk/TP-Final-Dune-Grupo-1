@@ -47,6 +47,25 @@ typedef std::pair<int, int> coordenada_t;
 #define LIGHT_INFANTRY_RANGE 3
 #define LIGHT_INFANTRY_SPEED 16
 #define LIGHT_INFANTRY_HP 50
+#define LIGHT_INFANTRY_COST 50
+
+//fremen data
+#define FREMEN_RANGE 3
+#define FREMEN_SPEED 20
+#define FREMEN_HP 50
+#define FREMEN_COST 100
+
+//heavy infantry data
+#define HEAVY_INFANTRY_RANGE 3
+#define HEAVY_INFANTRY_SPEED 12
+#define HEAVY_INFANTRY_HP 80
+#define HEAVY_INFANTRY_COST 70
+
+//sardaukar data
+#define SARDAUKAR_RANGE 3
+#define SARDAUKAR_SPEED 12
+#define SARDAUKAR_HP 80
+#define SARDAUKAR_COST 100
 
 //harvester data
 #define HARVESTER_RANGE 0
@@ -58,6 +77,43 @@ typedef std::pair<int, int> coordenada_t;
 #define BARRACKS_ENERGY 100
 #define BARRACKS_COST 300
 #define BARRACKS_POINTS 300
+
+//construction center data
+#define CONSTRUCTION_CENTER_ENERGY 0
+#define CONSTRUCTION_CENTER_COST 0
+#define CONSTRUCTION_CENTER_POINTS 3000
+
+//light factory data
+#define LIGHT_FACTORY_ENERGY 500
+#define LIGHT_FACTORY_COST 800
+#define LIGHT_FACTORY_POINTS 500
+
+//air trap data
+#define AIR_TRAP_ENERGY 500
+#define AIR_TRAP_COST 800
+#define AIR_TRAP_POINTS 500
+
+//heavy factory data
+#define HEAVY_FACTORY_ENERGY 800
+#define HEAVY_FACTORY_COST 1500
+#define HEAVY_FACTORY_POINTS 1500
+
+//refinery data
+#define REFINERY_ENERGY 400
+#define REFINERY_COST 500
+#define REFINERY_POINTS 1000
+#define REFINERY_CAPACITY 5000
+
+//silo data
+#define SILO_ENERGY 100
+#define SILO_COST 200
+#define SILO_POINTS 200
+#define SILO_CAPACITY 1000
+
+//palace data
+#define PALACE_ENERGY 800
+#define PALACE_COST 2000
+#define PALACE_POINTS 1000
 
 //terrain
 #define TERRAIN_SAND 0
