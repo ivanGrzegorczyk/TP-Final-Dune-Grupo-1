@@ -79,6 +79,12 @@ typedef std::pair<int, int> coordenada_t;
 #define HEAVY_FACTORY_COST 1500
 #define HEAVY_FACTORY_POINTS 1500
 
+//refinery data
+#define REFINERY_ENERGY 400
+#define REFINERY_COST 500
+#define REFINERY_POINTS 1000
+#define REFINERY_CAPACITY 5000
+
 //terrain
 #define TERRAIN_SAND 0
 #define TERRAIN_DUNES 1
