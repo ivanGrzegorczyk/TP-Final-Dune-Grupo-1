@@ -50,3 +50,11 @@ void GUI::render(Renderer &rdr) {
     }
     rdr.DrawRect(area);
 }
+
+void GUI::setBuildingToBuild(std::shared_ptr<BuildingType> type) {
+    selected = type;
+}
+
+std::shared_ptr<BuildingType> GUI::getBuildingToBuild() {
+    return selected;
+}

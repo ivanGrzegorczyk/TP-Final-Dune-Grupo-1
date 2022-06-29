@@ -12,11 +12,14 @@ private:
     Texture *texture;
     Rect area;
     std::vector<ButtonUi*> buttons;
+    std::shared_ptr<BuildingType> selected;
 public:
     GUI(Rect area, std::vector<std::shared_ptr<BuildingType>> building_types);
     void render(Renderer &render);
     bool isOverPoint(int x, int y);
     void clickOver(int x, int y);
+    void setBuildingToBuild(std::shared_ptr<BuildingType> type);
+    std::shared_ptr<BuildingType> getBuildingToBuild();
 };
 
 
