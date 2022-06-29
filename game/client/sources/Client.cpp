@@ -69,7 +69,7 @@ void Client::ProcessInput() {
                     case SDLK_b:
                         uint16_t id = (uint16_t)(mapUi.selectedBuilding()->code());
                         // TODO different buildings
-                        req = new CreateBuilding(x / LENGTH_TILE, y / LENGTH_TILE, BUILDING_BARRACKS);
+                        req = new CreateBuilding(x / LENGTH_TILE, y / LENGTH_TILE, id);
                         sendQueue.push(req);
                         break;
                 }

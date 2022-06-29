@@ -16,7 +16,7 @@ std::vector<std::shared_ptr<BuildingType>>  BuildingFactory::createBuildingTypes
         Texture texture(render, surface);
         std::string name (building["name"].as<std::string>());
         // TODO everything has a barrack id
-        int id = BUILDING_BARRACKS;
+        int id = building["id"].as<int>();
         std::shared_ptr<BuildingType> type(new BuildingType(1,name,id,3,4,size, std::move(texture)));
         building_types.push_back(type);
     }

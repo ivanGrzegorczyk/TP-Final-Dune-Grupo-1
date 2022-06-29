@@ -29,7 +29,8 @@ units:
     life_points: 50
 
 buildings:
-  - name: Trampas de Aire
+  - id: 21
+    name: Trampas de Aire
     texture: "brick.png"
     energy: 500
     cost: 800
@@ -38,7 +39,8 @@ buildings:
       - 3
     points: 500
     features: {}
-  - name: Silo
+  - id: 22
+    name: Silo
     texture: "Barracks.png"
     energy: 100
     cost: 200
@@ -48,7 +50,8 @@ buildings:
     points: 200
     features:
       capacity: 1000
-  - name: Silo2
+  - id: 23
+    name: Silo2
     texture: "Barracks.png"
     energy: 100
     cost: 200
@@ -58,7 +61,8 @@ buildings:
     points: 200
     features:
       capacity: 1000
-  - name: Silo3
+  - id: 24
+    name: Silo3
     texture: "Barracks.png"
     energy: 100
     cost: 200
@@ -68,7 +72,8 @@ buildings:
     points: 200
     features:
       capacity: 1000
-  - name: Silo4
+  - id: 25
+    name: Silo4
     texture: "Barracks.png"
     energy: 100
     cost: 200
