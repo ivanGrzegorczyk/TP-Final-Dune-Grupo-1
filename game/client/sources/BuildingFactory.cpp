@@ -11,12 +11,12 @@ std::vector<std::shared_ptr<BuildingType>>  BuildingFactory::createBuildingTypes
     // todo load cost, energy etc onto Building Type
     for(YAML::Node building : config["buildings"]) {
         std::string texture_name = building["texture"].as<std::string>();
-        std::cout << texture_name << std::endl;
         Surface surface(std::string(DATA_PATH "/") + texture_name );
         Texture texture(render, surface);
         std::string name (building["name"].as<std::string>());
         // TODO everything has a barrack id
         int id = building["id"].as<int>();
+        std::cout << texture_name << ":" << id << std::endl;
         std::shared_ptr<BuildingType> type(new BuildingType(1,name,id,3,4,size, std::move(texture)));
         building_types.push_back(type);
     }
