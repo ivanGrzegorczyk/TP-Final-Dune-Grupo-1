@@ -69,6 +69,11 @@ typedef std::pair<int, int> coordenada_t;
 #define LIGHT_FACTORY_COST 800
 #define LIGHT_FACTORY_POINTS 500
 
+//air trap data
+#define AIR_TRAP_ENERGY 500
+#define AIR_TRAP_COST 800
+#define AIR_TRAP_POINTS 500
+
 //terrain
 #define TERRAIN_SAND 0
 #define TERRAIN_DUNES 1
