@@ -3,6 +3,15 @@
 #include "server/headers/map/ServerMap.h"
 #include "server/headers/map/RockCell.h"
 #include "server/headers/map/SandCell.h"
+#include "server/headers/map/DunesCell.h"
+#include "server/headers/map/CliffsCell.h"
+#include "server/headers/map/TopsCell.h"
+
+#define YAML_SAND "sand"
+#define YAML_DUNE "dune"
+#define YAML_ROCK "rock"
+#define YAML_TOP "mountain"
+#define YAML_CLIFF "cliff"
 
 ServerMap::ServerMap(int rows, int columns) : rows(rows), columns(columns),
                                               map(rows, std::vector<ServerCell *>(columns)), entityId(1) {}
@@ -100,16 +109,24 @@ void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
         auto y = cell["pos"][1].as<int>();
         auto _terrain = cell["terrain"].as<std::string>();
 
-        if (_terrain == "rock") {
-            map[x][y] = new RockCell({x, y});
-            terrain.push_back(TERRAIN_ROCKS);
-        } else if (_terrain == "sand") {
+        if (_terrain == YAML_SAND) {
             auto spice = cell["seed"].as<unsigned int>();
             map[x][y] = new SandCell({x, y}, spice);
             terrain.push_back(TERRAIN_SAND);
+        } else if (_terrain == YAML_DUNE) {
+            map[x][y] = new DunesCell({x, y});
+            terrain.push_back(TERRAIN_DUNES);
+        } else if (_terrain == YAML_ROCK) {
+            map[x][y] = new RockCell({x, y});
+            terrain.push_back(TERRAIN_ROCKS);
+        } else if (_terrain == YAML_TOP) {
+            map[x][y] = new TopsCell({x, y});
+            terrain.push_back(TERRAIN_TOPS);
+        } else if (_terrain == YAML_CLIFF) {
+            map[x][y] = new CliffsCell({x, y});
+            terrain.push_back(TERRAIN_CLIFFS);
         } else {
-            map[x][y] = new SandCell({x, y}, 0);
-            terrain.push_back(TERRAIN_SAND);
+            throw std::runtime_error("Unknown terrain");
         }
     }
 }
