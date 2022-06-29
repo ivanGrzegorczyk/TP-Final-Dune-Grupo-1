@@ -30,7 +30,7 @@ units:
 
 buildings:
   - name: Trampas de Aire
-    texture: "Barracks.png"
+    texture: "brick.png"
     energy: 500
     cost: 800
     dimensions:

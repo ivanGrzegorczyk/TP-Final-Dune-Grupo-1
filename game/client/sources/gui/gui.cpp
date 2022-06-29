@@ -23,7 +23,7 @@ GUI::GUI(Rect area, std::vector<std::shared_ptr<BuildingType>> building_types) :
             if(it == building_types.end()) break;
             Point item_origin = origin + Point(width_item, 0) * j + Point(0, height_item) * i;
             Rect item(item_origin, size_item);
-            BuildingButtonUi* b = new BuildingButtonUi((*it)->texture(), item, this);
+            BuildingButtonUi* b = new BuildingButtonUi(*it, item, this);
             buttons.push_back(b);
             ++it;
         }
