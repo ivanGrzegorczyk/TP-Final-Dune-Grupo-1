@@ -91,6 +91,11 @@ typedef std::pair<int, int> coordenada_t;
 #define SILO_POINTS 200
 #define SILO_CAPACITY 1000
 
+//palace data
+#define PALACE_ENERGY 800
+#define PALACE_COST 2000
+#define PALACE_POINTS 1000
+
 //terrain
 #define TERRAIN_SAND 0
 #define TERRAIN_DUNES 1
