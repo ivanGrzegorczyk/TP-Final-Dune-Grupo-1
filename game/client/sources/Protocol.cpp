@@ -116,6 +116,9 @@ Response* Protocol::recvResponse() {
     return response;
 }
 
+/*
+React to responses sent by the server
+*/
 void Protocol::createResponse(uint8_t &eventType, int player, Response* response) {
     Event *event;
     int entityType; int entityId;

@@ -75,10 +75,12 @@ FILE(GLOB SRC_EDITOR_FILES ${PROJECT_SOURCE_DIR}/game/editor/sources/*.cpp)
 
 FILE(GLOB HEADER_CLIENT_FILES 
         ${PROJECT_SOURCE_DIR}/game/client/headers/*.h 
-        ${PROJECT_SOURCE_DIR}/game/client/headers/gui/*.h)
+        ${PROJECT_SOURCE_DIR}/game/client/headers/gui/*.h
+        ${PROJECT_SOURCE_DIR}/game/client/sources/building_type/*.h)
 FILE(GLOB SRC_CLIENT_FILES 
         ${PROJECT_SOURCE_DIR}/game/client/sources/*.cpp
-        ${PROJECT_SOURCE_DIR}/game/client/sources/gui/*.cpp)
+        ${PROJECT_SOURCE_DIR}/game/client/sources/gui/*.cpp
+        ${PROJECT_SOURCE_DIR}/game/client/sources/building_type/*.cpp)
 find_package (Threads)
 
 add_executable(Server ${HEADER_COMMON_FILES} ${SRC_COMMON_FILES} ${HEADER_SERVER_FILES} ${SRC_SERVER_FILES})
@@ -90,4 +92,4 @@ target_link_libraries (Client Threads::Threads)
 
 target_link_libraries (Server ${YAML_CPP_LIBRARIES})
 target_link_libraries (Editor ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core ${YAML_CPP_LIBRARIES})
-target_link_libraries (Client ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core)
+target_link_libraries (Client ${SDL2PP_LIBRARIES} Qt5::Widgets Qt5::Core ${YAML_CPP_LIBRARIES})

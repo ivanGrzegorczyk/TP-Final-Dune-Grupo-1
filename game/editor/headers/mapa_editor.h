@@ -19,7 +19,7 @@ class MapaEditor {
     matriz_t mapa;
     int x; int y; int num_players;
     std::vector<coordenada_t> construction_center_location;
-    std::vector<std::string> names = {"rock", "mountain", "sand"};
+    std::vector<std::string> names = {"rock", "dune","mountain", "sand", "cliff"};
     std::vector<std::shared_ptr<Terrain>> terrain_types; 
     public:
     MapaEditor(MapaEditor& other) = delete;

@@ -1,13 +1,14 @@
 #include "../headers/MapUi.h"
 #include "client/headers/BuildingFactory.h"
-#include "client/headers/BarracksUi.h"
+#include "client/headers/BuildingUi.h"
 
 
 MapUi::MapUi(Renderer &renderer) : 
-    rdr(renderer), 
-    ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
-    harvester(Texture(renderer, Surface(DATA_PATH "/harvester.png"))),
-    gui(Rect(400,0,100,200)){
+        rdr(renderer), 
+        ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
+        harvester(Texture(renderer, Surface(DATA_PATH "/harvester.png"))),
+        building_types(factory.createBuildingTypes(rdr)),
+        gui(Rect(500,0,100,200), building_types) {
     dst.SetX(0) = dst.SetY(0);
     dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
 }
@@ -60,8 +61,6 @@ void MapUi::render() {
     }
 
     // render gui
-    Texture* texture = nullptr;
-    Rect zero;
     gui.render(rdr);
     rdr.Present();
 }
@@ -82,6 +81,10 @@ Request* MapUi::clickScreen(int x, int y, int playerId) {
     }
     //TODO make proper math to translate click coordinate to map coordinate
     return this->moveCharacter(x/LENGTH_TILE,y/LENGTH_TILE,playerId);
+}
+
+std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
+    return building_types[0];
 }
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
@@ -121,10 +124,15 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
     }
 }
 
-void MapUi::updateBuilding(int player, int type, int buildingId, coordenada_t coord) {
-    BuildingFactory factory;
-    //factory.createBuilding(player ,type, buildingId, coord, rdr, buildings);
-    buildings[player].insert(std::make_pair<int, SdlEntity*>(int{buildingId}, new BarracksUi(player,coord, buildingId, rdr)));
+/*
+    Create new building on map
+*/
+void MapUi::updateBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
+    //BuildingFactory factory;
+    buildings[player].insert(
+        std::make_pair<int, SdlEntity*>(
+            int{buildingId}, 
+            new BuildingUi(type, rdr, coord)));
     //buildings[player].emplace(buildingId, e);
     //insert({buildingId, e});
 }
