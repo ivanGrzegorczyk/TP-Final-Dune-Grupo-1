@@ -49,7 +49,7 @@ public:
 
     void updateUnits(int player, int type, int characterId, coordenada_t coord);
     std::shared_ptr<BuildingType> getBuildingType(int type);
-    void updateBuilding(int playerId, int buildingId,  std::shared_ptr<BuildingType> type, coordenada_t coord) ;
+    void spawnBuilding(int playerId, int buildingId,  std::shared_ptr<BuildingType> type, coordenada_t coord) ;
 };
 
 
