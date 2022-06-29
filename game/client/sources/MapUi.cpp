@@ -1,6 +1,6 @@
 #include "../headers/MapUi.h"
 #include "client/headers/BuildingFactory.h"
-#include "client/headers/BuildingUi.h"
+#include "client/headers/BarracksUi.h"
 
 
 MapUi::MapUi(Renderer &renderer) : 
@@ -132,7 +132,7 @@ void MapUi::updateBuilding(int player, int buildingId, std::shared_ptr<BuildingT
     buildings[player].insert(
         std::make_pair<int, SdlEntity*>(
             int{buildingId}, 
-            new BuildingUi(type, rdr, coord)));
+            new BarracksUi(player, type, rdr, coord)));
     //buildings[player].emplace(buildingId, e);
     //insert({buildingId, e});
 }
