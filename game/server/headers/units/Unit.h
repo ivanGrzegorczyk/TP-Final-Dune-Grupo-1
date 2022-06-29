@@ -10,12 +10,12 @@
 
 class Unit: public Entity {  // abstracta
 protected:
-    int range;
-    int speed;
+    unsigned int range;
+    unsigned int speed;
     std::stack<coordenada_t> path;
 
 public:
-    Unit(int id, double hp, int range, int speed, int type, coordenada_t coord);
+    Unit(int id, unsigned int hp, unsigned int range, unsigned int speed, int type, coordenada_t coord);
     void setPath(std::stack<coordenada_t> _path);
     void setPosition(coordenada_t newPosition);
     coordenada_t relocate();
