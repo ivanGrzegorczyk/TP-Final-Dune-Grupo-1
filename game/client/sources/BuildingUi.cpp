@@ -9,9 +9,20 @@ void BuildingUi::update() {
 }
 // TODO improve encapsulation
 BuildingUi::BuildingUi(
-    std::shared_ptr<BuildingType> t, 
-    Renderer &renderer, 
-    coordenada_t location) 
-    : type(t), renderer(renderer), location(location.first, location.second, 70,70) {}
+        int player, 
+        int buildingId,
+        std::shared_ptr<BuildingType> type, 
+        Renderer &rdr, 
+        coordenada_t coord, 
+        Point size = Point(50,50),
+        Point map_center = Point(0,0)) 
+        : type(type),
+        renderer(rdr), 
+        coord(coord) {
+            Point _pos(coord.first, coord.second);
+            _pos = _pos * 8 + map_center;
+            Rect _location(_pos, size);
+            location = _location;
+        }
 
 

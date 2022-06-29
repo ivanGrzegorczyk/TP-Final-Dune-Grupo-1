@@ -13,12 +13,17 @@ class BuildingUi : public SdlEntity{
 private:
     std::shared_ptr<BuildingType> type;
     Renderer &renderer;
+    coordenada_t coord;
     Rect location;
 public:
     BuildingUi(
-        std::shared_ptr<BuildingType> t, 
-        Renderer &renderer, 
-        coordenada_t location);
+        int player, 
+        int buildingId,
+        std::shared_ptr<BuildingType> type, 
+        Renderer &rdr, 
+        coordenada_t coord, 
+        Point size,
+        Point map_center) ;
     void render() override;
     void update() override;
 

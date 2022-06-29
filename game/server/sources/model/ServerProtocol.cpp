@@ -85,7 +85,7 @@ void ServerProtocol::sendUnitData(std::vector<std::shared_ptr<Unit>> &units) {
     socket.sendall(&amount, sizeof(amount));
 
     for (const auto& unit : units) {
-        uint8_t type = htons((uint8_t)unit->getType());
+        uint8_t type = unit->getType();
         uint16_t unitId = htons((uint16_t)unit->getId());
         uint16_t position_x = htons((uint16_t)unit->getPosition().first);
         uint16_t position_y = htons((uint16_t)unit->getPosition().second);
@@ -103,7 +103,7 @@ void ServerProtocol::sendBuildingData(std::vector<std::shared_ptr<Building>> &bu
     socket.sendall(&amount, sizeof(amount));
 
     for (const auto& building : buildings) {
-        uint8_t type = htons((uint8_t)building->getType());
+        uint8_t type = building->getType();
         uint16_t unitId = htons((uint16_t)building->getId());
         uint16_t position_x = htons((uint16_t)building->getPosition().first);
         uint16_t position_y = htons((uint16_t)building->getPosition().second);
@@ -121,7 +121,7 @@ void ServerProtocol::sendVehicleData(std::vector<std::shared_ptr<Vehicle>> &vehi
     socket.sendall(&amount, sizeof(amount));
 
     for (const auto& vehicle : vehicles) {
-        uint8_t type = htons((uint8_t)vehicle->getType());
+        uint8_t type = vehicle->getType();
         uint16_t unitId = htons((uint16_t)vehicle->getId());
         uint16_t position_x = htons((uint16_t)vehicle->getPosition().first);
         uint16_t position_y = htons((uint16_t)vehicle->getPosition().second);

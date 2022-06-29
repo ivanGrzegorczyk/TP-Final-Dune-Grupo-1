@@ -127,12 +127,21 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
 /*
     Create new building on map
 */
-void MapUi::updateBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
+void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
     //BuildingFactory factory;
+    Point size(50,50);
+    Point center(0,0);
     buildings[player].insert(
         std::make_pair<int, SdlEntity*>(
             int{buildingId}, 
-            new BuildingUi(type, rdr, coord)));
+            new BuildingUi(
+                player, 
+                buildingId,
+                type, 
+                rdr, 
+                coord, 
+                size,
+                center))) ;
     //buildings[player].emplace(buildingId, e);
     //insert({buildingId, e});
 }
