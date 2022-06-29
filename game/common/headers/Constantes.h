@@ -85,6 +85,12 @@ typedef std::pair<int, int> coordenada_t;
 #define REFINERY_POINTS 1000
 #define REFINERY_CAPACITY 5000
 
+//silo data
+#define SILO_ENERGY 100
+#define SILO_COST 200
+#define SILO_POINTS 200
+#define SILO_CAPACITY 1000
+
 //terrain
 #define TERRAIN_SAND 0
 #define TERRAIN_DUNES 1
