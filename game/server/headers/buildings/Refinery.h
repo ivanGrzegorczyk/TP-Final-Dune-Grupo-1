@@ -11,7 +11,11 @@ private:
 public:
     Refinery(int id, coordenada_t coord);
 
+    Refinery(int id, unsigned int spice, coordenada_t coord);
+
     std::shared_ptr<Building> copy() override;
+
+    unsigned int getSpice() const;
 };
 
 #endif  // REFINERY_H_
