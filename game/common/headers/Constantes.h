@@ -61,6 +61,12 @@ typedef std::pair<int, int> coordenada_t;
 #define HEAVY_INFANTRY_HP 80
 #define HEAVY_INFANTRY_COST 70
 
+//sardaukar data
+#define SARDAUKAR_RANGE 3
+#define SARDAUKAR_SPEED 12
+#define SARDAUKAR_HP 80
+#define SARDAUKAR_COST 100
+
 //harvester data
 #define HARVESTER_RANGE 0
 #define HARVESTER_SPEED 12
