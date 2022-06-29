@@ -83,8 +83,18 @@ Request* MapUi::clickScreen(int x, int y, int playerId) {
     return this->moveCharacter(x/LENGTH_TILE,y/LENGTH_TILE,playerId);
 }
 
+// TODO use map instead of find if
 std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
-    return building_types[0];
+    auto found = std::find_if(
+        building_types.begin(), 
+        building_types.end(), 
+        [type](std::shared_ptr<BuildingType> b){
+            return b->code() == type;
+        });
+    if(found == building_types.end()) {
+        throw std::invalid_argument("bad building code");
+    }
+    return *found;
 }
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {

@@ -83,6 +83,39 @@ buildings:
     points: 200
     features:
       capacity: 1000
+  - id: 26
+    name: Silo5
+    texture: "Barracks.png"
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
+  - id: 27
+    name: Silo6
+    texture: "Barracks.png"
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
+  - id: 28
+    name: Silo7
+    texture: "Barracks.png"
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
 
 weapons:
 - name: Rifles de Asalto
