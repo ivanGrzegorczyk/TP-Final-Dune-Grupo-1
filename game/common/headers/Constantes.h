@@ -47,6 +47,13 @@ typedef std::pair<int, int> coordenada_t;
 #define LIGHT_INFANTRY_RANGE 3
 #define LIGHT_INFANTRY_SPEED 16
 #define LIGHT_INFANTRY_HP 50
+#define LIGHT_INFANTRY_COST 50
+
+//fremen data
+#define FREMEN_RANGE 3
+#define FREMEN_SPEED 20
+#define FREMEN_HP 50
+#define FREMEN_COST 100
 
 //harvester data
 #define HARVESTER_RANGE 0
