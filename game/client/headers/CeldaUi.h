@@ -7,12 +7,12 @@ using namespace SDL2pp;
 class CeldaUi {
 private:
     std::pair<int,int> coordinate;
-    Texture *texture;
+    Texture &texture;
     Rect rectangle;
     Rect area;
 public:
-    CeldaUi();
-    CeldaUi(Texture *texture, std::pair<int, int> coord, Rect dst, Rect area);
+    //CeldaUi();
+    CeldaUi(Texture &texture, std::pair<int, int> coord, Rect dst, Rect area);
     void render(Renderer &render);
 };
 
