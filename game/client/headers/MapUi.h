@@ -8,6 +8,7 @@
 #include "client/headers/building_type/BuildingType.h"
 #include "character.h"
 #include "SdlEntity.h"
+#include "TerrainRepository.h"
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -21,6 +22,7 @@ using namespace SDL2pp;
 class MapUi {
 private:
     Rect dst;
+    TerrainRepository terrainRepo;
     Renderer& rdr;
     Texture ground;
     Texture harvester;
@@ -51,6 +53,13 @@ public:
     void updateUnits(int player, int type, int characterId, coordenada_t coord);
     std::shared_ptr<BuildingType> getBuildingType(int type);
     void spawnBuilding(int playerId, int buildingId,  std::shared_ptr<BuildingType> type, coordenada_t coord) ;
+    void updateBuilding(int player, int type, int buildingId, coordenada_t coord);
+
+    void addCliff(coordenada_t coord, Rect destination);
+
+    void addTop(coordenada_t coord, Rect destination);
+
+    void addDune(coordenada_t coord, Rect destination);
 };
 
 
