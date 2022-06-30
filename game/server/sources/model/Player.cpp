@@ -25,6 +25,7 @@ void Player::addUnit(int unitId, int type, coordenada_t position) {
 
 void Player::addBuilding(
         int buildingId, int buildingType, coordenada_t position) {
+    std::cout << "adding building " << buildingId << std::endl;
     switch (buildingType) {
         case BUILDING_LIGHT_FACTORY: {
             buildings.insert(std::pair<int, std::shared_ptr<Building>> (

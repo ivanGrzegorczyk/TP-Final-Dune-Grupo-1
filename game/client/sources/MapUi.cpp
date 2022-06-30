@@ -138,7 +138,11 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
     Create new building on map
 */
 void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
-    //BuildingFactory factory;
+    auto found = buildings[player].find(buildingId);
+    if(found != buildings[player].end()) {
+        return;
+    }
+    std::cout << "new building";
     Point size(50,50);
     Point center(0,0);
     buildings[player].insert(
