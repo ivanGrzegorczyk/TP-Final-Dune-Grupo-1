@@ -43,6 +43,8 @@ public:
     int getRows() const;
 
     int getColumns() const;
+
+    void build(int playerId, coordenada_t &position, int buildingType, int size_x, int size_y);
 };
 
 #endif  // SERVERMAP_H_

@@ -38,8 +38,8 @@ void ServerProtocol::getRelocationData
     socket.recvall(&goal_y, sizeof(goal_y));
 
     id = ntohs(unitId);
-    goal.first = ntohs(goal_x);
-    goal.second = ntohs(goal_y);
+    goal.first = ntohs(goal_y);
+    goal.second = ntohs(goal_x);
 }
 
 void ServerProtocol::getEnityData(uint16_t &type, coordenada_t &position) {
@@ -47,9 +47,9 @@ void ServerProtocol::getEnityData(uint16_t &type, coordenada_t &position) {
     socket.recvall(&aux, sizeof(aux));
     type = ntohs(aux);
     socket.recvall(&aux, sizeof(aux));
-    position.first = ntohs(aux);
-    socket.recvall(&aux, sizeof(aux));
     position.second = ntohs(aux);
+    socket.recvall(&aux, sizeof(aux));
+    position.first = ntohs(aux);
 }
 
 void ServerProtocol::assignPlayerId(int id) {
@@ -61,7 +61,8 @@ void ServerProtocol::assignPlayerId(int id) {
 
 void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
     std::vector<int> players = snapshot.getPlayers();
-    uint16_t playerAmount = htons(players.size());
+    uint16_t playerAmount = players.size();
+    playerAmount = htons(playerAmount);
     socket.sendall(&playerAmount, sizeof(playerAmount));
 
     for (auto playerId : players) {
@@ -81,14 +82,20 @@ void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
 void ServerProtocol::sendUnitData(std::vector<std::shared_ptr<Unit>> &units) {
     uint8_t eventType = UNIT;
     socket.sendall(&eventType, sizeof(eventType));
-    uint16_t amount = htons(units.size());
+    uint16_t amount = units.size();
+    amount = htons(amount);
     socket.sendall(&amount, sizeof(amount));
 
     for (const auto& unit : units) {
-        uint8_t type = htons((uint8_t)unit->getType());
-        uint16_t unitId = htons((uint16_t)unit->getId());
-        uint16_t position_x = htons((uint16_t)unit->getPosition().first);
-        uint16_t position_y = htons((uint16_t)unit->getPosition().second);
+        uint8_t type = unit->getType();
+        uint16_t unitId = unit->getId();
+        uint16_t position_x = unit->getPosition().second;
+        uint16_t position_y = unit->getPosition().first;
+
+        unitId = htons(unitId);
+        position_x = htons(position_x);
+        position_y = htons(position_y);
+
         socket.sendall(&type, sizeof(type));
         socket.sendall(&unitId, sizeof(unitId));
         socket.sendall(&position_x, sizeof(position_x));
@@ -103,12 +110,17 @@ void ServerProtocol::sendBuildingData(std::vector<std::shared_ptr<Building>> &bu
     socket.sendall(&amount, sizeof(amount));
 
     for (const auto& building : buildings) {
-        uint8_t type = htons((uint8_t)building->getType());
-        uint16_t unitId = htons((uint16_t)building->getId());
-        uint16_t position_x = htons((uint16_t)building->getPosition().first);
-        uint16_t position_y = htons((uint16_t)building->getPosition().second);
+        uint8_t type = building->getType();
+        uint16_t buildingId = building->getId();
+        uint16_t position_x = building->getPosition().second;
+        uint16_t position_y = building->getPosition().first;
+
+        buildingId = htons(buildingId);
+        position_x = htons(position_x);
+        position_y = htons(position_y);
+
         socket.sendall(&type, sizeof(type));
-        socket.sendall(&unitId, sizeof(unitId));
+        socket.sendall(&buildingId, sizeof(buildingId));
         socket.sendall(&position_x, sizeof(position_x));
         socket.sendall(&position_y, sizeof(position_y));
     }
@@ -121,12 +133,17 @@ void ServerProtocol::sendVehicleData(std::vector<std::shared_ptr<Vehicle>> &vehi
     socket.sendall(&amount, sizeof(amount));
 
     for (const auto& vehicle : vehicles) {
-        uint8_t type = htons((uint8_t)vehicle->getType());
-        uint16_t unitId = htons((uint16_t)vehicle->getId());
-        uint16_t position_x = htons((uint16_t)vehicle->getPosition().first);
-        uint16_t position_y = htons((uint16_t)vehicle->getPosition().second);
+        uint8_t type = vehicle->getType();
+        uint16_t vehicleId = vehicle->getId();
+        uint16_t position_x = vehicle->getPosition().second;
+        uint16_t position_y = vehicle->getPosition().first;
+
+        vehicleId = htons(vehicleId);
+        position_x = htons(position_x);
+        position_y = htons(position_y);
+
         socket.sendall(&type, sizeof(type));
-        socket.sendall(&unitId, sizeof(unitId));
+        socket.sendall(&vehicleId, sizeof(vehicleId));
         socket.sendall(&position_x, sizeof(position_x));
         socket.sendall(&position_y, sizeof(position_y));
     }
