@@ -9,4 +9,5 @@ void UpdateBuilding::modify(MapUi *mapUi) {
 
 UpdateBuilding::UpdateBuilding(int player, int type, int buildingId, coordenada_t coord) :
     player(player),type(type), buildingId(buildingId), coord(std::move(coord)) {
+        std::cout << "udpate building" << std::endl;
 }
