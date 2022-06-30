@@ -11,6 +11,8 @@ class GUI {
 private:
     Texture *texture;
     Rect area;
+    Rect menu1_area;
+    Rect menu2_area;
     std::vector<ButtonUi*> buttons;
     std::shared_ptr<BuildingType> selected;
 public:
