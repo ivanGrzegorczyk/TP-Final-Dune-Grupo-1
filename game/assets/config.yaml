@@ -30,7 +30,7 @@ units:
 
 buildings:
   - id: 21
-    name: Trampas de Aire
+    name: Centro de Construcción
     texture: "brick.png"
     energy: 500
     cost: 800
@@ -52,7 +52,7 @@ buildings:
       capacity: 1000
   - id: 23
     name: Silo2
-    texture: "Barracks.png"
+    texture: "brick.png"
     energy: 100
     cost: 200
     dimensions:
@@ -63,7 +63,7 @@ buildings:
       capacity: 1000
   - id: 24
     name: Silo3
-    texture: "Barracks.png"
+    texture: "crate.png"
     energy: 100
     cost: 200
     dimensions:
@@ -85,7 +85,7 @@ buildings:
       capacity: 1000
   - id: 26
     name: Silo5
-    texture: "Barracks.png"
+    texture: "crate.png"
     energy: 100
     cost: 200
     dimensions:
