@@ -4,9 +4,9 @@ Navigator::Navigator(std::vector<std::vector<ServerCell *>> &map) : nodeMap(
         map.size(), std::vector<Node>(map.at(0).size())) {
     for (size_t i = 0; i < map.size(); i++) {
         for (size_t j = 0; j < map.at(0).size(); j++) {
-            nodeMap[j][i] = Node(
-                    coordenada_t{j, i},
-                    map[i][j]->ground(), map[j][i]->occupied);
+            nodeMap[i][j] = Node(
+                    coordenada_t{i, j},
+                    map[i][j]->ground(), map[i][j]->occupied);
         }
     }
 }

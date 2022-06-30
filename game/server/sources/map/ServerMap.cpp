@@ -116,25 +116,25 @@ void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
     entityId = 1;
 
     for(YAML::Node cell : config["map"]["cells"]) {
-        auto x = cell["pos"][0].as<int>();
-        auto y = cell["pos"][1].as<int>();
+        auto row = cell["pos"][1].as<int>();
+        auto column = cell["pos"][0].as<int>();
         auto _terrain = cell["terrain"].as<std::string>();
 
         if (_terrain == YAML_SAND) {
             auto spice = cell["seed"].as<unsigned int>();
-            map[x][y] = new SandCell({x, y}, spice);
+            map[row][column] = new SandCell({row, column}, spice);
             terrain.push_back(TERRAIN_SAND);
         } else if (_terrain == YAML_DUNE) {
-            map[x][y] = new DunesCell({x, y});
+            map[row][column] = new DunesCell({row, column});
             terrain.push_back(TERRAIN_DUNES);
         } else if (_terrain == YAML_ROCK) {
-            map[x][y] = new RockCell({x, y});
+            map[row][column] = new RockCell({row, column});
             terrain.push_back(TERRAIN_ROCKS);
         } else if (_terrain == YAML_TOP) {
-            map[x][y] = new TopsCell({x, y});
+            map[row][column] = new TopsCell({row, column});
             terrain.push_back(TERRAIN_TOPS);
         } else if (_terrain == YAML_CLIFF) {
-            map[x][y] = new CliffsCell({x, y});
+            map[row][column] = new CliffsCell({row, column});
             terrain.push_back(TERRAIN_CLIFFS);
         } else {
             throw std::runtime_error("Unknown terrain");
@@ -143,8 +143,8 @@ void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
 }
 
 bool ServerMap::validPosition(coordenada_t position) const {
-    return position.first >= 0 && position.first < columns
-           && position.second >= 0 && position.second < rows;
+    return position.first >= 0 && position.first < rows
+           && position.second >= 0 && position.second < columns;
 }
 
 int ServerMap::getRows() const {
@@ -161,7 +161,7 @@ void ServerMap::build(int playerId, coordenada_t &position, int buildingType, in
     int aux = 0;
     for (int i = 0; i < size_y; i++) {
         for (int j = 0; j < size_x; j++) {
-            if ((x + i) <= columns && (y + j) <= rows && !map[x + i][y + j]->occupied) {
+            if ((x + i) <= rows && (y + j) <= columns && !map[x + i][y + j]->occupied) {
                 aux++;
             }
         }
