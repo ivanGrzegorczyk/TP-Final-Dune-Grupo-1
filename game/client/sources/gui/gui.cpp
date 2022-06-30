@@ -10,9 +10,53 @@
 GUI::GUI(Rect area, std::vector<std::shared_ptr<BuildingType>> building_types) : area(area){
     float PORTION_1 = 0.9;
     float PORTION_2 = 0.1;
+
     // main menu with 8 slots
     menu1_area = area;
     menu1_area.SetH((int)(area.GetH() * PORTION_1));
+    drawBuildingButtons(building_types);
+    // menu number two
+    menu2_area = Rect(menu1_area.GetBottomLeft(),area.GetSize());
+    menu2_area.SetH((int)(area.GetH() * PORTION_2));
+}
+
+bool GUI::isOverPoint(int x, int y) {
+    return area.Contains(x,y);
+}
+
+void GUI::clickOver(int x, int y) {
+    if(menu2_area.Contains(x,y)) {
+        // insert units instead of buildings
+    } else {
+        for(auto it = buttons.begin(); it != buttons.end(); ++it) {
+        if((*it)->Contains(x,y)) {
+            (*it)->press();
+        }
+    }
+    }
+    
+}
+
+// todo cache some of this logic as as object state
+void GUI::render(Renderer &rdr) {
+    rdr.DrawRect(menu1_area);
+    rdr.DrawRect(menu2_area);
+    rdr.SetDrawColor(255,0,0,255);
+    for(auto it = buttons.begin(); it != buttons.end(); ++it) {
+        (*it)->render(rdr);
+    }
+    rdr.DrawRect(area);
+}
+
+void GUI::setBuildingToBuild(std::shared_ptr<BuildingType> type) {
+    selected = type;
+}
+
+std::shared_ptr<BuildingType> GUI::getBuildingToBuild() {
+    return selected;
+}
+
+void GUI::drawBuildingButtons(std::vector<std::shared_ptr<BuildingType>> building_types) {
     // main menu buttons
     int menu_rows = 4;
     int menu_columns = 2;
@@ -37,7 +81,10 @@ GUI::GUI(Rect area, std::vector<std::shared_ptr<BuildingType>> building_types) :
     for(int i = 0; i < menu_rows; i++) {
         for(int j = 0; j < menu_columns; j++) {
             if(it == menu_end) break;
-            Point item_origin = origin + Point(width_item, 0) * j + Point(0, height_item) * i;
+            Point item_origin = 
+                origin 
+                + Point(width_item, 0) * j 
+                + Point(0, height_item) * i;
             Rect item(item_origin, size_item);
             std::cout << item.GetH() << item.GetW() << item.GetX() << item.GetY();
             BuildingButtonUi* b = new BuildingButtonUi(*it, item, this);
@@ -45,38 +92,4 @@ GUI::GUI(Rect area, std::vector<std::shared_ptr<BuildingType>> building_types) :
             ++it;
         }
     }
-    // menu number two
-    menu2_area = Rect(menu1_area.GetBottomLeft(),area.GetSize());
-    menu2_area.SetH((int)(area.GetH() * PORTION_2));
-}
-
-bool GUI::isOverPoint(int x, int y) {
-    return area.Contains(x,y);
-}
-
-void GUI::clickOver(int x, int y) {
-    for(auto it = buttons.begin(); it != buttons.end(); ++it) {
-        if((*it)->Contains(x,y)) {
-            (*it)->press();
-        }
-    }
-}
-
-// todo cache some of this logic as as object state
-void GUI::render(Renderer &rdr) {
-    rdr.DrawRect(menu1_area);
-    rdr.DrawRect(menu2_area);
-    rdr.SetDrawColor(255,0,0,255);
-    for(auto it = buttons.begin(); it != buttons.end(); ++it) {
-        (*it)->render(rdr);
-    }
-    rdr.DrawRect(area);
-}
-
-void GUI::setBuildingToBuild(std::shared_ptr<BuildingType> type) {
-    selected = type;
-}
-
-std::shared_ptr<BuildingType> GUI::getBuildingToBuild() {
-    return selected;
 }

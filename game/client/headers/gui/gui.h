@@ -22,6 +22,7 @@ public:
     void clickOver(int x, int y);
     void setBuildingToBuild(std::shared_ptr<BuildingType> type);
     std::shared_ptr<BuildingType> getBuildingToBuild();
+    void drawBuildingButtons(std::vector<std::shared_ptr<BuildingType>> building_types);
 };
 
 
