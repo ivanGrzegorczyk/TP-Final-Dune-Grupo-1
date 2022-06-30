@@ -53,7 +53,6 @@ void MapUi::render() {
        }
     }
     //std::cout << "size despues: " << units.size() << std::endl;
-
     for(auto const& [playerId, building] : buildings) {
         for(auto  [buildingId, b]: building) {
             b->render();
@@ -142,10 +141,10 @@ void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingTy
     if(found != buildings[player].end()) {
         return;
     }
-    std::cout << "new building";
+    std::cout << "new building" << std::endl;
     Point size(50,50);
     Point center(0,0);
-    buildings[player].insert(
+    buildings[buildingId].insert(
         std::make_pair<int, SdlEntity*>(
             int{buildingId}, 
             new BuildingUi(
