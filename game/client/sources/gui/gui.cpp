@@ -15,14 +15,21 @@ GUI::GUI(Rect area, std::vector<std::shared_ptr<BuildingType>> building_types) :
     //std::cout << width_item << "," << height_item << std::endl;
     Point size_item(width_item, height_item);
     Point origin = area.GetTopLeft();
-    // TODO: Create 'SDLBuilding class tht combines sdl entity with building properties
+    int construction_center_code = BUILDING_CONSTRUCTION_CENTER;
     auto it = building_types.begin();
+    auto _end = building_types.end();
+    auto menu_end = std::remove_if(it,_end,
+        [construction_center_code](std::shared_ptr<BuildingType> b){
+            return b->code() == construction_center_code;
+        });
+    // TODO: Create 'SDLBuilding class tht combines sdl entity with building properties
+
     // by default, we place the first building available
-    selected = *it;
+    if(it != menu_end) selected = *it;
     //TODO more legantly iterate over matrix
     for(int i = 0; i < menu_rows; i++) {
         for(int j = 0; j < menu_columns; j++) {
-            if(it == building_types.end()) break;
+            if(it == menu_end) break;
             Point item_origin = origin + Point(width_item, 0) * j + Point(0, height_item) * i;
             Rect item(item_origin, size_item);
             BuildingButtonUi* b = new BuildingButtonUi(*it, item, this);
