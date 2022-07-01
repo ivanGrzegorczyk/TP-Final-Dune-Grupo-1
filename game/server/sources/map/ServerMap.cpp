@@ -99,6 +99,32 @@ void ServerMap::updateUnitsPosition() {
     }
 }
 
+void ServerMap::unitCheck() {
+    for (auto & [playerId1, player1] : players) {
+        auto units = player1.getUnits();
+        for (auto & [unitId, unit] : *units) {
+            if (unit->isStill()) {
+                for (auto &[playerId2, player2]: players) {
+                    if (playerId1 != playerId2) {
+                        int target = player2.getClosestUnitId(unit->getPosition(), unit->getRange());
+                        unit->setTarget(target);
+                    }
+                }
+            }
+        }
+    }
+    for (auto & [playerId, player] : players) {
+        auto units = player.getUnits();
+        for (auto & [unitId, unit] : *units) {
+            if (unit->hasTarget()) {
+                std::cout << "hay objetivo: " << std::endl;
+                // Ataca a la unidad
+                // Calcula A* si la unidad se va de rango?
+            }
+        }
+    }
+}
+
 void ServerMap::addSnapshotData(Snapshot &snapshot) {
     for (auto & [playerId, player] : players) {
         snapshot.addPlayer(playerId);

@@ -82,17 +82,14 @@ void Server::acceptClients() {
 
 void Server::manageEvents() {
     ServerEvent *event = protectedQueue.pop();
-    bool events_happened = (event != nullptr);
     while (event != nullptr) {
         event->performEvent(map);
         delete event;
         event = protectedQueue.pop();
     }
     map.updateUnitsPosition();
+    map.unitCheck();
     Snapshot snapshot = createSnapshot();
-    if(events_happened) {
-        std::cout << "pushing snapshot corresponding to an event" << std::endl;
-    }
     blockingQueue.push(snapshot);
 }
 

@@ -68,7 +68,7 @@ void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
     for (auto playerId : players) {
         uint16_t id = htons(playerId);
         socket.sendall(&id, sizeof(id));
-        
+
         std::vector<std::shared_ptr<Unit>> units = snapshot.getUnits(playerId);
         std::vector<std::shared_ptr<Building>> buildings = snapshot.getBuildings(playerId);
         std::vector<std::shared_ptr<Vehicle>> vehicles = snapshot.getVehicles(playerId);

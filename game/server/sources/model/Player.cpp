@@ -122,3 +122,31 @@ void Player::addVehicleData(Snapshot &snapshot) {
         snapshot.addVehicle(playerId, _vehicle);
     }
 }
+
+std::map<int, std::shared_ptr<Unit>> *Player::getUnits() {
+    return &units;
+}
+
+int Player::getClosestUnitId(coordenada_t position, unsigned int range) {
+    int closest = 0;
+    double distance = INFINITY;
+
+    for (auto & [unitId, unit] : units) {
+        coordenada_t current = unit->getPosition();
+        auto _distance = calculateDistance(position, current);
+        if (_distance < distance) {
+            distance = _distance;
+            if (distance < range)
+                closest = unitId;
+        }
+    }
+
+    return closest;
+}
+
+double Player::calculateDistance(coordenada_t unit1, coordenada_t unit2) {
+    int x1 = unit1.first, y1 = unit1.second;
+    int x2 = unit2.first, y2 = unit2.second;
+
+    return std::sqrt(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2) * 1.0);
+}
