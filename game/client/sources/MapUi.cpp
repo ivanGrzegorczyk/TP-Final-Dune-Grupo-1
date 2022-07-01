@@ -74,7 +74,8 @@ Request* MapUi::mouseEvent(int x, int y, int playerId) {
             std::cout <<"selecting unit " << unit.second->playerId << std::endl;
             unit.second->reactToEvent(x, y);
         } else {
-            std::cout <<"unit belogns to another player " << unit.second->playerId << " and not " << playerId << std::endl;
+            std::cout <<"unit belogns to another player " 
+                << unit.second->playerId << " and not " << playerId << std::endl;
         }
     }
     return nullptr;
@@ -141,6 +142,7 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
                     (int{characterId}, new character(rdr, player, characterId, coord, type)));
         }
     } else {
+        std::cout << "received new player: " << player << std::endl;
         players.insert(player);
         units.insert(std::make_pair<int, character *>
                 (int{characterId}, new character(rdr, player, characterId, coord, type)));
