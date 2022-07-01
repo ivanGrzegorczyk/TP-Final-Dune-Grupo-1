@@ -35,7 +35,7 @@ void ClientsMonitor::clearAll() {
     clients.clear();
 }
 
-void ClientsMonitor::broadCast(Snapshot &snapshot) {
+void ClientsMonitor::broadCast(Snapshot &&snapshot) {
     std::lock_guard<std::mutex> lock(mutex);
     for (ThClient *client : clients) {
         client->sendSnapshot(snapshot);

@@ -1,7 +1,7 @@
 #include "server/headers/model/Snapshot.h"
 
-std::vector<int> Snapshot::getPlayers() {
-    return std::move(players);
+const std::vector<int> & Snapshot::getPlayers() {
+    return players;
 }
 
 const std::vector<std::shared_ptr<Unit>> &Snapshot::getUnits(int playerId) {

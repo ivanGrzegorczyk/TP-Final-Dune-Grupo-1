@@ -10,7 +10,7 @@ ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue,
         protectedQueue(protectedQueue), keep_talking(true), is_running(true),
         protocol(std::move(peer)), playerId(id), rows(rows), columns(columns), terrain(terrain) {
     protocol.assignPlayerId(id);
-    protocol.sendTerrain(rows, columns, terrain);
+    protocol.sendTerrain(columns, rows, terrain);
 }
 
 void ThClient::run() {

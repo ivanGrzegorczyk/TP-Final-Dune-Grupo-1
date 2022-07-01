@@ -17,7 +17,7 @@ public:
     ~ClientsMonitor();
 
     void push(ThClient *client);
-    void broadCast(Snapshot &snapshot);
+    void broadCast(Snapshot &&snapshot);
     void clean();
 
     void clearAll();
