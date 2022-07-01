@@ -5,9 +5,11 @@
 
 class RockCell : public ServerCell {
 public:
-    RockCell(coordenada_t coord);
+    explicit RockCell(coordenada_t coord);
     int ground() override;
     unsigned int harvest() override;
+
+    ~RockCell() override = default;
 };
 
 #endif  // ROCKCELL_H_

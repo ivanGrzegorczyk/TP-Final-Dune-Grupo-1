@@ -9,4 +9,3 @@ int RockCell::ground() {
 unsigned int RockCell::harvest() {
     throw std::runtime_error("Cannot harvest on rocks");
 }
-

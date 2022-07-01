@@ -99,9 +99,15 @@ void Client::ProcessInput() {
 }
 
 void Client::update() {
-    Response* response = this->recvQueue.pop();
-    if (response != nullptr) {
-        this->mapUi.update(response);
+    Response* current = nullptr;
+    Response* next = this->recvQueue.pop();
+    while (next != nullptr) {
+        current = next;
+        next = this->recvQueue.pop();
+    }
+    if (current != nullptr) {
+        this->mapUi.update(current);
+        delete current;
     }
 }
 
