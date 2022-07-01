@@ -78,6 +78,7 @@ std::shared_ptr<BuildingType> GUI::getBuildingToBuild() {
 
 void GUI::drawBuildingButtons(std::vector<std::shared_ptr<BuildingType>> building_types) {
     // main menu buttons
+    buttons.clear();
     int menu_rows = 4;
     int menu_columns = 2;
     int width_item = int(menu1_area.GetW() / menu_columns);
@@ -95,8 +96,6 @@ void GUI::drawBuildingButtons(std::vector<std::shared_ptr<BuildingType>> buildin
         });
     // TODO: Create 'SDLBuilding class tht combines sdl entity with building properties
 
-    // by default, we place the first building available
-    if(it != menu_end) setBuildingToBuild(*it);
     //TODO more legantly iterate over matrix
     for(int i = 0; i < menu_rows; i++) {
         for(int j = 0; j < menu_columns; j++) {
