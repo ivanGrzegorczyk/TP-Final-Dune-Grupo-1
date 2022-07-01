@@ -5,6 +5,7 @@ class MapUi;
 class Event {
 public:
     virtual void modify(MapUi *mapUi) = 0;
+    virtual ~Event() = default;
 };
 
 

@@ -10,3 +10,9 @@ void Response::update(MapUi *mapUi, SDL2pp::Renderer &renderer) {
        event->modify(mapUi);
    }
 }
+
+Response::~Response() {
+    for(auto event: events) {
+        delete event;
+    }
+}
