@@ -8,6 +8,9 @@
 #include "server/headers/buildings/Refinery.h"
 #include "server/headers/buildings/Silo.h"
 #include "server/headers/buildings/Palace.h"
+#include "server/headers/units/HeavyInfantry.h"
+#include "server/headers/units/Fremen.h"
+#include "server/headers/units/Sardaukar.h"
 
 Player::Player(int id, int house) : playerId(id), house(house), money(0) {}
 
@@ -18,8 +21,23 @@ void Player::addUnit(int unitId, int type, coordenada_t position) {
                     unitId, new LightInfantry(unitId, position)));
             break;
         }
+        case UNIT_HEAVY_INFANTRY: {
+            units.insert(std::pair<int, std::shared_ptr<Unit>> (
+                    unitId, new HeavyInfantry(unitId, position)));
+            break;
+        }
+        case UNIT_FREMEN: {
+            units.insert(std::pair<int, std::shared_ptr<Unit>> (
+                    unitId, new Fremen(unitId, position)));
+            break;
+        }
+        case UNIT_SARDAUKAR: {
+            units.insert(std::pair<int, std::shared_ptr<Unit>> (
+                    unitId, new Sardaukar(unitId, position)));
+            break;
+        }
         default:
-            return;
+            throw std::runtime_error("Unknown unit");
     }
 }
 
