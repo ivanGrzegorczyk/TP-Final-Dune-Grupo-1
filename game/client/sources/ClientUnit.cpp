@@ -2,9 +2,9 @@
 
 ClientUnit::ClientUnit(int playerId, int id, double hp, int range, int speed, int type, coordenada_t coord) :
         Entity(id, hp, type, coord), 
-        range(range), 
+        range(range),
         speed(speed), 
-        playerId(id) {
+        playerId(playerId) {
 }
 
 void ClientUnit::setPosition(coordenada_t newPosition) {

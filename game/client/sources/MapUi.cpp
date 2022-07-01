@@ -69,14 +69,12 @@ void MapUi::render() {
 
 // TODO: replace with less generic name, use inside clickScreen
 Request* MapUi::mouseEvent(int x, int y, int playerId) {
+    bool found = false;
     for (auto const& unit : units) {
         if(unit.second->playerId == playerId) {
-            std::cout <<"selecting unit " << unit.second->playerId << std::endl;
             unit.second->reactToEvent(x, y);
-        } else {
-            std::cout <<"unit belogns to another player " 
-                << unit.second->playerId << " and not " << playerId << std::endl;
-        }
+            std::cout << "reacting..." << std::endl;
+        } 
     }
     return nullptr;
 }
@@ -138,12 +136,13 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
         if(units.find(characterId) != units.end()) {
             units.at(characterId)->setPosition(coord);
         } else {
+            std::cout << "insert unit from player " << player << std::endl;
             units.insert(std::make_pair<int, character*>
                     (int{characterId}, new character(rdr, player, characterId, coord, type)));
         }
     } else {
-        std::cout << "received new player: " << player << std::endl;
         players.insert(player);
+        std::cout << "insert unit from player " << player << std::endl;
         units.insert(std::make_pair<int, character *>
                 (int{characterId}, new character(rdr, player, characterId, coord, type)));
     }
@@ -157,7 +156,6 @@ void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingTy
     if(found != buildings.end()) {
         return;
     }
-    std::cout << "new building of type " << type->type() << std::endl;
     Point size(50,50);
     Point center(0,0);
     buildings.insert(
