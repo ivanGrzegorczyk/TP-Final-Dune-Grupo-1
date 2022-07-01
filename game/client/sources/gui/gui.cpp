@@ -21,7 +21,7 @@ GUI::GUI(Rect area,
     // menu number two
     menu2_area = Rect(menu1_area.GetBottomLeft(),area.GetSize());
     menu2_area.SetH((int)(area.GetH() * PORTION_2));
-    setBuildingToBuild(building_types[0]);
+    setBuildingToBuild(building_types[1]);
     update();
 }
 
