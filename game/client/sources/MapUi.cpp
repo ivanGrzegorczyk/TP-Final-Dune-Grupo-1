@@ -54,16 +54,12 @@ void MapUi::render() {
     }
     // render units
     //std::cout << "size: " << units.size() << std::endl;
-    for(auto const& [playerId, unitsMap] : units) {
-       for(auto const& [unitId, unit]: unitsMap) {
-           unit->render();
-       }
+    for(auto const& unit: units) {
+       unit.second->render();
     }
     //std::cout << "size despues: " << units.size() << std::endl;
-    for(auto const& [playerId, building] : buildings) {
-        for(auto  [buildingId, b]: building) {
-            b->render();
-        }
+    for(auto const& b : buildings) {
+        b.second->render();
     }
 
     // render gui
@@ -73,8 +69,9 @@ void MapUi::render() {
 
 // TODO: replace with less generic name, use inside clickScreen
 Request* MapUi::mouseEvent(int x, int y, int playerId) {
-    for (auto const& [unitId, unit] : units[playerId]) {
-        unit->reactToEvent(x, y);
+    for (auto const& unit : units) {
+        if(unit.second->playerId == playerId)
+            unit.second->reactToEvent(x, y);
     }
     return nullptr;
 }
@@ -105,8 +102,8 @@ std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
     Request *request;
-    for (auto const& [unitId, unit] : units[playerId]) {
-        request = unit->walkEvent(x, y);
+    for (auto const& unit : units) {
+        request = unit.second->walkEvent(x, y);
         if (request != nullptr) {
             return request;
         } 
@@ -130,15 +127,18 @@ void MapUi::addSand(coordenada_t coord, Rect destination) {
 }
 
 void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coord) {
-    if(units.find(player) != units.end()) {
-        if(units[player].find(characterId) != units[player].end()) {
-            units.at(player).at(characterId)->setPosition(coord);
+    // player exists
+    if(players.find(player) != players.end()) {
+        // unit exists
+        if(units.find(characterId) != units.end()) {
+            units.at(characterId)->setPosition(coord);
         } else {
-            units.at(player).insert(std::make_pair<int, character*>
+            units.insert(std::make_pair<int, character*>
                     (int{characterId}, new character(rdr, player, characterId, coord, type)));
         }
     } else {
-        units[player].insert(std::make_pair<int, character *>
+        players.insert(player);
+        units.insert(std::make_pair<int, character *>
                 (int{characterId}, new character(rdr, player, characterId, coord, type)));
     }
 }
@@ -147,14 +147,14 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
     Create new building on map
 */
 void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
-    auto found = buildings[player].find(buildingId);
-    if(found != buildings[player].end()) {
+    auto found = buildings.find(buildingId);
+    if(found != buildings.end()) {
         return;
     }
     std::cout << "new building of type " << type->type() << std::endl;
     Point size(50,50);
     Point center(0,0);
-    buildings[buildingId].insert(
+    buildings.insert(
         std::make_pair<int, SdlEntity*>(
             int{buildingId}, 
             new BuildingUi(

@@ -8,6 +8,7 @@ class ClientUnit : public Entity {
     int range;
     int speed;
 public:
+    int playerId;
     ClientUnit(int playerId, int id, double hp, int range, int speed, int type, coordenada_t coord);
     void setPosition(coordenada_t newPosition);
 };

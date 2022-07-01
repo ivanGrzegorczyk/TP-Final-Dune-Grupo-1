@@ -12,10 +12,11 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <unordered_set>
 #include <map>
 #include <memory>
 #include "client/headers/BuildingFactory.h"
-
+#include "../headers/character.h"
 #define LENGTH_TILE 16
 using namespace SDL2pp;
 
@@ -28,11 +29,12 @@ private:
     Texture harvester;
     BuildingFactory factory;
     std::vector<std::shared_ptr<BuildingType>> building_types;
+    std::unordered_set<int> players;
     GUI gui;
     std::pair<coordenada_t, std::vector<uint8_t>> terrain;
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades
-    std::map<int, std::map<int, SdlEntity*>> buildings;
-    std::map<int, std::map<int, character*>> units;
+    std::map<int, SdlEntity*> buildings;
+    std::map<int, character*> units;
     std::vector<CeldaUi> map;
 public:
     explicit MapUi(Renderer& renderer);
