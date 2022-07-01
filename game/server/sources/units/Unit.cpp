@@ -5,7 +5,7 @@
 Unit::Unit(int id, unsigned int hp, unsigned int range,
            unsigned int speed, int type, unsigned int cost,
            coordenada_t coord) :
-        Entity(id, hp, type, coord), range(range), speed(speed), cost(cost) {}
+        Entity(id, hp, type, coord), range(range), speed(speed), cost(cost), target(0) {}
 
 void Unit::setPath(std::stack<coordenada_t> _path) {
     this->path = std::move(_path);
@@ -23,4 +23,20 @@ coordenada_t Unit::relocate() {
 
 void Unit::setPosition(coordenada_t newPosition) {
     this->coord = newPosition;
+}
+
+bool Unit::isStill() {
+    return path.empty();
+}
+
+unsigned int Unit::getRange() const {
+    return range;
+}
+
+void Unit::setTarget(int _target) {
+    this->target = _target;
+}
+
+bool Unit::hasTarget() {
+    return target != 0;
 }

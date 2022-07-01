@@ -18,11 +18,11 @@ private:
 public:
     std::vector<int> getPlayers();
 
-    std::vector<std::shared_ptr<Unit>> getUnits(int playerId);
+    const std::vector<std::shared_ptr<Unit>> & getUnits(int playerId);
 
-    std::vector<std::shared_ptr<Building>> getBuildings(int playerId);
+    const std::vector<std::shared_ptr<Building>> & getBuildings(int playerId);
 
-    std::vector<std::shared_ptr<Vehicle>> getVehicles(int playerId);
+    const std::vector<std::shared_ptr<Vehicle>> & getVehicles(int playerId);
 
     void addPlayer(int playerId);
 

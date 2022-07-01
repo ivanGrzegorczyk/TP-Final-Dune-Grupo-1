@@ -35,6 +35,8 @@ public:
 
     void updateUnitsPosition();
 
+    void unitCheck();
+
     void createBuilding(int playerId, int buildingType, coordenada_t position);
 
     void addSnapshotData(Snapshot &snapshot);
@@ -46,6 +48,7 @@ public:
     int getRows() const;
 
     int getColumns() const;
+
 };
 
 #endif  // SERVERMAP_H_

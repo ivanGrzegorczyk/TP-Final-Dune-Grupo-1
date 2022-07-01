@@ -8,6 +8,9 @@
 #include "server/headers/buildings/Refinery.h"
 #include "server/headers/buildings/Silo.h"
 #include "server/headers/buildings/Palace.h"
+#include "server/headers/units/HeavyInfantry.h"
+#include "server/headers/units/Fremen.h"
+#include "server/headers/units/Sardaukar.h"
 
 Player::Player(int id, int house) : playerId(id), house(house), money(0) {}
 
@@ -18,8 +21,23 @@ void Player::addUnit(int unitId, int type, coordenada_t position) {
                     unitId, new LightInfantry(unitId, position)));
             break;
         }
+        case UNIT_HEAVY_INFANTRY: {
+            units.insert(std::pair<int, std::shared_ptr<Unit>> (
+                    unitId, new HeavyInfantry(unitId, position)));
+            break;
+        }
+        case UNIT_FREMEN: {
+            units.insert(std::pair<int, std::shared_ptr<Unit>> (
+                    unitId, new Fremen(unitId, position)));
+            break;
+        }
+        case UNIT_SARDAUKAR: {
+            units.insert(std::pair<int, std::shared_ptr<Unit>> (
+                    unitId, new Sardaukar(unitId, position)));
+            break;
+        }
         default:
-            return;
+            throw std::runtime_error("Unknown unit");
     }
 }
 
@@ -102,4 +120,32 @@ void Player::addVehicleData(Snapshot &snapshot) {
         auto _vehicle = vehicle->copy();
         snapshot.addVehicle(playerId, _vehicle);
     }
+}
+
+std::map<int, std::shared_ptr<Unit>> *Player::getUnits() {
+    return &units;
+}
+
+int Player::getClosestUnitId(coordenada_t position, unsigned int range) {
+    int closest = 0;
+    double distance = INFINITY;
+
+    for (auto & [unitId, unit] : units) {
+        coordenada_t current = unit->getPosition();
+        auto _distance = calculateDistance(position, current);
+        if (_distance < distance) {
+            distance = _distance;
+            if (distance < range)
+                closest = unitId;
+        }
+    }
+
+    return closest;
+}
+
+double Player::calculateDistance(coordenada_t unit1, coordenada_t unit2) {
+    int x1 = unit1.first, y1 = unit1.second;
+    int x2 = unit2.first, y2 = unit2.second;
+
+    return std::sqrt(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2) * 1.0);
 }

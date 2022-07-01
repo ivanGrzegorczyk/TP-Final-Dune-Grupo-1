@@ -17,6 +17,7 @@ public:
     Response() = default;
     void add(Event *event);
     void update(MapUi *mapUi, SDL2pp::Renderer &renderer);
+    ~Response();
 };
 
 #endif //TP_FINAL_DUNE_GRUPO_1_RESPONSE_H

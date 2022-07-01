@@ -3,6 +3,15 @@
 #include "server/headers/map/ServerMap.h"
 #include "server/headers/map/RockCell.h"
 #include "server/headers/map/SandCell.h"
+#include "server/headers/map/DunesCell.h"
+#include "server/headers/map/CliffsCell.h"
+#include "server/headers/map/TopsCell.h"
+
+#define YAML_SAND "sand"
+#define YAML_DUNE "dune"
+#define YAML_ROCK "rock"
+#define YAML_TOP "mountain"
+#define YAML_CLIFF "cliff"
 
 ServerMap::ServerMap(int rows, int columns) : rows(rows), columns(columns),
                                               map(rows, std::vector<ServerCell *>(columns)), entityId(1) {}
@@ -17,11 +26,13 @@ void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
     if (players.find(playerId) == players.end()) {
         players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
     }
-    if (validPosition(position)) {
-        players[playerId].addUnit(entityId, type, position);
-        map[position.first][position.second]->occupied = true;
-        entityId++;
-    }
+
+    if (!validPosition(position))
+        return;
+
+    players[playerId].addUnit(entityId, type, position);
+    map[position.first][position.second]->occupied = true;
+    entityId++;
 }
 
 void ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
@@ -44,6 +55,9 @@ void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t posi
     if (players.find(playerId) == players.end()) {
         players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
     }
+
+    if (!validPosition(position))
+        return;
 
     switch (buildingType) {
         case BUILDING_LIGHT_FACTORY: {
@@ -85,6 +99,32 @@ void ServerMap::updateUnitsPosition() {
     }
 }
 
+void ServerMap::unitCheck() {
+    for (auto & [playerId1, player1] : players) {
+        auto units = player1.getUnits();
+        for (auto & [unitId, unit] : *units) {
+            if (unit->isStill()) {
+                for (auto &[playerId2, player2]: players) {
+                    if (playerId1 != playerId2) {
+                        int target = player2.getClosestUnitId(unit->getPosition(), unit->getRange());
+                        unit->setTarget(target);
+                    }
+                }
+            }
+        }
+    }
+    for (auto & [playerId, player] : players) {
+        auto units = player.getUnits();
+        for (auto & [unitId, unit] : *units) {
+            if (unit->hasTarget()) {
+                std::cout << "hay objetivo: " << std::endl;
+                // Ataca a la unidad
+                // Calcula A* si la unidad se va de rango?
+            }
+        }
+    }
+}
+
 void ServerMap::addSnapshotData(Snapshot &snapshot) {
     for (auto & [playerId, player] : players) {
         snapshot.addPlayer(playerId);
@@ -107,27 +147,35 @@ void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
     entityId = 1;
 
     for(YAML::Node cell : config["map"]["cells"]) {
-        auto x = cell["pos"][0].as<int>();
-        auto y = cell["pos"][1].as<int>();
+        auto row = cell["pos"][1].as<int>();
+        auto column = cell["pos"][0].as<int>();
         auto _terrain = cell["terrain"].as<std::string>();
 
-        if (_terrain == "rock") {
-            map[x][y] = new RockCell({x, y});
-            terrain.push_back(TERRAIN_ROCKS);
-        } else if (_terrain == "sand") {
+        if (_terrain == YAML_SAND) {
             auto spice = cell["seed"].as<unsigned int>();
-            map[x][y] = new SandCell({x, y}, spice);
+            map[row][column] = new SandCell({row, column}, spice);
             terrain.push_back(TERRAIN_SAND);
+        } else if (_terrain == YAML_DUNE) {
+            map[row][column] = new DunesCell({row, column});
+            terrain.push_back(TERRAIN_DUNES);
+        } else if (_terrain == YAML_ROCK) {
+            map[row][column] = new RockCell({row, column});
+            terrain.push_back(TERRAIN_ROCKS);
+        } else if (_terrain == YAML_TOP) {
+            map[row][column] = new TopsCell({row, column});
+            terrain.push_back(TERRAIN_TOPS);
+        } else if (_terrain == YAML_CLIFF) {
+            map[row][column] = new CliffsCell({row, column});
+            terrain.push_back(TERRAIN_CLIFFS);
         } else {
-            map[x][y] = new SandCell({x, y}, 0);
-            terrain.push_back(TERRAIN_SAND);
+            throw std::runtime_error("Unknown terrain");
         }
     }
 }
 
 bool ServerMap::validPosition(coordenada_t position) const {
-    return position.first >= 0 && position.first < columns
-           && position.second >= 0 && position.second < rows;
+    return position.first >= 0 && position.first < rows
+           && position.second >= 0 && position.second < columns;
 }
 
 int ServerMap::getRows() const {
@@ -144,7 +192,7 @@ void ServerMap::build(int playerId, coordenada_t &position, int buildingType, in
     int aux = 0;
     for (int i = 0; i < size_y; i++) {
         for (int j = 0; j < size_x; j++) {
-            if ((x + i) <= columns && (y + j) <= rows && !map[x + i][y + j]->occupied) {
+            if ((x + i) <= rows && (y + j) <= columns && !map[x + i][y + j]->occupied) {
                 aux++;
             }
         }

@@ -13,6 +13,7 @@ protected:
     unsigned int range;
     unsigned int speed;
     unsigned int cost;
+    int target;
     std::stack<coordenada_t> path;
 
 public:
@@ -24,6 +25,14 @@ public:
     virtual std::shared_ptr<Unit> copy() = 0;
 
     virtual ~Unit() = default;
+
+    bool isStill();
+
+    unsigned int getRange() const;
+
+    void setTarget(int _target);
+
+    bool hasTarget();
 };
 
 #endif  // UNITY_H_

@@ -12,6 +12,8 @@ public:
     explicit ServerEvent(int playerId) : playerId(playerId) {}
 
     virtual void performEvent(ServerMap &map) = 0;
+    
+    virtual ~ServerEvent() = default;
 };
 
 #endif  // SERVEREVENT_H_
