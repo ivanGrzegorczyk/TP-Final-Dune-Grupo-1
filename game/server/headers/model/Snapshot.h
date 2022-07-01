@@ -16,7 +16,7 @@ private:
     std::map<int, std::vector<std::shared_ptr<Vehicle>>> vehicles;
 
 public:
-    std::vector<int> getPlayers();
+    const std::vector<int> & getPlayers();
 
     const std::vector<std::shared_ptr<Unit>> & getUnits(int playerId);
 

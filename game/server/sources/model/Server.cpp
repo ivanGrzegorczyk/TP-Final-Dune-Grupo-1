@@ -101,7 +101,7 @@ void Server::broadCast() {
             if (!active_game) {
                 return;
             }
-            clients.broadCast(snapshot);  // Actualizo a todos los clientes
+            clients.broadCast(std::move(snapshot));  // Actualizo a todos los clientes
         }
     } catch (std::exception &e) {
         std::ostringstream oss;
