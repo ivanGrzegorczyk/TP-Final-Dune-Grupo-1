@@ -40,7 +40,7 @@ buildings:
     points: 500
     features: {}
   - id: 22
-    name: Silo
+    name: Fábrica Ligera
     texture: "Barracks.png"
     energy: 100
     cost: 200
@@ -51,7 +51,7 @@ buildings:
     features:
       capacity: 1000
   - id: 23
-    name: Silo2
+    name: Fábrica pesada
     texture: "brick.png"
     energy: 100
     cost: 200
@@ -62,7 +62,7 @@ buildings:
     features:
       capacity: 1000
   - id: 24
-    name: Silo3
+    name: Trampa de aire
     texture: "crate.png"
     energy: 100
     cost: 200
@@ -73,7 +73,7 @@ buildings:
     features:
       capacity: 1000
   - id: 25
-    name: Silo4
+    name: Refinería
     texture: "Barracks.png"
     energy: 100
     cost: 200
@@ -84,7 +84,7 @@ buildings:
     features:
       capacity: 1000
   - id: 26
-    name: Silo5
+    name: Silo
     texture: "crate.png"
     energy: 100
     cost: 200
@@ -95,7 +95,7 @@ buildings:
     features:
       capacity: 1000
   - id: 27
-    name: Silo6
+    name: Barracks
     texture: "Barracks.png"
     energy: 100
     cost: 200
@@ -106,7 +106,7 @@ buildings:
     features:
       capacity: 1000
   - id: 28
-    name: Silo7
+    name: Palacio
     texture: "Barracks.png"
     energy: 100
     cost: 200

@@ -8,7 +8,7 @@ MapUi::MapUi(Renderer &renderer) :
         ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
         harvester(Texture(renderer, Surface(DATA_PATH "/harvester.png"))),
         building_types(factory.createBuildingTypes(rdr)),
-        gui(Rect(500,0,100,200), building_types) {
+        gui(Rect(500,0,100,200), building_types, factory.createUnitTypes(rdr)) {
     dst.SetX(0) = dst.SetY(0);
     dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
 }
@@ -53,7 +53,6 @@ void MapUi::render() {
        }
     }
     //std::cout << "size despues: " << units.size() << std::endl;
-
     for(auto const& [playerId, building] : buildings) {
         for(auto  [buildingId, b]: building) {
             b->render();
@@ -138,10 +137,14 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
     Create new building on map
 */
 void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
-    //BuildingFactory factory;
+    auto found = buildings[player].find(buildingId);
+    if(found != buildings[player].end()) {
+        return;
+    }
+    std::cout << "new building of type " << type->type() << std::endl;
     Point size(50,50);
     Point center(0,0);
-    buildings[player].insert(
+    buildings[buildingId].insert(
         std::make_pair<int, SdlEntity*>(
             int{buildingId}, 
             new BuildingUi(

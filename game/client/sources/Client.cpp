@@ -40,6 +40,9 @@ void Client::run() {
         uint64_t delta = chronometer.tack();
         if (delta < GAME_LOOP_RATE)
             usleep(GAME_LOOP_RATE - delta);
+        else {
+            std::cout << "dipped under framerate" << std::endl;
+        }
     }
     receiveThread.close();
     sendThread.close();
