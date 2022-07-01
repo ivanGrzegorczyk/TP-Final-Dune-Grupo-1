@@ -10,7 +10,8 @@ GUI::GUI(Rect area,
         std::vector<std::shared_ptr<UnitType>> unit_types) : 
             area(area), 
             building_types(building_types), 
-            unit_types(unit_types) {
+            unit_types(unit_types),
+            current_menu(1) {
     float PORTION_1 = 0.9;
     float PORTION_2 = 0.1;
 
@@ -20,7 +21,7 @@ GUI::GUI(Rect area,
     // menu number two
     menu2_area = Rect(menu1_area.GetBottomLeft(),area.GetSize());
     menu2_area.SetH((int)(area.GetH() * PORTION_2));
-    drawBuildingButtons(building_types);
+    update();
 }
 
 void GUI::update() {
@@ -47,6 +48,7 @@ void GUI::clickOver(int x, int y) {
             }
         }
     }
+    update();
 }
 
 // todo cache some of this logic as as object state
