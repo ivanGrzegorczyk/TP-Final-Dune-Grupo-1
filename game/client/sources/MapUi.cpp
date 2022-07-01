@@ -1,13 +1,13 @@
 #include "../headers/MapUi.h"
 #include "client/headers/BuildingFactory.h"
-#include "client/headers/BarracksUi.h"
+#include "client/headers/BuildingUi.h"
 
 
 MapUi::MapUi(Renderer &renderer) : terrainRepo(renderer),
                                    rdr(renderer),
                                    ground (renderer, DATA_PATH "/sand1.png"),
                                    harvester(Texture(renderer, Surface(DATA_PATH "/harvester.png"))),
-                                   gui(Rect(400,0,100,200)){
+                                   gui(Rect(500,0,100,200), building_types, factory.createUnitTypes(rdr)) {
     dst.SetX(0) = dst.SetY(0);
     dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
 }
@@ -58,7 +58,6 @@ void MapUi::render() {
        }
     }
     //std::cout << "size despues: " << units.size() << std::endl;
-
     for(auto const& [playerId, building] : buildings) {
         for(auto  [buildingId, b]: building) {
             b->render();
@@ -66,8 +65,6 @@ void MapUi::render() {
     }
 
     // render gui
-    Texture* texture = nullptr;
-    Rect zero;
     gui.render(rdr);
     rdr.Present();
 }
@@ -88,6 +85,20 @@ Request* MapUi::clickScreen(int x, int y, int playerId) {
     }
     //TODO make proper math to translate click coordinate to map coordinate
     return this->moveCharacter(x/LENGTH_TILE,y/LENGTH_TILE,playerId);
+}
+
+// TODO use map instead of find if
+std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
+    auto found = std::find_if(
+        building_types.begin(), 
+        building_types.end(), 
+        [type](std::shared_ptr<BuildingType> b){
+            return b->code() == type;
+        });
+    if(found == building_types.end()) {
+        throw std::invalid_argument("bad building code");
+    }
+    return *found;
 }
 
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
@@ -130,10 +141,28 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
     }
 }
 
-void MapUi::updateBuilding(int player, int type, int buildingId, coordenada_t coord) {
-    BuildingFactory factory;
-    //factory.createBuilding(player ,type, buildingId, coord, rdr, buildings);
-    buildings[player].insert(std::make_pair<int, SdlEntity*>(int{buildingId}, new BarracksUi(player,coord, buildingId, rdr)));
+/*
+    Create new building on map
+*/
+void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
+    auto found = buildings[player].find(buildingId);
+    if(found != buildings[player].end()) {
+        return;
+    }
+    std::cout << "new building" << std::endl;
+    Point size(50,50);
+    Point center(0,0);
+    buildings[buildingId].insert(
+        std::make_pair<int, SdlEntity*>(
+            int{buildingId}, 
+            new BuildingUi(
+                player, 
+                buildingId,
+                type, 
+                rdr, 
+                coord, 
+                size,
+                center))) ;
     //buildings[player].emplace(buildingId, e);
     //insert({buildingId, e});
 }
@@ -157,6 +186,10 @@ void MapUi::addDune(coordenada_t coord, Rect destination) {
     SDL2pp::Texture &d =  terrainRepo.getTileOf(TERRAIN_DUNES);
     CeldaUi cell(d, coord, destination, duneRect);
     map.push_back(cell);
+}
+
+std::shared_ptr<BuildingType> MapUi::selectedBuilding() {
+    return gui.getBuildingToBuild();
 }
 
 MapUi::~MapUi() = default;

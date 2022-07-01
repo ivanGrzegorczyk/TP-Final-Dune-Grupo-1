@@ -82,6 +82,7 @@ void Server::acceptClients() {
 
 void Server::manageEvents() {
     ServerEvent *event = protectedQueue.pop();
+    bool events_happened = (event != nullptr);
     while (event != nullptr) {
         event->performEvent(map);
         delete event;
@@ -89,10 +90,14 @@ void Server::manageEvents() {
     }
     map.updateUnitsPosition();
     Snapshot snapshot = createSnapshot();
+    if(events_happened) {
+        std::cout << "pushing snapshot corresponding to an event" << std::endl;
+    }
     blockingQueue.push(snapshot);
 }
 
 void Server::broadCast() {
+    Chronometer chronometer;
     try {
         // Si es una partida de 4, y uno se desconecta, debe terminar la partida?
         while (active_game) {

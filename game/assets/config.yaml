@@ -1,0 +1,133 @@
+name: My cool map
+num_players: 2
+houses: 
+  - Harkonnen
+  - Atreides
+  - Ordos
+units:
+  - name: Infantería ligera
+    required: 
+      - Cuartel
+    house: [Harkonnen, Atreides, Ordos]
+    weapon: [Rifle de Asalto]
+    range: 3
+    speed: 16 # km h
+    training_time: 1 # minutes
+    cost: 50
+    life_points: 50
+
+  - name: Sardaukar
+    required:
+      - Cuartel
+      - Palacio
+    house: [Harkonnen]
+    weapon: [Rifle de Asalto, Lanza Misiles]
+    range: 3
+    speed: 16 # km h
+    training_time: 1 # minutes
+    cost: 50
+    life_points: 50
+
+buildings:
+  - id: 21
+    name: Centro de Construcción
+    texture: "brick.png"
+    energy: 500
+    cost: 800
+    dimensions:
+      - 3
+      - 3
+    points: 500
+    features: {}
+  - id: 22
+    name: Silo
+    texture: "Barracks.png"
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
+  - id: 23
+    name: Silo2
+    texture: "brick.png"
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
+  - id: 24
+    name: Silo3
+    texture: "crate.png"
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
+  - id: 25
+    name: Silo4
+    texture: "Barracks.png"
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
+  - id: 26
+    name: Silo5
+    texture: "crate.png"
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
+  - id: 27
+    name: Silo6
+    texture: "Barracks.png"
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
+  - id: 28
+    name: Silo7
+    texture: "Barracks.png"
+    energy: 100
+    cost: 200
+    dimensions:
+      - 3
+      - 3
+    points: 200
+    features:
+      capacity: 1000
+
+weapons:
+- name: Rifles de Asalto
+  damage: 2
+  animation: None
+  frequency: 6 #shots per second
+  bonus:
+    units: [Infantería ligera, Infantería pesada]
+    value: 1
+
+- name: Lanza Misiles
+  damage : 8
+  animation: travel_kaboom
+  frequency: 1
+  bonus: {}

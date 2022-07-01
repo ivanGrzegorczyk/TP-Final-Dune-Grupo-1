@@ -5,6 +5,7 @@
 #include "Protocol.h"
 #include "common/headers/Building.h"
 #include "client/headers/gui/gui.h"
+#include "client/headers/building_type/BuildingType.h"
 #include "character.h"
 #include "SdlEntity.h"
 #include "TerrainRepository.h"
@@ -13,6 +14,7 @@
 #include <sstream>
 #include <map>
 #include <memory>
+#include "client/headers/BuildingFactory.h"
 
 #define LENGTH_TILE 16
 using namespace SDL2pp;
@@ -24,13 +26,14 @@ private:
     Renderer& rdr;
     Texture ground;
     Texture harvester;
+    BuildingFactory factory;
+    std::vector<std::shared_ptr<BuildingType>> building_types;
     GUI gui;
     std::pair<coordenada_t, std::vector<uint8_t>> terrain;
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades
     std::map<int, std::map<int, SdlEntity*>> buildings;
     std::map<int, std::map<int, character*>> units;
     std::vector<CeldaUi> map;
-
 public:
     explicit MapUi(Renderer& renderer);
     ~MapUi();
@@ -46,14 +49,18 @@ public:
     void addRocks(coordenada_t coord, Rect destination);
     void addSand(coordenada_t coord, Rect destination);
 
+    std::shared_ptr<BuildingType> selectedBuilding();
     void updateUnits(int player, int type, int characterId, coordenada_t coord);
-    void updateBuilding(int player, int type, int buildingId, coordenada_t coord);
 
     void addCliff(coordenada_t coord, Rect destination);
 
     void addTop(coordenada_t coord, Rect destination);
 
     void addDune(coordenada_t coord, Rect destination);
+
+    void spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord);
+
+    std::shared_ptr<BuildingType> getBuildingType(int type);
 };
 
 

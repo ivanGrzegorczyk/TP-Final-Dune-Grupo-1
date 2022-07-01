@@ -8,7 +8,7 @@
 #include "common/headers/Constantes.h"
 #include "client/headers/ReceiveThread.h"
 #include "client/headers/SendThread.h"
-#include "client/headers/CreateBarracks.h"
+#include "client/headers/CreateBuilding.h"
 
 using namespace SDL2pp;
 
@@ -60,15 +60,16 @@ void Client::ProcessInput() {
                 running = false;
                 break;
             case SDL_KEYDOWN:
+                SDL_GetMouseState(&x, &y);
                 switch (event.key.keysym.sym) {
                     case SDLK_a:
-                        SDL_GetMouseState(&x, &y);
                         req = new CreateLightInfantry(x / LENGTH_TILE, y / LENGTH_TILE);
                         sendQueue.push(req);
                         break;
                     case SDLK_b:
-                        SDL_GetMouseState(&x, &y);
-                        req = new CreateBarracks(x / LENGTH_TILE, y / LENGTH_TILE);
+                        uint16_t id = (uint16_t)(mapUi.selectedBuilding()->code());
+                        // TODO different buildings
+                        req = new CreateBuilding(x / LENGTH_TILE, y / LENGTH_TILE, id);
                         sendQueue.push(req);
                         break;
                 }

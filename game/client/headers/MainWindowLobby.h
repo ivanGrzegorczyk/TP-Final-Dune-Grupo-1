@@ -3,6 +3,8 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <memory>
+#include <fstream>
+#include "yaml-cpp/yaml.h"
 #include "Protocol.h"
 
 QT_BEGIN_NAMESPACE

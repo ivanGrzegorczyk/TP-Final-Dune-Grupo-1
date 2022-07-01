@@ -53,8 +53,38 @@ void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t posi
     if (players.find(playerId) == players.end()) {
         players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
     }
-    if (buildingType == BUILDING_BARRACKS) {
-        build(playerId, position, buildingType, 2, 3);
+
+    switch (buildingType) {
+        case BUILDING_LIGHT_FACTORY: {
+            build(playerId, position, BUILDING_LIGHT_FACTORY, 3, 3);
+            break;
+        }
+        case BUILDING_AIR_TRAP: {
+            build(playerId, position, BUILDING_AIR_TRAP, 3, 3);
+            break;
+        }
+        case BUILDING_HEAVY_FACTORY: {
+            build(playerId, position, BUILDING_HEAVY_FACTORY, 4, 4);
+            break;
+        }
+        case BUILDING_REFINERY: {
+            build(playerId, position, BUILDING_REFINERY, 3, 3);
+            break;
+        }
+        case BUILDING_SILO: {
+            build(playerId, position, BUILDING_SILO, 1, 1);
+            break;
+        }
+        case BUILDING_BARRACKS: {
+            build(playerId, position, BUILDING_BARRACKS, 2, 3);
+            break;
+        }
+        case BUILDING_PALACE: {
+            build(playerId, position, BUILDING_PALACE, 3, 3);
+            break;
+        }
+        default:
+            throw std::runtime_error("Unkonwn building");
     }
 }
 
