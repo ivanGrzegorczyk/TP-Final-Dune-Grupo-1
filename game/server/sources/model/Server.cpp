@@ -84,6 +84,7 @@ void Server::manageEvents() {
     ServerEvent *event = protectedQueue.pop();
     while (event != nullptr) {
         event->performEvent(map);
+        delete event;
         event = protectedQueue.pop();
     }
     map.updateUnitsPosition();
