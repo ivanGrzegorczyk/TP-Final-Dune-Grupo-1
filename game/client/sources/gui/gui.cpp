@@ -76,6 +76,7 @@ void GUI::setUnitToSpawn(std::shared_ptr<UnitType> type) {
 }
 
 std::shared_ptr<BuildingType> GUI::getBuildingToBuild() {
+    std::cout << "getting b to b" << std::endl;
     return selected;
 }
 

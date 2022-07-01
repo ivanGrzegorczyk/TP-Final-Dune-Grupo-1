@@ -70,8 +70,12 @@ void MapUi::render() {
 // TODO: replace with less generic name, use inside clickScreen
 Request* MapUi::mouseEvent(int x, int y, int playerId) {
     for (auto const& unit : units) {
-        if(unit.second->playerId == playerId)
+        if(unit.second->playerId == playerId) {
+            std::cout <<"selecting unit " << unit.second->playerId << std::endl;
             unit.second->reactToEvent(x, y);
+        } else {
+            std::cout <<"unit belogns to another player " << unit.second->playerId << " and not " << playerId << std::endl;
+        }
     }
     return nullptr;
 }
