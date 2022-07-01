@@ -24,8 +24,8 @@ void MapUi::receiveMap(std::shared_ptr<Protocol> protocol) {
 
 void MapUi::draw() {
     int k = 0;
-    for(int i = 0; i < this->terrain.first.first; i++) {
-        for (int j = 0; j < this->terrain.first.second; j++) {
+    for(int j = 0; j < this->terrain.first.first; j++) {
+        for (int i = 0; i < this->terrain.first.second; i++) {
             coordenada_t coord(i, j);
             dst.SetX(j * LENGTH_TILE);
             dst.SetY(i * LENGTH_TILE);
