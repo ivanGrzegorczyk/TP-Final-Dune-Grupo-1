@@ -98,6 +98,7 @@ void Client::update() {
     Response* response = this->recvQueue.pop();
     if (response != nullptr) {
         this->mapUi.update(response);
+        delete response;
     }
 }
 
