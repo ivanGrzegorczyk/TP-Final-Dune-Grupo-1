@@ -145,7 +145,7 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
         units.insert(*found);
     } else {
         character* c = new character(rdr, player, characterId, coord, type);
-        auto pair = std::make_pair<int, character *>  ((int)characterId, (character*) c);
+        auto pair = std::make_pair<int, std::shared_ptr<character >>  ((int)characterId, (std::shared_ptr<character>) std::shared_ptr<character>(c));
         units.insert(pair);
     }
     
@@ -162,18 +162,17 @@ void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingTy
     Point size(50,50);
     Point center(0,0);
     buildings.insert(
-        std::make_pair<int, BuildingUi*>(
+        std::make_pair<int, std::shared_ptr<BuildingUi>>(
             int{buildingId}, 
-            new BuildingUi(
-                player, 
-                buildingId,
-                type, 
-                rdr, 
-                coord, 
-                size,
-                center))) ;
-    //buildings[player].emplace(buildingId, e);
-    //insert({buildingId, e});
+            std::shared_ptr<BuildingUi>(
+                new BuildingUi(
+                    player, 
+                    buildingId,
+                    type, 
+                    rdr, 
+                    coord, 
+                    size,
+                    center)))) ;
 }
 
 std::shared_ptr<BuildingType> MapUi::selectedBuilding() {

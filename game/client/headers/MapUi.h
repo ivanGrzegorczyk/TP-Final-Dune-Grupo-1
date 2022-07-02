@@ -36,9 +36,9 @@ private:
     GUI gui;
     std::pair<coordenada_t, std::vector<uint8_t>> terrain;
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades
-    std::map<int, BuildingUi*> buildings; //buildings to draw
-    std::unordered_map<int, character*> units; //units to draw
-    std::unordered_map<int, character*> previous_units;
+    std::map<int, std::shared_ptr<BuildingUi>> buildings; //buildings to draw
+    std::unordered_map<int, std::shared_ptr<character>> units; //units to draw
+    std::unordered_map<int, std::shared_ptr<character>> previous_units;
     std::vector<CeldaUi> map;
 public:
     explicit MapUi(Renderer& renderer);
