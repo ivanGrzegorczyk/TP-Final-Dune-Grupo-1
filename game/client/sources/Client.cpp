@@ -89,7 +89,7 @@ void Client::ProcessInput() {
                     x = event.button.x;
                     y = event.button.y;
                     std::cout << "left click" << std::endl;
-                    req =  mapUi.mouseEvent(x, y, clientId);
+                    req =  mapUi.mouseEvent(event, clientId);
                     sendQueue.push(req);
                     break;
                 }

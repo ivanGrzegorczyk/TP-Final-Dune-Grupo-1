@@ -18,8 +18,9 @@ public:
     character(SDL2pp::Renderer &renderer, int player, int id, coordenada_t coord, int type);
     Request *walkEvent(int x, int y);
     bool mouseOverUnit(int x, int y) const;
-    void render(); //sdl entity
-    Request* reactToEvent(int x, int y); //sdl entity
+    void notify(SDL_Event event);
+    void render();
+    void update();
 };
 
 

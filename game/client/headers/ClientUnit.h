@@ -3,8 +3,10 @@
 
 
 #include "common/headers/Entity.h"
+#include "client/headers/SdlEntity.h"
+#include "client/headers/Subscriber.h"
 
-class ClientUnit : public Entity {
+class ClientUnit : public Entity, SdlEntity, Subscriber {
     int range;
     int speed;
 public:

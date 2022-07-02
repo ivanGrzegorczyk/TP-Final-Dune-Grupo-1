@@ -68,11 +68,11 @@ void MapUi::render() {
 }
 
 // TODO: replace with less generic name, use inside clickScreen
-Request* MapUi::mouseEvent(int x, int y, int playerId) {
+Request* MapUi::mouseEvent(SDL_Event event, int playerId) {
     bool found = false;
     for (auto const& unit : units) {
         if(unit.second->playerId == playerId) 
-            unit.second->reactToEvent(x, y);
+            unit.second->notify(event);
     }
     return nullptr;
 }

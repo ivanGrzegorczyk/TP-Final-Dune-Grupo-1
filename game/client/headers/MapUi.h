@@ -40,7 +40,7 @@ public:
     explicit MapUi(Renderer& renderer);
     ~MapUi();
     void draw();
-    Request* mouseEvent(int x, int y, int playerId);
+    Request* mouseEvent(SDL_Event event, int playerId);
     void update(Response *response);
     void receiveMap(std::shared_ptr<Protocol> protocol);
     void render();

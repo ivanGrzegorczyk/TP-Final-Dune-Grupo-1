@@ -10,6 +10,10 @@ void character::render() {
     rnd.Copy(t, Rect(0, 0, 13,16), current);
 }
 
+void character::update() {
+    
+}
+
 character::character(SDL2pp::Renderer &renderer, 
     int player, int id, coordenada_t coord, int type) : 
     ClientUnit(player, id, 0, 0, 0, type, coord), 
@@ -26,7 +30,9 @@ void character::highlight() {
     t.SetColorMod(255, 0, 0);
 }
 
-Request* character::reactToEvent(int x, int y) {
+void character::notify(SDL_Event event) {
+    int x = event.button.x;
+    int y = event.button.y;
     if (mouseOverUnit(x, y) && !selected) {
         selected = true;
         this->highlight();
@@ -34,7 +40,7 @@ Request* character::reactToEvent(int x, int y) {
         selected = false;
         this->normalColor();
     }
-    return nullptr;
+    
 }
 
 Request *character::walkEvent(int x, int y) {
