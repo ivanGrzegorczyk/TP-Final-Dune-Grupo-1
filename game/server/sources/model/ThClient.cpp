@@ -6,8 +6,8 @@
 #include "server/headers/events/SpawnUnitEvent.h"
 #include "server/headers/events/CreateBuildingEvent.h"
 
-ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id, int rows, int columns, std::vector<uint8_t> &terrain):
-        protectedQueue(protectedQueue), keep_talking(true), is_running(true),
+ThClient::ThClient(Socket &&peer, int id, int rows, int columns, std::vector<uint8_t> &terrain):
+        keep_talking(true), is_running(true),
         protocol(std::move(peer)), playerId(id), rows(rows), columns(columns), terrain(terrain) {
     protocol.assignPlayerId(id);
     protocol.sendTerrain(columns, rows, terrain);
@@ -64,7 +64,7 @@ void ThClient::repositionUnit() {
     coordenada_t goal;
     protocol.getRelocationData(unitId, goal);
     ServerEvent *event = new RepositionEvent(playerId, unitId, goal);
-    protectedQueue.push(event);
+//    protectedQueue.push(event);
 }
 
 void ThClient::spawnUnit() {
@@ -72,7 +72,7 @@ void ThClient::spawnUnit() {
     coordenada_t position;
     protocol.getEnityData(unit, position);
     ServerEvent *event = new SpawnUnitEvent(playerId, unit, position);
-    protectedQueue.push(event);
+//    protectedQueue.push(event);
 }
 
 void ThClient::createBuilding() {
@@ -80,5 +80,36 @@ void ThClient::createBuilding() {
     coordenada_t position;
     protocol.getEnityData(building, position);
     ServerEvent *event = new CreateBuildingEvent(playerId, building, position);
-    protectedQueue.push(event);
+//    protectedQueue.push(event);
+}
+
+ThClient::ThClient(Socket &&peer) :
+        protocol(std::move(peer)),
+        keep_talking(true),
+        is_running(true) {}
+
+void ThClient::beginSynchroCom(std::vector<Room> &rooms) {
+    try {
+        while (keep_talking) {
+            int command = protocol.commandReceive();
+            switch (command) {
+                case OPERATION_JOIN: {
+
+                    break;
+                }
+                case OPERATION_LIST: {
+                    protocol.listRooms(rooms);
+                    break;
+                }case OPERATION_CREATE: {
+                    Room room = protocol.createRoom();
+                    rooms.emplace_back(std::move(room));
+                    break;
+                }
+                default:
+                    throw std::runtime_error("Unknown command");
+            }
+        }
+    } catch(const std::exception &e) {
+        std::cout << "[beginSynchroCom] " << e.what() << std::endl;
+    }
 }

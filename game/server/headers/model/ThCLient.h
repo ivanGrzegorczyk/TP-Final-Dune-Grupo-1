@@ -7,13 +7,13 @@
 #include "common/headers/ProtectedQueue.h"
 #include "server/headers/events/ServerEvent.h"
 #include "Snapshot.h"
+#include "Room.h"
 
 class ThClient: public Thread {
 private:
     std::atomic<bool> keep_talking;
     std::atomic<bool> is_running;
     ServerProtocol protocol;
-    ProtectedQueue<ServerEvent *> &protectedQueue;
     int playerId;
     int rows;
     int columns;
@@ -28,16 +28,20 @@ protected:
 
     void run() override;
 public:
+    explicit ThClient(Socket &&peer);
 
-    ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id, int rows, int columns, std::vector<uint8_t> &terrain);
+    ThClient(Socket &&peer, int id, int rows, int columns, std::vector<uint8_t> &terrain);
+
     bool isDead();
 
     void stop();
-
     void sendSnapshot(Snapshot &snapshot);
+
     ThClient(const ThClient&) = delete;
 
     ThClient& operator=(const ThClient&) = delete;
+
+    void beginSynchroCom(std::vector<Room> &rooms);
 };
 
 #endif  // THCLIENT_H_

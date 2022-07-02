@@ -4,9 +4,11 @@
 #include <sstream>
 #include "server/headers/model/Server.h"
 #include "common/headers/Chronometer.h"
+#include "server/headers/model/Room.h"
+#include "server/headers/model/Lobby.h"
 
 Server::Server(const std::string &port) :
-        protocol(port), keep_accepting(true), active_game(true), nextPlayerId(1) {
+        protocol(port), keep_accepting(true), active_game(true), {
     map.initializeTerrain(terrain);
 }
 
@@ -60,15 +62,12 @@ void Server::finish() {
 }
 
 void Server::acceptClients() {
+    std::vector<Room> rooms;
+    Lobby lobby;
     try {
         while (keep_accepting) {
             Socket peer = protocol.accept();
-            std::cout << "Acepta un cliente" << std::endl;
-            auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId, map.getRows(), map.getColumns(), terrain);
-            client->start();
-            clients.push(client);
-            clients.clean();
-            nextPlayerId++;
+            lobby.joinPlayer(std::move(peer), rooms);
         }
     } catch(const std::exception &e) {
         // clients.clearAll(); leak si tenés una salida sin excepción. esto va en el destructor

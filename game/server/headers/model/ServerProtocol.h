@@ -10,6 +10,7 @@
 #include "common/headers/Entity.h"
 #include "common/headers/Constantes.h"
 #include "Snapshot.h"
+#include "Room.h"
 
 class ServerProtocol {
 private:
@@ -51,6 +52,12 @@ public:
     void sendBuildingData(std::vector<std::shared_ptr<Building>> &buildings);
 
     void sendVehicleData(std::vector<std::shared_ptr<Vehicle>> &vehicles);
+
+    Room createRoom();
+
+    std::string receiveName();
+
+    void listRooms(std::vector<Room> &rooms);
 };
 
 #endif  // SERVERPROTOCOL_H_

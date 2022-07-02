@@ -2,8 +2,10 @@
 #include <stack>
 #include <netinet/in.h>
 #include <iostream>
+#include <cstring>
 
 #include "server/headers/model/ServerProtocol.h"
+#include "server/headers/model/Room.h"
 
 ServerProtocol::ServerProtocol(const std::string& host) : socket(host.c_str()), socket_closed(false) {}
 
@@ -160,5 +162,44 @@ void ServerProtocol::sendTerrain(int y_size, int x_size, std::vector<uint8_t> &t
 
     for (const uint8_t &ground : terrain) {
         socket.sendall(&ground, sizeof(ground));
+    }
+}
+
+Room ServerProtocol::createRoom() {
+    uint8_t required;
+    socket.recvall(&required, sizeof(required));
+    std::string name = receiveName();
+
+    return Room {unsigned(required), name};
+}
+
+std::string ServerProtocol::receiveName() {
+    uint16_t name_length;
+    socket.recvall(&name_length, sizeof(name_length));
+    name_length = ntohs(name_length);
+
+    char game_name[128];
+    memset(game_name, '\0', sizeof(game_name));
+    socket.recvall(&game_name, name_length);
+
+    return std::move(std::string {game_name});
+}
+
+void ServerProtocol::listRooms(std::vector<Room> &rooms) {
+    uint16_t size = rooms.size();
+    size = htons(size);
+    socket.sendall(&size, sizeof(size));
+    for (auto &room : rooms) {
+        uint8_t current = room.getCurrent();
+        uint8_t required = room.getRequired();
+        std::string name = room.getName();
+        uint16_t name_length = name.length();
+        name_length = htons(name_length);
+        const char *buf = name.c_str();
+
+        socket.sendall(&current, sizeof(current));
+        socket.sendall(&required, sizeof(required));
+        socket.sendall(&name_length, sizeof(name_length));
+        socket.sendall(buf, sizeof(buf));
     }
 }
