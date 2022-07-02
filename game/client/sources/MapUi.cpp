@@ -71,7 +71,7 @@ void MapUi::render() {
 Request* MapUi::mouseEvent(int x, int y, int playerId) {
     bool found = false;
     for (auto const& unit : units) {
-        if(unit.second->playerId == playerId) {
+        if(unit.second->playerId == playerId) 
             unit.second->reactToEvent(x, y);
     }
     return nullptr;
