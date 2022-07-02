@@ -28,6 +28,8 @@ public:
         return t;
     }
 
+    ~ProtectedQueue() = default;
+
     ProtectedQueue(const ProtectedQueue&) = delete;
     ProtectedQueue& operator=(const ProtectedQueue&) = delete;
 };
