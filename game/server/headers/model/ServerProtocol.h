@@ -44,7 +44,7 @@ public:
 
     void sendSnapshot(Snapshot &snapshot);
 
-    void sendTerrain(int rows, int columns, std::vector<uint8_t> &terrain);
+    void sendTerrain(int y_size, int x_size, std::vector<uint8_t> &terrain);
 
     void sendUnitData(std::vector<std::shared_ptr<Unit>> &units);
 

@@ -149,9 +149,9 @@ void ServerProtocol::sendVehicleData(std::vector<std::shared_ptr<Vehicle>> &vehi
     }
 }
 
-void ServerProtocol::sendTerrain(int rows, int columns, std::vector<uint8_t> &terrain) {
-    uint16_t _rows = rows;
-    uint16_t _columns = columns;
+void ServerProtocol::sendTerrain(int y_size, int x_size, std::vector<uint8_t> &terrain) {
+    uint16_t _rows = y_size;
+    uint16_t _columns = x_size;
     _rows = htons(_rows);
     _columns = htons(_columns);
     // Envio la cantidad de filas y columnas del mapa
