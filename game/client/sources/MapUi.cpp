@@ -73,8 +73,6 @@ Request* MapUi::mouseEvent(int x, int y, int playerId) {
     for (auto const& unit : units) {
         if(unit.second->playerId == playerId) {
             unit.second->reactToEvent(x, y);
-            std::cout << "reacting..." << std::endl;
-        } 
     }
     return nullptr;
 }
