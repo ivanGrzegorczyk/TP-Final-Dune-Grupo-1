@@ -3,12 +3,12 @@
 #include "SDL2pp/SDL2pp.hh"
 #include "Request.h"
 #include "ClientUnit.h"
-
+#include <memory>
 using namespace SDL2pp;
 
 class character : public ClientUnit {
 private:
-    SDL2pp::Texture t;
+    std::shared_ptr<Texture> texture;
     Renderer& rnd;
     Rect current;
     bool selected;

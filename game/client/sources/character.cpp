@@ -7,7 +7,7 @@ void character::render() {
     current.SetW(24);
     current.SetH(32);
 
-    rnd.Copy(t, Rect(0, 0, 13,16), current);
+    rnd.Copy(*texture, Rect(0, 0, 13,16), current);
 }
 
 void character::update() {
@@ -18,16 +18,16 @@ character::character(SDL2pp::Renderer &renderer,
     int player, int id, coordenada_t coord, int type) : 
     ClientUnit(player, id, 0, 0, 0, type, coord), 
     rnd(renderer), selected(false),
-    t(Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp").SetColorKey(true, 0))) {
+    texture(new Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp").SetColorKey(true, 0))) {
         std::cout << "creating new unit: " << player << std::endl;
 }
 
 void character::normalColor() {
-    t.SetColorMod(255, 255, 0);
+    texture->SetColorMod(255, 255, 0);
 }
 
 void character::highlight() {
-    t.SetColorMod(255, 0, 0);
+    texture->SetColorMod(255, 0, 0);
 }
 
 void character::notify(SDL_Event event) {
@@ -40,7 +40,6 @@ void character::notify(SDL_Event event) {
         selected = false;
         this->normalColor();
     }
-    
 }
 
 Request *character::walkEvent(int x, int y) {
