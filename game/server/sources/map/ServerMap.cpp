@@ -125,7 +125,12 @@ void ServerMap::unitCheck() {
                     unit->relocate();
                 } else {
                     unit->stopMoving();
-                    unit->attack(coord);
+                    bool killed = unit->attack(players[unit->getTarget().first].getUnit(unit->getTarget().second));
+                    if (killed) {
+                        players[unit->getTarget().first].kill(unit->getTarget().second);
+                        unit->setTarget(0, 0);
+                        unit->stopMoving();
+                    }
                 }
             }
         }

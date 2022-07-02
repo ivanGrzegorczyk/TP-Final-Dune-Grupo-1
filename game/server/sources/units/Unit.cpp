@@ -44,8 +44,8 @@ bool Unit::hasTarget() const {
     return target.second != 0;
 }
 
-void Unit::attack(coordenada_t coord) {
-
+bool Unit::attack(std::shared_ptr<Unit> &enemy) {
+    return enemy->receiveDamage(7);
 }
 
 std::pair<int, int> Unit::getTarget() {
@@ -55,4 +55,13 @@ std::pair<int, int> Unit::getTarget() {
 void Unit::stopMoving() {
     for (int i = 0; i < path.size(); i++)
         path.pop();
+}
+
+bool Unit::receiveDamage(unsigned int damage) {
+    if (damage < HP) {
+        HP -= damage;
+    } else {
+      HP = 0;
+      return true;
+    }
 }

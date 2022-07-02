@@ -84,7 +84,7 @@ void Player::addBuilding(
     }
 }
 
-std::shared_ptr<Unit> Player::getUnit(int unitId) {
+std::shared_ptr<Unit> &Player::getUnit(int unitId) {
     return units.at(unitId);
 }
 
@@ -149,4 +149,8 @@ double Player::calculateDistance(coordenada_t unit1, coordenada_t unit2) {
     int x2 = unit2.first, y2 = unit2.second;
 
     return std::sqrt(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2) * 1.0);
+}
+
+void Player::kill(int unitId) {
+    units.erase(unitId);
 }

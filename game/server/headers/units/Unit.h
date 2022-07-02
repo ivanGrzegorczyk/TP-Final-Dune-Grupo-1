@@ -34,11 +34,13 @@ public:
 
     bool hasTarget() const;
 
-    void attack(coordenada_t coord);
+    bool attack(std::shared_ptr<Unit> &enemy);
 
     std::pair<int, int> getTarget();
 
     void stopMoving();
+
+    bool receiveDamage(unsigned int damage);
 };
 
 #endif  // UNITY_H_

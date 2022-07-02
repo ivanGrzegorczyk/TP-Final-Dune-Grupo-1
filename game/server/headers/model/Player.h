@@ -24,7 +24,7 @@ public:
 
     Player(int id, int house);
 
-    std::shared_ptr<Unit> getUnit(int unitId);
+    std::shared_ptr<Unit> & getUnit(int unitId);
 
     void addUnit(int unitId, int type, coordenada_t position);
 
@@ -45,6 +45,8 @@ public:
     int getClosestUnitId(coordenada_t position, unsigned int range);
 
     double calculateDistance(coordenada_t unit1, coordenada_t unit2);
+
+    void kill(int unitId);
 };
 
 #endif  // PLAYER_H_
