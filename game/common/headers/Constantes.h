@@ -7,6 +7,12 @@ typedef std::pair<int, int> coordenada_t;
 // CONSTANTES DESPUES VAN EN EL YAML
 
 #define EVENTS 3
+
+//operaciones
+#define OPERATION_JOIN 30
+#define OPERATION_LIST 31
+#define OPERATION_CREATE 32
+
 //tipo de respuestas
 #define BUILDING 50
 #define VEHICLE 60
