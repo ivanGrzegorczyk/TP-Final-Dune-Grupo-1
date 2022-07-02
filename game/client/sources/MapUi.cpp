@@ -16,6 +16,7 @@ MapUi::MapUi(Renderer &renderer) :
 
 void MapUi::update(Response *response) {
     // Do not draw on next frame if server's snapshot does not include them
+    previous_units = units;
     units.clear();
     buildings.clear();
     response->update(this , rdr);
@@ -66,14 +67,13 @@ void MapUi::render() {
     rdr.Present();
 }
 
-// TODO: replace with less generic name, use inside clickScreen
+// TODO: select with right click
 Request* MapUi::mouseEvent(SDL_Event event, int playerId) {
-    bool found = false;
     for (auto const& unit : units) {
         if(unit.second->playerId == playerId) {
             if(unit.second->contains(event.button.x, event.button.y)) {
                 std::cout << "selecting..." << std::endl;
-                selected_units.insert(unit.second->getId());
+                unit.second->setSelected(true);
             }
         }
     }
@@ -136,15 +136,17 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
     if(players.find(player) == players.end()) {
         players.insert(player);
     }
-    // create unit
-    character* c = new character(rdr, player, characterId, coord, type);
-    units.insert(std::make_pair<int, character *>  ((int)characterId, (character*) c));
-    // if unit is selected, make this one be selected
-    bool found = selected_units.find(c->getId()) != selected_units.end();
-    if(found) {
-        c->setSelected(true);
+    // check if unit is in cache
+    auto found = previous_units.find(characterId);
+    if(found != previous_units.end()) {
+        (*found).second->setPosition(coord);
+        units.insert(*found);
     } else {
+        character* c = new character(rdr, player, characterId, coord, type);
+        auto pair = std::make_pair<int, character *>  ((int)characterId, (character*) c);
+        units.insert(pair);
     }
+    
 }
 
 /*

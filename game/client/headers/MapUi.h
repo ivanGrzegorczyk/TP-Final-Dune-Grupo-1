@@ -15,6 +15,7 @@
 #include <fstream>
 #include <sstream>
 #include <unordered_set>
+#include <unordered_map>
 #include <map>
 #include <memory>
 #include "client/headers/BuildingFactory.h"
@@ -36,9 +37,8 @@ private:
     std::pair<coordenada_t, std::vector<uint8_t>> terrain;
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades
     std::map<int, BuildingUi*> buildings; //buildings to draw
-    std::map<int, character*> units; //units to draw
-    std::unordered_set<int> selected_buildings;
-    std::unordered_set<int> selected_units;
+    std::unordered_map<int, character*> units; //units to draw
+    std::unordered_map<int, character*> previous_units;
     std::vector<CeldaUi> map;
 public:
     explicit MapUi(Renderer& renderer);
