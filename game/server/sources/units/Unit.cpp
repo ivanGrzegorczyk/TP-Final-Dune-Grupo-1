@@ -5,7 +5,7 @@
 Unit::Unit(int id, unsigned int hp, unsigned int range,
            unsigned int speed, int type, unsigned int cost,
            coordenada_t coord) :
-        Entity(id, hp, type, coord), range(range), speed(speed), cost(cost), target(0) {}
+        Entity(id, hp, type, coord), range(range), speed(speed), cost(cost), target(0, 0) {}
 
 void Unit::setPath(std::stack<coordenada_t> _path) {
     this->path = std::move(_path);
@@ -33,10 +33,26 @@ unsigned int Unit::getRange() const {
     return range;
 }
 
-void Unit::setTarget(int _target) {
-    this->target = _target;
+void Unit::setTarget(int enemyId, int _target) {
+    if (_target != 0)
+        this->target = {enemyId, _target};
+    else
+        this->target = {0, 0};
 }
 
-bool Unit::hasTarget() {
-    return target != 0;
+bool Unit::hasTarget() const {
+    return target.second != 0;
+}
+
+void Unit::attack(coordenada_t coord) {
+
+}
+
+std::pair<int, int> Unit::getTarget() {
+    return target;
+}
+
+void Unit::stopMoving() {
+    for (int i = 0; i < path.size(); i++)
+        path.pop();
 }

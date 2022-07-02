@@ -13,7 +13,7 @@ protected:
     unsigned int range;
     unsigned int speed;
     unsigned int cost;
-    int target;
+    std::pair<int, int> target;
     std::stack<coordenada_t> path;
 
 public:
@@ -30,9 +30,15 @@ public:
 
     unsigned int getRange() const;
 
-    void setTarget(int _target);
+    void setTarget(int enemyId, int _target);
 
-    bool hasTarget();
+    bool hasTarget() const;
+
+    void attack(coordenada_t coord);
+
+    std::pair<int, int> getTarget();
+
+    void stopMoving();
 };
 
 #endif  // UNITY_H_

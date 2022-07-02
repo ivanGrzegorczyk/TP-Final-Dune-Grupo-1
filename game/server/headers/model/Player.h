@@ -19,8 +19,6 @@ private:
     std::map<int, std::shared_ptr<Building>> buildings;
     std::map<int, std::shared_ptr<Vehicle>> vehicles;
 
-    double calculateDistance(coordenada_t unit1, coordenada_t unit2);
-
 public:
     Player() = default;
 
@@ -34,7 +32,7 @@ public:
 
     std::shared_ptr<Building> getBuilding(int buildingId);
 
-    std::map<int, std::shared_ptr<Unit>>* getUnits();
+    std::map<int, std::shared_ptr<Unit>> *getUnits();
 
     void updateUnitsPosition(std::vector<std::vector<ServerCell *>> &map);
 
@@ -45,6 +43,8 @@ public:
     void addVehicleData(Snapshot &snapshot);
 
     int getClosestUnitId(coordenada_t position, unsigned int range);
+
+    double calculateDistance(coordenada_t unit1, coordenada_t unit2);
 };
 
 #endif  // PLAYER_H_

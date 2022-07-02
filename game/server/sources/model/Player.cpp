@@ -139,7 +139,8 @@ int Player::getClosestUnitId(coordenada_t position, unsigned int range) {
                 closest = unitId;
         }
     }
-
+    if (closest != 0)
+        std::cout << "La unidad mas cercana es: " << closest << std::endl;
     return closest;
 }
 

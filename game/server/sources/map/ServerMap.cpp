@@ -35,7 +35,7 @@ void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
     entityId++;
 }
 
-void ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
+void ServerMap::reposition(int playerId, int unitId, coordenada_t goal, bool userMoved) {
     try {
         if (players.at(playerId).getUnit(unitId)->getPosition() == goal) {
             std::cout << "Ya esta en esa posicion" << std::endl;
@@ -44,8 +44,10 @@ void ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
 
         std::stack<coordenada_t> path = A_star(
                 players.at(playerId).getUnit(unitId)->getPosition(), goal);
-
         players.at(playerId).getUnit(unitId)->setPath(path);
+
+        if (userMoved)
+            players.at(playerId).getUnit(unitId)->setTarget(0, 0);
     } catch(const std::exception &e) {
         std::cout << "No existe la unidad" << std::endl;
     }
@@ -103,11 +105,11 @@ void ServerMap::unitCheck() {
     for (auto & [playerId1, player1] : players) {
         auto units = player1.getUnits();
         for (auto & [unitId, unit] : *units) {
-            if (unit->isStill()) {
+            if (unit->isStill() && !unit->hasTarget()) {
                 for (auto &[playerId2, player2]: players) {
                     if (playerId1 != playerId2) {
                         int target = player2.getClosestUnitId(unit->getPosition(), unit->getRange());
-                        unit->setTarget(target);
+                        unit->setTarget(playerId2, target);
                     }
                 }
             }
@@ -117,9 +119,14 @@ void ServerMap::unitCheck() {
         auto units = player.getUnits();
         for (auto & [unitId, unit] : *units) {
             if (unit->hasTarget()) {
-                std::cout << "hay objetivo: " << std::endl;
-                // Ataca a la unidad
-                // Calcula A* si la unidad se va de rango?
+                coordenada_t coord = players[unit->getTarget().first].getUnit(unit->getTarget().second)->getPosition();
+                if (player.calculateDistance(unit->getPosition(), coord) > (double)unit->getRange()) {
+                    reposition(playerId, unitId, coord, false);
+                    unit->relocate();
+                } else {
+                    unit->stopMoving();
+                    unit->attack(coord);
+                }
             }
         }
     }
