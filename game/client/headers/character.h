@@ -21,6 +21,7 @@ public:
     void render();
     void update();
     bool contains(int x, int y) const;
+    void setSelected(bool was_selected); // TODO inefficient rendering over and over
 };
 
 

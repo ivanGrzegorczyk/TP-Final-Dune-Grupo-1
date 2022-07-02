@@ -19,7 +19,6 @@ character::character(SDL2pp::Renderer &renderer,
     ClientUnit(player, id, 0, 0, 0, type, coord), 
     rnd(renderer), selected(false),
     texture(new Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp").SetColorKey(true, 0))) {
-        std::cout << "creating new unit: " << player << std::endl;
 }
 
 void character::normalColor() {
@@ -29,26 +28,28 @@ void character::normalColor() {
 void character::highlight() {
     texture->SetColorMod(255, 0, 0);
 }
-
-void character::notify(SDL_Event event) {
-    int x = event.button.x;
-    int y = event.button.y;
-    if (contains(x, y) && !selected) {
-        selected = true;
+void character::setSelected(bool was_selected) {
+    if (was_selected) {
         this->highlight();
     } else {
-        selected = false;
         this->normalColor();
     }
 }
+void character::notify(SDL_Event event) {
+    int x = event.button.x;
+    int y = event.button.y;
+    
+}
 
 Request *character::walkEvent(int x, int y) {
-    if (!contains(x, y) && selected) {
+    if (!contains(x, y)) {
         selected = false;
         this->normalColor();
         coordenada_t coord({x, y});
         Request *query = new MoveQuery(id, std::move(coord));
         return query;
+    } else {
+        std::cout << "wont perform walk event"  << std::endl;
     }
     return nullptr;
 }

@@ -37,8 +37,8 @@ private:
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades
     std::map<int, BuildingUi*> buildings; //buildings to draw
     std::map<int, character*> units; //units to draw
-    std::vector<int> selected_buildings;
-    std::vector<int> selected_units;
+    std::unordered_set<int> selected_buildings;
+    std::unordered_set<int> selected_units;
     std::vector<CeldaUi> map;
 public:
     explicit MapUi(Renderer& renderer);

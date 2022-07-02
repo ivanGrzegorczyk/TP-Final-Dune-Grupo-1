@@ -15,6 +15,9 @@ MapUi::MapUi(Renderer &renderer) :
 }
 
 void MapUi::update(Response *response) {
+    // Do not draw on next frame if server's snapshot does not include them
+    units.clear();
+    buildings.clear();
     response->update(this , rdr);
 }
 
@@ -61,17 +64,18 @@ void MapUi::render() {
     // render gui
     gui.render(rdr);
     rdr.Present();
-    // Do not draw on next frame if server's snapshot does not include them
-    units.clear();
-    buildings.clear();
 }
 
 // TODO: replace with less generic name, use inside clickScreen
 Request* MapUi::mouseEvent(SDL_Event event, int playerId) {
     bool found = false;
     for (auto const& unit : units) {
-        if(unit.second->playerId == playerId) 
-            unit.second->notify(event);
+        if(unit.second->playerId == playerId) {
+            if(unit.second->contains(event.button.x, event.button.y)) {
+                std::cout << "selecting..." << std::endl;
+                selected_units.insert(unit.second->getId());
+            }
+        }
     }
     return nullptr;
 }
@@ -100,6 +104,7 @@ std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
     return *found;
 }
 
+//TODO move multiple units at once!
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
     Request *request;
     for (auto const& unit : units) {
@@ -131,9 +136,15 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
     if(players.find(player) == players.end()) {
         players.insert(player);
     }
-    std::cout << "insert unit from player " << player << std::endl;
-        units.insert(std::make_pair<int, character *>
-                (int{characterId}, new character(rdr, player, characterId, coord, type)));
+    // create unit
+    character* c = new character(rdr, player, characterId, coord, type);
+    units.insert(std::make_pair<int, character *>  ((int)characterId, (character*) c));
+    // if unit is selected, make this one be selected
+    bool found = selected_units.find(c->getId()) != selected_units.end();
+    if(found) {
+        c->setSelected(true);
+    } else {
+    }
 }
 
 /*
