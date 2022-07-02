@@ -17,10 +17,10 @@ private:
 public:
     character(SDL2pp::Renderer &renderer, int player, int id, coordenada_t coord, int type);
     Request *walkEvent(int x, int y);
-    bool mouseOverUnit(int x, int y) const;
     void notify(SDL_Event event);
     void render();
     void update();
+    bool contains(int x, int y) const;
 };
 
 

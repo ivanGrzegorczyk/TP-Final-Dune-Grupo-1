@@ -26,6 +26,7 @@ public:
         Point map_center) ;
     void render() override;
     void update() override;
+    bool contains(int x, int y) const;
 
 };
 

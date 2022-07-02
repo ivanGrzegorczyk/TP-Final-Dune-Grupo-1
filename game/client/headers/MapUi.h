@@ -5,6 +5,8 @@
 #include "Protocol.h"
 #include "common/headers/Building.h"
 #include "client/headers/gui/gui.h"
+#include "client/headers/character.h"
+#include "client/headers/BuildingUi.h"
 #include "client/headers/building_type/BuildingType.h"
 #include "character.h"
 #include "SdlEntity.h"
@@ -33,8 +35,10 @@ private:
     GUI gui;
     std::pair<coordenada_t, std::vector<uint8_t>> terrain;
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades
-    std::map<int, SdlEntity*> buildings;
-    std::map<int, character*> units;
+    std::map<int, BuildingUi*> buildings; //buildings to draw
+    std::map<int, character*> units; //units to draw
+    std::vector<int> selected_buildings;
+    std::vector<int> selected_units;
     std::vector<CeldaUi> map;
 public:
     explicit MapUi(Renderer& renderer);

@@ -33,7 +33,7 @@ void character::highlight() {
 void character::notify(SDL_Event event) {
     int x = event.button.x;
     int y = event.button.y;
-    if (mouseOverUnit(x, y) && !selected) {
+    if (contains(x, y) && !selected) {
         selected = true;
         this->highlight();
     } else {
@@ -43,7 +43,7 @@ void character::notify(SDL_Event event) {
 }
 
 Request *character::walkEvent(int x, int y) {
-    if (!mouseOverUnit(x, y) && selected) {
+    if (!contains(x, y) && selected) {
         selected = false;
         this->normalColor();
         coordenada_t coord({x, y});
@@ -53,6 +53,6 @@ Request *character::walkEvent(int x, int y) {
     return nullptr;
 }
 
-bool character::mouseOverUnit(int x, int y) const {
+bool character::contains(int x, int y) const {
     return current.Contains(x, y);
 }

@@ -61,6 +61,9 @@ void MapUi::render() {
     // render gui
     gui.render(rdr);
     rdr.Present();
+    // Do not draw on next frame if server's snapshot does not include them
+    units.clear();
+    buildings.clear();
 }
 
 // TODO: replace with less generic name, use inside clickScreen
@@ -128,14 +131,9 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
     if(players.find(player) == players.end()) {
         players.insert(player);
     }
-    // if unit exists
-    if(units.find(characterId) != units.end()) {
-        units.at(characterId)->setPosition(coord);
-    } else {
-        std::cout << "insert unit from player " << player << std::endl;
+    std::cout << "insert unit from player " << player << std::endl;
         units.insert(std::make_pair<int, character *>
                 (int{characterId}, new character(rdr, player, characterId, coord, type)));
-    }
 }
 
 /*
@@ -149,7 +147,7 @@ void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingTy
     Point size(50,50);
     Point center(0,0);
     buildings.insert(
-        std::make_pair<int, SdlEntity*>(
+        std::make_pair<int, BuildingUi*>(
             int{buildingId}, 
             new BuildingUi(
                 player, 

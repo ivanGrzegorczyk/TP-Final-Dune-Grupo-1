@@ -7,6 +7,9 @@ void BuildingUi::render() {
 void BuildingUi::update() {
         //TODO
 }
+bool BuildingUi::contains(int x, int y) const {
+    return location.Contains(x, y);
+}
 // TODO improve encapsulation
 BuildingUi::BuildingUi(
         int player, 
