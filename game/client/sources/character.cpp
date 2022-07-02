@@ -28,8 +28,9 @@ void character::normalColor() {
 void character::highlight() {
     texture->SetColorMod(255, 0, 0);
 }
-void character::setSelected(bool was_selected) {
-    if (was_selected) {
+void character::setSelected(bool selected) {
+    this->selected = selected;
+    if (selected) {
         this->highlight();
     } else {
         this->normalColor();
@@ -42,6 +43,11 @@ void character::notify(SDL_Event event) {
 }
 
 Request *character::walkEvent(int x, int y) {
+    std::cout << "getting walk event!" << std::endl;
+    if(!selected) {
+        std::cout << "not selected lmfao!" << std::endl;
+        return nullptr;
+    }
     if (!contains(x, y)) {
         selected = false;
         this->normalColor();

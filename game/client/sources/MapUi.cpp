@@ -67,7 +67,7 @@ void MapUi::render() {
     rdr.Present();
 }
 
-// TODO: select with right click
+// TODO: select with left click
 Request* MapUi::mouseEvent(SDL_Event event, int playerId) {
     for (auto const& unit : units) {
         if(unit.second->playerId == playerId) {
@@ -107,9 +107,11 @@ std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
 //TODO move multiple units at once!
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
     Request *request;
+    std::cout << "units: " <<units.size() << std::endl;
     for (auto const& unit : units) {
         request = unit.second->walkEvent(x, y);
         if (request != nullptr) {
+            std::cout << "moved characer" << std::endl;
             return request;
         } 
     }
