@@ -48,16 +48,12 @@ void MapUi::draw() {
 
 void MapUi::render() {
     rdr.Clear();
-    // render tiles
     for(auto& tile : map) {
         tile.render(rdr);
     }
-    // render units
-    //std::cout << "size: " << units.size() << std::endl;
     for(auto const& unit: units) {
        unit.second->render();
     }
-    //std::cout << "size despues: " << units.size() << std::endl;
     for(auto const& b : buildings) {
         b.second->render();
     }
@@ -128,18 +124,14 @@ void MapUi::addSand(coordenada_t coord, Rect destination) {
 }
 
 void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coord) {
-    // player exists
-    if(players.find(player) != players.end()) {
-        // unit exists
-        if(units.find(characterId) != units.end()) {
-            units.at(characterId)->setPosition(coord);
-        } else {
-            std::cout << "insert unit from player " << player << std::endl;
-            units.insert(std::make_pair<int, character*>
-                    (int{characterId}, new character(rdr, player, characterId, coord, type)));
-        }
-    } else {
+    // add player if not yet existent
+    if(players.find(player) == players.end()) {
         players.insert(player);
+    }
+    // if unit exists
+    if(units.find(characterId) != units.end()) {
+        units.at(characterId)->setPosition(coord);
+    } else {
         std::cout << "insert unit from player " << player << std::endl;
         units.insert(std::make_pair<int, character *>
                 (int{characterId}, new character(rdr, player, characterId, coord, type)));
