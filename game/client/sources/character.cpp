@@ -42,6 +42,17 @@ void character::notify(SDL_Event event) {
     
 }
 
+Request *character::attackEvent(int enemyId) {
+    if(!selected) {
+        return nullptr;
+    }
+    Request *request = nullptr;
+    if(enemyId != -1) {
+        request = new AttackRequest(this->getId(), enemyId);
+    }
+    return  request;
+}
+
 Request *character::walkEvent(int x, int y) {
     std::cout << "getting walk event!" << std::endl;
     if(!selected) {
@@ -49,6 +60,7 @@ Request *character::walkEvent(int x, int y) {
         return nullptr;
     }
     if (!contains(x, y)) {
+        //buscar posible id para atacar(coincidir con un id de enemigo)
         selected = false;
         this->normalColor();
         coordenada_t coord({x, y});
@@ -57,6 +69,7 @@ Request *character::walkEvent(int x, int y) {
     } else {
         std::cout << "wont perform walk event"  << std::endl;
     }
+    //TODO  el else de arriba no es necesario
     return nullptr;
 }
 

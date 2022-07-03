@@ -3,6 +3,7 @@
 #include "SDL2pp/SDL2pp.hh"
 #include "Request.h"
 #include "ClientUnit.h"
+#include "client/headers/AttackRequest.h"
 #include <memory>
 using namespace SDL2pp;
 
@@ -22,6 +23,7 @@ public:
     void update();
     bool contains(int x, int y) const;
     void setSelected(bool was_selected); // TODO inefficient rendering over and over
+    Request *attackEvent(int enemyId);
 };
 
 
