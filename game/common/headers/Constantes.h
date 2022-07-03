@@ -38,6 +38,10 @@ typedef std::pair<int, int> coordenada_t;
 #define BUILDING_BARRACKS 27
 #define BUILDING_PALACE 28
 
+//assault rifle data
+#define ASSAULT_RIFLE_DAMAGE 2
+#define ASSAULT_RIFLE_FREQUENCY 166667
+
 //protocol
 #define REPOSITION_EVENT 1
 #define CREATE_BUILDING_EVENT 2
