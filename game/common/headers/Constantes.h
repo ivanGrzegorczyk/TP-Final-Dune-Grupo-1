@@ -43,8 +43,8 @@ typedef std::pair<int, int> coordenada_t;
 #define ASSAULT_RIFLE_FREQUENCY 166667
 
 //canyon data
-#define CANYON_DAMAGE 7
-#define CANYON_FREQUENCY 1000000
+#define CANNON_DAMAGE 7
+#define CANNON_FREQUENCY 1000000
 
 //missile launcher data
 #define MISSILE_LAUNCHER_DAMAGE 8
@@ -55,12 +55,12 @@ typedef std::pair<int, int> coordenada_t;
 #define SOUND_WAVES_FREQUENCY 1000000
 
 //canyon22mm data
-#define CANYON22MM_DAMAGE 6
-#define CANYON22MM_FREQUENCY 166667
+#define CANNON22MM_DAMAGE 6
+#define CANNON22MM_FREQUENCY 166667
 
 //plasma canyon data
-#define PLASMA_CANYON_DAMAGE 8
-#define PLASMA_CANYON_FREQUENCY 1000000
+#define PLASMA_CANNON_DAMAGE 8
+#define PLASMA_CANNON_FREQUENCY 1000000
 
 //protocol
 #define REPOSITION_EVENT 1
