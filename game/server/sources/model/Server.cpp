@@ -90,6 +90,7 @@ void Server::manageEvents() {
     map.updateUnitsPosition();
     map.unitCheck();
     Snapshot snapshot = createSnapshot();
+    map.unitAttackReset();
     blockingQueue.push(snapshot);
 }
 

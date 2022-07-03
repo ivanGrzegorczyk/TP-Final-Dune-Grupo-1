@@ -18,10 +18,13 @@ protected:
     Weapon *weapon;
     std::pair<int, int> target;
     std::stack<coordenada_t> path;
+    bool attacking;
 
 public:
     Unit(int id, unsigned int hp, unsigned int range, unsigned int speed,
          int type, unsigned int cost, Weapon * weapon, coordenada_t coord);
+    Unit(int id, unsigned int hp, unsigned int range, unsigned int speed,
+         int type, unsigned int cost, Weapon * weapon, coordenada_t coord, bool attacking);
     void setPath(std::stack<coordenada_t> _path);
     void setPosition(coordenada_t newPosition);
     coordenada_t relocate();
@@ -43,6 +46,10 @@ public:
 
     // TODO ataque polimorfico a entidades
     bool attack(std::shared_ptr<Unit> &enemy);
+
+    bool isAttacking() const;
+
+    void stopAttacking();
 };
 
 #endif  // UNITY_H_

@@ -15,7 +15,7 @@ protected:
 public:
     Weapon(unsigned int damage, unsigned int frequency);
 
-    virtual bool attack(std::shared_ptr<Unit> &enemy) = 0;
+    virtual bool attack(std::shared_ptr<Unit> &enemy, bool &attacked) = 0;
 
     virtual ~Weapon() = default;
 };

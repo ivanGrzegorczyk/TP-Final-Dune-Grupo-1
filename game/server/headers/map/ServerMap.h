@@ -52,6 +52,8 @@ public:
     void attackEnemy(int playerId, int unitId, int enemyId);
 
     int findPlayerByUnitId(int unitId);
+
+    void unitAttackReset();
 };
 
 #endif  // SERVERMAP_H_

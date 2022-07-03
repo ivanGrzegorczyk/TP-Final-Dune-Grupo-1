@@ -8,7 +8,7 @@ public:
     Cannon22mm();
     ~Cannon22mm() override = default;
 
-    bool attack(std::shared_ptr<Unit> &enemy) override;
+    bool attack(std::shared_ptr<Unit> &enemy, bool &attacked) override;
 };
 
 #endif  // CANNON22MM_H_

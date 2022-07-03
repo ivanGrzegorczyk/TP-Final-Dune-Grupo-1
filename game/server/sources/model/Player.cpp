@@ -161,3 +161,9 @@ bool Player::owns(int unitId) {
     else
         return true;
 }
+
+void Player::unitAttackReset() {
+    for (auto & [unitId, unit] : units) {
+        unit->stopAttacking();
+    }
+}

@@ -234,3 +234,9 @@ int ServerMap::findPlayerByUnitId(int unitId) {
     }
     return -1;
 }
+
+void ServerMap::unitAttackReset() {
+    for (auto & [playerId, player] : players) {
+        player.unitAttackReset();
+    }
+}

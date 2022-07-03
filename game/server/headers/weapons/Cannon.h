@@ -8,7 +8,7 @@ public:
     Cannon();
     ~Cannon() override = default;
 
-    bool attack(std::shared_ptr<Unit> &enemy) override;
+    bool attack(std::shared_ptr<Unit> &enemy, bool &attacked) override;
 };
 
 #endif  // CANNON_H_

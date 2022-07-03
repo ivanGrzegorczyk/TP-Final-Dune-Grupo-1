@@ -8,7 +8,7 @@ public:
     SoundWave();
     ~SoundWave() override = default;
 
-    bool attack(std::shared_ptr<Unit> &enemy) override;
+    bool attack(std::shared_ptr<Unit> &enemy, bool &attacked) override;
 };
 
 #endif  // SOUNDWAVE_H_

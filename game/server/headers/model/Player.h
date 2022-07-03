@@ -49,6 +49,8 @@ public:
     void kill(int unitId);
 
     bool owns(int unitId);
+
+    void unitAttackReset();
 };
 
 #endif  // PLAYER_H_

@@ -6,6 +6,7 @@
 class Fremen : public Unit {
 public:
     Fremen(int id, coordenada_t coord);
+    Fremen(int id, coordenada_t coord, bool attacking);
     std::shared_ptr<Unit> copy() override;
 };
 

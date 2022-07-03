@@ -6,6 +6,9 @@
 class HeavyInfantry : public Unit {
 public:
     HeavyInfantry(int id, coordenada_t coord);
+
+    HeavyInfantry(int id, coordenada_t coord, bool attacking);
+
     std::shared_ptr<Unit> copy() override;
 };
 

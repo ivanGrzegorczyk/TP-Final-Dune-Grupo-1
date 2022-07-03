@@ -5,7 +5,14 @@
 Unit::Unit(int id, unsigned int hp, unsigned int range,
            unsigned int speed, int type, unsigned int cost, Weapon * weapon,
            coordenada_t coord) :
-        ServerEntity(id, hp, type, coord), range(range), speed(speed), cost(cost), weapon(weapon), target(0, 0) {}
+        ServerEntity(id, hp, type, coord), range(range), speed(speed),
+        cost(cost), weapon(weapon), target(0, 0), attacking(false) {}
+
+Unit::Unit(int id, unsigned int hp, unsigned int range,
+           unsigned int speed, int type, unsigned int cost, Weapon * weapon,
+           coordenada_t coord, bool attacking) :
+        ServerEntity(id, hp, type, coord), range(range), speed(speed),
+        cost(cost), weapon(weapon), target(0, 0), attacking(attacking) {}
 
 void Unit::setPath(std::stack<coordenada_t> _path) {
     this->path = std::move(_path);
@@ -45,7 +52,7 @@ bool Unit::hasTarget() const {
 }
 
 bool Unit::attack(std::shared_ptr<Unit> &enemy) {
-    return weapon->attack(enemy);
+    return weapon->attack(enemy, attacking);
 }
 
 std::pair<int, int> Unit::getTarget() {
@@ -55,4 +62,12 @@ std::pair<int, int> Unit::getTarget() {
 void Unit::stopMoving() {
     for (int i = 0; i < path.size(); i++)
         path.pop();
+}
+
+bool Unit::isAttacking() const {
+    return attacking;
+}
+
+void Unit::stopAttacking() {
+    attacking = false;
 }
