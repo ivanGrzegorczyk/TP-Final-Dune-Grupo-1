@@ -6,6 +6,8 @@
 class LightInfantry : public Unit {
 public:
     LightInfantry(int id, coordenada_t coord);
+    ~LightInfantry() override = default;
+
     std::shared_ptr<Unit> copy() override;
 };
 

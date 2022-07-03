@@ -3,9 +3,9 @@
 #include "server/headers/units/Unit.h"
 
 Unit::Unit(int id, unsigned int hp, unsigned int range,
-           unsigned int speed, int type, unsigned int cost,
+           unsigned int speed, int type, unsigned int cost, Weapon * weapon,
            coordenada_t coord) :
-        Entity(id, hp, type, coord), range(range), speed(speed), cost(cost), target(0, 0) {}
+        Entity(id, hp, type, coord), range(range), speed(speed), cost(cost), weapon(weapon), target(0, 0) {}
 
 void Unit::setPath(std::stack<coordenada_t> _path) {
     this->path = std::move(_path);
@@ -45,7 +45,7 @@ bool Unit::hasTarget() const {
 }
 
 bool Unit::attack(std::shared_ptr<Unit> &enemy) {
-    return enemy->receiveDamage(7);
+    return weapon->attack(enemy);
 }
 
 std::pair<int, int> Unit::getTarget() {
@@ -64,4 +64,6 @@ bool Unit::receiveDamage(unsigned int damage) {
       HP = 0;
       return true;
     }
+
+    return false;
 }

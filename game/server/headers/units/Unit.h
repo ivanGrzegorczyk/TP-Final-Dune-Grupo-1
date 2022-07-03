@@ -7,18 +7,21 @@
 
 #include "common/headers/Entity.h"
 #include "common/headers/Constantes.h"
+class Weapon;
+#include "server/headers/weapons/Weapon.h"
 
 class Unit: public Entity {  // abstracta
 protected:
     unsigned int range;
     unsigned int speed;
     unsigned int cost;
+    Weapon *weapon;
     std::pair<int, int> target;
     std::stack<coordenada_t> path;
 
 public:
     Unit(int id, unsigned int hp, unsigned int range, unsigned int speed,
-         int type, unsigned int cost, coordenada_t coord);
+         int type, unsigned int cost, Weapon * weapon, coordenada_t coord);
     void setPath(std::stack<coordenada_t> _path);
     void setPosition(coordenada_t newPosition);
     coordenada_t relocate();

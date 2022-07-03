@@ -57,7 +57,8 @@ FILE(GLOB HEADER_SERVER_FILES
         ${PROJECT_SOURCE_DIR}/game/server/headers/buildings/*.h
         ${PROJECT_SOURCE_DIR}/game/server/headers/model/*.h
         ${PROJECT_SOURCE_DIR}/game/server/headers/map/*.h
-        ${PROJECT_SOURCE_DIR}/game/server/headers/vehicles/*.h)
+        ${PROJECT_SOURCE_DIR}/game/server/headers/vehicles/*.h
+        ${PROJECT_SOURCE_DIR}/game/server/headers/weapons/*.h)
 FILE(GLOB SRC_SERVER_FILES
         ${PROJECT_SOURCE_DIR}/game/server/sources/*.cpp
         ${PROJECT_SOURCE_DIR}/game/server/sources/events/*.cpp
@@ -65,7 +66,8 @@ FILE(GLOB SRC_SERVER_FILES
         ${PROJECT_SOURCE_DIR}/game/server/sources/buildings/*.cpp
         ${PROJECT_SOURCE_DIR}/game/server/sources/model/*.cpp
         ${PROJECT_SOURCE_DIR}/game/server/sources/map/*.cpp
-        ${PROJECT_SOURCE_DIR}/game/server/sources/vehicles/*.cpp)
+        ${PROJECT_SOURCE_DIR}/game/server/sources/vehicles/*.cpp
+        ${PROJECT_SOURCE_DIR}/game/server/sources/weapons/*.cpp)
 
 FILE(GLOB HEADER_COMMON_FILES ${PROJECT_SOURCE_DIR}/game/common/headers/*.h)
 FILE(GLOB SRC_COMMON_FILES ${PROJECT_SOURCE_DIR}/game/common/sources/*.cpp)

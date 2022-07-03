@@ -1,13 +1,14 @@
 #ifndef ASSAULTRIFLE_H_
 #define ASSAULTRIFLE_H_
 
-class AssaultRifle {
-private:
-    unsigned int damage;
-    unsigned int frecuency;
+#include "Weapon.h"
 
+class AssaultRifle : public Weapon {
 public:
     AssaultRifle();
+    ~AssaultRifle() override = default;
+
+    bool attack(std::shared_ptr<Unit> &enemy) override;
 };
 
 #endif  // ASSAULTRIFLE_H_
