@@ -30,7 +30,7 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
     int cell_x = mouse_x / LENGTH_TILE;
     int cell_y = mouse_y / LENGTH_TILE;
     // interact with gui
-    if(event.type == SDL_KEYDOWN 
+    if(event.type == SDL_MOUSEBUTTONDOWN
         && event.button.button == SDL_BUTTON_LEFT 
         && gui.isOverPoint(mouse_x, mouse_y)) {
             gui.clickOver(mouse_x, mouse_y);
@@ -40,7 +40,7 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
                 req = new CreateLightInfantry(cell_x, cell_y);
                 break;
             case SDLK_b:
-                id = (uint16_t)(selectedBuilding()->code());
+                id = (uint16_t)(gui.getBuildingToBuild()->code());
                 req = new CreateBuilding(cell_x, cell_y, id);
                 break;
             case SDLK_x:
@@ -59,6 +59,48 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
     return req;
 }
 
+// TODO: select with left click
+void MapUi::selectUnits(SDL_Event event, int playerId) {
+    for (auto const& unit : units) {
+        if(unit.second->playerId == playerId) {
+            if(unit.second->contains(event.button.x, event.button.y)) {
+                std::cout << "selecting..." << std::endl;
+                unit.second->setSelected(true);
+            }
+        }
+    }
+}
+
+//TODO move multiple units at once!
+Request* MapUi::moveCharacter(int x, int y, int playerId) {
+    bool request;
+    for (auto const& unit : units) {
+        request = unit.second->walkEvent(x, y);
+        if (request) {
+            coordenada_t coord(x,y);
+            std::cout <<  "unit id:" << unit.second->getId();
+            std::cout <<  "x:" << x;
+            std::cout <<  "y:" << y << std::endl;
+            return new MoveQuery(unit.second->getId(), std::move(coord));
+        } 
+    }
+    return nullptr;
+}
+
+Request* MapUi::damageBetween(int entity1, int entity2) {
+    return nullptr;
+}
+
+
+// UPDATE
+
+void MapUi::update(Response *response) {
+    // Do not draw on next frame if server's snapshot does not include them
+    previous_units = units;
+    units.clear();
+    buildings.clear();
+    response->update(this , rdr);
+}
 
 void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coord) {
     // add player if not yet existent
@@ -75,11 +117,6 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
         auto pair = std::make_pair<int, std::shared_ptr<character >>  ((int)characterId, (std::shared_ptr<character>) std::shared_ptr<character>(c));
         units.insert(pair);
     }
-    
-}
-
-Request* MapUi::damageBetween(int entity1, int entity2) {
-    return nullptr;
 }
 
 /*
@@ -102,17 +139,6 @@ void MapUi::updateBuilding(int player, int buildingId, std::shared_ptr<BuildingT
                     center)))) ;
 }
 
-
-// UPDATE
-
-void MapUi::update(Response *response) {
-    // Do not draw on next frame if server's snapshot does not include them
-    previous_units = units;
-    units.clear();
-    buildings.clear();
-    response->update(this , rdr);
-}
-
 void MapUi::receiveMap(std::shared_ptr<Protocol> protocol) {
     this->terrain = protocol->receiveTerrain();
 }
@@ -131,6 +157,8 @@ void MapUi::draw() {
    }
 }
 
+// RENDER
+
 void MapUi::render() {
     rdr.Clear();
     for(auto& tile : map) {
@@ -147,17 +175,7 @@ void MapUi::render() {
     rdr.Present();
 }
 
-// TODO: select with left click
-void MapUi::selectUnits(SDL_Event event, int playerId) {
-    for (auto const& unit : units) {
-        if(unit.second->playerId == playerId) {
-            if(unit.second->contains(event.button.x, event.button.y)) {
-                std::cout << "selecting..." << std::endl;
-                unit.second->setSelected(true);
-            }
-        }
-    }
-}
+
 
 
 // TODO use map instead of find if
@@ -174,21 +192,7 @@ std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
     return *found;
 }
 
-//TODO move multiple units at once!
-Request* MapUi::moveCharacter(int x, int y, int playerId) {
-    bool request;
-    for (auto const& unit : units) {
-        request = unit.second->walkEvent(x, y);
-        if (request) {
-            coordenada_t coord(x,y);
-            std::cout <<  "unit id:" << unit.second->getId();
-            std::cout <<  "x:" << x;
-            std::cout <<  "y:" << y << std::endl;
-            return new MoveQuery(unit.second->getId(), std::move(coord));
-        } 
-    }
-    return nullptr;
-}
+
 
 void MapUi::addTerrain(coordenada_t coord, Rect destination, int terrainId) {
    // Rect rockRect(100, 220, 8, 8);
@@ -202,8 +206,5 @@ void MapUi::addTerrain(coordenada_t coord, Rect destination, int terrainId) {
    }
 }
 
-std::shared_ptr<BuildingType> MapUi::selectedBuilding() {
-    return gui.getBuildingToBuild();
-}
 
 MapUi::~MapUi() = default;
