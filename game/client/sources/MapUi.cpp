@@ -1,6 +1,9 @@
 #include "../headers/MapUi.h"
 #include "client/headers/BuildingFactory.h"
 #include "client/headers/BuildingUi.h"
+#include "client/headers/CreateBuilding.h"
+#include "../headers/MoveQuery.h"
+#include "../headers/CreateLightInfantry.h"
 
 
 MapUi::MapUi(Renderer &renderer) : 
@@ -61,7 +64,6 @@ void MapUi::render() {
     for(auto const& b : buildings) {
         b.second->render();
     }
-
     // render gui
     gui.render(rdr);
     rdr.Present();
@@ -69,19 +71,42 @@ void MapUi::render() {
 
 // TODO: select with left click
 Request* MapUi::handleEvent(SDL_Event event, int playerId) {
-    Request* req;
-    if(event.button.button ==  SDL_BUTTON_RIGHT) {
-        req = rightClick(event,playerId);
-    } else if(event.button.button == SDL_BUTTON_LEFT) {
-        req =  leftClick(event, playerId);
-    } else {
-        req = nullptr;
+    Request* req = nullptr;
+    uint16_t id;
+    int mouse_x;
+    int mouse_y;
+    SDL_GetMouseState(&mouse_x, &mouse_y);
+    if(event.type == SDL_KEYDOWN){
+        switch (event.key.keysym.sym) {
+            case SDLK_a:
+                req = new CreateLightInfantry(mouse_x / LENGTH_TILE, mouse_y / LENGTH_TILE);
+                break;
+            case SDLK_b:
+                id = (uint16_t)(selectedBuilding()->code());
+                req = new CreateBuilding(mouse_x / LENGTH_TILE, mouse_y / LENGTH_TILE, id);
+                break;
+            case SDLK_x:
+                // TODO use damage protocol
+                damageBetween(1, 2);
+                break;
+        } 
+    } else if(event.type == SDL_MOUSEBUTTONUP) {
+        if(event.button.button ==  SDL_BUTTON_RIGHT) {
+            if(gui.isOverPoint(mouse_x, mouse_y)) {
+                gui.clickOver(mouse_x, mouse_y);
+            } else {
+                //TODO make proper math to translate click coordinate to map coordinate
+                req = this->moveCharacter(mouse_x/LENGTH_TILE,mouse_y/LENGTH_TILE,playerId);
+            } 
+        } else if(event.button.button == SDL_BUTTON_LEFT) {
+            leftClick(event, playerId);
+        }
     }
     return req;
 }
 
 // TODO: select with left click
-Request* MapUi::leftClick(SDL_Event event, int playerId) {
+void MapUi::leftClick(SDL_Event event, int playerId) {
     for (auto const& unit : units) {
         if(unit.second->playerId == playerId) {
             if(unit.second->contains(event.button.x, event.button.y)) {
@@ -90,19 +115,8 @@ Request* MapUi::leftClick(SDL_Event event, int playerId) {
             }
         }
     }
-    return nullptr;
 }
 
-// todo take type of click as input or specify it in function name
-Request* MapUi::rightClick(SDL_Event event, int playerId) {
-    if(gui.isOverPoint(event.button.x, event.button.y)) {
-        gui.clickOver(event.button.x, event.button.y);
-        return nullptr;
-    } else {
-        //TODO make proper math to translate click coordinate to map coordinate
-        return this->moveCharacter(event.button.x/LENGTH_TILE,event.button.y/LENGTH_TILE,playerId);
-    } 
-}
 
 // TODO use map instead of find if
 std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
@@ -120,11 +134,15 @@ std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
 
 //TODO move multiple units at once!
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
-    Request *request;
+    bool request;
     for (auto const& unit : units) {
         request = unit.second->walkEvent(x, y);
-        if (request != nullptr) {
-            return request;
+        if (request) {
+            coordenada_t coord(x,y);
+            std::cout <<  "unit id:" << unit.second->getId();
+            std::cout <<  "x:" << x;
+            std::cout <<  "y:" << y << std::endl;
+            return new MoveQuery(unit.second->getId(), std::move(coord));
         } 
     }
     return nullptr;
@@ -164,7 +182,7 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
 }
 
 Request* MapUi::damageBetween(int entity1, int entity2) {
-    // TODO
+    return nullptr;
 }
 
 /*

@@ -1,5 +1,4 @@
 #include "../headers/character.h"
-#include "../headers/MoveQuery.h"
 
 void character::render() {
     if(attackEffect > 0 && attackEffect % 2) {
@@ -55,22 +54,20 @@ void character::notify(SDL_Event event) {
     
 }
 
-Request *character::walkEvent(int x, int y) {
+bool character::walkEvent(int x, int y) {
     std::cout << "getting walk event!" << std::endl;
     if(!selected) {
         std::cout << "not selected lmfao!" << std::endl;
-        return nullptr;
+        return false;
     }
     if (!contains(x, y)) {
         selected = false;
         this->normalColor();
-        coordenada_t coord({x, y});
-        Request *query = new MoveQuery(id, std::move(coord));
-        return query;
+        return true;
     } else {
         std::cout << "wont perform walk event"  << std::endl;
     }
-    return nullptr;
+    return false;
 }
 
 bool character::contains(int x, int y) const {

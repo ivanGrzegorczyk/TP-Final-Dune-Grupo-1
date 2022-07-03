@@ -1,7 +1,6 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #define TP_FINAL_DUNE_GRUPO_1_CHARACTER_H
 #include "SDL2pp/SDL2pp.hh"
-#include "Request.h"
 #include "ClientUnit.h"
 #include <memory>
 using namespace SDL2pp;
@@ -18,7 +17,7 @@ private:
     void highlight();
 public:
     character(SDL2pp::Renderer &renderer, int player, int id, coordenada_t coord, int type);
-    Request *walkEvent(int x, int y);
+    bool walkEvent(int x, int y);
     void notify(SDL_Event event);
     void render();
     void update();

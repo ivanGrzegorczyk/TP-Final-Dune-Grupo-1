@@ -1,6 +1,7 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_MAPUI_H
 #define TP_FINAL_DUNE_GRUPO_1_MAPUI_H
 #include "SDL2pp/SDL2pp.hh"
+#include "Request.h"
 #include "CeldaUi.h"
 #include "Protocol.h"
 #include "common/headers/Building.h"
@@ -44,7 +45,7 @@ public:
     explicit MapUi(Renderer& renderer);
     ~MapUi();
     void draw();
-    Request* leftClick(SDL_Event event, int playerId);
+    void leftClick(SDL_Event event, int playerId);
     void update(Response *response);
     void receiveMap(std::shared_ptr<Protocol> protocol);
     void render();
