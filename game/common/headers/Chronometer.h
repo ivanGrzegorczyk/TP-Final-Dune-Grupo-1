@@ -1,3 +1,6 @@
+#ifndef CHRONOMETER_H_
+#define CHRONOMETER_H_
+
 #include <chrono>
 #include <ostream>
 
@@ -10,3 +13,5 @@ public:
 private:
     std::chrono::time_point<std::chrono::system_clock> start;
 };
+
+#endif  // CHRONOMETER_H_
