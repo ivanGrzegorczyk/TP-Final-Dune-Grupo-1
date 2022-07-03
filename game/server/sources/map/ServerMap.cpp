@@ -46,6 +46,7 @@ void ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
                 players.at(playerId).getUnit(unitId)->getPosition(), goal);
 
         players.at(playerId).getUnit(unitId)->setPath(path);
+        players.at(playerId).getUnit(unitId)->relocate();
     } catch(const std::exception &e) {
         std::cout << "No existe la unidad" << std::endl;
     }
@@ -95,7 +96,19 @@ void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t posi
 
 void ServerMap::updateUnitsPosition() {
     for (auto & [id, player] : players) {
-        player.updateUnitsPosition(map);
+        auto units = player.getUnits();
+        for (auto const& [unitId, unit] : *units) {
+            coordenada_t next = unit->getNextPosition();
+            if(next.first >= 0 && next.second >= 0)
+                if(map[next.first][next.second]->occupied) {
+                    reposition(id, unitId, unit->getGoal());
+                }
+            coordenada_t free = unit->relocate();
+            map[unit->getPosition().first][unit->getPosition().second]->occupied = true;
+            if (free.first != -1 && free.second != -1) {
+                map[free.first][free.second]->occupied = false;
+            }
+        }
     }
 }
 

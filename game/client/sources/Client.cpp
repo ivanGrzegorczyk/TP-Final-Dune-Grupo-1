@@ -85,7 +85,7 @@ void Client::ProcessInput() {
                     mapUi.clickOverGui(x, y, clientId);
                     for(auto request: mapUi.clickScreen(x, y,this->clientId)){
                         std::cout << "PUSHEOOOOOO" << std::endl;
-                        sendQueue.push(req);
+                        sendQueue.push(request);
                     }
                 }
                 else if(event.button.button == SDL_BUTTON_LEFT) {

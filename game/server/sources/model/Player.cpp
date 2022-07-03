@@ -92,15 +92,6 @@ std::shared_ptr<Building> Player::getBuilding(int buildingId) {
     return buildings.at(buildingId);
 }
 
-void Player::updateUnitsPosition(std::vector<std::vector<ServerCell *>> &map) {
-    for (auto const& [unitId, unit] : units) {
-        coordenada_t free = unit->relocate();
-        map[unit->getPosition().first][unit->getPosition().second]->occupied = true;
-        if (free.first != -1 && free.second != -1)
-            map[free.first][free.second]->occupied = false;
-    }
-}
-
 void Player::addUnitData(Snapshot &snapshot) {
     for (auto const& [unitId, unit] : units) {
         auto _unit = unit->copy();
