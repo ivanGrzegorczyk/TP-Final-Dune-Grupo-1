@@ -81,15 +81,18 @@ void Client::ProcessInput() {
                     //int x, y;
                     x = event.button.x;
                     y = event.button.y;
-                    req = mapUi.clickScreen(x,y,this->clientId);
-                    sendQueue.push(req);
+                    for(auto request: mapUi.clickScreen(x, y,this->clientId)) {
+                        sendQueue.push(request);
+                    }
+                    //req = mapUi.clickScreen(x, y,this->clientId); // TODO iterar vector y pushear
+                    //sendQueue.push(req);
                 }
                 else if(event.button.button == SDL_BUTTON_LEFT) {
                     //int x, y;
                     x = event.button.x;
                     y = event.button.y;
                     std::cout << "left click" << std::endl;
-                    req =  mapUi.mouseEvent(event, clientId);
+                    mapUi.mouseEvent(event, clientId);
                     sendQueue.push(req);
                     break;
                 }
