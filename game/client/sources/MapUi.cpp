@@ -12,9 +12,8 @@ MapUi::MapUi(Renderer &renderer) :
         ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
         harvester(Texture(renderer, Surface(DATA_PATH "/harvester.png"))),
         building_types(factory.createBuildingTypes(rdr)),
-        gui(Rect(500,0,100,200), building_types, factory.createUnitTypes(rdr)) {
-    dst.SetX(0) = dst.SetY(0);
-    dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
+        gui(Rect(500,0,100,200), building_types, factory.createUnitTypes(rdr)),
+        map_center({0,0}) {
 }
 
 // PROCESS INPUT
@@ -43,10 +42,9 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
                 id = (uint16_t)(gui.getBuildingToBuild()->code());
                 req = new CreateBuilding(cell_x, cell_y, id);
                 break;
-            case SDLK_x:
-                // TODO use damage protocol
-                damageBetween(1, 2);
-                break;
+            case SDLK_SPACE:
+                map_center.first = mouse_x;
+                map_center.second = mouse_y;
         } 
     } else if(event.type == SDL_MOUSEBUTTONUP) {
         if(event.button.button ==  SDL_BUTTON_RIGHT) {
@@ -145,11 +143,14 @@ void MapUi::receiveMap(std::shared_ptr<Protocol> protocol) {
 
 void MapUi::draw() {
     int k = 0;
+    Rect dst;
+    dst.SetX(0) = dst.SetY(0);
+    dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
     for(int j = 0; j < this->terrain.first.first; j++) {
         for (int i = 0; i < this->terrain.first.second; i++) {
             coordenada_t coord(i, j);
-            dst.SetX(j * LENGTH_TILE);
-            dst.SetY(i * LENGTH_TILE);
+            dst.SetX(j * LENGTH_TILE + map_center.first);
+            dst.SetY(i * LENGTH_TILE + map_center.second);
             uint8_t type = this->terrain.second.at(k);
             addTerrain(coord, dst, type);
             k++;

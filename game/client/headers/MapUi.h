@@ -26,7 +26,7 @@ using namespace SDL2pp;
 
 class MapUi {
 private:
-    Rect dst;
+    coordenada_t map_center;
     TerrainRepository terrainRepo;
     Renderer& rdr;
     Texture ground;
