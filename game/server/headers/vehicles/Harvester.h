@@ -10,10 +10,13 @@ private:
 
 public:
     Harvester(int id, coordenada_t coord);
+    Harvester(int id, unsigned int spice, coordenada_t coord);
 
     void harvest(ServerCell *cell);
 
     std::shared_ptr<Vehicle> copy() override;
+
+    unsigned int getSpice() const;
 };
 
 #endif  // HARVESTER_H_

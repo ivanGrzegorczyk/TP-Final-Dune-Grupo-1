@@ -5,6 +5,10 @@ Harvester::Harvester(int id, coordenada_t coord) :
         Vehicle(id, HARVESTER_HP, HARVESTER_RANGE,
                 HARVESTER_SPEED, VEHICLE_HARVESTER, HARVESTER_COST, coord), spice(0) {}
 
+Harvester::Harvester(int id, unsigned int spice, coordenada_t coord) :
+        Vehicle(id, HARVESTER_HP, HARVESTER_RANGE,
+                HARVESTER_SPEED, VEHICLE_HARVESTER, HARVESTER_COST, coord), spice(spice) {}
+
 void Harvester::harvest(ServerCell *cell) {
     try {
         if (spice < 200)
@@ -16,7 +20,12 @@ void Harvester::harvest(ServerCell *cell) {
 }
 
 std::shared_ptr<Vehicle> Harvester::copy() {
-    auto copy = std::make_shared<Harvester>(this->getId(), this->getPosition());
+    auto copy = std::make_shared<Harvester>(
+            this->getId(), this->getSpice(), this->getPosition());
 
     return copy;
+}
+
+unsigned int Harvester::getSpice() const {
+    return spice;
 }

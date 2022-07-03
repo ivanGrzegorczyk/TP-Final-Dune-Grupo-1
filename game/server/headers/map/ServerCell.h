@@ -10,11 +10,13 @@
 
 #include "server/headers/buildings/Building.h"
 #include "server/headers/units/Unit.h"
+#include "common/headers/Chronometer.h"
 
 class ServerCell {
 public:
     coordenada_t coords;
     bool occupied;
+    Chronometer chronometer;
 
     ServerCell();
     explicit ServerCell(coordenada_t coord);
