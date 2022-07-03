@@ -150,6 +150,7 @@ void ServerMap::addSnapshotData(Snapshot &snapshot) {
         player.addUnitData(snapshot);
         player.addBuildingData(snapshot);
         player.addVehicleData(snapshot);
+        player.addDeadUnitData(snapshot);
     }
 }
 

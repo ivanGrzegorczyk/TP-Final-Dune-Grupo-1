@@ -74,7 +74,7 @@ void ThClient::repositionUnit() {
 void ThClient::spawnUnit() {
     uint16_t unit;
     coordenada_t position;
-    protocol.getEnityData(unit, position);
+    protocol.getEntityData(unit, position);
     ServerEvent *event = new SpawnUnitEvent(playerId, unit, position);
     protectedQueue.push(event);
 }
@@ -82,7 +82,7 @@ void ThClient::spawnUnit() {
 void ThClient::createBuilding() {
     uint16_t building;
     coordenada_t position;
-    protocol.getEnityData(building, position);
+    protocol.getEntityData(building, position);
     ServerEvent *event = new CreateBuildingEvent(playerId, building, position);
     protectedQueue.push(event);
 }

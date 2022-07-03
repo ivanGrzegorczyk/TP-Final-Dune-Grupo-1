@@ -125,6 +125,14 @@ void Player::addVehicleData(Snapshot &snapshot) {
     }
 }
 
+void Player::addDeadUnitData(Snapshot &snapshot) {
+    for (auto const& [unitId, dead_unit] : dead_units) {
+        auto unit = dead_unit->copy();
+        snapshot.addDeadUnit(playerId, unit);
+    }
+    dead_units.clear();
+}
+
 std::map<int, std::shared_ptr<Unit>> *Player::getUnits() {
     return &units;
 }
@@ -155,7 +163,10 @@ double Player::calculateDistance(coordenada_t unit1, coordenada_t unit2) {
 }
 
 void Player::kill(int unitId) {
-    units.erase(unitId);
+    if (units.find(unitId) != units.end()) {
+        dead_units[unitId] = std::move(units[unitId]);
+        units.erase(unitId);
+    }
 }
 
 bool Player::owns(int unitId) {

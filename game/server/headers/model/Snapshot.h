@@ -14,6 +14,7 @@ private:
     std::map<int, std::vector<std::shared_ptr<Unit>>> units;
     std::map<int, std::vector<std::shared_ptr<Building>>> buildings;
     std::map<int, std::vector<std::shared_ptr<Vehicle>>> vehicles;
+    std::map<int, std::vector<std::shared_ptr<Unit>>> dead_units;
 
 public:
     const std::vector<int> & getPlayers();
@@ -24,6 +25,8 @@ public:
 
     const std::vector<std::shared_ptr<Vehicle>> & getVehicles(int playerId);
 
+    const std::vector<std::shared_ptr<Unit>> & getDeadUnits(int playerId);
+
     void addPlayer(int playerId);
 
     void addUnit(int playerId, const std::shared_ptr<Unit> &unit);
@@ -31,6 +34,8 @@ public:
     void addBuilding(int playerId, const std::shared_ptr<Building> &building);
 
     void addVehicle(int playerId, const std::shared_ptr<Vehicle> &vehicle);
+
+    void addDeadUnit(int playerId, const std::shared_ptr<Unit> &dead_unit);
 };
 
 #endif  // SNAPSHOT_H_

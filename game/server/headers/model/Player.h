@@ -16,6 +16,7 @@ private:
     int house;
     int money;
     std::map<int, std::shared_ptr<Unit>> units;
+    std::map<int, std::shared_ptr<Unit>> dead_units;
     std::map<int, std::shared_ptr<Building>> buildings;
     std::map<int, std::shared_ptr<Vehicle>> vehicles;
 
@@ -41,6 +42,8 @@ public:
     void addBuildingData(Snapshot &snapshot);
 
     void addVehicleData(Snapshot &snapshot);
+
+    void addDeadUnitData(Snapshot &snapshot);
 
     int getClosestUnitId(coordenada_t position, unsigned int range);
 

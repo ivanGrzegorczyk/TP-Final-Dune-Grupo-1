@@ -16,6 +16,10 @@ const std::vector<std::shared_ptr<Vehicle>> &Snapshot::getVehicles(int playerId)
     return vehicles[playerId];
 }
 
+const std::vector<std::shared_ptr<Unit>> &Snapshot::getDeadUnits(int playerId) {
+    return dead_units[playerId];
+}
+
 void Snapshot::addPlayer(const int playerId) {
     players.push_back(playerId);
 }
@@ -30,4 +34,8 @@ void Snapshot::addBuilding(int playerId, const std::shared_ptr<Building> &buildi
 
 void Snapshot::addVehicle(int playerId, const std::shared_ptr<Vehicle> &vehicle) {
     vehicles[playerId].push_back(vehicle);
+}
+
+void Snapshot::addDeadUnit(int playerId, const std::shared_ptr<Unit> &dead_unit) {
+    dead_units[playerId].push_back(dead_unit);
 }

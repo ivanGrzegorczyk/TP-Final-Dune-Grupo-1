@@ -16,11 +16,17 @@ private:
     Socket socket;
     std::atomic<bool> socket_closed;
 
+    void sendUnitData(std::vector<std::shared_ptr<Unit>> &units);
+    void sendBuildingData(std::vector<std::shared_ptr<Building>> &buildings);
+    void sendVehicleData(std::vector<std::shared_ptr<Vehicle>> &vehicles);
+    void sendDeadUnitsData(std::vector<std::shared_ptr<Unit>> &units);
+
 public:
     explicit ServerProtocol(const std::string& host);
-    explicit ServerProtocol(Socket &&peer);
 
+    explicit ServerProtocol(Socket &&peer);
     Socket accept();
+
     void shutdown(int how);
 
     /**
@@ -40,17 +46,11 @@ public:
 
     void assignPlayerId(int id);
 
-    void getEnityData(uint16_t &type, coordenada_t &position);
+    void getEntityData(uint16_t &type, coordenada_t &position);
 
     void sendSnapshot(Snapshot &snapshot);
 
     void sendTerrain(int y_size, int x_size, std::vector<uint8_t> &terrain);
-
-    void sendUnitData(std::vector<std::shared_ptr<Unit>> &units);
-
-    void sendBuildingData(std::vector<std::shared_ptr<Building>> &buildings);
-
-    void sendVehicleData(std::vector<std::shared_ptr<Vehicle>> &vehicles);
 
     void getAttackingData(int &id, int &unitId);
 };

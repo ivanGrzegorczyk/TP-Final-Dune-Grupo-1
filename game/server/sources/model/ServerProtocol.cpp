@@ -42,7 +42,7 @@ void ServerProtocol::getRelocationData
     goal.second = ntohs(goal_x);
 }
 
-void ServerProtocol::getEnityData(uint16_t &type, coordenada_t &position) {
+void ServerProtocol::getEntityData(uint16_t &type, coordenada_t &position) {
     uint16_t aux;
     socket.recvall(&aux, sizeof(aux));
     type = ntohs(aux);
@@ -72,10 +72,12 @@ void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
         std::vector<std::shared_ptr<Unit>> units = snapshot.getUnits(playerId);
         std::vector<std::shared_ptr<Building>> buildings = snapshot.getBuildings(playerId);
         std::vector<std::shared_ptr<Vehicle>> vehicles = snapshot.getVehicles(playerId);
+        std::vector<std::shared_ptr<Unit>> dead_units = snapshot.getDeadUnits(playerId);
 
         sendUnitData(units);
         sendBuildingData(buildings);
         sendVehicleData(vehicles);
+        sendDeadUnitsData(dead_units);
     }
 }
 
@@ -146,6 +148,26 @@ void ServerProtocol::sendVehicleData(std::vector<std::shared_ptr<Vehicle>> &vehi
 
         socket.sendall(&type, sizeof(type));
         socket.sendall(&vehicleId, sizeof(vehicleId));
+        socket.sendall(&position_x, sizeof(position_x));
+        socket.sendall(&position_y, sizeof(position_y));
+    }
+}
+
+void ServerProtocol::sendDeadUnitsData(std::vector<std::shared_ptr<Unit>> &dead_units) {
+    uint8_t eventType = DEAD;
+    socket.sendall(&eventType, sizeof(eventType));
+    uint16_t amount = htons(dead_units.size());
+    socket.sendall(&amount, sizeof(amount));
+
+    for (const auto& unit : dead_units) {
+        uint8_t type = unit->getType();
+        uint16_t position_x = unit->getPosition().second;
+        uint16_t position_y = unit->getPosition().first;
+
+        position_x = htons(position_x);
+        position_y = htons(position_y);
+
+        socket.sendall(&type, sizeof(type));
         socket.sendall(&position_x, sizeof(position_x));
         socket.sendall(&position_y, sizeof(position_y));
     }
