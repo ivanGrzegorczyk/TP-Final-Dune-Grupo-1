@@ -54,6 +54,7 @@ void Client::run() {
 
 void Client::ProcessInput() {
     int x, y;
+    bool g = false;
     SDL_Event event;
     Request* req = nullptr;
     while (running && SDL_PollEvent(&event)) {
@@ -81,11 +82,13 @@ void Client::ProcessInput() {
                     //int x, y;
                     x = event.button.x;
                     y = event.button.y;
-                    req = mapUi.clickScreen(x,y,this->clientId);
-                    sendQueue.push(req);
+                    mapUi.clickOverGui(x, y, clientId);
+                    for(auto request: mapUi.clickScreen(x, y,this->clientId)){
+                        std::cout << "PUSHEOOOOOO" << std::endl;
+                        sendQueue.push(req);
+                    }
                 }
                 else if(event.button.button == SDL_BUTTON_LEFT) {
-                    //int x, y;
                     x = event.button.x;
                     y = event.button.y;
                     std::cout << "left click" << std::endl;
@@ -93,6 +96,12 @@ void Client::ProcessInput() {
                     sendQueue.push(req);
                     break;
                 }
+            case SDL_MOUSEMOTION:
+                case SDL_MOUSEBUTTONDOWN:
+                    if(event.button.button == SDL_BUTTON_LEFT) {
+                        SDL_GetMouseState(&x, &y);
+                        req =  mapUi.mouseEvent(event, clientId);
+                    }
             default:
                 break;
         }

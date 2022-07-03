@@ -80,12 +80,14 @@ Request* MapUi::mouseEvent(SDL_Event event, int playerId) {
     return nullptr;
 }
 
-// todo take type of click as input or specify it in function name
-Request* MapUi::clickScreen(int x, int y, int playerId) {
+Request* MapUi::clickOverGui(int x, int y, int playerId) {
     if(gui.isOverPoint(x,y)) {
         gui.clickOver(x,y);
         return nullptr;
     }
+}
+// todo take type of click as input or specify it in function name
+std::vector<Request*> MapUi::clickScreen(int x, int y, int playerId) {
     //TODO make proper math to translate click coordinate to map coordinate
     return this->moveCharacter(x/LENGTH_TILE,y/LENGTH_TILE,playerId);
 }
@@ -105,17 +107,17 @@ std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
 }
 
 //TODO move multiple units at once!
-Request* MapUi::moveCharacter(int x, int y, int playerId) {
-    Request *request;
+std::vector<Request*> MapUi::moveCharacter(int x, int y, int playerId) {
+    std::vector<Request*> r;
     std::cout << "units: " <<units.size() << std::endl;
     for (auto const& unit : units) {
-        request = unit.second->walkEvent(x, y);
+        Request* request = unit.second->walkEvent(x, y);
         if (request != nullptr) {
-            std::cout << "moved characer" << std::endl;
-            return request;
+            std::cout << "request in vector" << std::endl;
+            r.push_back(request);
         } 
     }
-    return nullptr;
+    return r;
 }
 
 void MapUi::addRocks(coordenada_t coord, Rect destination) {
