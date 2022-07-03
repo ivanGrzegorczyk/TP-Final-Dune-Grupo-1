@@ -21,7 +21,6 @@
 #include <memory>
 #include "client/headers/BuildingFactory.h"
 #include "../headers/character.h"
-#define LENGTH_TILE 16
 using namespace SDL2pp;
 
 class MapUi {

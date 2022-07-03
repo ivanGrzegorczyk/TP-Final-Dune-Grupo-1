@@ -18,8 +18,8 @@ void character::render() {
     } else {
         normalColor();
     }
-    current.SetX(coord.first * 8);
-    current.SetY(coord.second * 8);
+    current.SetX(coord.first * LENGTH_TILE);
+    current.SetY(coord.second * LENGTH_TILE);
     current.SetW(24);
     current.SetH(32);
 
@@ -54,9 +54,7 @@ void character::notify(SDL_Event event) {
 }
 
 bool character::walkEvent(int x, int y) {
-    std::cout << "getting walk event!" << std::endl;
     if(!selected) {
-        std::cout << "not selected lmfao!" << std::endl;
         return false;
     }
     if (!contains(x, y)) {

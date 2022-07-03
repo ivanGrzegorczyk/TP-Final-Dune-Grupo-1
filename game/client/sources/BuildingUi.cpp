@@ -26,7 +26,7 @@ BuildingUi::BuildingUi(
         renderer(rdr), 
         coord(coord) {
             Point _pos(coord.first, coord.second);
-            _pos = _pos * 8 + map_center;
+            _pos = _pos * LENGTH_TILE + map_center;
             Rect _location(_pos, size);
             location = _location;
         }
