@@ -44,13 +44,13 @@ public:
     explicit MapUi(Renderer& renderer);
     ~MapUi();
     void draw();
-    Request* mouseEvent(SDL_Event event, int playerId);
+    void mouseEvent(SDL_Event event, int playerId);
     void update(Response *response);
     void receiveMap(std::shared_ptr<Protocol> protocol);
     void render();
 
-    Request* clickScreen(int x, int y, int playerId);
-    Request* moveCharacter(int x, int y, int playerId);
+    std::vector<Request*> clickScreen(int x, int y, int playerId);
+    std::vector<Request*> moveCharacter(int x, int y, int playerId);
 
     void addRocks(coordenada_t coord, Rect destination);
     void addSand(coordenada_t coord, Rect destination);

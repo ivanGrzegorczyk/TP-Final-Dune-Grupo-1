@@ -68,7 +68,7 @@ void MapUi::render() {
 }
 
 // TODO: select with left click
-Request* MapUi::mouseEvent(SDL_Event event, int playerId) {
+void MapUi::mouseEvent(SDL_Event event, int playerId) {
     for (auto const& unit : units) {
         if(unit.second->playerId == playerId) {
             if(unit.second->contains(event.button.x, event.button.y)) {
@@ -77,17 +77,16 @@ Request* MapUi::mouseEvent(SDL_Event event, int playerId) {
             }
         }
     }
-    return nullptr;
 }
 
 // todo take type of click as input or specify it in function name
-Request* MapUi::clickScreen(int x, int y, int playerId) {
+std::vector<Request*> MapUi::clickScreen(int x, int y, int playerId) {
     if(gui.isOverPoint(x,y)) {
         gui.clickOver(x,y);
-        return nullptr;
+        return {};
     }
     //TODO make proper math to translate click coordinate to map coordinate
-    return this->moveCharacter(x/LENGTH_TILE,y/LENGTH_TILE,playerId);
+    return this->moveCharacter(x/LENGTH_TILE,y/LENGTH_TILE, playerId); // TODO devolver un vector
 }
 
 // TODO use map instead of find if
@@ -105,17 +104,32 @@ std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
 }
 
 //TODO move multiple units at once!
-Request* MapUi::moveCharacter(int x, int y, int playerId) {
-    Request *request;
+std::vector<Request*> MapUi::moveCharacter(int x, int y, int playerId) { //(x, y) posicion del enemigo o de un lugar del mapa
+    std::vector<Request*> requests;
     std::cout << "units: " <<units.size() << std::endl;
+    //recorrer para saber si es enemigo
+    int id = INVALID_ENTITY_ID; //id de un enemigo
+    for(auto const& unit : units) {
+        if(unit.second->contains(x, y) && unit.second->playerId != playerId) {
+           id = unit.second->getId();
+        }
+    }
+
     for (auto const& unit : units) {
-        request = unit.second->walkEvent(x, y);
+        Request *request;
+        if(id != INVALID_ENTITY_ID) {
+            request = unit.second->attackEvent(id);
+        } else {
+            request = unit.second->walkEvent(x, y);
+        }
+        //request = unit.second->walkEvent(x, y, id); //cambiar nombre (puede ser solicitud de caminar o de atacar)
         if (request != nullptr) {
             std::cout << "moved characer" << std::endl;
-            return request;
+            requests.emplace_back(request);
+            //return request;
         } 
     }
-    return nullptr;
+    return requests;
 }
 
 void MapUi::addRocks(coordenada_t coord, Rect destination) {
