@@ -158,6 +158,7 @@ void Protocol::deserializeEvents(uint16_t playerId, Response* response) {
 void Protocol::receiveEntityInfo(int &entityType, int &entityId, int &coordX, int &coordY) {
     uint8_t type; uint16_t idEntity;
     uint16_t posX; uint16_t posY;
+    uint8_t attacking;
 
     skt.recvall(&type, sizeof(type));
     skt.recvall(&idEntity, sizeof(idEntity));
