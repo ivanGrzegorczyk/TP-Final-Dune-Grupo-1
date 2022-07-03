@@ -125,17 +125,7 @@ void MapUi::draw() {
             dst.SetX(j * LENGTH_TILE);
             dst.SetY(i * LENGTH_TILE);
             uint8_t type = this->terrain.second.at(k);
-            if(type == TERRAIN_ROCKS) {
-                addRocks(coord, dst);
-            } else if(type == TERRAIN_CLIFFS) {
-                addCliff(coord, dst);
-            } else if(type == TERRAIN_TOPS) {
-                addTop(coord, dst);
-            } else if(type == TERRAIN_DUNES) {
-                addDune(coord, dst);
-            } else {
-                addSand(coord, dst);
-            }
+            addTerrain(coord, dst, type);
             k++;
         }
    }
@@ -200,45 +190,20 @@ Request* MapUi::moveCharacter(int x, int y, int playerId) {
     return nullptr;
 }
 
-void MapUi::addRocks(coordenada_t coord, Rect destination) {
+void MapUi::addTerrain(coordenada_t coord, Rect destination, int terrainId) {
    // Rect rockRect(100, 220, 8, 8);
-   SDL2pp::Texture &r =  terrainRepo.getTileOf(TERRAIN_ROCKS);
-   Rect rockRect(0,0,16,16);
-   CeldaUi cell(r, coord, destination, rockRect);
-    map.push_back(cell);
+   try {
+        SDL2pp::Texture &r =  terrainRepo.getTileOf(terrainId);
+        Rect rockRect(0,0,16,16);
+        CeldaUi cell(r, coord, destination, rockRect);
+        map.push_back(cell);
+   } catch(std::exception e) {
+       std::cout << "terrain error:" << e.what() << std::endl;
+   }
 }
-
-void MapUi::addSand(coordenada_t coord, Rect destination) {
-    Rect sandRect(0, 0, 16, 16);
-    SDL2pp::Texture &s =  terrainRepo.getTileOf(TERRAIN_SAND);
-    CeldaUi cell(s, coord, destination, sandRect);
-    map.push_back(cell);
-}
-
 
 std::shared_ptr<BuildingType> MapUi::selectedBuilding() {
     return gui.getBuildingToBuild();
-}
-
-void MapUi::addCliff(coordenada_t coord, Rect destination) {
-    Rect cliffRect(0, 0, 16, 16);
-    SDL2pp::Texture &s =  terrainRepo.getTileOf(TERRAIN_CLIFFS);
-    CeldaUi cell(s, coord, destination, cliffRect);
-    map.push_back(cell);
-}
-
-void MapUi::addTop(coordenada_t coord, Rect destination) {
-    Rect topRect(0, 0, 16, 16);
-    SDL2pp::Texture &top =  terrainRepo.getTileOf(TERRAIN_TOPS);
-    CeldaUi cell(top, coord, destination, topRect);
-    map.push_back(cell);
-}
-
-void MapUi::addDune(coordenada_t coord, Rect destination) {
-    Rect duneRect(0, 0, 16, 16);
-    SDL2pp::Texture &d =  terrainRepo.getTileOf(TERRAIN_DUNES);
-    CeldaUi cell(d, coord, destination, duneRect);
-    map.push_back(cell);
 }
 
 MapUi::~MapUi() = default;

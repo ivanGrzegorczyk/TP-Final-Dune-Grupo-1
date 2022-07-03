@@ -58,11 +58,7 @@ public:
     void updateBuilding(int playerId, int buildingId,  std::shared_ptr<BuildingType> type, coordenada_t coord) ;
     void updateUnits(int player, int type, int characterId, coordenada_t coord);
 
-    void addRocks(coordenada_t coord, Rect destination);
-    void addSand(coordenada_t coord, Rect destination);
-    void addCliff(coordenada_t coord, Rect destination);
-    void addTop(coordenada_t coord, Rect destination);
-    void addDune(coordenada_t coord, Rect destination);
+    void addTerrain(coordenada_t coord, Rect destination, int terrainId);
 };
 
 
