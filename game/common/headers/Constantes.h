@@ -5,7 +5,7 @@
 
 typedef std::pair<int, int> coordenada_t;
 // CONSTANTES DESPUES VAN EN EL YAML
-#define INVALID_ENTITY_ID (-1)
+#define INVALID_ENTITY_ID 0
 
 #define EVENTS 3
 //tipo de respuestas

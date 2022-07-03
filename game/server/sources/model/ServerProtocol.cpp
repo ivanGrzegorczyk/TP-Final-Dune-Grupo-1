@@ -94,16 +94,24 @@ void ServerProtocol::sendUnitData(std::vector<std::shared_ptr<Unit>> &units) {
         uint16_t position_x = unit->getPosition().second;
         uint16_t position_y = unit->getPosition().first;
         uint8_t attacking = unit->isAttacking() ? 1 : 0;
+        uint16_t target;
+
+        if (attacking == 1)
+            target = unit->getTarget().second;
+        else
+            target = INVALID_ENTITY_ID;
 
         unitId = htons(unitId);
         position_x = htons(position_x);
         position_y = htons(position_y);
+        target = htons(target);
 
         socket.sendall(&type, sizeof(type));
         socket.sendall(&unitId, sizeof(unitId));
         socket.sendall(&position_x, sizeof(position_x));
         socket.sendall(&position_y, sizeof(position_y));
         socket.sendall(&attacking, sizeof(attacking));
+        socket.sendall(&target, sizeof(target));
     }
 }
 
