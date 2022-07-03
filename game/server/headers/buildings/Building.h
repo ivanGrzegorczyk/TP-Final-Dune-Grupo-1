@@ -2,10 +2,10 @@
 #define BUILDING_H_
 
 #include <memory>
-#include "common/headers/Entity.h"
+#include "server/headers/model/ServerEntity.h"
 #include "common/headers/Constantes.h"
 
-class Building: public Entity {
+class Building: public ServerEntity {
 protected:
     unsigned int energy;
     unsigned int cost;

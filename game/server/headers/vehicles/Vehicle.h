@@ -2,9 +2,9 @@
 #define VEHICLE_H_
 
 #include <memory>
-#include "common/headers/Entity.h"
+#include "server/headers/model/ServerEntity.h"
 
-class Vehicle : public Entity {
+class Vehicle : public ServerEntity {
 protected:
     unsigned int range;
     unsigned int speed;

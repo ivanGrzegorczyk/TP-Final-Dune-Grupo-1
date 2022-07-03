@@ -7,7 +7,7 @@
 #include <atomic>
 
 #include "common/headers/Socket.h"
-#include "common/headers/Entity.h"
+#include "ServerEntity.h"
 #include "common/headers/Constantes.h"
 #include "Snapshot.h"
 

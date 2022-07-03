@@ -5,7 +5,7 @@
 Unit::Unit(int id, unsigned int hp, unsigned int range,
            unsigned int speed, int type, unsigned int cost, Weapon * weapon,
            coordenada_t coord) :
-        Entity(id, hp, type, coord), range(range), speed(speed), cost(cost), weapon(weapon), target(0, 0) {}
+        ServerEntity(id, hp, type, coord), range(range), speed(speed), cost(cost), weapon(weapon), target(0, 0) {}
 
 void Unit::setPath(std::stack<coordenada_t> _path) {
     this->path = std::move(_path);
@@ -55,15 +55,4 @@ std::pair<int, int> Unit::getTarget() {
 void Unit::stopMoving() {
     for (int i = 0; i < path.size(); i++)
         path.pop();
-}
-
-bool Unit::receiveDamage(unsigned int damage) {
-    if (damage < HP) {
-        HP -= damage;
-    } else {
-      HP = 0;
-      return true;
-    }
-
-    return false;
 }

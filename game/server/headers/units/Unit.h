@@ -5,12 +5,12 @@
 #include <stack>
 #include <memory>
 
-#include "common/headers/Entity.h"
+#include "server/headers/model/ServerEntity.h"
 #include "common/headers/Constantes.h"
 class Weapon;
 #include "server/headers/weapons/Weapon.h"
 
-class Unit: public Entity {  // abstracta
+class Unit: public ServerEntity {  // abstracta
 protected:
     unsigned int range;
     unsigned int speed;
@@ -37,13 +37,12 @@ public:
 
     bool hasTarget() const;
 
-    bool attack(std::shared_ptr<Unit> &enemy);
-
     std::pair<int, int> getTarget();
 
     void stopMoving();
 
-    bool receiveDamage(unsigned int damage);
+    // TODO ataque polimorfico a entidades
+    bool attack(std::shared_ptr<Unit> &enemy);
 };
 
 #endif  // UNITY_H_

@@ -2,7 +2,7 @@
 #define REPOSITIONEVENT_H_
 
 #include <utility>
-#include "../../../common/headers/Entity.h"
+#include "server/headers/model/ServerEntity.h"
 #include "ServerEvent.h"
 
 class RepositionEvent : public ServerEvent {
