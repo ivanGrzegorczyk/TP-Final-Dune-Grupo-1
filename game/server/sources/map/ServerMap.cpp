@@ -119,8 +119,15 @@ void ServerMap::unitCheck() {
         auto units = player.getUnits();
         for (auto & [unitId, unit] : *units) {
             if (unit->hasTarget()) {
-                coordenada_t coord = players[unit->getTarget().first].getUnit(unit->getTarget().second)->getPosition();
-                if (player.calculateDistance(unit->getPosition(), coord) > (double)unit->getRange()) {
+                coordenada_t coord;
+                try {
+                     coord = players[unit->getTarget().first].getUnit(unit->getTarget().second)->getPosition();
+                } catch (const std::runtime_error &e) {
+                    unit->setTarget(0, 0);
+                    unit->stopMoving();
+                    continue;
+                }
+                if (player.calculateDistance(unit->getPosition(), coord) > (double) unit->getRange()) {
                     reposition(playerId, unitId, coord, false);
                     unit->relocate();
                 } else {

@@ -85,7 +85,10 @@ void Player::addBuilding(
 }
 
 std::shared_ptr<Unit> &Player::getUnit(int unitId) {
-    return units.at(unitId);
+    if (units.find(unitId) != units.end())
+        return units.at(unitId);
+    else
+        throw std::runtime_error("Player does not contain unit");
 }
 
 std::shared_ptr<Building> Player::getBuilding(int buildingId) {
