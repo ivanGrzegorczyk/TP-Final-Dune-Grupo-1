@@ -10,13 +10,17 @@ unsigned int SandCell::harvest() {
     if (spice <= 0)
         throw std::runtime_error("No spice on cell");
 
+    if (chronometer.tack() < 1000000)
+        return 0;
+
     unsigned int harvested;
-    if (spice < 200) {
+    if (spice < 10) {
         harvested = spice;
         spice = 0;
     } else {
-        spice -= 200;
-        harvested = 200;
+        spice -= 10;
+        harvested = 10;
+        chronometer.tick();
     }
 
     return harvested;

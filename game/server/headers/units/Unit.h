@@ -5,19 +5,17 @@
 #include <stack>
 #include <memory>
 
-#include "server/headers/model/ServerEntity.h"
 #include "common/headers/Constantes.h"
+#include "server/headers/model/MovableEntity.h"
 class Weapon;
 #include "server/headers/weapons/Weapon.h"
 
-class Unit: public ServerEntity {  // abstracta
+class Unit: public MovableEntity {  // abstracta
 protected:
     unsigned int range;
-    unsigned int speed;
     unsigned int cost;
     Weapon *weapon;
     std::pair<int, int> target;
-    std::stack<coordenada_t> path;
     bool attacking;
 
 public:
@@ -25,20 +23,18 @@ public:
          int type, unsigned int cost, Weapon * weapon, coordenada_t coord);
     Unit(int id, unsigned int hp, unsigned int range, unsigned int speed,
          int type, unsigned int cost, Weapon * weapon, coordenada_t coord, bool attacking);
-    void setPath(std::stack<coordenada_t> _path);
-    void setPosition(coordenada_t newPosition);
-    coordenada_t relocate();
+
     virtual std::shared_ptr<Unit> copy() = 0;
 
     virtual ~Unit() = default;
-
-    bool isStill();
 
     unsigned int getRange() const;
 
     void setTarget(int enemyId, int _target);
 
     bool hasTarget() const;
+
+    void setPosition(coordenada_t newPosition);
 
     std::pair<int, int> getTarget();
 
