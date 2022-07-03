@@ -33,6 +33,10 @@ public:
     void setTarget(int _target);
 
     bool hasTarget();
+
+    coordenada_t getGoal();
+
+    coordenada_t getNextPosition();
 };
 
 #endif  // UNITY_H_

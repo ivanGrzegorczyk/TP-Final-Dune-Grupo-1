@@ -36,8 +36,6 @@ public:
 
     std::map<int, std::shared_ptr<Unit>>* getUnits();
 
-    void updateUnitsPosition(std::vector<std::vector<ServerCell *>> &map);
-
     void addUnitData(Snapshot &snapshot);
 
     void addBuildingData(Snapshot &snapshot);
