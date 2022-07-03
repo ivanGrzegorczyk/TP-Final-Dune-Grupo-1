@@ -47,6 +47,8 @@ public:
     double calculateDistance(coordenada_t unit1, coordenada_t unit2);
 
     void kill(int unitId);
+
+    bool owns(int unitId);
 };
 
 #endif  // PLAYER_H_

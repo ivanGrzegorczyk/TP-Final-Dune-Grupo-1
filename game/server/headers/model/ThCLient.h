@@ -23,6 +23,7 @@ private:
     void repositionUnit();
     void spawnUnit();
     void createBuilding();
+    void attackEnemy();
 
 protected:
 

@@ -162,3 +162,11 @@ void ServerProtocol::sendTerrain(int y_size, int x_size, std::vector<uint8_t> &t
         socket.sendall(&ground, sizeof(ground));
     }
 }
+
+void ServerProtocol::getAttackingData(int &unitId, int &enemyId) {
+    uint16_t id;
+    socket.recvall(&id, sizeof(id));
+    unitId = htons(id);
+    socket.recvall(&id, sizeof(id));
+    enemyId = htons(id);
+}

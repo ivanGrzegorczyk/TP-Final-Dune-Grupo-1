@@ -154,3 +154,10 @@ double Player::calculateDistance(coordenada_t unit1, coordenada_t unit2) {
 void Player::kill(int unitId) {
     units.erase(unitId);
 }
+
+bool Player::owns(int unitId) {
+    if (units.find(unitId) == units.end())
+        return false;
+    else
+        return true;
+}

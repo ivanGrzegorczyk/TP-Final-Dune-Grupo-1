@@ -49,6 +49,9 @@ public:
 
     int getColumns() const;
 
+    void attackEnemy(int playerId, int unitId, int enemyId);
+
+    int findPlayerByUnitId(int unitId);
 };
 
 #endif  // SERVERMAP_H_

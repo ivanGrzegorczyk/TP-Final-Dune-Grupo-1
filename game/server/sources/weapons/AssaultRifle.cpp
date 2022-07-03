@@ -1,4 +1,3 @@
-#include <iostream>
 #include "server/headers/weapons/AssaultRifle.h"
 #include "common/headers/Constantes.h"
 

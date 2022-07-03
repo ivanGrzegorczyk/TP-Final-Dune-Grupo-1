@@ -5,6 +5,7 @@
 #include "server/headers/events/RepositionEvent.h"
 #include "server/headers/events/SpawnUnitEvent.h"
 #include "server/headers/events/CreateBuildingEvent.h"
+#include "server/headers/events/AttackEnemyEvent.h"
 
 ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id, int rows, int columns, std::vector<uint8_t> &terrain):
         protectedQueue(protectedQueue), keep_talking(true), is_running(true),
@@ -49,6 +50,9 @@ void ThClient::manageCommand(int command) {
             createBuilding();
             break;
         }
+        case ATTACKING_EVENT: {
+            attackEnemy();
+        }
         default: {
             throw std::runtime_error("Unknown command: " + std::to_string(command));
         }
@@ -80,5 +84,12 @@ void ThClient::createBuilding() {
     coordenada_t position;
     protocol.getEnityData(building, position);
     ServerEvent *event = new CreateBuildingEvent(playerId, building, position);
+    protectedQueue.push(event);
+}
+
+void ThClient::attackEnemy() {
+    int unitId, enemyId;
+    protocol.getAttackingData(unitId, enemyId);
+    ServerEvent *event = new AttackEnemyEvent(playerId, unitId, enemyId);
     protectedQueue.push(event);
 }

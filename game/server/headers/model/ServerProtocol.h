@@ -51,6 +51,8 @@ public:
     void sendBuildingData(std::vector<std::shared_ptr<Building>> &buildings);
 
     void sendVehicleData(std::vector<std::shared_ptr<Vehicle>> &vehicles);
+
+    void getAttackingData(int &id, int &unitId);
 };
 
 #endif  // SERVERPROTOCOL_H_

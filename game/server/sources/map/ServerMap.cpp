@@ -220,3 +220,17 @@ void ServerMap::build(int playerId, coordenada_t &position, int buildingType, in
         entityId++;
     }
 }
+
+void ServerMap::attackEnemy(int playerId, int unitId, int enemyId) {
+    int enemyPlayer = findPlayerByUnitId(enemyId);
+    if (enemyPlayer >= 0 && enemyPlayer != playerId)
+        players.at(playerId).getUnit(unitId)->setTarget(enemyPlayer, enemyId);
+}
+
+int ServerMap::findPlayerByUnitId(int unitId) {
+    for (auto & [playerId, player] : players) {
+        if (player.owns(unitId))
+            return playerId;
+    }
+    return -1;
+}
