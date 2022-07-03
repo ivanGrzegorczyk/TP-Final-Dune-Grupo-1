@@ -1,6 +1,7 @@
 #include "../headers/character.h"
 
 void character::render() {
+    /*
     if(attackEffect > 0 && attackEffect % 2) {
         normalColor();
         texture->SetColorMod(0, 255, 0);
@@ -10,8 +11,9 @@ void character::render() {
         normalColor();
         texture->SetColorMod(255, 0, 0);
         hurtEffect--;
-    }
-    else if(selected) {
+    }*/
+    //else 
+    if(selected) {
         highlight();
     } else {
         normalColor();
@@ -40,15 +42,10 @@ void character::normalColor() {
 }
 
 void character::highlight() {
-    texture->SetColorMod(0, 0, 255);
+    texture->SetColorMod(100, 100, 255);
 }
 void character::setSelected(bool selected) {
     this->selected = selected;
-    if (selected) {
-        this->highlight();
-    } else {
-        this->normalColor();
-    }
 }
 void character::notify(SDL_Event event) {
     int x = event.button.x;
