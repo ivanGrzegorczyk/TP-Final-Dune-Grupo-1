@@ -40,6 +40,7 @@ private:
     std::unordered_map<int, std::shared_ptr<character>> units; //units to draw
     std::unordered_map<int, std::shared_ptr<character>> previous_units;
     std::vector<CeldaUi> map;
+    Point fromCell(coordenada_t coord);
 public:
     explicit MapUi(Renderer& renderer);
     ~MapUi();

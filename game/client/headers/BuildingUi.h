@@ -16,7 +16,6 @@ class BuildingUi : public Entity, SdlEntity, Damageable {
 private:
     std::shared_ptr<BuildingType> type;
     Renderer &renderer;
-    coordenada_t coord;
     Rect location;
 public:
     BuildingUi(
@@ -24,9 +23,8 @@ public:
         int buildingId,
         std::shared_ptr<BuildingType> type, 
         Renderer &rdr, 
-        coordenada_t coord, 
-        Point size,
-        Point map_center) ;
+        Point coord, 
+        Point size) ;
     void render() override;
     void update() override;
     bool contains(int x, int y) const;

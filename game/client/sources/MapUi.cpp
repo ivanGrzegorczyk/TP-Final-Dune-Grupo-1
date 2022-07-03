@@ -122,7 +122,7 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
 */
 void MapUi::updateBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
     Point size(50,50);
-    Point center(0,0);
+    Point location = fromCell(coord);
     buildings.insert(
         std::make_pair<int, std::shared_ptr<BuildingUi>>(
             int{buildingId}, 
@@ -132,9 +132,12 @@ void MapUi::updateBuilding(int player, int buildingId, std::shared_ptr<BuildingT
                     buildingId,
                     type, 
                     rdr, 
-                    coord, 
-                    size,
-                    center)))) ;
+                    location, 
+                    size)))) ;
+}
+
+Point MapUi::fromCell(coordenada_t coord) {
+    return Point(coord.first * LENGTH_TILE, coord.second * LENGTH_TILE);
 }
 
 void MapUi::receiveMap(std::shared_ptr<Protocol> protocol) {
