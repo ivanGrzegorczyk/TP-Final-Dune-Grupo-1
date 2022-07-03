@@ -44,12 +44,12 @@ public:
     explicit MapUi(Renderer& renderer);
     ~MapUi();
     void draw();
-    Request* mouseEvent(SDL_Event event, int playerId);
+    Request* leftClick(SDL_Event event, int playerId);
     void update(Response *response);
     void receiveMap(std::shared_ptr<Protocol> protocol);
     void render();
-
-    Request* clickScreen(int x, int y, int playerId);
+    Request* handleEvent(SDL_Event event, int playerId);
+    Request* rightClick(SDL_Event event, int playerId);
     Request* moveCharacter(int x, int y, int playerId);
     Request* damageBetween(int entity1, int entity2);
     void addRocks(coordenada_t coord, Rect destination);

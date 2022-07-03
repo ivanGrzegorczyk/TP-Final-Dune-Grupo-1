@@ -68,7 +68,20 @@ void MapUi::render() {
 }
 
 // TODO: select with left click
-Request* MapUi::mouseEvent(SDL_Event event, int playerId) {
+Request* MapUi::handleEvent(SDL_Event event, int playerId) {
+    Request* req;
+    if(event.button.button ==  SDL_BUTTON_RIGHT) {
+        req = rightClick(event,playerId);
+    } else if(event.button.button == SDL_BUTTON_LEFT) {
+        req =  leftClick(event, playerId);
+    } else {
+        req = nullptr;
+    }
+    return req;
+}
+
+// TODO: select with left click
+Request* MapUi::leftClick(SDL_Event event, int playerId) {
     for (auto const& unit : units) {
         if(unit.second->playerId == playerId) {
             if(unit.second->contains(event.button.x, event.button.y)) {
@@ -81,13 +94,14 @@ Request* MapUi::mouseEvent(SDL_Event event, int playerId) {
 }
 
 // todo take type of click as input or specify it in function name
-Request* MapUi::clickScreen(int x, int y, int playerId) {
-    if(gui.isOverPoint(x,y)) {
-        gui.clickOver(x,y);
+Request* MapUi::rightClick(SDL_Event event, int playerId) {
+    if(gui.isOverPoint(event.button.x, event.button.y)) {
+        gui.clickOver(event.button.x, event.button.y);
         return nullptr;
-    }
-    //TODO make proper math to translate click coordinate to map coordinate
-    return this->moveCharacter(x/LENGTH_TILE,y/LENGTH_TILE,playerId);
+    } else {
+        //TODO make proper math to translate click coordinate to map coordinate
+        return this->moveCharacter(event.button.x/LENGTH_TILE,event.button.y/LENGTH_TILE,playerId);
+    } 
 }
 
 // TODO use map instead of find if
@@ -107,11 +121,9 @@ std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
 //TODO move multiple units at once!
 Request* MapUi::moveCharacter(int x, int y, int playerId) {
     Request *request;
-    std::cout << "units: " <<units.size() << std::endl;
     for (auto const& unit : units) {
         request = unit.second->walkEvent(x, y);
         if (request != nullptr) {
-            std::cout << "moved characer" << std::endl;
             return request;
         } 
     }

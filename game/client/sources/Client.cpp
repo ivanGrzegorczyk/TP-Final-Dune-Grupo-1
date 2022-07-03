@@ -81,22 +81,11 @@ void Client::ProcessInput() {
                         break;
                 }
             case SDL_MOUSEBUTTONUP:
-                if(event.button.button ==  SDL_BUTTON_RIGHT) {
-                    //int x, y;
-                    x = event.button.x;
-                    y = event.button.y;
-                    req = mapUi.clickScreen(x,y,this->clientId);
+                req = mapUi.handleEvent(event, clientId);
+                if(req != nullptr) {
                     sendQueue.push(req);
                 }
-                else if(event.button.button == SDL_BUTTON_LEFT) {
-                    //int x, y;
-                    x = event.button.x;
-                    y = event.button.y;
-                    std::cout << "left click" << std::endl;
-                    req =  mapUi.mouseEvent(event, clientId);
-                    sendQueue.push(req);
-                    break;
-                }
+                break;
             default:
                 break;
         }
