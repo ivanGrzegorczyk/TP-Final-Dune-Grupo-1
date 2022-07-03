@@ -99,14 +99,14 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
                 req = this->moveCharacter(mouse_x/LENGTH_TILE,mouse_y/LENGTH_TILE,playerId);
             } 
         } else if(event.button.button == SDL_BUTTON_LEFT) {
-            leftClick(event, playerId);
+            selectUnits(event, playerId);
         }
     }
     return req;
 }
 
 // TODO: select with left click
-void MapUi::leftClick(SDL_Event event, int playerId) {
+void MapUi::selectUnits(SDL_Event event, int playerId) {
     for (auto const& unit : units) {
         if(unit.second->playerId == playerId) {
             if(unit.second->contains(event.button.x, event.button.y)) {
@@ -188,11 +188,7 @@ Request* MapUi::damageBetween(int entity1, int entity2) {
 /*
     Create new building on map
 */
-void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
-    auto found = buildings.find(buildingId);
-    if(found != buildings.end()) {
-        return;
-    }
+void MapUi::updateBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
     Point size(50,50);
     Point center(0,0);
     buildings.insert(

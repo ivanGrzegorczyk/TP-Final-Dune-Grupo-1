@@ -45,27 +45,23 @@ public:
     explicit MapUi(Renderer& renderer);
     ~MapUi();
     void draw();
-    void leftClick(SDL_Event event, int playerId);
+    void selectUnits(SDL_Event event, int playerId);
     void update(Response *response);
     void receiveMap(std::shared_ptr<Protocol> protocol);
     void render();
     Request* handleEvent(SDL_Event event, int playerId);
-    Request* rightClick(SDL_Event event, int playerId);
     Request* moveCharacter(int x, int y, int playerId);
     Request* damageBetween(int entity1, int entity2);
-    void addRocks(coordenada_t coord, Rect destination);
-    void addSand(coordenada_t coord, Rect destination);
 
     std::shared_ptr<BuildingType> selectedBuilding();
-    void updateUnits(int player, int type, int characterId, coordenada_t coord);
     std::shared_ptr<BuildingType> getBuildingType(int type);
-    void spawnBuilding(int playerId, int buildingId,  std::shared_ptr<BuildingType> type, coordenada_t coord) ;
-    void updateBuilding(int player, int type, int buildingId, coordenada_t coord);
+    void updateBuilding(int playerId, int buildingId,  std::shared_ptr<BuildingType> type, coordenada_t coord) ;
+    void updateUnits(int player, int type, int characterId, coordenada_t coord);
 
+    void addRocks(coordenada_t coord, Rect destination);
+    void addSand(coordenada_t coord, Rect destination);
     void addCliff(coordenada_t coord, Rect destination);
-
     void addTop(coordenada_t coord, Rect destination);
-
     void addDune(coordenada_t coord, Rect destination);
 };
 
