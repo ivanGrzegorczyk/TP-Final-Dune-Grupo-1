@@ -149,8 +149,8 @@ void MapUi::draw() {
     for(int j = 0; j < this->terrain.first.first; j++) {
         for (int i = 0; i < this->terrain.first.second; i++) {
             coordenada_t coord(i, j);
-            dst.SetX(j * LENGTH_TILE + map_center.first);
-            dst.SetY(i * LENGTH_TILE + map_center.second);
+            dst.SetX(j * LENGTH_TILE);
+            dst.SetY(i * LENGTH_TILE);
             uint8_t type = this->terrain.second.at(k);
             addTerrain(coord, dst, type);
             k++;
