@@ -2,10 +2,12 @@
 
 void character::render() {
     if(attackEffect > 0 && attackEffect % 2) {
+        normalColor();
         texture->SetColorMod(0, 255, 0);
         attackEffect--;
     }
     else if(hurtEffect > 0) {
+        normalColor();
         texture->SetColorMod(255, 0, 0);
         hurtEffect--;
     }

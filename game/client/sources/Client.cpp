@@ -32,8 +32,8 @@ void Client::run() {
     while(running) {
         chronometer.tick();
 
-        ProcessInput();
-        update();
+        ProcessInput(sendQueue);
+        update(recvQueue);
         renderer();
         uint64_t delta = chronometer.tack();
         if (delta < GAME_LOOP_RATE)
@@ -50,7 +50,7 @@ void Client::run() {
     threadSend.join();*/
 }
 
-void Client::ProcessInput() {
+void Client::ProcessInput(BlockingQueue<Request *>& sendQueue) {
     int x, y;
     SDL_Event event;
     while (running && SDL_PollEvent(&event)) {
@@ -66,7 +66,7 @@ void Client::ProcessInput() {
     }
 }
 
-void Client::update() {
+void Client::update(ProtectedQueue<Response*>& recvQueue) {
     Response* current = nullptr;
     Response* next = this->recvQueue.pop();
     while (next != nullptr) {

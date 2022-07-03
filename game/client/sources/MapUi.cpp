@@ -17,6 +17,94 @@ MapUi::MapUi(Renderer &renderer) :
     dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
 }
 
+// PROCESS INPUT
+
+
+// TODO: select with left click
+Request* MapUi::handleEvent(SDL_Event event, int playerId) {
+    Request* req = nullptr;
+    uint16_t id;
+    int mouse_x;
+    int mouse_y;
+    SDL_GetMouseState(&mouse_x, &mouse_y);
+    int cell_x = mouse_x / LENGTH_TILE;
+    int cell_y = mouse_y / LENGTH_TILE;
+    // interact with gui
+    if(event.type == SDL_KEYDOWN 
+        && event.button.button == SDL_BUTTON_LEFT 
+        && gui.isOverPoint(mouse_x, mouse_y)) {
+            gui.clickOver(mouse_x, mouse_y);
+    } else if(event.type == SDL_KEYDOWN) {
+        switch (event.key.keysym.sym) {
+            case SDLK_a:
+                req = new CreateLightInfantry(cell_x, cell_y);
+                break;
+            case SDLK_b:
+                id = (uint16_t)(selectedBuilding()->code());
+                req = new CreateBuilding(cell_x, cell_y, id);
+                break;
+            case SDLK_x:
+                // TODO use damage protocol
+                damageBetween(1, 2);
+                break;
+        } 
+    } else if(event.type == SDL_MOUSEBUTTONUP) {
+        if(event.button.button ==  SDL_BUTTON_RIGHT) {
+            req = this->moveCharacter(cell_x,cell_y,playerId);
+            
+        } else if(event.button.button == SDL_BUTTON_LEFT) {
+            selectUnits(event, playerId);
+        }
+    }
+    return req;
+}
+
+
+void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coord) {
+    // add player if not yet existent
+    if(players.find(player) == players.end()) {
+        players.insert(player);
+    }
+    // check if unit is in cache
+    auto found = previous_units.find(characterId);
+    if(found != previous_units.end()) {
+        (*found).second->setPosition(coord);
+        units.insert(*found);
+    } else {
+        character* c = new character(rdr, player, characterId, coord, type);
+        auto pair = std::make_pair<int, std::shared_ptr<character >>  ((int)characterId, (std::shared_ptr<character>) std::shared_ptr<character>(c));
+        units.insert(pair);
+    }
+    
+}
+
+Request* MapUi::damageBetween(int entity1, int entity2) {
+    return nullptr;
+}
+
+/*
+    Create new building on map
+*/
+void MapUi::updateBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
+    Point size(50,50);
+    Point center(0,0);
+    buildings.insert(
+        std::make_pair<int, std::shared_ptr<BuildingUi>>(
+            int{buildingId}, 
+            std::shared_ptr<BuildingUi>(
+                new BuildingUi(
+                    player, 
+                    buildingId,
+                    type, 
+                    rdr, 
+                    coord, 
+                    size,
+                    center)))) ;
+}
+
+
+// UPDATE
+
 void MapUi::update(Response *response) {
     // Do not draw on next frame if server's snapshot does not include them
     previous_units = units;
@@ -67,42 +155,6 @@ void MapUi::render() {
     // render gui
     gui.render(rdr);
     rdr.Present();
-}
-
-// TODO: select with left click
-Request* MapUi::handleEvent(SDL_Event event, int playerId) {
-    Request* req = nullptr;
-    uint16_t id;
-    int mouse_x;
-    int mouse_y;
-    SDL_GetMouseState(&mouse_x, &mouse_y);
-    if(event.type == SDL_KEYDOWN){
-        switch (event.key.keysym.sym) {
-            case SDLK_a:
-                req = new CreateLightInfantry(mouse_x / LENGTH_TILE, mouse_y / LENGTH_TILE);
-                break;
-            case SDLK_b:
-                id = (uint16_t)(selectedBuilding()->code());
-                req = new CreateBuilding(mouse_x / LENGTH_TILE, mouse_y / LENGTH_TILE, id);
-                break;
-            case SDLK_x:
-                // TODO use damage protocol
-                damageBetween(1, 2);
-                break;
-        } 
-    } else if(event.type == SDL_MOUSEBUTTONUP) {
-        if(event.button.button ==  SDL_BUTTON_RIGHT) {
-            if(gui.isOverPoint(mouse_x, mouse_y)) {
-                gui.clickOver(mouse_x, mouse_y);
-            } else {
-                //TODO make proper math to translate click coordinate to map coordinate
-                req = this->moveCharacter(mouse_x/LENGTH_TILE,mouse_y/LENGTH_TILE,playerId);
-            } 
-        } else if(event.button.button == SDL_BUTTON_LEFT) {
-            selectUnits(event, playerId);
-        }
-    }
-    return req;
 }
 
 // TODO: select with left click
@@ -163,47 +215,6 @@ void MapUi::addSand(coordenada_t coord, Rect destination) {
     map.push_back(cell);
 }
 
-void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coord) {
-    // add player if not yet existent
-    if(players.find(player) == players.end()) {
-        players.insert(player);
-    }
-    // check if unit is in cache
-    auto found = previous_units.find(characterId);
-    if(found != previous_units.end()) {
-        (*found).second->setPosition(coord);
-        units.insert(*found);
-    } else {
-        character* c = new character(rdr, player, characterId, coord, type);
-        auto pair = std::make_pair<int, std::shared_ptr<character >>  ((int)characterId, (std::shared_ptr<character>) std::shared_ptr<character>(c));
-        units.insert(pair);
-    }
-    
-}
-
-Request* MapUi::damageBetween(int entity1, int entity2) {
-    return nullptr;
-}
-
-/*
-    Create new building on map
-*/
-void MapUi::updateBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
-    Point size(50,50);
-    Point center(0,0);
-    buildings.insert(
-        std::make_pair<int, std::shared_ptr<BuildingUi>>(
-            int{buildingId}, 
-            std::shared_ptr<BuildingUi>(
-                new BuildingUi(
-                    player, 
-                    buildingId,
-                    type, 
-                    rdr, 
-                    coord, 
-                    size,
-                    center)))) ;
-}
 
 std::shared_ptr<BuildingType> MapUi::selectedBuilding() {
     return gui.getBuildingToBuild();
