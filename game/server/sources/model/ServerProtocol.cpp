@@ -77,7 +77,7 @@ void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
         sendUnitData(units);
         sendBuildingData(buildings);
         sendVehicleData(vehicles);
-        sendDeadUnitsData(dead_units);
+//        sendDeadUnitsData(dead_units);
     }
 }
 
@@ -110,8 +110,8 @@ void ServerProtocol::sendUnitData(std::vector<std::shared_ptr<Unit>> &units) {
         socket.sendall(&unitId, sizeof(unitId));
         socket.sendall(&position_x, sizeof(position_x));
         socket.sendall(&position_y, sizeof(position_y));
-        socket.sendall(&attacking, sizeof(attacking));
-        socket.sendall(&target, sizeof(target));
+//        socket.sendall(&attacking, sizeof(attacking));
+//        socket.sendall(&target, sizeof(target));
     }
 }
 
