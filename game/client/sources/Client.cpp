@@ -64,16 +64,20 @@ void Client::ProcessInput() {
                 break;
             case SDL_KEYDOWN:
                 SDL_GetMouseState(&x, &y);
+                uint16_t id;
                 switch (event.key.keysym.sym) {
                     case SDLK_a:
                         req = new CreateLightInfantry(x / LENGTH_TILE, y / LENGTH_TILE);
                         sendQueue.push(req);
                         break;
                     case SDLK_b:
-                        uint16_t id = (uint16_t)(mapUi.selectedBuilding()->code());
-                        // TODO different buildings
+                        id = (uint16_t)(mapUi.selectedBuilding()->code());
                         req = new CreateBuilding(x / LENGTH_TILE, y / LENGTH_TILE, id);
                         sendQueue.push(req);
+                        break;
+                    case SDLK_x:
+                        // TODO use damage protocol
+                        mapUi.damageBetween(1, 2);
                         break;
                 }
             case SDL_MOUSEBUTTONUP:

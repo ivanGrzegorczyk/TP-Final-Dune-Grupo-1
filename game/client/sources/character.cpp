@@ -2,6 +2,19 @@
 #include "../headers/MoveQuery.h"
 
 void character::render() {
+    if(attackEffect > 0 && attackEffect % 2) {
+        texture->SetColorMod(0, 255, 0);
+        attackEffect--;
+    }
+    else if(hurtEffect > 0) {
+        texture->SetColorMod(255, 0, 0);
+        hurtEffect--;
+    }
+    else if(selected) {
+        highlight();
+    } else {
+        normalColor();
+    }
     current.SetX(coord.first * 8);
     current.SetY(coord.second * 8);
     current.SetW(24);
@@ -22,11 +35,11 @@ character::character(SDL2pp::Renderer &renderer,
 }
 
 void character::normalColor() {
-    texture->SetColorMod(255, 255, 0);
+    texture->SetColorMod(255, 255, 255);
 }
 
 void character::highlight() {
-    texture->SetColorMod(255, 0, 0);
+    texture->SetColorMod(0, 0, 255);
 }
 void character::setSelected(bool selected) {
     this->selected = selected;
@@ -62,4 +75,13 @@ Request *character::walkEvent(int x, int y) {
 
 bool character::contains(int x, int y) const {
     return current.Contains(x, y);
+}
+
+void character::attack(Damageable* d, int damage) {
+    attackEffect = 30; // 30 frames of attacker display
+    d->takeDamage(damage);
+}
+
+void character::takeDamage(int damage) {
+    hurtEffect = 30;
 }

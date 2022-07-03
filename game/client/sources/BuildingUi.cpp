@@ -10,6 +10,9 @@ void BuildingUi::update() {
 bool BuildingUi::contains(int x, int y) const {
     return location.Contains(x, y);
 }
+void BuildingUi::takeDamage(int damage) {
+    //TODO
+}
 // TODO improve encapsulation
 BuildingUi::BuildingUi(
         int player, 

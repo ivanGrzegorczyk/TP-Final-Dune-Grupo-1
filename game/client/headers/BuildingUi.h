@@ -4,12 +4,15 @@
 #include "SDL2pp/SDL2pp.hh"
 #include "../../common/headers/Constantes.h"
 #include "client/headers/building_type/BuildingType.h"
+#include "common/headers/Entity.h"
 #include "client/headers/SdlEntity.h"
+#include "client/headers/Attacker.h"
+#include "client/headers/Damageable.h"
 #include <memory>
 
 using namespace SDL2pp;
 
-class BuildingUi : public SdlEntity{
+class BuildingUi : public Entity, SdlEntity, Damageable {
 private:
     std::shared_ptr<BuildingType> type;
     Renderer &renderer;
@@ -27,6 +30,7 @@ public:
     void render() override;
     void update() override;
     bool contains(int x, int y) const;
+    void takeDamage(int damage);
 
 };
 

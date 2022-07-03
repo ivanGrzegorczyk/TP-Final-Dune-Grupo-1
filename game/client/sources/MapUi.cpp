@@ -151,6 +151,10 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
     
 }
 
+Request* MapUi::damageBetween(int entity1, int entity2) {
+    // TODO
+}
+
 /*
     Create new building on map
 */

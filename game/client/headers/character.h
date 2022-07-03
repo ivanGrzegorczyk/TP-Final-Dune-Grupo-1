@@ -12,6 +12,8 @@ private:
     Renderer& rnd;
     Rect current;
     bool selected;
+    int attackEffect = 0; // simple frame counter for effect
+    int hurtEffect = 0; // simple frame counter for effect
     void normalColor();
     void highlight();
 public:
@@ -22,6 +24,8 @@ public:
     void update();
     bool contains(int x, int y) const;
     void setSelected(bool was_selected); // TODO inefficient rendering over and over
+    void takeDamage(int damage);
+    void attack(Damageable* d, int damage);
 };
 
 

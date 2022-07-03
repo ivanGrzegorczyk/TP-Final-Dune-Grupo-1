@@ -51,7 +51,7 @@ public:
 
     Request* clickScreen(int x, int y, int playerId);
     Request* moveCharacter(int x, int y, int playerId);
-
+    Request* damageBetween(int entity1, int entity2);
     void addRocks(coordenada_t coord, Rect destination);
     void addSand(coordenada_t coord, Rect destination);
 
