@@ -16,57 +16,12 @@ int Protocol::receiveId() {
     return idHost;
 }
 
-void Protocol::shutdown() {
-    skt.shutdown(SHUT_RDWR);
-    skt.close();
-}
-int Protocol::commandReceive() {
-    uint8_t command;
-    skt.recvall(&command, sizeof(command));
-    return command;
-}
-
-
-void Protocol::moveQuery(int idunity, coordenada_t dest) {
-    uint16_t id = htons(idunity);
-    uint16_t desX = htons(dest.first);
-    uint16_t desY = htons(dest.second);
-    uint8_t command = REPOSITION_EVENT;
-
-    skt.sendall(&command, sizeof(command));
-    skt.sendall(&id, sizeof(id));
-    skt.sendall(&desX, sizeof(desX));
-    skt.sendall(&desY, sizeof(desY));
-}
-
-void Protocol::createBuilding(int clientId, int buildingId, coordenada_t coord) {
-    uint16_t clientID = htons(clientId);
-    uint16_t buildingID = htons(buildingId);
-    uint16_t coordX = htons(coord.first);
-    uint16_t coordY = htons(coord.second);
-    uint8_t command = CREATE_BUILDING_EVENT;
-
-    skt.sendall(&command, sizeof(command));
-    skt.sendall(&clientID, sizeof(clientID));
-    skt.sendall(&buildingID, sizeof(buildingID));
-    skt.sendall(&coordX, sizeof(coordX));
-    skt.sendall(&coordY, sizeof(coordY));
-}
-
-void Protocol::createUnidadLigera(int id) {
-    uint8_t command = CREATE_UNIT_EVENT;
-    uint8_t unityId = id;
-    skt.sendall(&command, sizeof(command));
-    skt.sendall((&unityId), sizeof(unityId));
-}
-
-
 void Protocol::send(int command, const std::vector<uint16_t>& vector) {
     uint16_t aux;
     uint8_t cmd = command;
     skt.sendall(&cmd, sizeof(cmd));
     for(uint16_t data : vector) {
-        std::cout << "data: " << data << std::endl;
+        std::cout << "data en protocol: " << data << std::endl;
 
         aux = htons(data);
         skt.sendall(&aux, sizeof(aux));
