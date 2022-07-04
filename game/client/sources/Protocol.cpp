@@ -2,6 +2,7 @@
 #include "../headers/Protocol.h"
 #include "client/headers/UpdateUnit.h"
 #include "client/headers/UpdateBuilding.h"
+#include "client/headers/UpdateVehicle.h"
 
 Protocol::Protocol(const std::string& hostname, const std::string& servicename) :
         id(-1), skt(hostname.c_str(), servicename.c_str()){
@@ -141,8 +142,7 @@ void Protocol::createResponse(uint8_t &eventType, int player, Response* response
             //break;
     }
     if(eventType == VEHICLE) {
-            //TODO: crear vehiculo
-            //break;
+            event = new UpdateVehicle(player ,entityType, entityId, coord);
     }
     response->add(event);
 }
