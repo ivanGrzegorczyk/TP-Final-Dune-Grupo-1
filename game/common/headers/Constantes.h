@@ -70,6 +70,7 @@ typedef std::pair<int, int> coordenada_t;
 #define CREATE_BUILDING_EVENT 2
 #define CREATE_UNIT_EVENT 3
 #define ATTACKING_EVENT 4
+#define CREATE_VEHICLE_EVENT 5
 
 //light infantry data
 #define LIGHT_INFANTRY_RANGE 3
