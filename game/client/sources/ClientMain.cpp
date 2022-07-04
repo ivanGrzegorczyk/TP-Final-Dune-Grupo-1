@@ -1,6 +1,7 @@
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"
 #include <sstream>
+#include "client/headers/audio/audioPlayer.h"
 #include "../../game/client/headers/MainWindowLobby.h"
 #include <QApplication>
 
@@ -25,10 +26,12 @@ int main(int argc, char* argv[]) {
     std::shared_ptr<Protocol> protocol = ui_window.protocol;
 
     // launch sdl app
-    SDL sdl(SDL_INIT_VIDEO);
+    SDL sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     Window window("Client", SDL_WINDOWPOS_UNDEFINED,
                 SDL_WINDOWPOS_UNDEFINED,640, 480, SDL_WINDOW_RESIZABLE);
     Renderer render(window, -1, SDL_RENDERER_ACCELERATED);
+    AudioPlayer player;
+    player.play();
 
     // parameters obtained from lobby
     std::string house = ui_window.house_chosen;

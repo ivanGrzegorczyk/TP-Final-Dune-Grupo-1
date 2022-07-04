@@ -44,6 +44,7 @@ set(CMAKE_CXX_FLAGS -g) #hack, reemplazar por configs Debug y Release
 
 set(SDL2PP_WITH_IMAGE ON)
 set(SDL2PP_WITH_TTF ON)
+set(SDL2PP_WITH_MIXER ON)
 add_subdirectory(extern/libSDL2pp)
 ADD_DEFINITIONS(-DDATA_PATH="${PROJECT_SOURCE_DIR}/game/assets/")
 ADD_DEFINITIONS(-DMAPS_PATH="${PROJECT_SOURCE_DIR}/game/server/maps/")

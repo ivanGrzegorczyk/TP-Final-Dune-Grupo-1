@@ -21,6 +21,7 @@
 #include <memory>
 #include "client/headers/BuildingFactory.h"
 #include "../headers/character.h"
+#include "client/headers/audio/audioPlayer.h"
 using namespace SDL2pp;
 
 class MapUi {
@@ -42,6 +43,7 @@ private:
     std::vector<CeldaUi> map;
     Point fromCell(coordenada_t coord);
     bool pressed = false;
+    AudioPlayer audioPlayer;
 public:
     explicit MapUi(Renderer& renderer);
     ~MapUi();
