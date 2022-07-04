@@ -33,8 +33,6 @@ private:
     Rect dst;
     TextureManager repository;
     Renderer& rdr;
-    Texture ground;
-    Texture harvester;
     BuildingFactory factory;
     std::vector<std::shared_ptr<BuildingType>> building_types;
     std::unordered_set<int> players;

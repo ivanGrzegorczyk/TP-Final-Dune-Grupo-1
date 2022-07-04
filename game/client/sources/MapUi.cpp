@@ -12,8 +12,6 @@
 MapUi::MapUi(Renderer &renderer) :
         repository(renderer),
         rdr(renderer),
-        ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
-        harvester(Texture(renderer, Surface(DATA_PATH "/harvester.png"))),
         building_types(factory.createBuildingTypes(rdr)),
         gui(Rect(500,0,100,200), building_types, factory.createUnitTypes(rdr)),
         map_center({0,0}) {
