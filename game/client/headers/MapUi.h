@@ -11,7 +11,7 @@
 #include "client/headers/building_type/BuildingType.h"
 #include "character.h"
 #include "SdlEntity.h"
-#include "TerrainRepository.h"
+#include "TextureManager.h"
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -21,13 +21,15 @@
 #include <memory>
 #include "client/headers/BuildingFactory.h"
 #include "../headers/character.h"
+#include "VehicleUi.h"
+
 #define LENGTH_TILE 16
 using namespace SDL2pp;
 
 class MapUi {
 private:
     Rect dst;
-    TerrainRepository terrainRepo;
+    TextureManager repository;
     Renderer& rdr;
     Texture ground;
     Texture harvester;
@@ -36,6 +38,7 @@ private:
     std::unordered_set<int> players;
     GUI gui;
     std::pair<coordenada_t, std::vector<uint8_t>> terrain;
+    std::map<int, VehicleUi*> vehicles;
     //std::map<int, std::map<int, std::shared_ptr<Building>>> buildings; modificar, igual al de unidades
     std::map<int, std::shared_ptr<BuildingUi>> buildings; //buildings to draw
     std::unordered_map<int, std::shared_ptr<character>> units; //units to draw
@@ -59,6 +62,8 @@ public:
     void updateUnits(int player, int type, int characterId, coordenada_t coord);
 
     void addTerrain(coordenada_t coord, Rect destination, int terrainId);
+
+    void updateVehicles(int player, int type, int vehicleId, coordenada_t coord);
 };
 
 
