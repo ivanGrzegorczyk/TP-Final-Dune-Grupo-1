@@ -88,6 +88,7 @@ void Server::manageEvents() {
         event = protectedQueue.pop();
     }
     map.updateUnitsPosition();
+    map.updateHarvestersStatus();
     map.unitCheck();
     Snapshot snapshot = createSnapshot();
     map.unitAttackReset();

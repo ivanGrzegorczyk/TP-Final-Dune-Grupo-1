@@ -1,22 +1,38 @@
 #include "server/headers/vehicles/Harvester.h"
 #include "server/headers/map/ServerCell.h"
+#include "server/headers/buildings/Refinery.h"
 
 Harvester::Harvester(int id, coordenada_t coord) :
         Vehicle(id, HARVESTER_HP, HARVESTER_RANGE,
-                HARVESTER_SPEED, VEHICLE_HARVESTER, HARVESTER_COST, coord), spice(0) {}
+                HARVESTER_SPEED, VEHICLE_HARVESTER,
+                HARVESTER_COST, coord), spice(0), 
+                unloading(false), refinery(0),
+                working_position(-1, -1){}
 
-Harvester::Harvester(int id, unsigned int spice, coordenada_t coord) :
+Harvester::Harvester(int id, int spice, coordenada_t coord) :
         Vehicle(id, HARVESTER_HP, HARVESTER_RANGE,
-                HARVESTER_SPEED, VEHICLE_HARVESTER, HARVESTER_COST, coord), spice(spice) {}
+                HARVESTER_SPEED, VEHICLE_HARVESTER,
+                HARVESTER_COST, coord), spice(spice), 
+                unloading(false), refinery(0),
+                working_position(-1, -1) {}
 
 void Harvester::harvest(ServerCell *cell) {
     try {
-        if (spice < MAX_SPICE)
+        if (spice < MAX_SPICE) {
             spice = cell->harvest();
+        }
     } catch(const std::runtime_error &e) {
         std::cout << e.what() << std::endl;
         return;
     }
+}
+
+void Harvester::setUnloading(bool _unloading) {
+    this->unloading = _unloading;
+}
+
+void Harvester::setRefinery(int _refinery) {
+    this->refinery = _refinery;
 }
 
 std::shared_ptr<Vehicle> Harvester::copy() {
@@ -26,6 +42,53 @@ std::shared_ptr<Vehicle> Harvester::copy() {
     return copy;
 }
 
-unsigned int Harvester::getSpice() const {
+int Harvester::getSpice() const {
     return spice;
+}
+
+bool Harvester::isFull() const {
+    return spice == MAX_SPICE;
+}
+
+bool Harvester::isEmpty() const {
+    return spice == 0;
+}
+
+bool Harvester::isUnloading() const {
+    return unloading;
+}
+
+coordenada_t Harvester::getWorkingPosition() const {
+    return working_position;
+}
+
+void Harvester::setWorkingPosition(coordenada_t position) {
+    working_position = position;
+}
+
+int Harvester::getRefinery() const {
+    return refinery;
+}
+
+coordenada_t Harvester::relocate() {
+    if (path.empty()) {
+
+        return {-1, -1};
+    }
+
+    coordenada_t free = coord;
+    coord = path.top();
+    path.pop();
+    return free;
+}
+
+void Harvester::unload(std::shared_ptr<Refinery> &goal) {
+    if (isEmpty()) {
+        unloading = false;
+        return;
+    }
+    if (chronometer.tack() >= UNLOAD_TIME) {
+        goal->load(spice);
+        chronometer.tick();
+    }
 }

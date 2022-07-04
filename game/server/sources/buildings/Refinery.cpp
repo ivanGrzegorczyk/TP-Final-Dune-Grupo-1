@@ -12,7 +12,7 @@ Refinery::Refinery(int id, unsigned int spice, coordenada_t coord):
         coord, REFINERY_ENERGY,
         REFINERY_COST), capacity(REFINERY_CAPACITY), spice(spice) {}
 
-unsigned int Refinery::getSpice() const {
+int Refinery::getSpice() const {
     return spice;
 }
 
@@ -21,4 +21,22 @@ std::shared_ptr<Building> Refinery::copy() {
             this->getId(), this->getSpice(), this->getPosition());
 
     return copy;
+}
+
+bool Refinery::isFull() const {
+    return capacity == spice;
+}
+
+void Refinery::load(int &harvesterSpice) {
+    if (spice + MAX_UNLOADED >= capacity) {
+        harvesterSpice -= capacity - spice;
+        spice = capacity;
+    } else {
+        harvesterSpice -= MAX_UNLOADED;
+        spice += MAX_UNLOADED;
+    }
+}
+
+int Refinery::getCapacity() const {
+    return capacity;
 }

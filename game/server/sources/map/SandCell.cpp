@@ -13,18 +13,22 @@ unsigned int SandCell::harvest() {
     if (spice <= 0)
         throw std::runtime_error("No spice on cell");
 
-    if (chronometer.tack() < HARVEST_TIME)
-        return 0;
+    unsigned int harvested = 0;
 
-    unsigned int harvested;
-    if (spice < MAX_HARVESTED) {
-        harvested = spice;
-        spice = 0;
-    } else {
-        spice -= MAX_HARVESTED;
-        harvested = MAX_HARVESTED;
-        chronometer.tick();
+    if (chronometer.tack() >= HARVEST_TIME) {
+        if (spice < MAX_HARVESTED) {
+            harvested = spice;
+            spice = 0;
+        } else {
+            spice -= MAX_HARVESTED;
+            harvested = MAX_HARVESTED;
+            chronometer.tick();
+        }
     }
 
     return harvested;
+}
+
+bool SandCell::harvestable() {
+    return spice > 0;
 }

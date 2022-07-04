@@ -9,6 +9,8 @@
 #include "server/headers/vehicles/Vehicle.h"
 #include "server/headers/map/ServerCell.h"
 #include "Snapshot.h"
+#include "server/headers/vehicles/Harvester.h"
+#include "server/headers/buildings/Refinery.h"
 
 class Player {
 private:
@@ -19,6 +21,9 @@ private:
     std::map<int, std::shared_ptr<Unit>> dead_units;
     std::map<int, std::shared_ptr<Building>> buildings;
     std::map<int, std::shared_ptr<Vehicle>> vehicles;
+
+    std::map<int, std::shared_ptr<Refinery>> refineries;
+    std::map<int, std::shared_ptr<Harvester>> harvesters;
 
 public:
     Player() = default;
@@ -34,6 +39,8 @@ public:
     std::shared_ptr<Building> getBuilding(int buildingId);
 
     std::map<int, std::shared_ptr<Unit>>* getUnits();
+
+    std::map<int, std::shared_ptr<Harvester>>* getHarvesters();
 
     void addUnitData(Snapshot &snapshot);
 
@@ -52,6 +59,17 @@ public:
     bool owns(int unitId);
 
     void unitAttackReset();
+    std::map<int, std::shared_ptr<Refinery>> *getRefineries();
+
+    int getEntityType(int entityId);
+
+    std::shared_ptr<Harvester> getHarvester(int harvesterId);
+
+    int getClosestRefineryId(const coordenada_t &position);
+
+    std::shared_ptr<Refinery> getRefinery(int refineryId);
+
+    void addVehicle(int vehicleId, int type, coordenada_t position);
 };
 
 #endif  // PLAYER_H_

@@ -56,6 +56,11 @@ public:
     int findPlayerByUnitId(int unitId);
 
     void unitAttackReset();
+    void buildConstructionCenter(int playerId);
+
+    void updateHarvestersStatus();
+
+    void spawnVehicle(int playerId, int type, coordenada_t position);
 };
 
 #endif  // SERVERMAP_H_

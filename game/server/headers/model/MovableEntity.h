@@ -16,7 +16,7 @@ public:
     coordenada_t getNextPosition();
     void setPath(std::stack<coordenada_t> _path);
     bool isStill();
-    coordenada_t relocate();
+    virtual coordenada_t relocate();
 };
 
 #endif  // MOVABLEENTITY_H_

@@ -25,6 +25,7 @@ public:
 
     virtual int ground() = 0;
     virtual unsigned int harvest() = 0;
+    virtual bool harvestable();
 
     virtual ~ServerCell() = default;
 };

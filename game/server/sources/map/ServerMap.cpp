@@ -34,21 +34,50 @@ void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
     entityId++;
 }
 
-void ServerMap::reposition(int playerId, int unitId, coordenada_t goal, bool userMoved) {
+void ServerMap::spawnVehicle(int playerId, int type, coordenada_t position) {
+    if (!validPosition(position))
+        return;
+
+    players[playerId].addVehicle(entityId, type, position);
+    map[position.first][position.second]->occupied = true;
+    entityId++;
+}
+
+void ServerMap::reposition(int playerId, int entityId, coordenada_t goal, bool userMoved) {
     try {
-        if (players.at(playerId).getUnit(unitId)->getPosition() == goal) {
-            std::cout << "Ya esta en esa posicion" << std::endl;
-            return;
+        auto entityType = players.at(playerId).getEntityType(entityId);
+
+        coordenada_t original;
+
+        switch (entityType) {
+            case UNIT: {
+                if (userMoved)
+                    players.at(playerId).getUnit(unitId)->setTarget(0, 0);
+                original = players.at(playerId).getUnit(entityId)->getPosition();
+                std::stack<coordenada_t> path = A_star(original, goal);
+                players.at(playerId).getUnit(entityId)->setPath(path);
+                players.at(playerId).getUnit(entityId)->relocate();
+                break;
+            }
+//            case VEHICLE: {
+////                original = players.at(playerId).getVehicle(entityId)->getPosition();
+//                break;
+//            }
+            case VEHICLE:
+            case VEHICLE_HARVESTER: {
+                original = players.at(playerId).getHarvester(entityId)->getPosition();
+                std::stack<coordenada_t> path = A_star(original, goal);
+                if (userMoved)
+                    players.at(playerId).getHarvester(entityId)->setWorkingPosition(goal);
+                players.at(playerId).getHarvester(entityId)->setPath(path);
+                players.at(playerId).getHarvester(entityId)->relocate();
+                break;
+            }
+            default:
+                throw std::exception();
         }
-
-        std::stack<coordenada_t> path = A_star(
-                players.at(playerId).getUnit(unitId)->getPosition(), goal);
-        players.at(playerId).getUnit(unitId)->setPath(path);
-
-        if (userMoved)
-            players.at(playerId).getUnit(unitId)->setTarget(0, 0);
     } catch(const std::exception &e) {
-        std::cout << "No existe la unidad" << std::endl;
+        std::cout << "Error al reposicionar" << std::endl;
     }
 }
 
@@ -111,6 +140,56 @@ void ServerMap::updateUnitsPosition() {
     }
 }
 
+void ServerMap::updateHarvestersStatus() {
+    for (auto & [playerId, player] : players) {
+        auto harvesters = player.getHarvesters();
+        for (auto &[harvesterId, harvester]: *harvesters) {
+
+            if (harvester->isStill()) {
+                if (!harvester->isFull() && !harvester->isUnloading()) {
+                    coordenada_t position = harvester->getWorkingPosition();
+                    if (map[position.first][position.second]->harvestable()) {
+                        if (harvester->getPosition() == position) {
+                            harvester->harvest(map[position.first][position.second]);
+                        } else {
+                            reposition(playerId, harvesterId, position);
+                            harvester->relocate();
+                        }
+                    } else {
+                        // Busco en 5 celdas a la redonda otro lugar para cosechar
+                    }
+                } else if (harvester->isFull() && !harvester->isUnloading()) {
+                    harvester->setUnloading(true);
+                    coordenada_t current = harvester->getPosition();
+                    int closestId = player.getClosestRefineryId(current);
+                    harvester->setRefinery(closestId);
+                    reposition(playerId, harvesterId,
+                               player.getRefinery(closestId)->getPosition());
+                    harvester->relocate();
+                } else if (!harvester->isEmpty() && harvester->isUnloading()) {
+                    auto refinery = player.getRefinery(harvester->getRefinery());
+                    if (refinery->isFull()) {
+                        // Cambio la refinería y le seteo un path hasta la siguiente?
+                        harvester->setUnloading(false);
+                    }
+                    harvester->unload(refinery);
+                }
+            } else {
+                coordenada_t next = harvester->getNextPosition();
+                if(next.first >= 0 && next.second >= 0)
+                    if(map[next.first][next.second]->occupied) {
+                        reposition(playerId, harvesterId, harvester->getGoal());
+                    }
+                coordenada_t free = harvester->relocate();
+                map[harvester->getPosition().first][harvester->getPosition().second]->occupied = true;
+                if (free.first != -1 && free.second != -1) {
+                    map[free.first][free.second]->occupied = false;
+                }
+            }
+        }
+    }
+}
+
 void ServerMap::unitCheck() {
     for (auto & [playerId1, player1] : players) {
         auto units = player1.getUnits();
@@ -165,7 +244,6 @@ void ServerMap::addSnapshotData(Snapshot &snapshot) {
 }
 
 void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
-    std::cout << "Inicializa el terrainnn" << std::endl;
     std::ifstream file(MAPS_PATH "data.yaml");
     YAML::Node config = YAML::Load(file);
     rows = config["map"]["rows"].as<int>();
