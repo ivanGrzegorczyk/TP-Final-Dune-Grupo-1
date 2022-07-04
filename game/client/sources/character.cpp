@@ -23,26 +23,27 @@ void character::render() {
     current.SetW(24);
     current.SetH(32);
 
-    rnd.Copy(*texture, Rect(0, 0, 13,16), current);
+    rnd.Copy(texture, Rect(0, 0, 13,16), current);
 }
 
 void character::update() {
     
 }
 
-character::character(SDL2pp::Renderer &renderer, 
-    int player, int id, coordenada_t coord, int type) : 
+character::character(SDL2pp::Renderer &renderer,
+                     int player, int id, coordenada_t coord, int type, TextureManager &repo) :
+    repository(repo),
     ClientUnit(player, id, 0, 0, 0, type, coord), 
     rnd(renderer), selected(false),
-    texture(new Texture(renderer, Surface(DATA_PATH "/00114a2a.bmp").SetColorKey(true, 0))) {
+    texture(repository.getTextureOf(type)) {
 }
 
 void character::normalColor() {
-    texture->SetColorMod(255, 255, 255);
+    texture.SetColorMod(255, 255, 255);
 }
 
 void character::highlight() {
-    texture->SetColorMod(100, 100, 255);
+    texture.SetColorMod(100, 100, 255);
 }
 void character::setSelected(bool selected) {
     this->selected = selected;
