@@ -268,7 +268,10 @@ void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
         if (_terrain == YAML_SAND) {
             auto spice = cell["seed"].as<unsigned int>();
             map[row][column] = new SandCell({row, column}, spice);
-            terrain.push_back(TERRAIN_SAND);
+            if (spice > 0)
+                terrain.push_back(TERRAIN_SPICE);
+            else
+                terrain.push_back(TERRAIN_SAND);
         } else if (_terrain == YAML_DUNE) {
             map[row][column] = new DunesCell({row, column});
             terrain.push_back(TERRAIN_DUNES);
