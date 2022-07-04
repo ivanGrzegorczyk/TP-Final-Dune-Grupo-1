@@ -41,6 +41,7 @@ private:
     std::unordered_map<int, std::shared_ptr<character>> units; //units to draw
     std::unordered_map<int, std::shared_ptr<character>> previous_units;
     std::vector<CeldaUi> map;
+    bool pressed = false;
 public:
     explicit MapUi(Renderer& renderer);
     ~MapUi();

@@ -26,7 +26,7 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
     uint16_t id;
     int mouse_x;
     int mouse_y;
-    SDL_GetMouseState(&mouse_x, &mouse_y);
+    uint32_t state = SDL_GetMouseState(&mouse_x, &mouse_y);
     int cell_x = mouse_x / LENGTH_TILE;
     int cell_y = mouse_y / LENGTH_TILE;
     // interact with gui
@@ -35,6 +35,10 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
         && gui.isOverPoint(mouse_x, mouse_y)) {
             gui.clickOver(mouse_x, mouse_y);
             
+    } else if(event.type == SDL_MOUSEBUTTONDOWN) {
+        if(event.button.button == SDL_BUTTON_LEFT && pressed == false) {
+            pressed = true;
+        }
     } else if(event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
             case SDLK_a:
@@ -51,7 +55,7 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
         } 
     } else if(event.type == SDL_MOUSEBUTTONUP) {
         if(event.button.button ==  SDL_BUTTON_RIGHT) {
-            // TODO hack
+            // mapUi->clearSelected();
             std::vector<Request*> reqs = this->moveCharacter(cell_x,cell_y,playerId);
             if(!reqs.empty()) {
                 req = reqs[0];
@@ -59,6 +63,11 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
 
             
         } else if(event.button.button == SDL_BUTTON_LEFT) {
+            pressed = false;
+            selectUnits(event, playerId);
+        }
+    } else if(event.type == SDL_MOUSEMOTION) {
+        if(pressed == true) {
             selectUnits(event, playerId);
         }
     }
