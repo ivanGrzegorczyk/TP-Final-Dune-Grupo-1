@@ -121,14 +121,15 @@ std::vector<Request*> MapUi::moveCharacter(int x, int y, int playerId) { //(x, y
             std::cout << "attack event";
             applies_to_unit = unit.second->attackEvent(id);
             request = new AttackRequest(unit.second->getId(), id);
-            requests.emplace_back(request);
         } else {
-            std::cout << "attack event";
+            std::cout << "move event";
             applies_to_unit = unit.second->walkEvent(x, y);
             request = new MoveQuery(unit.second->getId(),coordenada_t({x,y}));
-            requests.emplace_back(request);
         }
-        if(applies_to_unit) break;
+        if(applies_to_unit) {
+            requests.emplace_back(request);
+            break;
+        }
     }
     return requests;
 }
