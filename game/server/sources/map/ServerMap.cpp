@@ -133,7 +133,7 @@ void ServerMap::updateUnitsPosition() {
                 }
             coordenada_t free = unit->relocate();
             map[unit->getPosition().first][unit->getPosition().second]->occupied = true;
-            if (free.first != -1 && free.second != -1) {
+            if (validPosition(free)) {
                 map[free.first][free.second]->occupied = false;
             }
         }
@@ -144,34 +144,34 @@ void ServerMap::updateHarvestersStatus() {
     for (auto & [playerId, player] : players) {
         auto harvesters = player.getHarvesters();
         for (auto &[harvesterId, harvester]: *harvesters) {
-
             if (harvester->isStill()) {
                 if (!harvester->isFull() && !harvester->isUnloading()) {
                     coordenada_t position = harvester->getWorkingPosition();
-                    if (map[position.first][position.second]->harvestable()) {
+                    if (validPosition(position)) {
                         if (harvester->getPosition() == position) {
-                            harvester->harvest(map[position.first][position.second]);
+                            if (map[position.first][position.second]->harvestable()) {
+                                harvester->harvest(map[position.first][position.second]);
+                            } else {
+                                coordenada_t newPosition = findClosestHarvestableCell(harvester->getPosition());
+                                harvester->setWorkingPosition(newPosition);
+                            }
                         } else {
                             reposition(playerId, harvesterId, position);
                             harvester->relocate();
                         }
-                    } else {
-                        // Busco en 5 celdas a la redonda otro lugar para cosechar
                     }
                 } else if (harvester->isFull() && !harvester->isUnloading()) {
                     harvester->setUnloading(true);
                     coordenada_t current = harvester->getPosition();
                     int closestId = player.getClosestRefineryId(current);
-                    harvester->setRefinery(closestId);
-                    reposition(playerId, harvesterId,
-                               player.getRefinery(closestId)->getPosition());
-                    harvester->relocate();
+                    if (closestId != 0) {
+                        harvester->setRefinery(closestId);
+                        reposition(playerId, harvesterId,
+                                   player.getRefinery(harvester->getRefinery())->getPosition());
+                        harvester->relocate();
+                    }
                 } else if (!harvester->isEmpty() && harvester->isUnloading()) {
                     auto refinery = player.getRefinery(harvester->getRefinery());
-                    if (refinery->isFull()) {
-                        // Cambio la refinería y le seteo un path hasta la siguiente?
-                        harvester->setUnloading(false);
-                    }
                     harvester->unload(refinery);
                 }
             } else {
@@ -182,7 +182,7 @@ void ServerMap::updateHarvestersStatus() {
                     }
                 coordenada_t free = harvester->relocate();
                 map[harvester->getPosition().first][harvester->getPosition().second]->occupied = true;
-                if (free.first != -1 && free.second != -1) {
+                if (validPosition(free)) {
                     map[free.first][free.second]->occupied = false;
                 }
             }
@@ -344,4 +344,38 @@ void ServerMap::unitAttackReset() {
     for (auto & [playerId, player] : players) {
         player.unitAttackReset();
     }
+}
+
+coordenada_t ServerMap::findClosestHarvestableCell(coordenada_t position) {
+    std::vector<coordenada_t> valid_positions;
+    for (int i = -5; i <= 5; i++) {
+        for (int j = -5; j <= 5; j++) {
+            coordenada_t aux(position.first + i, position.second + j);
+            if (validPosition(aux)) {
+                if (map[aux.first][aux.second]->harvestable()) {
+                    valid_positions.push_back(aux);
+                }
+            }
+        }
+    }
+
+    coordenada_t closest(-1, -1);
+    double distance = INFINITY;
+
+    for (auto & coord : valid_positions) {
+        auto _distance = calculateDistance(position, coord);
+        if (_distance < distance) {
+            distance = _distance;
+            closest = coord;
+        }
+    }
+
+    return std::move(closest);
+}
+
+double ServerMap::calculateDistance(coordenada_t unit1, coordenada_t unit2) {
+    int x1 = unit1.first, y1 = unit1.second;
+    int x2 = unit2.first, y2 = unit2.second;
+
+    return std::sqrt(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2) * 1.0);
 }

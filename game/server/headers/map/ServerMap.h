@@ -61,6 +61,10 @@ public:
     void updateHarvestersStatus();
 
     void spawnVehicle(int playerId, int type, coordenada_t position);
+
+    coordenada_t findClosestHarvestableCell(coordenada_t position);
+
+    double calculateDistance(coordenada_t unit1, coordenada_t unit2);
 };
 
 #endif  // SERVERMAP_H_
