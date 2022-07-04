@@ -38,7 +38,7 @@ public:
 
     int getRefinery() const;
 
-    void unload(std::shared_ptr<Refinery> &goal);
+    unsigned int unload(std::shared_ptr<Refinery> &goal);
 
     coordenada_t getWorkingPosition() const;
 

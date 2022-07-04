@@ -172,7 +172,8 @@ void ServerMap::updateHarvestersStatus() {
                     }
                 } else if (!harvester->isEmpty() && harvester->isUnloading()) {
                     auto refinery = player.getRefinery(harvester->getRefinery());
-                    harvester->unload(refinery);
+                    unsigned int money = harvester->unload(refinery);
+                    player.addMoney(money);
                 }
             } else {
                 coordenada_t next = harvester->getNextPosition();

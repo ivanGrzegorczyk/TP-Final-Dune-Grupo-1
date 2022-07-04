@@ -233,3 +233,7 @@ int Player::getClosestRefineryId(const coordenada_t &position) {
 std::shared_ptr<Refinery> Player::getRefinery(int refineryId) {
     return refineries.at(refineryId);
 }
+
+void Player::addMoney(unsigned int _money) {
+    money += _money;
+}

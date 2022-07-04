@@ -16,7 +16,7 @@ class Player {
 private:
     int playerId;
     int house;
-    int money;
+    unsigned int money;
     std::map<int, std::shared_ptr<Unit>> units;
     std::map<int, std::shared_ptr<Unit>> dead_units;
     std::map<int, std::shared_ptr<Building>> buildings;
@@ -70,6 +70,8 @@ public:
     std::shared_ptr<Refinery> getRefinery(int refineryId);
 
     void addVehicle(int vehicleId, int type, coordenada_t position);
+
+    void addMoney(unsigned int money);
 };
 
 #endif  // PLAYER_H_

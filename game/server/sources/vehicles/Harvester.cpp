@@ -82,13 +82,16 @@ coordenada_t Harvester::relocate() {
     return free;
 }
 
-void Harvester::unload(std::shared_ptr<Refinery> &goal) {
+unsigned int Harvester::unload(std::shared_ptr<Refinery> &goal) {
+    unsigned int ret = 0;
     if (isEmpty()) {
         unloading = false;
-        return;
+        return ret;
     }
     if (chronometer.tack() >= UNLOAD_TIME) {
-        goal->load(spice);
+        ret = goal->load(spice);
         chronometer.tick();
     }
+
+    return ret;
 }

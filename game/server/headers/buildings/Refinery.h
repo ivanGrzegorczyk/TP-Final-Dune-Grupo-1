@@ -25,7 +25,7 @@ public:
     bool isFull() const;
 
     // Retorna el excedente
-    void load(int &harvesterSpice);
+    unsigned int load(int &harvesterSpice);
 
     int getCapacity() const;
 };
