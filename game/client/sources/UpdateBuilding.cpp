@@ -4,7 +4,7 @@
 
 void UpdateBuilding::modify(MapUi *mapUi) {
     std::shared_ptr<BuildingType> _type = mapUi->getBuildingType(type);
-    mapUi->spawnBuilding(player, buildingId, _type, coord);
+    mapUi->updateBuilding(player, buildingId, _type, coord);
 }
 
 UpdateBuilding::UpdateBuilding(int player, int type, int buildingId, coordenada_t coord) :

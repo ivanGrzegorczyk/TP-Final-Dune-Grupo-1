@@ -1,6 +1,9 @@
 #include "../headers/MapUi.h"
 #include "client/headers/BuildingFactory.h"
 #include "client/headers/BuildingUi.h"
+#include "client/headers/CreateBuilding.h"
+#include "../headers/MoveQuery.h"
+#include "../headers/CreateLightInfantry.h"
 
 
 MapUi::MapUi(Renderer &renderer) : 
@@ -14,61 +17,56 @@ MapUi::MapUi(Renderer &renderer) :
     dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
 }
 
-void MapUi::update(Response *response) {
-    // Do not draw on next frame if server's snapshot does not include them
-    previous_units = units;
-    units.clear();
-    buildings.clear();
-    response->update(this , rdr);
-}
+// PROCESS INPUT
 
-void MapUi::receiveMap(std::shared_ptr<Protocol> protocol) {
-    this->terrain = protocol->receiveTerrain();
-}
 
-void MapUi::draw() {
-    int k = 0;
-    for(int j = 0; j < this->terrain.first.first; j++) {
-        for (int i = 0; i < this->terrain.first.second; i++) {
-            coordenada_t coord(i, j);
-            dst.SetX(j * LENGTH_TILE);
-            dst.SetY(i * LENGTH_TILE);
-            uint8_t type = this->terrain.second.at(k);
-            if(type == TERRAIN_ROCKS) {
-                addRocks(coord, dst);
-            } else if(type == TERRAIN_CLIFFS) {
-                addCliff(coord, dst);
-            } else if(type == TERRAIN_TOPS) {
-                addTop(coord, dst);
-            } else if(type == TERRAIN_DUNES) {
-                addDune(coord, dst);
-            } else {
-                addSand(coord, dst);
+// TODO: select with left click
+Request* MapUi::handleEvent(SDL_Event event, int playerId) {
+    Request* req = nullptr;
+    uint16_t id;
+    int mouse_x;
+    int mouse_y;
+    SDL_GetMouseState(&mouse_x, &mouse_y);
+    int cell_x = mouse_x / LENGTH_TILE;
+    int cell_y = mouse_y / LENGTH_TILE;
+    // interact with gui
+    if(event.type == SDL_MOUSEBUTTONDOWN
+        && event.button.button == SDL_BUTTON_LEFT 
+        && gui.isOverPoint(mouse_x, mouse_y)) {
+            gui.clickOver(mouse_x, mouse_y);
+            
+    } else if(event.type == SDL_KEYDOWN) {
+        switch (event.key.keysym.sym) {
+            case SDLK_a:
+                req = new CreateLightInfantry(cell_x, cell_y);
+                break;
+            case SDLK_b:
+                id = (uint16_t)(gui.getBuildingToBuild()->code());
+                req = new CreateBuilding(cell_x, cell_y, id);
+                break;
+            case SDLK_x:
+                // TODO use damage protocol
+                damageBetween(1, 2);
+                break;
+        } 
+    } else if(event.type == SDL_MOUSEBUTTONUP) {
+        if(event.button.button ==  SDL_BUTTON_RIGHT) {
+            // TODO hack
+            std::vector<Request*> reqs = this->moveCharacter(cell_x,cell_y,playerId);
+            if(!reqs.empty()) {
+                req = reqs[0];
             }
-            k++;
+
+            
+        } else if(event.button.button == SDL_BUTTON_LEFT) {
+            selectUnits(event, playerId);
         }
-   }
-}
-
-void MapUi::render() {
-    rdr.Clear();
-    for(auto& tile : map) {
-        tile.render(rdr);
     }
-    for(auto const& unit: units) {
-       unit.second->render();
-    }
-    for(auto const& b : buildings) {
-        b.second->render();
-    }
-
-    // render gui
-    gui.render(rdr);
-    rdr.Present();
+    return req;
 }
 
 // TODO: select with left click
-Request* MapUi::mouseEvent(SDL_Event event, int playerId) {
+void MapUi::selectUnits(SDL_Event event, int playerId) {
     for (auto const& unit : units) {
         if(unit.second->playerId == playerId) {
             if(unit.second->contains(event.button.x, event.button.y)) {
@@ -77,20 +75,9 @@ Request* MapUi::mouseEvent(SDL_Event event, int playerId) {
             }
         }
     }
-    return nullptr;
 }
+//// CONFLICTS
 
-Request* MapUi::clickOverGui(int x, int y, int playerId) {
-    if(gui.isOverPoint(x,y)) {
-        gui.clickOver(x,y);
-        return nullptr;
-    }
-}
-// todo take type of click as input or specify it in function name
-std::vector<Request*> MapUi::clickScreen(int x, int y, int playerId) {
-    //TODO make proper math to translate click coordinate to map coordinate
-    return this->moveCharacter(x/LENGTH_TILE,y/LENGTH_TILE,playerId);
-}
 
 // TODO use map instead of find if
 std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
@@ -108,31 +95,34 @@ std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
 
 //TODO move multiple units at once!
 std::vector<Request*> MapUi::moveCharacter(int x, int y, int playerId) {
-    std::vector<Request*> r;
-    std::cout << "units: " <<units.size() << std::endl;
+    std::vector<Request*> requests;
+    bool request;
     for (auto const& unit : units) {
-        Request* request = unit.second->walkEvent(x, y);
-        if (request != nullptr) {
-            std::cout << "request in vector" << std::endl;
-            r.push_back(request);
+        request = unit.second->walkEvent(x, y);
+        if (request) {
+            coordenada_t coord(x,y);
+            requests.push_back(new MoveQuery(unit.second->getId(), std::move(coord)));
         } 
     }
-    return r;
+    return requests;
 }
 
-void MapUi::addRocks(coordenada_t coord, Rect destination) {
-   // Rect rockRect(100, 220, 8, 8);
-   SDL2pp::Texture &r =  terrainRepo.getTileOf(TERRAIN_ROCKS);
-   Rect rockRect(0,0,16,16);
-   CeldaUi cell(r, coord, destination, rockRect);
-    map.push_back(cell);
+Request* MapUi::damageBetween(int entity1, int entity2) {
+    return nullptr;
 }
 
-void MapUi::addSand(coordenada_t coord, Rect destination) {
-    Rect sandRect(0, 0, 16, 16);
-    SDL2pp::Texture &s =  terrainRepo.getTileOf(TERRAIN_SAND);
-    CeldaUi cell(s, coord, destination, sandRect);
-    map.push_back(cell);
+/*
+*/
+
+
+// UPDATE
+
+void MapUi::update(Response *response) {
+    // Do not draw on next frame if server's snapshot does not include them
+    previous_units = units;
+    units.clear();
+    buildings.clear();
+    response->update(this , rdr);
 }
 
 void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coord) {
@@ -150,17 +140,12 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
         auto pair = std::make_pair<int, std::shared_ptr<character >>  ((int)characterId, (std::shared_ptr<character>) std::shared_ptr<character>(c));
         units.insert(pair);
     }
-    
 }
 
 /*
     Create new building on map
 */
-void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
-    auto found = buildings.find(buildingId);
-    if(found != buildings.end()) {
-        return;
-    }
+void MapUi::updateBuilding(int player, int buildingId, std::shared_ptr<BuildingType> type, coordenada_t coord) {
     Point size(50,50);
     Point center(0,0);
     buildings.insert(
@@ -177,29 +162,54 @@ void MapUi::spawnBuilding(int player, int buildingId, std::shared_ptr<BuildingTy
                     center)))) ;
 }
 
-std::shared_ptr<BuildingType> MapUi::selectedBuilding() {
-    return gui.getBuildingToBuild();
+void MapUi::receiveMap(std::shared_ptr<Protocol> protocol) {
+    this->terrain = protocol->receiveTerrain();
 }
 
-void MapUi::addCliff(coordenada_t coord, Rect destination) {
-    Rect cliffRect(0, 0, 16, 16);
-    SDL2pp::Texture &s =  terrainRepo.getTileOf(TERRAIN_CLIFFS);
-    CeldaUi cell(s, coord, destination, cliffRect);
-    map.push_back(cell);
+void MapUi::draw() {
+    int k = 0;
+    for(int j = 0; j < this->terrain.first.first; j++) {
+        for (int i = 0; i < this->terrain.first.second; i++) {
+            coordenada_t coord(i, j);
+            dst.SetX(j * LENGTH_TILE);
+            dst.SetY(i * LENGTH_TILE);
+            uint8_t type = this->terrain.second.at(k);
+            addTerrain(coord, dst, type);
+            k++;
+        }
+   }
 }
 
-void MapUi::addTop(coordenada_t coord, Rect destination) {
-    Rect topRect(0, 0, 16, 16);
-    SDL2pp::Texture &top =  terrainRepo.getTileOf(TERRAIN_TOPS);
-    CeldaUi cell(top, coord, destination, topRect);
-    map.push_back(cell);
+// RENDER
+
+void MapUi::render() {
+    rdr.Clear();
+    for(auto& tile : map) {
+        tile.render(rdr);
+    }
+    for(auto const& unit: units) {
+       unit.second->render();
+    }
+    for(auto const& b : buildings) {
+        b.second->render();
+    }
+    // render gui
+    gui.render(rdr);
+    rdr.Present();
 }
 
-void MapUi::addDune(coordenada_t coord, Rect destination) {
-    Rect duneRect(0, 0, 16, 16);
-    SDL2pp::Texture &d =  terrainRepo.getTileOf(TERRAIN_DUNES);
-    CeldaUi cell(d, coord, destination, duneRect);
-    map.push_back(cell);
+
+void MapUi::addTerrain(coordenada_t coord, Rect destination, int terrainId) {
+   // Rect rockRect(100, 220, 8, 8);
+   try {
+        SDL2pp::Texture &r =  terrainRepo.getTileOf(terrainId);
+        Rect rockRect(0,0,16,16);
+        CeldaUi cell(r, coord, destination, rockRect);
+        map.push_back(cell);
+   } catch(std::exception e) {
+       std::cout << "terrain error:" << e.what() << std::endl;
+   }
 }
+
 
 MapUi::~MapUi() = default;

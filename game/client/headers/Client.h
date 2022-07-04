@@ -42,9 +42,9 @@ public:
 
     void receiveOfServer();*/
 
-    void ProcessInput();
+    void ProcessInput(BlockingQueue<Request *>& sendQueue);
 
-    void update();
+    void update(ProtectedQueue<Response*>& recvQueue);
 
     void renderer();
 };

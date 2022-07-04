@@ -1,7 +1,23 @@
 #include "../headers/character.h"
-#include "../headers/MoveQuery.h"
 
 void character::render() {
+    /*
+    if(attackEffect > 0 && attackEffect % 2) {
+        normalColor();
+        texture->SetColorMod(0, 255, 0);
+        attackEffect--;
+    }
+    else if(hurtEffect > 0) {
+        normalColor();
+        texture->SetColorMod(255, 0, 0);
+        hurtEffect--;
+    }*/
+    //else 
+    if(selected) {
+        highlight();
+    } else {
+        normalColor();
+    }
     current.SetX(coord.first * 8);
     current.SetY(coord.second * 8);
     current.SetW(24);
@@ -22,19 +38,14 @@ character::character(SDL2pp::Renderer &renderer,
 }
 
 void character::normalColor() {
-    texture->SetColorMod(255, 255, 0);
+    texture->SetColorMod(255, 255, 255);
 }
 
 void character::highlight() {
-    texture->SetColorMod(255, 0, 0);
+    texture->SetColorMod(100, 100, 255);
 }
 void character::setSelected(bool selected) {
     this->selected = selected;
-    if (selected) {
-        this->highlight();
-    } else {
-        this->normalColor();
-    }
 }
 void character::notify(SDL_Event event) {
     int x = event.button.x;
@@ -42,24 +53,31 @@ void character::notify(SDL_Event event) {
     
 }
 
-Request *character::walkEvent(int x, int y) {
+bool character::walkEvent(int x, int y) {
     std::cout << "getting walk event!" << std::endl;
     if(!selected) {
         std::cout << "not selected lmfao!" << std::endl;
-        return nullptr;
+        return false;
     }
     if (!contains(x, y)) {
         selected = false;
         this->normalColor();
-        coordenada_t coord({x, y});
-        Request *query = new MoveQuery(id, std::move(coord));
-        return query;
+        return true;
     } else {
         std::cout << "wont perform walk event"  << std::endl;
     }
-    return nullptr;
+    return false;
 }
 
 bool character::contains(int x, int y) const {
     return current.Contains(x, y);
+}
+
+void character::attack(Damageable* d, int damage) {
+    attackEffect = 30; // 30 frames of attacker display
+    d->takeDamage(damage);
+}
+
+void character::takeDamage(int damage) {
+    hurtEffect = 30;
 }
