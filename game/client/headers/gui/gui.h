@@ -3,7 +3,8 @@
 #include "SDL2pp/SDL2pp.hh"
 #include "client/headers/building_type/BuildingType.h"
 #include "client/headers/building_type/UnitType.h"
-#include "game/client/headers/gui/ButtonUi.h"
+#include "ButtonUi.h"
+
 #include <utility>
 #include <memory>
 using namespace SDL2pp;
