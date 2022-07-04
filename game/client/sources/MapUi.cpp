@@ -6,6 +6,7 @@
 #include "../headers/AttackRequest.h"
 #include "../headers/CreateLightInfantry.h"
 #include "client/headers/VehicleUi.h"
+#include "client/headers/CreateHarvester.h"
 
 
 MapUi::MapUi(Renderer &renderer) :
@@ -52,6 +53,10 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
             case SDLK_SPACE:
                 map_center.first = mouse_x;
                 map_center.second = mouse_y;
+                break;
+            case SDLK_h:
+               req =  new CreateHarvester(cell_x, cell_y);
+               break;
         } 
     } else if(event.type == SDL_MOUSEBUTTONUP) {
         if(event.button.button ==  SDL_BUTTON_RIGHT) {
@@ -226,6 +231,7 @@ void MapUi::draw() {
 
 void MapUi::render() {
     rdr.Clear();
+    //updateVehicles(1, VEHICLE_HARVESTER, 10, coordenada_t{0 ,0});
     for(auto& tile : map) {
         tile.render(rdr);
     }
