@@ -26,7 +26,6 @@ void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
     if (players.find(playerId) == players.end()) {
         players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
     }
-
     if (!validPosition(position))
         return;
 
@@ -101,7 +100,7 @@ void ServerMap::updateUnitsPosition() {
             coordenada_t next = unit->getNextPosition();
             if(next.first >= 0 && next.second >= 0)
                 if(map[next.first][next.second]->occupied) {
-                    reposition(id, unitId, unit->getGoal(),true);
+                    reposition(id, unitId, unit->getGoal(), true);
                 }
             coordenada_t free = unit->relocate();
             map[unit->getPosition().first][unit->getPosition().second]->occupied = true;

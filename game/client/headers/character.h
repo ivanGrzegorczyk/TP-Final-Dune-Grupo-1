@@ -19,12 +19,12 @@ private:
 public:
     character(SDL2pp::Renderer &renderer, int player, int id, coordenada_t coord, int type);
     bool walkEvent(int x, int y);
+    bool attackEvent(int id);
     void notify(SDL_Event event);
     void render();
     void update();
     bool contains(int x, int y) const;
     void setSelected(bool was_selected); // TODO inefficient rendering over and over
-    bool attackEvent(int enemyId);
     void takeDamage(int damage);
     void attack(Damageable* d, int damage);
 };

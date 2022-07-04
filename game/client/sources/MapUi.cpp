@@ -118,10 +118,12 @@ std::vector<Request*> MapUi::moveCharacter(int x, int y, int playerId) { //(x, y
         Request *request;
         bool applies_to_unit;
         if(id != INVALID_ENTITY_ID) {
+            std::cout << "attack event";
             applies_to_unit = unit.second->attackEvent(id);
             request = new AttackRequest(unit.second->getId(), id);
             requests.emplace_back(request);
         } else {
+            std::cout << "attack event";
             applies_to_unit = unit.second->walkEvent(x, y);
             request = new MoveQuery(unit.second->getId(),coordenada_t({x,y}));
             requests.emplace_back(request);

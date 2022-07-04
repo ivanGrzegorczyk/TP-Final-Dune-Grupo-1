@@ -33,7 +33,7 @@ public:
 
     std::shared_ptr<Building> getBuilding(int buildingId);
 
-    std::map<int, std::shared_ptr<Unit>> *getUnits();
+    std::map<int, std::shared_ptr<Unit>>* getUnits();
 
     void addUnitData(Snapshot &snapshot);
 
