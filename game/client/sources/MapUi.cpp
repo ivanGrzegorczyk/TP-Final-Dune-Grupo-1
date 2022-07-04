@@ -5,11 +5,12 @@
 #include "../headers/MoveQuery.h"
 #include "../headers/AttackRequest.h"
 #include "../headers/CreateLightInfantry.h"
+#include "client/headers/VehicleUi.h"
 
 
-MapUi::MapUi(Renderer &renderer) : 
-        terrainRepo(renderer),
-        rdr(renderer), 
+MapUi::MapUi(Renderer &renderer) :
+        repository(renderer),
+        rdr(renderer),
         ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
         harvester(Texture(renderer, Surface(DATA_PATH "/harvester.png"))),
         building_types(factory.createBuildingTypes(rdr)),
@@ -163,11 +164,19 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
         (*found).second->setPosition(coord);
         units.insert(*found);
     } else {
-        character* c = new character(rdr, player, characterId, coord, type);
-        auto pair = std::make_pair<int, std::shared_ptr<character >>  ((int)characterId, (std::shared_ptr<character>) std::shared_ptr<character>(c));
+        character* c = new character(rdr, player, characterId, coord, type, repository);
+        auto pair = std::make_pair<int, std::shared_ptr<character >>
+        ((int)characterId, (std::shared_ptr<character>) std::shared_ptr<character>(c));
         units.insert(pair);
     }
 }
+
+void MapUi::updateVehicles(int player, int type, int vehicleId, coordenada_t coord) {
+    auto* vehicle = new VehicleUi(rdr, player, vehicleId, coord, type, repository);
+    vehicles.emplace(vehicleId, vehicle);
+}
+
+
 
 /*
     Create new building on map
@@ -226,6 +235,10 @@ void MapUi::render() {
     for(auto const& b : buildings) {
         b.second->render();
     }
+
+    for(auto const& b : vehicles) {
+        b.second->render();
+    }
     // render gui
     gui.render(rdr);
     rdr.Present();
@@ -235,7 +248,7 @@ void MapUi::render() {
 void MapUi::addTerrain(coordenada_t coord, Rect destination, int terrainId) {
    // Rect rockRect(100, 220, 8, 8);
    try {
-        SDL2pp::Texture &r =  terrainRepo.getTileOf(terrainId);
+        SDL2pp::Texture &r =  repository.getTileOf(terrainId);
         Rect rockRect(0,0,16,16);
         CeldaUi cell(r, coord, destination, rockRect);
         map.push_back(cell);
