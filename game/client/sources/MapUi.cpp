@@ -25,7 +25,7 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
     uint16_t id;
     int mouse_x;
     int mouse_y;
-    SDL_GetMouseState(&mouse_x, &mouse_y);
+    uint32_t state = SDL_GetMouseState(&mouse_x, &mouse_y);
     int cell_x = mouse_x / LENGTH_TILE;
     int cell_y = mouse_y / LENGTH_TILE;
     // interact with gui
@@ -33,6 +33,11 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
         && event.button.button == SDL_BUTTON_LEFT 
         && gui.isOverPoint(mouse_x, mouse_y)) {
             gui.clickOver(mouse_x, mouse_y);
+            
+    } else if(event.type == SDL_MOUSEBUTTONDOWN) {
+        if(event.button.button == SDL_BUTTON_LEFT && pressed == false) {
+            pressed = true;
+        }
     } else if(event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
             case SDLK_a:
@@ -48,9 +53,19 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
         } 
     } else if(event.type == SDL_MOUSEBUTTONUP) {
         if(event.button.button ==  SDL_BUTTON_RIGHT) {
-            req = this->moveCharacter(cell_x,cell_y,playerId);
+            // mapUi->clearSelected();
+            std::vector<Request*> reqs = this->moveCharacter(cell_x,cell_y,playerId);
+            if(!reqs.empty()) {
+                req = reqs[0];
+            }
+
             
         } else if(event.button.button == SDL_BUTTON_LEFT) {
+            pressed = false;
+            selectUnits(event, playerId);
+        }
+    } else if(event.type == SDL_MOUSEMOTION) {
+        if(pressed == true) {
             selectUnits(event, playerId);
         }
     }
@@ -68,26 +83,43 @@ void MapUi::selectUnits(SDL_Event event, int playerId) {
         }
     }
 }
+//// CONFLICTS
+
+
+// TODO use map instead of find if
+std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
+    auto found = std::find_if(
+        building_types.begin(), 
+        building_types.end(), 
+        [type](std::shared_ptr<BuildingType> b){
+            return b->code() == type;
+        });
+    if(found == building_types.end()) {
+        throw std::invalid_argument("bad building code");
+    }
+    return *found;
+}
 
 //TODO move multiple units at once!
-Request* MapUi::moveCharacter(int x, int y, int playerId) {
+std::vector<Request*> MapUi::moveCharacter(int x, int y, int playerId) {
+    std::vector<Request*> requests;
     bool request;
     for (auto const& unit : units) {
         request = unit.second->walkEvent(x, y);
         if (request) {
             coordenada_t coord(x,y);
-            std::cout <<  "unit id:" << unit.second->getId();
-            std::cout <<  "x:" << x;
-            std::cout <<  "y:" << y << std::endl;
-            return new MoveQuery(unit.second->getId(), std::move(coord));
+            requests.push_back(new MoveQuery(unit.second->getId(), std::move(coord)));
         } 
     }
-    return nullptr;
+    return requests;
 }
 
 Request* MapUi::damageBetween(int entity1, int entity2) {
     return nullptr;
 }
+
+/*
+*/
 
 
 // UPDATE
@@ -178,24 +210,6 @@ void MapUi::render() {
     gui.render(rdr);
     rdr.Present();
 }
-
-
-
-
-// TODO use map instead of find if
-std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
-    auto found = std::find_if(
-        building_types.begin(), 
-        building_types.end(), 
-        [type](std::shared_ptr<BuildingType> b){
-            return b->code() == type;
-        });
-    if(found == building_types.end()) {
-        throw std::invalid_argument("bad building code");
-    }
-    return *found;
-}
-
 
 
 void MapUi::addTerrain(coordenada_t coord, Rect destination, int terrainId) {

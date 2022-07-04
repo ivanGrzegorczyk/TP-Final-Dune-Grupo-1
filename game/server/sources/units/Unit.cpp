@@ -21,8 +21,26 @@ coordenada_t Unit::relocate() {
     return free;
 }
 
+coordenada_t Unit::getNextPosition() {
+    coordenada_t ret(-1, -1);
+    if (!path.empty())
+        ret = path.top();
+
+    return ret;
+}
+
 void Unit::setPosition(coordenada_t newPosition) {
     this->coord = newPosition;
+}
+
+coordenada_t Unit::getGoal() {
+    coordenada_t goal(-1, -1);
+    while (!path.empty()) {
+        goal = path.top();
+        path.pop();
+    }
+
+    return std::move(goal);
 }
 
 bool Unit::isStill() {

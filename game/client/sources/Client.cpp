@@ -52,6 +52,7 @@ void Client::run() {
 
 void Client::ProcessInput(BlockingQueue<Request *>& sendQueue) {
     int x, y;
+    bool g = false;
     SDL_Event event;
     while (running && SDL_PollEvent(&event)) {
         Request* req = nullptr;

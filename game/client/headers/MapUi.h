@@ -41,6 +41,7 @@ private:
     std::unordered_map<int, std::shared_ptr<character>> previous_units;
     std::vector<CeldaUi> map;
     Point fromCell(coordenada_t coord);
+    bool pressed = false;
 public:
     explicit MapUi(Renderer& renderer);
     ~MapUi();
@@ -50,14 +51,13 @@ public:
     void receiveMap(std::shared_ptr<Protocol> protocol);
     void render();
     Request* handleEvent(SDL_Event event, int playerId);
-    Request* moveCharacter(int x, int y, int playerId);
+    std::vector<Request*> moveCharacter(int x, int y, int playerId);
     Request* damageBetween(int entity1, int entity2);
 
     std::shared_ptr<BuildingType> selectedBuilding();
     std::shared_ptr<BuildingType> getBuildingType(int type);
-    void updateBuilding(int playerId, int buildingId,  std::shared_ptr<BuildingType> type, coordenada_t coord) ;
+    void updateBuilding(int playerId, int buildingId,  std::shared_ptr<BuildingType> type, coordenada_t coord);
     void updateUnits(int player, int type, int characterId, coordenada_t coord);
-
     void addTerrain(coordenada_t coord, Rect destination, int terrainId);
 };
 
