@@ -11,6 +11,7 @@
 #include "server/headers/units/HeavyInfantry.h"
 #include "server/headers/units/Fremen.h"
 #include "server/headers/units/Sardaukar.h"
+#include "server/headers/buildings/ConstructionCenter.h"
 
 Player::Player(int id, int house) : playerId(id), house(house), money(0) {}
 
@@ -44,6 +45,11 @@ void Player::addUnit(int unitId, int type, coordenada_t position) {
 void Player::addBuilding(
         int buildingId, int buildingType, coordenada_t position) {
     switch (buildingType) {
+        case BUILDING_CONSTRUCTION_CENTER: {
+            buildings.insert(std::pair<int, std::shared_ptr<Building>> (
+                    buildingId, new ConstructionCenter(buildingId, position)));
+            break;
+        }
         case BUILDING_LIGHT_FACTORY: {
             buildings.insert(std::pair<int, std::shared_ptr<Building>> (
                     buildingId, new LightFactory(buildingId, position)));
@@ -93,15 +99,6 @@ std::shared_ptr<Unit> &Player::getUnit(int unitId) {
 
 std::shared_ptr<Building> Player::getBuilding(int buildingId) {
     return buildings.at(buildingId);
-}
-
-void Player::updateUnitsPosition(std::vector<std::vector<ServerCell *>> &map) {
-    for (auto const& [unitId, unit] : units) {
-        coordenada_t free = unit->relocate();
-        map[unit->getPosition().first][unit->getPosition().second]->occupied = true;
-        if (free.first != -1 && free.second != -1)
-            map[free.first][free.second]->occupied = false;
-    }
 }
 
 void Player::addUnitData(Snapshot &snapshot) {

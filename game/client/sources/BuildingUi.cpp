@@ -10,21 +10,20 @@ void BuildingUi::update() {
 bool BuildingUi::contains(int x, int y) const {
     return location.Contains(x, y);
 }
+void BuildingUi::takeDamage(int damage) {
+    //TODO
+}
 // TODO improve encapsulation
 BuildingUi::BuildingUi(
         int player, 
         int buildingId,
         std::shared_ptr<BuildingType> type, 
         Renderer &rdr, 
-        coordenada_t coord, 
-        Point size = Point(50,50),
-        Point map_center = Point(0,0)) 
+        Point coord, 
+        Point size = Point(50,50))
         : type(type),
-        renderer(rdr), 
-        coord(coord) {
-            Point _pos(coord.first, coord.second);
-            _pos = _pos * 8 + map_center;
-            Rect _location(_pos, size);
+        renderer(rdr) {
+            Rect _location(coord, size);
             location = _location;
         }
 

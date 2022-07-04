@@ -57,7 +57,6 @@ void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t posi
     if (players.find(playerId) == players.end()) {
         players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
     }
-
     if (!validPosition(position))
         return;
 
@@ -97,7 +96,19 @@ void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t posi
 
 void ServerMap::updateUnitsPosition() {
     for (auto & [id, player] : players) {
-        player.updateUnitsPosition(map);
+        auto units = player.getUnits();
+        for (auto const& [unitId, unit] : *units) {
+            coordenada_t next = unit->getNextPosition();
+            if(next.first >= 0 && next.second >= 0)
+                if(map[next.first][next.second]->occupied) {
+                    reposition(id, unitId, unit->getGoal(),true);
+                }
+            coordenada_t free = unit->relocate();
+            map[unit->getPosition().first][unit->getPosition().second]->occupied = true;
+            if (free.first != -1 && free.second != -1) {
+                map[free.first][free.second]->occupied = false;
+            }
+        }
     }
 }
 
@@ -155,8 +166,7 @@ void ServerMap::addSnapshotData(Snapshot &snapshot) {
 }
 
 void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
-    // TODO Colocar el edificio central y crear más terrenos cuando
-    // el cliente los pueda renderizas
+    std::cout << "Inicializa el terrainnn" << std::endl;
     std::ifstream file(MAPS_PATH "data.yaml");
     YAML::Node config = YAML::Load(file);
     rows = config["map"]["rows"].as<int>();
@@ -166,10 +176,17 @@ void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
             rows, std::vector<ServerCell *>(columns));
     entityId = 1;
 
-    for(YAML::Node cell : config["map"]["cells"]) {
+    for (YAML::Node cell : config["map"]["cells"]) {
         auto row = cell["pos"][1].as<int>();
         auto column = cell["pos"][0].as<int>();
         auto _terrain = cell["terrain"].as<std::string>();
+
+        for (YAML::Node building : cell["buildings"]) {
+            auto name = building["name"].as<std::string>();
+            if (name == "Construction Center") {
+                construction_centers.push({row, column});
+            }
+        }
 
         if (_terrain == YAML_SAND) {
             auto spice = cell["seed"].as<unsigned int>();

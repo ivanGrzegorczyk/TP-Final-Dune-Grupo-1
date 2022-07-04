@@ -1,12 +1,12 @@
 #ifndef TP_FINAL_DUNE_GRUPO_1_CLIENTUNIT_H
 #define TP_FINAL_DUNE_GRUPO_1_CLIENTUNIT_H
 
-
+#include "client/headers/Attacker.h"
+#include "client/headers/Damageable.h"
 #include "common/headers/Entity.h"
 #include "client/headers/SdlEntity.h"
-#include "client/headers/Subscriber.h"
 
-class ClientUnit : public Entity, SdlEntity, Subscriber {
+class ClientUnit : public Entity, SdlEntity, Attacker, public Damageable {
     int range;
     int speed;
 public:

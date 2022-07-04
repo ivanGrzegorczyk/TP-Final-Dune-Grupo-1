@@ -2,6 +2,7 @@
 #define TP_FINAL_DUNE_GRUPO_1_CONSTANTES_H
 
 #include <utility>
+#define LENGTH_TILE 16
 
 typedef std::pair<int, int> coordenada_t;
 // CONSTANTES DESPUES VAN EN EL YAML

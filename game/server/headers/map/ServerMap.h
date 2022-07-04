@@ -4,6 +4,7 @@
 #include <memory>
 #include <map>
 #include <mutex>
+#include <queue>
 
 #include "ServerCell.h"
 #include "Navigator.h"
@@ -18,6 +19,7 @@ private:
     std::map<int, Player> players;
     std::vector<std::vector<ServerCell *>> map;
     int entityId;
+    std::queue<coordenada_t> construction_centers;
 
     std::stack<coordenada_t> A_star(coordenada_t start, coordenada_t end);
 

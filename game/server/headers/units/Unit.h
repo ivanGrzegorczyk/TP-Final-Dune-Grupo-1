@@ -50,6 +50,10 @@ public:
     bool isAttacking() const;
 
     void stopAttacking();
+
+    coordenada_t getGoal();
+
+    coordenada_t getNextPosition();
 };
 
 #endif  // UNITY_H_

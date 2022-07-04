@@ -124,7 +124,7 @@ void Protocol::createResponse(uint8_t &eventType, int player, Response* response
     int entityType; int entityId;
     int posX; int posY;
     this->receiveEntityInfo(entityType, entityId, posX, posY);
-    coordenada_t coord({posX * (LENGTH_TILE/8), posY * (LENGTH_TILE/8)});
+    coordenada_t coord({posX, posY});
     if(eventType == UNIT) {
         uint8_t att;
         uint16_t idTarget;
