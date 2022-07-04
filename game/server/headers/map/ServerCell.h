@@ -12,6 +12,8 @@
 #include "server/headers/units/Unit.h"
 #include "common/headers/Chronometer.h"
 
+#define MAX_SPICE 200
+
 class ServerCell {
 public:
     coordenada_t coords;
