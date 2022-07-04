@@ -56,6 +56,7 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
             // mapUi->clearSelected();
             std::vector<Request*> reqs = this->moveCharacter(cell_x,cell_y,playerId);
             if(!reqs.empty()) {
+                std::cout << "pushing request" << std::endl;
                 req = reqs[0];
             }
 
@@ -109,6 +110,7 @@ std::vector<Request*> MapUi::moveCharacter(int x, int y, int playerId) {
         if (request) {
             coordenada_t coord(x,y);
             requests.push_back(new MoveQuery(unit.second->getId(), std::move(coord)));
+            break;
         } 
     }
     return requests;
