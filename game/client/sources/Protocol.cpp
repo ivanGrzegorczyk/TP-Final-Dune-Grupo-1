@@ -126,6 +126,13 @@ void Protocol::createResponse(uint8_t &eventType, int player, Response* response
     this->receiveEntityInfo(entityType, entityId, posX, posY);
     coordenada_t coord({posX * (LENGTH_TILE/8), posY * (LENGTH_TILE/8)});
     if(eventType == UNIT) {
+        uint8_t att;
+        uint16_t idTarget;
+        skt.recvall(&att, sizeof(att));
+        skt.recvall(&idTarget, sizeof(idTarget));
+
+        std::cout << "ataque id: " << unsigned (att) <<std::endl;
+
         event = new UpdateUnit(player, entityType, entityId, coord);
             //break;
     }
@@ -158,14 +165,13 @@ void Protocol::deserializeEvents(uint16_t playerId, Response* response) {
 void Protocol::receiveEntityInfo(int &entityType, int &entityId, int &coordX, int &coordY) {
     uint8_t type; uint16_t idEntity;
     uint16_t posX; uint16_t posY;
-    uint8_t attacking;
-
     skt.recvall(&type, sizeof(type));
     skt.recvall(&idEntity, sizeof(idEntity));
     skt.recvall(&posX, sizeof(posX));
     skt.recvall(&posY, sizeof(posY));
 
     entityType = type;
+
     entityId = (int)ntohs(idEntity);
     coordX = (int)ntohs(posX);
     coordY = (int)ntohs(posY);
