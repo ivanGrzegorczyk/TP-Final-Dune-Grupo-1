@@ -1,6 +1,7 @@
 #include "server/headers/map/SandCell.h"
 
-#define HARVEST_TIME 1000000 // 1 segundo cosecha 10
+#define HARVEST_TIME 1000000  // Tiempo que tarda en cosechar MAX_HARVESTED
+#define MAX_HARVESTED 10
 
 SandCell::SandCell(coordenada_t coord, unsigned int spice) : ServerCell(coord), spice(spice) {}
 
@@ -16,12 +17,12 @@ unsigned int SandCell::harvest() {
         return 0;
 
     unsigned int harvested;
-    if (spice < 10) {
+    if (spice < MAX_HARVESTED) {
         harvested = spice;
         spice = 0;
     } else {
-        spice -= 10;
-        harvested = 10;
+        spice -= MAX_HARVESTED;
+        harvested = MAX_HARVESTED;
         chronometer.tick();
     }
 
