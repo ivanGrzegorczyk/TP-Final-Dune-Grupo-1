@@ -23,10 +23,6 @@ std::stack<coordenada_t> ServerMap::A_star(
 }
 
 void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
-    if (players.find(playerId) == players.end()) {
-        players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
-    }
-
     if (!validPosition(position))
         return;
 
@@ -53,10 +49,6 @@ void ServerMap::reposition(int playerId, int unitId, coordenada_t goal) {
 }
 
 void ServerMap::createBuilding(int playerId, int buildingType, coordenada_t position) {
-    if (players.find(playerId) == players.end()) {
-        players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
-    }
-
     if (!validPosition(position))
         return;
 
@@ -148,8 +140,7 @@ void ServerMap::addSnapshotData(Snapshot &snapshot) {
 }
 
 void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
-    // TODO Colocar el edificio central y crear más terrenos cuando
-    // el cliente los pueda renderizas
+    std::cout << "Inicializa el terrainnn" << std::endl;
     std::ifstream file(MAPS_PATH "data.yaml");
     YAML::Node config = YAML::Load(file);
     rows = config["map"]["rows"].as<int>();
@@ -159,10 +150,17 @@ void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
             rows, std::vector<ServerCell *>(columns));
     entityId = 1;
 
-    for(YAML::Node cell : config["map"]["cells"]) {
+    for (YAML::Node cell : config["map"]["cells"]) {
         auto row = cell["pos"][1].as<int>();
         auto column = cell["pos"][0].as<int>();
         auto _terrain = cell["terrain"].as<std::string>();
+
+        for (YAML::Node building : cell["buildings"]) {
+            auto name = building["name"].as<std::string>();
+            if (name == "Construction Center") {
+                construction_centers.push({row, column});
+            }
+        }
 
         if (_terrain == YAML_SAND) {
             auto spice = cell["seed"].as<unsigned int>();
@@ -219,5 +217,19 @@ void ServerMap::build(int playerId, coordenada_t &position, int buildingType, in
             }
         }
         entityId++;
+    }
+}
+
+void ServerMap::buildConstructionCenter(int playerId) {
+    players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
+
+    if (!construction_centers.empty()) {
+        coordenada_t position = construction_centers.front();
+        // No lo pongo en en el metodo createBuilding para que si juega eldipa no se ponga
+        // 18 centros de construccion y gane siempre
+        build(playerId, position, BUILDING_CONSTRUCTION_CENTER, 3, 3);
+        construction_centers.pop();
+    } else {
+        throw std::runtime_error("Game is full");
     }
 }
