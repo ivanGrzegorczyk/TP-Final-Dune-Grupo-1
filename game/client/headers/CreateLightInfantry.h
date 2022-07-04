@@ -4,7 +4,7 @@
 #include "Request.h"
 
 
-class CreateLightInfantry : public Request{
+class CreateLightInfantry : public Request {
 private:
     coordenada_t coord;
 public:
