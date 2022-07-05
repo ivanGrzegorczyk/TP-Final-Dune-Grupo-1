@@ -13,6 +13,7 @@ class VehicleUi : public Entity, SdlEntity, Damageable {
 private:
     TextureManager &repository;
     Texture &texture;
+    coordenada_t coord;
     Renderer& rnd;
     Rect current;
 public:
