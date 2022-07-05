@@ -99,7 +99,19 @@ void Protocol::createResponse(uint8_t &eventType, int player, Response* response
         if(eventType == VEHICLE) {
                 event = new UpdateVehicle(player ,entityType, entityId, coord);
         }
-    } else if (eventType == SPICE) {
+    } else {
+        std::invalid_argument("unrecognized argument");
+    }
+    if(event != nullptr) response->add(event);
+}
+
+void Protocol::deserializeEvents(uint16_t playerId, Response* response) {
+    uint8_t eventType;
+    uint16_t amount;
+
+    skt.recvall(&eventType, sizeof(eventType));
+
+    if (eventType == SPICE) {
         std::cout << "spice!" << std::endl;
         skt.recvall(&amount, sizeof(amount));
         amount = ntohs(amount);
@@ -114,30 +126,21 @@ void Protocol::createResponse(uint8_t &eventType, int player, Response* response
 
             position_x = ntohs(position_x);
             position_y = ntohs(position_y);
+        }
+    } else {
+        skt.recvall(&amount, sizeof(amount));
+        playerId = ntohs(playerId);
+        amount = ntohs(amount);
 
-            std::cout << unsigned (position_x) << " ";
-            std::cout << unsigned (position_y) << " ";
-            std::cout << unsigned (soil) << " | ";
+        for(int j = 0; j < amount; j++) {
+            this->createResponse(eventType, playerId, response);
         }
     }
-    if(event != nullptr) response->add(event);
 }
 
-void Protocol::deserializeEvents(uint16_t playerId, Response* response) {
-    uint8_t eventType;
-    uint16_t amount;
-
-    skt.recvall(&eventType, sizeof(eventType));
-    skt.recvall(&amount, sizeof(amount));
-    playerId = ntohs(playerId);
-    amount = ntohs(amount);
-
-    for(int j = 0; j < amount; j++) {
-        this->createResponse(eventType, playerId, response);
-    }
-}
-
-
+/*
+    Get type, entityId, and coordinates of an entity from the network
+*/
 void Protocol::receiveEntityInfo(int &entityType, int &entityId, int &coordX, int &coordY) {
     uint8_t type; uint16_t idEntity;
     uint16_t posX; uint16_t posY;
@@ -145,12 +148,12 @@ void Protocol::receiveEntityInfo(int &entityType, int &entityId, int &coordX, in
     skt.recvall(&idEntity, sizeof(idEntity));
     skt.recvall(&posX, sizeof(posX));
     skt.recvall(&posY, sizeof(posY));
-
     entityType = type;
 
     entityId = (int)ntohs(idEntity);
     coordX = (int)ntohs(posX);
     coordY = (int)ntohs(posY);
+    std::cout << "getting entity: " << entityType << " " << entityId << " " << coordX << " " << coordY << std::endl;
 }
 
 void Protocol::close() {

@@ -8,7 +8,7 @@ typedef std::pair<int, int> coordenada_t;
 // CONSTANTES DESPUES VAN EN EL YAML
 #define INVALID_ENTITY_ID 0
 
-#define EVENTS 3
+#define EVENTS 4
 //tipo de respuestas
 #define BUILDING 50
 #define VEHICLE 60

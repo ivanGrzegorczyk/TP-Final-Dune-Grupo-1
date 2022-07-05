@@ -273,14 +273,10 @@ void MapUi::render() {
 
 void MapUi::addTerrain(coordenada_t coord, Rect destination, int terrainId) {
    // Rect rockRect(100, 220, 8, 8);
-   try {
-        SDL2pp::Texture &r =  repository.getTileOf(terrainId);
-        Rect rockRect(0,0,16,16);
-        CeldaUi cell(r, coord, destination, rockRect);
-        map.push_back(cell);
-   } catch(std::exception e) {
-       std::cout << "terrain error:" << e.what() << std::endl;
-   }
+    SDL2pp::Texture &r =  repository.getTileOf(terrainId);
+    Rect rockRect(0,0,16,16);
+    CeldaUi cell(r, coord, destination, rockRect);
+    map.push_back(cell);
 }
 
 
