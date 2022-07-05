@@ -247,3 +247,15 @@ void Player::addMoney(int _money) {
 int Player::getMoney() const {
     return money;
 }
+
+bool Player::checkForBuilding(coordenada_t &position) {
+    for (const auto & [buildingId, building] : buildings) {
+        if (building->getPosition() == position)
+            return true;
+    }
+    for (const auto & [buildingId, building] : refineries) {
+        if (building->getPosition() == position)
+            return true;
+    }
+    return false;
+}

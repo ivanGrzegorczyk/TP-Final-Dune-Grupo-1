@@ -74,6 +74,8 @@ public:
     void addMoney(int _money);
 
     int getMoney() const;
+
+    bool checkForBuilding(coordenada_t &position);
 };
 
 #endif  // PLAYER_H_
