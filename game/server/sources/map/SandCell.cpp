@@ -10,9 +10,6 @@ int SandCell::ground() {
 }
 
 unsigned int SandCell::harvest() {
-    if (spice <= 0)
-        throw std::runtime_error("No spice on cell");
-
     unsigned int harvested = 0;
 
     if (chronometer.tack() >= HARVEST_TIME) {
