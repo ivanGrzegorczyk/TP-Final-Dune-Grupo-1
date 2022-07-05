@@ -6,6 +6,7 @@ houses:
   - Ordos
 units:
   - name: Infantería ligera
+    texture: "harvester.png"
     required: 
       - Cuartel
     house: [Harkonnen, Atreides, Ordos]
@@ -17,6 +18,20 @@ units:
     life_points: 50
 
   - name: Sardaukar
+    texture: "harvester.png"
+    required:
+      - Cuartel
+      - Palacio
+    house: [Harkonnen]
+    weapon: [Rifle de Asalto, Lanza Misiles]
+    range: 3
+    speed: 16 # km h
+    training_time: 1 # minutes
+    cost: 50
+    life_points: 50
+  
+  - name: Cosechadora
+    texture: "harvester.png"
     required:
       - Cuartel
       - Palacio
