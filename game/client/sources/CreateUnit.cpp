@@ -1,12 +1,10 @@
-#include "../headers/CreateLightInfantry.h"
+#include "../headers/CreateUnit.h"
 #include <iostream>
-CreateLightInfantry::CreateLightInfantry(int x, int y) : coord({x, y}) {
+CreateUnit::CreateUnit(int x, int y, int unit) : unit(unit), coord({x, y}) {}
 
-}
-
-std::vector<uint16_t> CreateLightInfantry::getData() {
+std::vector<uint16_t> CreateUnit::getData() {
     std::vector<uint16_t> data(3,0);
-    std::cout <<  "create:" << UNIT_LIGHT_INFANTRY << ",";
+    std::cout <<  "create:" << unit << ",";
     std::cout <<  "x:" << coord.first;
     std::cout <<  "y:" << coord.second << std::endl;
     data[0] = UNIT_LIGHT_INFANTRY;
@@ -15,6 +13,6 @@ std::vector<uint16_t> CreateLightInfantry::getData() {
     return data;
 }
 
-int CreateLightInfantry::getCommand() {
+int CreateUnit::getCommand() {
     return CREATE_UNIT_EVENT;
 }

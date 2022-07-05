@@ -4,7 +4,7 @@
 #include "client/headers/CreateBuilding.h"
 #include "../headers/MoveQuery.h"
 #include "../headers/AttackRequest.h"
-#include "../headers/CreateLightInfantry.h"
+#include "../headers/CreateUnit.h"
 #include "client/headers/VehicleUi.h"
 #include "client/headers/CreateHarvester.h"
 
@@ -22,7 +22,6 @@ MapUi::MapUi(Renderer &renderer) :
 
 // TODO: select with left click
 std::vector<Request*> MapUi::handleEvent(SDL_Event event, int playerId) {
-    
     uint16_t id;
     int mouse_x;
     int mouse_y;
@@ -43,7 +42,7 @@ std::vector<Request*> MapUi::handleEvent(SDL_Event event, int playerId) {
     } else if(event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
             case SDLK_a:
-                requests.push_back(new CreateLightInfantry(cell_x, cell_y));
+                requests.push_back(new CreateUnit(cell_x, cell_y, currentUnit()));
                 break;
             case SDLK_b:
                 id = (uint16_t)(gui.getBuildingToBuild()->code());
@@ -71,6 +70,10 @@ std::vector<Request*> MapUi::handleEvent(SDL_Event event, int playerId) {
         }
     }
     return requests;
+}
+
+int MapUi::currentUnit() {
+    return gui.getUnitType();
 }
 
 // TODO: select with left click

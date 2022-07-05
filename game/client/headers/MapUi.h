@@ -49,6 +49,7 @@ private:
     AudioPlayer audioPlayer;
 public:
     explicit MapUi(Renderer& renderer);
+    int currentUnit();
     ~MapUi();
     void draw();
     void selectUnits(SDL_Event event, int playerId);

@@ -29,6 +29,7 @@ public:
     bool isOverPoint(int x, int y);
     void clickOver(int x, int y);
     void setBuildingToBuild(std::shared_ptr<BuildingType> type);
+    int getUnitType();
     void setUnitToSpawn(std::shared_ptr<UnitType> type);
     std::shared_ptr<BuildingType> getBuildingToBuild();
     void drawBuildingButtons(std::vector<std::shared_ptr<BuildingType>> building_types);

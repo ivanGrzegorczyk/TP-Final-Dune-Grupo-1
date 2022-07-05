@@ -117,6 +117,9 @@ void GUI::drawBuildingButtons(std::vector<std::shared_ptr<BuildingType>> buildin
     }
 }
 
+int GUI::getUnitType() {
+    return UNIT_LIGHT_INFANTRY;
+}
 
 void GUI::drawUnitsButtons(std::vector<std::shared_ptr<UnitType>> units) {
     buttons.clear();

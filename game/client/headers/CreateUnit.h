@@ -4,11 +4,12 @@
 #include "Request.h"
 
 
-class CreateLightInfantry : public Request {
+class CreateUnit : public Request {
 private:
+    int unit;
     coordenada_t coord;
 public:
-    CreateLightInfantry(int x, int y);
+    CreateUnit(int x, int y, int unit);
     std::vector<uint16_t> getData() override;
     int getCommand() override;
 };
