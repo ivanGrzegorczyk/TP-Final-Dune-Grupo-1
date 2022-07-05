@@ -236,7 +236,7 @@ void ServerMap::unitCheck() {
 
 void ServerMap::addSnapshotData(Snapshot &snapshot) {
     for (auto & [playerId, player] : players) {
-        snapshot.addPlayer(playerId);
+        snapshot.addPlayer(playerId, player.getMoney());
         player.addUnitData(snapshot);
         player.addBuildingData(snapshot);
         player.addVehicleData(snapshot);

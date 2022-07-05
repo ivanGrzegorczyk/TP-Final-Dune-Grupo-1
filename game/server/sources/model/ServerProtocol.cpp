@@ -60,7 +60,7 @@ void ServerProtocol::assignPlayerId(int id) {
 }
 
 void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
-    std::vector<int> players = snapshot.getPlayers();
+    auto players = snapshot.getPlayers();
     uint16_t playerAmount = players.size();
     tiburoncin_de_la_salada = false;
     if (playerAmount > 0 && tiburoncin_de_la_salada)
@@ -68,11 +68,15 @@ void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
     playerAmount = htons(playerAmount);
     socket.sendall(&playerAmount, sizeof(playerAmount));
 
-    for (auto playerId : players) {
+    for (const auto & [playerId, _money] : players) {
         uint16_t id = htons(playerId);
-        if (tiburoncin_de_la_salada)
+        uint16_t money = htons(_money);
+        if (tiburoncin_de_la_salada) {
             std::cout << playerId << " | ";
+            std::cout << _money << " | ";
+        }
         socket.sendall(&id, sizeof(id));
+        socket.sendall(&money, sizeof(money));
 
         std::vector<std::shared_ptr<Unit>> units = snapshot.getUnits(playerId);
         std::vector<std::shared_ptr<Building>> buildings = snapshot.getBuildings(playerId);
