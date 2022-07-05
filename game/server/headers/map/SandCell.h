@@ -15,6 +15,8 @@ public:
     ~SandCell() override = default;
 
     bool harvestable() override;
+
+    int getSpice() override;
 };
 
 #endif  // SANDCELL_H_

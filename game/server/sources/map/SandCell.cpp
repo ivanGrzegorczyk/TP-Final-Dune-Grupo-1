@@ -32,3 +32,7 @@ unsigned int SandCell::harvest() {
 bool SandCell::harvestable() {
     return spice > 0;
 }
+
+int SandCell::getSpice() {
+    return spice;
+}

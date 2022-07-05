@@ -28,6 +28,8 @@ public:
     virtual bool harvestable();
 
     virtual ~ServerCell() = default;
+
+    virtual int getSpice();
 };
 
 #endif  // SERVERCELL_H_

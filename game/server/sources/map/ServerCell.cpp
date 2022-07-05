@@ -9,3 +9,7 @@ ServerCell::ServerCell(coordenada_t coord) : coords(std::move(coord)), occupied(
 bool ServerCell::harvestable() {
     return false;
 }
+
+int ServerCell::getSpice() {
+    return 0;
+}
