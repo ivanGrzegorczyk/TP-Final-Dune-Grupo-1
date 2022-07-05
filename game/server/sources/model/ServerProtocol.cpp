@@ -76,7 +76,7 @@ void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
             std::cout << _money << " | ";
         }
         socket.sendall(&id, sizeof(id));
-        socket.sendall(&money, sizeof(money));
+//        socket.sendall(&money, sizeof(money));
 
         std::vector<std::shared_ptr<Unit>> units = snapshot.getUnits(playerId);
         std::vector<std::shared_ptr<Building>> buildings = snapshot.getBuildings(playerId);
@@ -88,7 +88,7 @@ void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
         sendBuildingData(buildings);
         sendVehicleData(vehicles);
 //        sendDeadUnitsData(dead_units);
-        sendTerrainData(terrain_data);
+//        sendTerrainData(terrain_data);
     }
     std::cout << std::endl;
 }
