@@ -15,6 +15,7 @@ class ServerProtocol {
 private:
     Socket socket;
     std::atomic<bool> socket_closed;
+    bool tiburoncin_de_la_salada;
 
     void sendUnitData(std::vector<std::shared_ptr<Unit>> &units);
     void sendBuildingData(std::vector<std::shared_ptr<Building>> &buildings);

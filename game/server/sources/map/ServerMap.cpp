@@ -347,6 +347,20 @@ void ServerMap::unitAttackReset() {
     }
 }
 
+void ServerMap::buildConstructionCenter(int playerId) {
+    players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
+
+    if (!construction_centers.empty()) {
+        coordenada_t position = construction_centers.front();
+        // No lo pongo en en el metodo createBuilding para que si juega eldipa no se ponga
+        // 18 centros de construccion y gane siempre
+        build(playerId, position, BUILDING_CONSTRUCTION_CENTER, 3, 3);
+        construction_centers.pop();
+    } else {
+        throw std::runtime_error("Game is full");
+    }
+}
+
 coordenada_t ServerMap::findClosestHarvestableCell(coordenada_t position) {
     std::vector<coordenada_t> valid_positions;
     for (int i = -5; i <= 5; i++) {

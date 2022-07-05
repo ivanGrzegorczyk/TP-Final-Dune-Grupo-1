@@ -62,11 +62,16 @@ void ServerProtocol::assignPlayerId(int id) {
 void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
     std::vector<int> players = snapshot.getPlayers();
     uint16_t playerAmount = players.size();
+    tiburoncin_de_la_salada = false;
+    if (playerAmount > 0 && tiburoncin_de_la_salada)
+        std::cout << unsigned (playerAmount) << " | ";
     playerAmount = htons(playerAmount);
     socket.sendall(&playerAmount, sizeof(playerAmount));
 
     for (auto playerId : players) {
         uint16_t id = htons(playerId);
+        if (tiburoncin_de_la_salada)
+            std::cout << playerId << " | ";
         socket.sendall(&id, sizeof(id));
 
         std::vector<std::shared_ptr<Unit>> units = snapshot.getUnits(playerId);
@@ -79,12 +84,17 @@ void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
         sendVehicleData(vehicles);
 //        sendDeadUnitsData(dead_units);
     }
+    std::cout << std::endl;
 }
 
 void ServerProtocol::sendUnitData(std::vector<std::shared_ptr<Unit>> &units) {
     uint8_t eventType = UNIT;
+    if (tiburoncin_de_la_salada)
+        std::cout << unsigned (eventType) << " ";
     socket.sendall(&eventType, sizeof(eventType));
     uint16_t amount = units.size();
+    if (tiburoncin_de_la_salada)
+        std::cout << unsigned (amount) << " | ";
     amount = htons(amount);
     socket.sendall(&amount, sizeof(amount));
 
@@ -100,6 +110,14 @@ void ServerProtocol::sendUnitData(std::vector<std::shared_ptr<Unit>> &units) {
             target = unit->getTarget().second;
         else
             target = INVALID_ENTITY_ID;
+        if (tiburoncin_de_la_salada) {
+            std::cout << unsigned(type) << " ";
+            std::cout << unsigned(unitId) << " ";
+            std::cout << unsigned(position_x) << " ";
+            std::cout << unsigned(position_y) << " ";
+            std::cout << unsigned(attacking) << " ";
+            std::cout << unsigned(target) << " | ";
+        }
 
         unitId = htons(unitId);
         position_x = htons(position_x);
@@ -117,8 +135,13 @@ void ServerProtocol::sendUnitData(std::vector<std::shared_ptr<Unit>> &units) {
 
 void ServerProtocol::sendBuildingData(std::vector<std::shared_ptr<Building>> &buildings) {
     uint8_t eventType = BUILDING;
+    if (tiburoncin_de_la_salada)
+        std::cout << unsigned (eventType) << " ";
     socket.sendall(&eventType, sizeof(eventType));
-    uint16_t amount = htons(buildings.size());
+    uint16_t amount = buildings.size();
+    if (tiburoncin_de_la_salada)
+        std::cout << unsigned (amount) << " | ";
+    amount = htons(amount);
     socket.sendall(&amount, sizeof(amount));
 
     for (const auto& building : buildings) {
@@ -126,6 +149,13 @@ void ServerProtocol::sendBuildingData(std::vector<std::shared_ptr<Building>> &bu
         uint16_t buildingId = building->getId();
         uint16_t position_x = building->getPosition().second;
         uint16_t position_y = building->getPosition().first;
+
+        if (tiburoncin_de_la_salada) {
+            std::cout << unsigned(type) << " ";
+            std::cout << unsigned(buildingId) << " ";
+            std::cout << unsigned(position_x) << " ";
+            std::cout << unsigned(position_y) << " | ";
+        }
 
         buildingId = htons(buildingId);
         position_x = htons(position_x);
@@ -140,8 +170,13 @@ void ServerProtocol::sendBuildingData(std::vector<std::shared_ptr<Building>> &bu
 
 void ServerProtocol::sendVehicleData(std::vector<std::shared_ptr<Vehicle>> &vehicles) {
     uint8_t eventType = VEHICLE;
+    if (tiburoncin_de_la_salada)
+        std::cout << unsigned (eventType) << " ";
     socket.sendall(&eventType, sizeof(eventType));
-    uint16_t amount = htons(vehicles.size());
+    uint16_t amount = vehicles.size();
+    if (tiburoncin_de_la_salada)
+        std::cout << unsigned (amount) << " | ";
+    amount = htons(amount);
     socket.sendall(&amount, sizeof(amount));
 
     for (const auto& vehicle : vehicles) {
@@ -149,6 +184,13 @@ void ServerProtocol::sendVehicleData(std::vector<std::shared_ptr<Vehicle>> &vehi
         uint16_t vehicleId = vehicle->getId();
         uint16_t position_x = vehicle->getPosition().second;
         uint16_t position_y = vehicle->getPosition().first;
+
+        if (tiburoncin_de_la_salada) {
+            std::cout << unsigned(type) << " ";
+            std::cout << unsigned(vehicleId) << " ";
+            std::cout << unsigned(position_x) << " ";
+            std::cout << unsigned(position_y) << " | ";
+        }
 
         vehicleId = htons(vehicleId);
         position_x = htons(position_x);
@@ -163,14 +205,25 @@ void ServerProtocol::sendVehicleData(std::vector<std::shared_ptr<Vehicle>> &vehi
 
 void ServerProtocol::sendDeadUnitsData(std::vector<std::shared_ptr<Unit>> &dead_units) {
     uint8_t eventType = DEAD;
+    if (tiburoncin_de_la_salada)
+        std::cout << unsigned (eventType) << " ";
     socket.sendall(&eventType, sizeof(eventType));
-    uint16_t amount = htons(dead_units.size());
+    uint16_t amount = dead_units.size();
+    if (tiburoncin_de_la_salada)
+        std::cout << unsigned (amount) << " | ";
+    amount = htons(amount);
     socket.sendall(&amount, sizeof(amount));
 
     for (const auto& unit : dead_units) {
         uint8_t type = unit->getType();
         uint16_t position_x = unit->getPosition().second;
         uint16_t position_y = unit->getPosition().first;
+
+        if (tiburoncin_de_la_salada) {
+            std::cout << unsigned(type) << "";
+            std::cout << unsigned(position_x) << "";
+            std::cout << unsigned(position_y) << " | ";
+        }
 
         position_x = htons(position_x);
         position_y = htons(position_y);
