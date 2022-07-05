@@ -3,9 +3,9 @@
 
 #include <stack>
 #include "common/headers/Constantes.h"
-#include "common/headers/Entity.h"
+#include "ServerEntity.h"
 
-class MovableEntity : public Entity {
+class MovableEntity : public ServerEntity {
 protected:
     unsigned int speed;
     std::stack<coordenada_t> path;

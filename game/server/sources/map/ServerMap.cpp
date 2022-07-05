@@ -52,7 +52,7 @@ void ServerMap::reposition(int playerId, int entityId, coordenada_t goal, bool u
         switch (entityType) {
             case UNIT: {
                 if (userMoved)
-                    players.at(playerId).getUnit(unitId)->setTarget(0, 0);
+                    players.at(playerId).getUnit(entityId)->setTarget(0, 0);
                 original = players.at(playerId).getUnit(entityId)->getPosition();
                 std::stack<coordenada_t> path = A_star(original, goal);
                 players.at(playerId).getUnit(entityId)->setPath(path);
@@ -156,7 +156,7 @@ void ServerMap::updateHarvestersStatus() {
                                 harvester->setWorkingPosition(newPosition);
                             }
                         } else {
-                            reposition(playerId, harvesterId, position);
+                            reposition(playerId, harvesterId, position, false);
                             harvester->relocate();
                         }
                     }
@@ -167,7 +167,7 @@ void ServerMap::updateHarvestersStatus() {
                     if (closestId != 0) {
                         harvester->setRefinery(closestId);
                         reposition(playerId, harvesterId,
-                                   player.getRefinery(harvester->getRefinery())->getPosition());
+                                   player.getRefinery(harvester->getRefinery())->getPosition(), false);
                         harvester->relocate();
                     }
                 } else if (!harvester->isEmpty() && harvester->isUnloading()) {
@@ -179,7 +179,7 @@ void ServerMap::updateHarvestersStatus() {
                 coordenada_t next = harvester->getNextPosition();
                 if(next.first >= 0 && next.second >= 0)
                     if(map[next.first][next.second]->occupied) {
-                        reposition(playerId, harvesterId, harvester->getGoal());
+                        reposition(playerId, harvesterId, harvester->getGoal(), false);
                     }
                 coordenada_t free = harvester->relocate();
                 map[harvester->getPosition().first][harvester->getPosition().second]->occupied = true;

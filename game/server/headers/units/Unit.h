@@ -34,7 +34,6 @@ public:
 
     bool hasTarget() const;
 
-    void setPosition(coordenada_t newPosition);
 
     std::pair<int, int> getTarget();
 
@@ -46,10 +45,6 @@ public:
     bool isAttacking() const;
 
     void stopAttacking();
-
-    coordenada_t getGoal();
-
-    coordenada_t getNextPosition();
 };
 
 #endif  // UNITY_H_

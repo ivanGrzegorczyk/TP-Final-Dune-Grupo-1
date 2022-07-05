@@ -80,7 +80,7 @@ void ThClient::repositionUnit() {
 void ThClient::spawnVehicle() {
     uint16_t vehicle;
     coordenada_t position;
-    protocol.getEnityData(vehicle, position);
+    protocol.getEntityData(vehicle, position);
     ServerEvent *event = new SpawnVehicleEvent(playerId, vehicle, position);
     protectedQueue.push(event);
 }

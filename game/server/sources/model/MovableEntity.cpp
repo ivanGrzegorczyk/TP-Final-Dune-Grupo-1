@@ -38,5 +38,5 @@ bool MovableEntity::isStill() {
 
 MovableEntity::MovableEntity(int id, unsigned int hp, int type,
                              unsigned int speed, coordenada_t coord) :
-                             Entity(id, hp, type, coord), speed(speed) {}
+                             ServerEntity(id, hp, type, coord), speed(speed) {}
 
