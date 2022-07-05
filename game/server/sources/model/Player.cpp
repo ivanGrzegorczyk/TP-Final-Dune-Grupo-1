@@ -78,6 +78,7 @@ void Player::addBuilding(
             break;
         }
         case BUILDING_REFINERY: {
+            std::cout << "Crea una refineria" << std::endl;
             buildings.insert(std::pair<int, std::shared_ptr<Building>> (
                     buildingId, new Refinery(buildingId, position)));
             break;
