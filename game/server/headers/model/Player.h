@@ -34,7 +34,7 @@ public:
 
     void addUnit(int unitId, int type, coordenada_t position);
 
-    void addBuilding(int buildingId, int buildingType, coordenada_t position);
+    bool addBuilding(int buildingId, int buildingType, coordenada_t position);
 
     std::shared_ptr<Building> getBuilding(int buildingId);
 
@@ -74,6 +74,8 @@ public:
     void addMoney(unsigned int money);
 
     int getMoney() const;
+
+    bool checkForBuilding(coordenada_t &position);
 };
 
 #endif  // PLAYER_H_

@@ -313,6 +313,7 @@ int ServerMap::getColumns() const {
 void ServerMap::build(int playerId, coordenada_t &position, int buildingType, int size_x, int size_y) {
     int x = position.first, y = position.second;
 
+    // Reviso que haya suficiente espacio
     int aux = 0;
     for (int i = 0; i < size_y; i++) {
         for (int j = 0; j < size_x; j++) {
@@ -322,8 +323,21 @@ void ServerMap::build(int playerId, coordenada_t &position, int buildingType, in
         }
     }
 
-    if (aux == size_x * size_y) {
-        players[playerId].addBuilding(entityId, buildingType, position);
+    // Reviso que no haya otro edificio a 5 celdas de distancia
+    for (int i = -5; i < 5 + size_y; i++) {
+        for (int j = -5; j < 5 + size_x; j++) {
+            if ( (x + i) >= 0 && (y + j) >= 0 && (x + i) < rows && (y + j) < columns) {
+                for (auto & [id, player] : players) {
+                    coordenada_t location(x + i, y + j);
+                    if (player.checkForBuilding(location))
+                        return;
+                }
+            }
+        }
+    }
+
+    bool done = players[playerId].addBuilding(entityId, buildingType, position);
+    if (done) {
         for (int i = 0; i < size_y; i++) {
             for (int j = 0; j < size_x; j++) {
                 map[x + i][y + j]->occupied = true;
