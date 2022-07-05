@@ -41,6 +41,9 @@ void Client::run() {
             std::cout << "dipped under framerate" << std::endl;
         }
     }
+
+    protocol->close();
+
     receiveThread.close();
     sendThread.close();
     receiveThread.join();

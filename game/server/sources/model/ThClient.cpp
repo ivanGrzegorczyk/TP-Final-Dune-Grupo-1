@@ -24,6 +24,8 @@ void ThClient::run() {
 
         is_running = false;
     } catch (std::exception &e) {
+        is_running = false;
+        keep_talking = false;
         std::cerr << "[hilo thclient]: " << e.what() << std::endl;
     }
 }

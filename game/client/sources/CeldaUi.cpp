@@ -6,12 +6,17 @@ CeldaUi::CeldaUi(Texture &texture, std::pair<int, int> coord, Rect dst, Rect are
 }
 
 void CeldaUi::render(Renderer &rdr) {
-    if(sand > 0) {
-        texture.SetColorMod(255,100,100);
-    }else {
-        texture.SetColorMod(255,255,255);
-    }
+//    if(sand > 0) {
+//        texture.SetColorMod(255,100,100);
+//    }else {
+//        texture.SetColorMod(255,255,255);
+//    }
+    texture.SetColorMod(255,255,255);
     rdr.Copy(texture, area, rectangle);
+}
+
+void CeldaUi::setTexture(Texture &_texture) {
+//    texture = std::move(_texture);
 }
 
 /*

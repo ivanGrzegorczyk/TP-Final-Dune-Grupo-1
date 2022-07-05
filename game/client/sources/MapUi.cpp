@@ -222,7 +222,10 @@ void MapUi::updateTerrain(coordenada_t coord, int sand_level) {
     int width = this->terrain.first.first;
     int height = this->terrain.first.second;
     int index = coord.second * height + coord.first;
-    map.at(index).sand = sand_level;
+
+    auto &texture = repository.getTileOf(sand_level);
+
+    map.at(index).setTexture(texture);
 }
 
 Point MapUi::fromCell(coordenada_t coord) {

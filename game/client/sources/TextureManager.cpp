@@ -14,6 +14,8 @@ void TextureManager::loadTile() {
     ground.insert(std::pair(TERRAIN_CLIFFS,  SDL2pp::Texture (render, DATA_PATH "/cliff1.png")));
     ground.insert(std::pair(TERRAIN_TOPS,  SDL2pp::Texture (render, DATA_PATH "/top1.png")));
     ground.insert(std::pair(TERRAIN_DUNES,  SDL2pp::Texture (render, DATA_PATH "/dune1.png")));
+    ground.insert(std::pair(TERRAIN_SPICE_LOW,  SDL2pp::Texture (render, DATA_PATH "/spiceHigh.bmp")));
+    ground.insert(std::pair(TERRAIN_SPICE_HIGH,  SDL2pp::Texture (render, DATA_PATH "/spiceLow.bmp")));
 }
 
 SDL2pp::Texture &TextureManager::getTileOf(int tileType) {

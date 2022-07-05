@@ -48,8 +48,6 @@ void Server::finish() {
         protocol.shutdown(SHUT_RDWR);
         active_game = false;
         keep_accepting = false;
-        // TODO: si algo lanza excepción, nunca vas a parar esta queue, falta aplicar RAII acá y en los hilos que lanzás.
-        blockingQueue.stop();
     } catch (std::exception &e) {
         std::ostringstream oss;
         oss << "[finish]: " << e.what() << std::endl;
@@ -97,20 +95,21 @@ void Server::manageEvents() {
 }
 
 void Server::broadCast() {
-    try {
-        // Si es una partida de 4, y uno se desconecta, debe terminar la partida?
-        while (active_game) {
+    // Si es una partida de 4, y uno se desconecta, debe terminar la partida?
+    while (active_game) {
+        try {
             Snapshot snapshot = blockingQueue.pop();
             if (!active_game) {
                 return;
             }
             clients.broadCast(std::move(snapshot));  // Actualizo a todos los clientes
+        } catch (std::exception &e) {
+            std::ostringstream oss;
+            oss << "[broadcast]: " << e.what() << std::endl;
+            // Para evitar RC en el flujo de error
+            std::cout << oss.str();
+            clients.clean();
         }
-    } catch (std::exception &e) {
-        std::ostringstream oss;
-        oss << "[broadcast]: " << e.what() << std::endl;
-        // Para evitar RC en el flujo de error
-        std::cout << oss.str();
     }
 }
 

@@ -43,6 +43,10 @@ public:
         conditionVariable.notify_all();
     }
 
+    ~BlockingQueue() {
+        stop();
+    }
+
     BlockingQueue(const BlockingQueue&) = delete;
     BlockingQueue& operator=(const BlockingQueue&) = delete;
 };

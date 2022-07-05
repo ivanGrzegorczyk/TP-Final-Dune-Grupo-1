@@ -14,7 +14,7 @@ Socket ServerProtocol::accept() {
 }
 
 void ServerProtocol::shutdown(int how) {
-    if (!this->socket_closed) {    
+    if (!this->socket_closed) {
         socket.shutdown(how);
         socket.close();
         socket_closed = true;

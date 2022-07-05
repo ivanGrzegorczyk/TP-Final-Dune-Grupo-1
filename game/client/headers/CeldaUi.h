@@ -16,6 +16,8 @@ public:
     CeldaUi& operator = (CeldaUi&&) = default;
     CeldaUi(Texture &texture, std::pair<int, int> coord, Rect dst, Rect area);
     void render(Renderer &render);
+
+    void setTexture(Texture &_texture);
 };
 
 
