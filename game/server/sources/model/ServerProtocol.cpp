@@ -62,7 +62,7 @@ void ServerProtocol::assignPlayerId(int id) {
 void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
     auto players = snapshot.getPlayers();
     uint16_t playerAmount = players.size();
-    tiburoncin_de_la_salada = true;
+    tiburoncin_de_la_salada = false;
     if (playerAmount > 0 && tiburoncin_de_la_salada)
         std::cout << unsigned (playerAmount) << " | ";
     playerAmount = htons(playerAmount);
@@ -90,7 +90,8 @@ void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
 //        sendDeadUnitsData(dead_units);
         sendTerrainData(terrain_data);
     }
-    std::cout << std::endl;
+    if (tiburoncin_de_la_salada)
+        std::cout << std::endl;
 }
 
 void ServerProtocol::sendUnitData(std::vector<std::shared_ptr<Unit>> &units) {
