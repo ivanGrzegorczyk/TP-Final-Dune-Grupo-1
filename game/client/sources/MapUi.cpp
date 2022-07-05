@@ -21,14 +21,15 @@ MapUi::MapUi(Renderer &renderer) :
 
 
 // TODO: select with left click
-Request* MapUi::handleEvent(SDL_Event event, int playerId) {
-    Request* req = nullptr;
+std::vector<Request*> MapUi::handleEvent(SDL_Event event, int playerId) {
+    
     uint16_t id;
     int mouse_x;
     int mouse_y;
     uint32_t state = SDL_GetMouseState(&mouse_x, &mouse_y);
     int cell_x = mouse_x / LENGTH_TILE;
     int cell_y = mouse_y / LENGTH_TILE;
+    std::vector<Request*> requests;
     // interact with gui
     if(event.type == SDL_MOUSEBUTTONDOWN
         && event.button.button == SDL_BUTTON_LEFT 
@@ -42,11 +43,11 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
     } else if(event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
             case SDLK_a:
-                req = new CreateLightInfantry(cell_x, cell_y);
+                requests.push_back(new CreateLightInfantry(cell_x, cell_y));
                 break;
             case SDLK_b:
                 id = (uint16_t)(gui.getBuildingToBuild()->code());
-                req = new CreateBuilding(cell_x, cell_y, id);
+                requests.push_back(new CreateBuilding(cell_x, cell_y, id));
                 break;
             case SDLK_SPACE:
                 map_center.first = mouse_x;
@@ -54,14 +55,8 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
         } 
     } else if(event.type == SDL_MOUSEBUTTONUP) {
         if(event.button.button ==  SDL_BUTTON_RIGHT) {
-            // mapUi->clearSelected();
-            std::vector<Request*> reqs = this->moveCharacter(cell_x,cell_y,playerId);
-            if(!reqs.empty()) {
-                std::cout << "pushing request" << std::endl;
-                req = reqs[0];
-            }
-
-            
+            std::vector<Request*> _r = this->moveCharacter(cell_x,cell_y,playerId);
+            requests.insert(requests.begin(),_r.begin(), _r.end());
         } else if(event.button.button == SDL_BUTTON_LEFT) {
             pressed = false;
             selectUnits(event, playerId);
@@ -71,7 +66,7 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
             selectUnits(event, playerId);
         }
     }
-    return req;
+    return requests;
 }
 
 // TODO: select with left click
@@ -132,10 +127,6 @@ std::vector<Request*> MapUi::moveCharacter(int x, int y, int playerId) { //(x, y
         }
     }
     return requests;
-}
-
-Request* MapUi::damageBetween(int entity1, int entity2) {
-    return nullptr;
 }
 
 /*

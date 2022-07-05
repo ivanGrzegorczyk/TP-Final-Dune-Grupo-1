@@ -55,13 +55,12 @@ void Client::ProcessInput(BlockingQueue<Request *>& sendQueue) {
     bool g = false;
     SDL_Event event;
     while (running && SDL_PollEvent(&event)) {
-        Request* req = nullptr;
         if(event.type == SDL_QUIT) {
             running = false;
         } else {
-            req = mapUi.handleEvent(event, clientId);
-            if(req != nullptr) {
-                sendQueue.push(req);
+            std::vector<Request*> req = mapUi.handleEvent(event, clientId);
+            for(Request* request : req) {
+                sendQueue.push(request);
             }
         }    
     }
