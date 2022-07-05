@@ -15,6 +15,7 @@ typedef std::pair<int, int> coordenada_t;
 #define ATTACK 70
 #define UNIT 80
 #define DEAD 90
+#define SPICE 100
 
 //units
 #define UNIT_LIGHT_INFANTRY 10
