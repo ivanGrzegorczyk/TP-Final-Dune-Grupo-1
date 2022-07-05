@@ -29,13 +29,21 @@ bool Refinery::isFull() const {
 
 unsigned int Refinery::load(int &harvesterSpice) {
     unsigned int ret;
-    harvesterSpice -= MAX_UNLOADED;
-    if (spice + MAX_UNLOADED >= capacity) {
+    int unloaded;
+    if (harvesterSpice - MAX_UNLOADED < 0) {
+        unloaded = harvesterSpice;
+        harvesterSpice = 0;
+    } else {
+        harvesterSpice -= MAX_UNLOADED;
+        unloaded = MAX_UNLOADED;
+    }
+
+    if (spice + unloaded >= capacity) {
         ret = capacity - spice;
         spice = capacity;
     } else {
-        spice += MAX_UNLOADED;
-        ret = MAX_UNLOADED;
+        spice += unloaded;
+        ret = unloaded;
     }
 
     return ret;

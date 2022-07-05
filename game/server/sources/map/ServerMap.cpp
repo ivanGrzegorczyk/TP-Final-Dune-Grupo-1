@@ -152,11 +152,22 @@ void ServerMap::updateHarvestersStatus() {
                                 harvester->harvest(map[position.first][position.second]);
                             } else {
                                 coordenada_t newPosition = findClosestHarvestableCell(harvester->getPosition());
-                                harvester->setWorkingPosition(newPosition);
+                                if (validPosition(newPosition))
+                                    harvester->setWorkingPosition(newPosition);
+                                else {
+                                    harvester->setWorkingPosition({-1, -1});
+                                    coordenada_t current = harvester->getPosition();
+                                    int closestId = player.getClosestRefineryId(current);
+                                    if (closestId != 0) {
+                                        harvester->setUnloading(true);
+                                        harvester->setRefinery(closestId);
+                                        reposition(playerId, harvesterId,
+                                                   player.getRefinery(harvester->getRefinery())->getPosition(), false);
+                                    }
+                                }
                             }
                         } else {
                             reposition(playerId, harvesterId, position, false);
-//                            harvester->relocate();
                         }
                     }
                 } else if (harvester->isFull() && !harvester->isUnloading()) {
@@ -167,7 +178,6 @@ void ServerMap::updateHarvestersStatus() {
                         harvester->setRefinery(closestId);
                         reposition(playerId, harvesterId,
                                    player.getRefinery(harvester->getRefinery())->getPosition(), false);
-//                        harvester->relocate();
                     }
                 } else if (!harvester->isEmpty() && harvester->isUnloading()) {
                     auto refinery = player.getRefinery(harvester->getRefinery());

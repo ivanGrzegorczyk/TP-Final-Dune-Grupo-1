@@ -71,7 +71,7 @@ public:
 
     void addVehicle(int vehicleId, int type, coordenada_t position);
 
-    void addMoney(unsigned int money);
+    void addMoney(int _money);
 
     int getMoney() const;
 };

@@ -240,7 +240,7 @@ std::shared_ptr<Refinery> Player::getRefinery(int refineryId) {
     return refineries.at(refineryId);
 }
 
-void Player::addMoney(unsigned int _money) {
+void Player::addMoney(int _money) {
     money += _money;
 }
 

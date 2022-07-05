@@ -92,7 +92,6 @@ unsigned int Harvester::unload(std::shared_ptr<Refinery> &goal) {
         return ret;
     }
     if (chronometer.tack() >= UNLOAD_TIME) {
-        std::cout << "Descarga" << std::endl;
         ret = goal->load(spice);
         chronometer.tick();
     }
