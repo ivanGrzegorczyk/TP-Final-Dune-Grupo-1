@@ -15,7 +15,6 @@ private:
     TextureManager &repository;
     Texture &texture;
     bool selected;
-    coordenada_t coord;
     Renderer& rnd;
     Rect current;
 public:

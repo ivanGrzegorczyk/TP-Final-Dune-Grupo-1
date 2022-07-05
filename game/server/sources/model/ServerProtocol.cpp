@@ -247,7 +247,6 @@ void ServerProtocol::sendTerrainData(std::map<coordenada_t, int> &terrina_data) 
     amount = htons(amount);
     socket.sendall(&amount, sizeof(amount));
     for (const auto & [coord, ground] : terrina_data) {
-        std::cout << "sending spice event: " << coord.first <<","<< coord.second <<"-" << ground  << std::endl;
         uint16_t position_x = coord.first;
         uint16_t position_y = coord.second;
         uint8_t soil = ground;

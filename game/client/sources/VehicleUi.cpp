@@ -21,8 +21,8 @@ VehicleUi::VehicleUi(SDL2pp::Renderer &renderer,
                      int player, int id, coordenada_t coord, int type, TextureManager &repo) :
         repository(repo),
         rnd(renderer),
+        Entity(id, 30, type, coord),
         selected(false),
-        coord(std::move(coord)),
         texture(repository.getTextureOf(type)), movable(current, selected){
 }
 
