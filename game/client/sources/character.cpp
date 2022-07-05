@@ -14,9 +14,9 @@ void character::render() {
     }*/
     //else 
     if(selected) {
-        highlight();
+        highlight(texture);
     } else {
-        normalColor();
+        normalColor(texture);
     }
     current.SetX(coord.first * LENGTH_TILE);
     current.SetY(coord.second * LENGTH_TILE);
@@ -35,9 +35,10 @@ character::character(SDL2pp::Renderer &renderer,
     repository(repo),
     ClientUnit(player, id, 0, 0, 0, type, coord), 
     rnd(renderer), selected(false),
-    texture(repository.getTextureOf(type)) {
+    texture(repository.getTextureOf(type)), movable(current, selected){
 }
 
+/*
 void character::normalColor() {
     texture.SetColorMod(255, 255, 255);
 }
@@ -48,6 +49,8 @@ void character::highlight() {
 void character::setSelected(bool selected) {
     this->selected = selected;
 }
+*/
+
 void character::notify(SDL_Event event) {
     int x = event.button.x;
     int y = event.button.y;
@@ -65,7 +68,7 @@ bool character::attackEvent(int enemyId) {
     return request;
 }
 
-bool character::walkEvent(int x, int y) {
+/*bool character::walkEvent(int x, int y) {
     if(!selected) {
         return false;
     }
@@ -82,7 +85,7 @@ bool character::walkEvent(int x, int y) {
 
 bool character::contains(int x, int y) const {
     return current.Contains(x, y);
-}
+}*/
 
 void character::attack(Damageable* d, int damage) {
     attackEffect = 30; // 30 frames of attacker display
@@ -91,4 +94,8 @@ void character::attack(Damageable* d, int damage) {
 
 void character::takeDamage(int damage) {
     hurtEffect = 30;
+}
+
+bool character::contains(int x, int y) const {
+    return current.Contains(x, y);
 }

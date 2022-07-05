@@ -64,8 +64,6 @@ Request* MapUi::handleEvent(SDL_Event event, int playerId) {
                 std::cout << "pushing request" << std::endl;
                 req = reqs[0];
             }
-
-            
         } else if(event.button.button == SDL_BUTTON_LEFT) {
             pressed = false;
             selectUnits(event, playerId);
@@ -87,6 +85,15 @@ void MapUi::selectUnits(SDL_Event event, int playerId) {
                 unit.second->setSelected(true);
             }
         }
+    }
+
+    for (auto const& vehicle : vehicles) {
+
+            if(vehicle.second->contains(event.button.x, event.button.y)) {
+                std::cout << "selecting..." << std::endl;
+                vehicle.second->setSelected(true);
+            }
+
     }
 }
 //// CONFLICTS
@@ -117,10 +124,10 @@ std::vector<Request*> MapUi::moveCharacter(int x, int y, int playerId) { //(x, y
            id = unit.second->getId();
         }
     }
-
+    bool applies_to_unit;
+    Request *request;
     for (auto const& unit : units) {
-        Request *request;
-        bool applies_to_unit;
+        //Request *request;
         if(id != INVALID_ENTITY_ID) {
             std::cout << "attack event";
             applies_to_unit = unit.second->attackEvent(id);
@@ -132,7 +139,16 @@ std::vector<Request*> MapUi::moveCharacter(int x, int y, int playerId) { //(x, y
         }
         if(applies_to_unit) {
             requests.emplace_back(request);
-            break;
+            //break;
+        }
+    }
+
+    for (auto const& vehicle : vehicles) {
+        applies_to_unit = vehicle.second->walkEvent(x, y);
+        request = new MoveQuery(vehicle.second->getId(),coordenada_t({x,y}));
+        if(applies_to_unit) {
+            requests.emplace_back(request);
+            //break;
         }
     }
     return requests;
@@ -175,8 +191,18 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
 }
 
 void MapUi::updateVehicles(int player, int type, int vehicleId, coordenada_t coord) {
-    auto* vehicle = new VehicleUi(rdr, player, vehicleId, coord, type, repository);
-    vehicles.emplace(vehicleId, vehicle);
+    if(players.find(player) == players.end()) {
+        players.insert(player);
+        if(vehicles.find(vehicleId) != vehicles.end()) {
+            vehicles[vehicleId]->setPosition(coord);
+        } else {
+            auto* vehicle = new VehicleUi(rdr, player, vehicleId, coord, type, repository);
+            vehicles.emplace(vehicleId, vehicle);
+        }
+    } else {
+        auto* vehicle = new VehicleUi(rdr, player, vehicleId, coord, type, repository);
+        vehicles.emplace(vehicleId, vehicle);
+    }
 }
 
 
