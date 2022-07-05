@@ -87,9 +87,9 @@ void ThClient::spawnVehicle() {
 
 void ThClient::spawnUnit() {
     uint16_t unit;
-    coordenada_t position;
-    protocol.getEntityData(unit, position);
-    ServerEvent *event = new SpawnUnitEvent(playerId, unit, position);
+    uint16_t buildingId;
+    protocol.getUnitData(unit, buildingId);
+    ServerEvent *event = new SpawnUnitEvent(playerId, unit, buildingId);
     protectedQueue.push(event);
 }
 

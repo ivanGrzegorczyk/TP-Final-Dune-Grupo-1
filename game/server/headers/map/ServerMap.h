@@ -34,7 +34,7 @@ public:
 
     void reposition(int playerId, int unitId, coordenada_t goal, bool userMoved);
 
-    void spawnUnit(int playerId, int unit, coordenada_t position);
+    void spawnUnit(int playerId, int unit, int buildingId);
 
     void updateUnitsPosition();
 

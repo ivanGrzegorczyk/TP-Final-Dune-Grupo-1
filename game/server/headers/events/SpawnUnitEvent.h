@@ -6,9 +6,9 @@
 class SpawnUnitEvent : public ServerEvent {
 public:
     int unitType;
-    coordenada_t position;
+    int buildingId;
 
-    SpawnUnitEvent(int playerId, int unit, coordenada_t position);
+    SpawnUnitEvent(int playerId, int unit, int buildingId);
 
     void performEvent(ServerMap &map) override;
 };

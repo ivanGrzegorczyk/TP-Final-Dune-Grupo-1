@@ -286,3 +286,10 @@ void ServerProtocol::getAttackingData(int &unitId, int &enemyId) {
     socket.recvall(&id, sizeof(id));
     enemyId = htons(id);
 }
+
+void ServerProtocol::getUnitData(uint16_t &unitType, uint16_t &buildingId) {
+    socket.recvall(&unitType, sizeof(unitType));
+    socket.recvall(&buildingId, sizeof(buildingId));
+    unitType = htons(unitType);
+    buildingId = htons(buildingId);
+}

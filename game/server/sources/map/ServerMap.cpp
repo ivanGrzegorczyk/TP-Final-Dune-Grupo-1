@@ -22,16 +22,18 @@ std::stack<coordenada_t> ServerMap::A_star(
     return navigator.A_star(start, end);
 }
 
-void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
+void ServerMap::spawnUnit(int playerId, int type, int buildingId) {
     if (players.find(playerId) == players.end()) {
         players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
     }
-    if (!validPosition(position))
+    if (players[playerId].getEntityType(buildingId) != BUILDING)
         return;
-
-    players[playerId].addUnit(entityId, type, position);
-    map[position.first][position.second]->occupied = true;
-    entityId++;
+    coordenada_t position = players[playerId].getBuilding(buildingId)->getPosition();
+    position.second -= 1;
+    if (players[playerId].addUnit(entityId, type, position)) {
+        map[position.first][position.second]->occupied = true;
+        entityId++;
+    }
 }
 
 void ServerMap::spawnVehicle(int playerId, int type, coordenada_t position) {
@@ -43,20 +45,20 @@ void ServerMap::spawnVehicle(int playerId, int type, coordenada_t position) {
     entityId++;
 }
 
-void ServerMap::reposition(int playerId, int entityId, coordenada_t goal, bool userMoved) {
+void ServerMap::reposition(int playerId, int id, coordenada_t goal, bool userMoved) {
     try {
-        auto entityType = players.at(playerId).getEntityType(entityId);
+        auto entityType = players.at(playerId).getEntityType(id);
 
         coordenada_t original;
 
         switch (entityType) {
             case UNIT: {
                 if (userMoved)
-                    players.at(playerId).getUnit(entityId)->setTarget(0, 0);
-                original = players.at(playerId).getUnit(entityId)->getPosition();
+                    players.at(playerId).getUnit(id)->setTarget(0, 0);
+                original = players.at(playerId).getUnit(id)->getPosition();
                 std::stack<coordenada_t> path = A_star(original, goal);
-                players.at(playerId).getUnit(entityId)->setPath(path);
-                players.at(playerId).getUnit(entityId)->relocate();
+                players.at(playerId).getUnit(id)->setPath(path);
+                players.at(playerId).getUnit(id)->relocate();
                 break;
             }
 //            case VEHICLE: {
@@ -65,12 +67,12 @@ void ServerMap::reposition(int playerId, int entityId, coordenada_t goal, bool u
 //            }
             case VEHICLE:
             case VEHICLE_HARVESTER: {
-                original = players.at(playerId).getHarvester(entityId)->getPosition();
+                original = players.at(playerId).getHarvester(id)->getPosition();
                 std::stack<coordenada_t> path = A_star(original, goal);
                 if (userMoved)
-                    players.at(playerId).getHarvester(entityId)->setWorkingPosition(goal);
-                players.at(playerId).getHarvester(entityId)->setPath(path);
-                players.at(playerId).getHarvester(entityId)->relocate();
+                    players.at(playerId).getHarvester(id)->setWorkingPosition(goal);
+                players.at(playerId).getHarvester(id)->setPath(path);
+                players.at(playerId).getHarvester(id)->relocate();
                 break;
             }
             default:

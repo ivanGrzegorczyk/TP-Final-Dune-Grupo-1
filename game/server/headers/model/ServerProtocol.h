@@ -56,6 +56,8 @@ public:
     void getAttackingData(int &id, int &unitId);
 
     void sendTerrainData(std::map<coordenada_t, int> &terrina_data);
+
+    void getUnitData(uint16_t &unitType, uint16_t &buildingId);
 };
 
 #endif  // SERVERPROTOCOL_H_

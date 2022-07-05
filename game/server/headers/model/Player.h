@@ -32,7 +32,7 @@ public:
 
     std::shared_ptr<Unit> & getUnit(int unitId);
 
-    void addUnit(int unitId, int type, coordenada_t position);
+    bool addUnit(int unitId, int type, coordenada_t position);
 
     bool addBuilding(int buildingId, int buildingType, coordenada_t position);
 

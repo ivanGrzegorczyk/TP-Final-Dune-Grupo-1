@@ -2,9 +2,9 @@
 
 #include <utility>
 
-SpawnUnitEvent::SpawnUnitEvent(int playerId, int unit, coordenada_t position) :
-ServerEvent(playerId), unitType(unit), position(std::move(position)) {}
+SpawnUnitEvent::SpawnUnitEvent(int playerId, int unit, int buildingId) :
+ServerEvent(playerId), unitType(unit), buildingId(buildingId) {}
 
 void SpawnUnitEvent::performEvent(ServerMap &map) {
-    map.spawnUnit(playerId, unitType, position);
+    map.spawnUnit(playerId, unitType, buildingId);
 }
