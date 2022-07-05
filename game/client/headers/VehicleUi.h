@@ -6,13 +6,15 @@
 #include "SdlEntity.h"
 #include "Damageable.h"
 #include "TextureManager.h"
+#include "movable.h"
 
 using namespace SDL2pp;
 
-class VehicleUi : public Entity, SdlEntity, Damageable {
+class VehicleUi : public Entity, SdlEntity, Damageable, public movable {
 private:
     TextureManager &repository;
     Texture &texture;
+    bool selected;
     coordenada_t coord;
     Renderer& rnd;
     Rect current;
@@ -23,6 +25,7 @@ public:
     void render() override;
     bool contains(int x, int y) const override;
     void takeDamage(int damage) override;
+    void setPosition(coordenada_t newPosition);
 };
 
 

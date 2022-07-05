@@ -241,7 +241,7 @@ void ServerProtocol::sendDeadUnitsData(std::vector<std::shared_ptr<Unit>> &dead_
 }
 
 void ServerProtocol::sendTerrainData(std::map<coordenada_t, int> &terrina_data) {
-    uint8_t eventType = SPICE;
+    /*uint8_t eventType = SPICE;
     if (tiburoncin_de_la_salada)
         std::cout << unsigned (eventType) << " ";
     socket.sendall(&eventType, sizeof(eventType));
@@ -262,12 +262,7 @@ void ServerProtocol::sendTerrainData(std::map<coordenada_t, int> &terrina_data) 
 
         position_x = htons(position_x);
         position_y = htons(position_y);
-        /*
-        socket.sendall(&position_x, sizeof(position_x));
-        socket.sendall(&position_y, sizeof(position_y));
-        socket.sendall(&soil, sizeof(soil));
-        */
-    }
+    }*/
 }
 
 void ServerProtocol::sendTerrain(int y_size, int x_size, std::vector<uint8_t> &terrain) {
