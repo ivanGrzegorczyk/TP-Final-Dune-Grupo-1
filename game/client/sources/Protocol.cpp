@@ -112,7 +112,6 @@ void Protocol::deserializeEvents(uint16_t playerId, Response* response) {
     skt.recvall(&eventType, sizeof(eventType));
 
     if (eventType == SPICE) {
-        std::cout << "spice!" << std::endl;
         skt.recvall(&amount, sizeof(amount));
         amount = ntohs(amount);
         for (int i = 0; i < amount; i++) {
@@ -121,11 +120,13 @@ void Protocol::deserializeEvents(uint16_t playerId, Response* response) {
             uint8_t soil;
 
             skt.recvall(&position_x, sizeof(position_x));
-            skt.recvall(&position_x, sizeof(position_y));
-            skt.recvall(&position_x, sizeof(soil));
+            skt.recvall(&position_y, sizeof(position_y));
+            skt.recvall(&soil, sizeof(soil));
 
             position_x = ntohs(position_x);
             position_y = ntohs(position_y);
+            std::cout << "getting spice event: " << position_x <<","<< position_y <<"-" << (int)soil << std::endl;
+        
         }
     } else {
         skt.recvall(&amount, sizeof(amount));
