@@ -1,6 +1,9 @@
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"
 #include <sstream>
+#include <SDL_mixer.h>
+#include "SDL2pp/Mixer.hh"
+#include "SDL2pp/Music.hh"
 #include "client/headers/audio/audioPlayer.h"
 #include "../../game/client/headers/MainWindowLobby.h"
 #include <QApplication>
@@ -35,7 +38,9 @@ int main(int argc, char* argv[]) {
 
     // parameters obtained from lobby
     std::string house = ui_window.house_chosen;
-
+      Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
+      Music music(DATA_PATH "/AttackOnArrakis.ogg");
+      mixer.FadeInMusic(music, -1, 2000);
     Client client(protocol, render, house);
     client.run();
   } catch (std::exception &e) {
