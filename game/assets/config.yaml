@@ -46,7 +46,7 @@ units:
 buildings:
   - id: 21
     name: Centro de Construcción
-    texture: "brick.png"
+    texture: "constructioncenter.png"
     energy: 500
     cost: 800
     dimensions:
@@ -56,7 +56,7 @@ buildings:
     features: {}
   - id: 22
     name: Fábrica Ligera
-    texture: "Barracks.png"
+    texture: "heavyfactory.png"
     energy: 100
     cost: 200
     dimensions:
@@ -78,7 +78,7 @@ buildings:
       capacity: 1000
   - id: 24
     name: Trampa de aire
-    texture: "Barracks.png"
+    texture: "windtrap.png"
     energy: 100
     cost: 200
     dimensions:
@@ -122,7 +122,7 @@ buildings:
       capacity: 1000
   - id: 28
     name: Palacio
-    texture: "Barracks.png"
+    texture: "palace.png"
     energy: 100
     cost: 200
     dimensions:

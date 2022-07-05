@@ -3,6 +3,7 @@
 #include "client/headers/UpdateUnit.h"
 #include "client/headers/UpdateBuilding.h"
 #include "client/headers/UpdateVehicle.h"
+#include "client/headers/UpdateTerrain.h"
 
 Protocol::Protocol(const std::string& hostname, const std::string& servicename) :
         id(-1), skt(hostname.c_str(), servicename.c_str()){
@@ -125,8 +126,7 @@ void Protocol::deserializeEvents(uint16_t playerId, Response* response) {
 
             position_x = ntohs(position_x);
             position_y = ntohs(position_y);
-            std::cout << "getting spice event: " << position_x <<","<< position_y <<"-" << (int)soil << std::endl;
-        
+            response->add(new UpdateTerrain(playerId, position_x, position_y, soil));
         }
     } else {
         skt.recvall(&amount, sizeof(amount));
@@ -154,8 +154,7 @@ void Protocol::receiveEntityInfo(int &entityType, int &entityId, int &coordX, in
     entityId = (int)ntohs(idEntity);
     coordX = (int)ntohs(posX);
     coordY = (int)ntohs(posY);
-    std::cout << "getting entity: " << entityType << " " << entityId << " " << coordX << " " << coordY << std::endl;
-}
+    }
 
 void Protocol::close() {
     this->skt.shutdown(SHUT_RDWR);
