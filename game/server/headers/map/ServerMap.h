@@ -22,7 +22,7 @@ private:
     std::queue<coordenada_t> construction_centers;
     std::vector<coordenada_t> spice_cells;
 
-    std::stack<coordenada_t> A_star(coordenada_t start, coordenada_t end);
+    std::stack<coordenada_t> A_star(coordenada_t start, coordenada_t end, int entityType);
 
     void build(int playerId, coordenada_t &position, int buildingType, int size_x, int size_y);
 

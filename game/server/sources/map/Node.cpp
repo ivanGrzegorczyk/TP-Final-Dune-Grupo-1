@@ -7,13 +7,16 @@ Node::Node() {
     blocked = false;
 }
 
-Node::Node(coordenada_t id, int terrain, bool occupied) {
+Node::Node(coordenada_t id, int terrain, bool occupied, int entityType) {
     this->id = id;
     this->previous_id = {-1, -1};
-    blocked = terrain != TERRAIN_ROCKS || occupied;
-    if (occupied) {
-        std::cout << id.first << " " << id.second << std::endl;
-    }
+    if ((terrain == TERRAIN_TOPS && entityType != UNIT_LIGHT_INFANTRY
+        && entityType != UNIT_HEAVY_INFANTRY)
+        || terrain == TERRAIN_CLIFFS || occupied)
+        blocked = true;
+    else
+        blocked = false;
+
     f = g = INFINITY;
 }
 

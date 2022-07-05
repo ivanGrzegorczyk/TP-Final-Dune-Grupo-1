@@ -5,7 +5,7 @@
 Harvester::Harvester(int id, coordenada_t coord) :
         Vehicle(id, HARVESTER_HP, HARVESTER_RANGE,
                 HARVESTER_SPEED, VEHICLE_HARVESTER,
-                HARVESTER_COST, coord), spice(0), 
+                HARVESTER_COST, coord), spice(160),
                 unloading(false), refinery(0),
                 working_position(-1, -1){}
 
@@ -18,8 +18,11 @@ Harvester::Harvester(int id, int spice, coordenada_t coord) :
 
 void Harvester::harvest(ServerCell *cell) {
     try {
+        std::cout << "especia: " << spice << std::endl;
         if (spice < MAX_SPICE) {
-            spice = cell->harvest();
+            spice += cell->harvest();
+            if (spice > 200)
+                spice = 200;
         }
     } catch(const std::runtime_error &e) {
         std::cout << e.what() << std::endl;
@@ -89,6 +92,7 @@ unsigned int Harvester::unload(std::shared_ptr<Refinery> &goal) {
         return ret;
     }
     if (chronometer.tack() >= UNLOAD_TIME) {
+        std::cout << "Descarga" << std::endl;
         ret = goal->load(spice);
         chronometer.tick();
     }

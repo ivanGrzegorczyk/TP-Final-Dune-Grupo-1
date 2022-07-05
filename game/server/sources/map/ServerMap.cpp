@@ -16,9 +16,8 @@
 ServerMap::ServerMap(int rows, int columns) : rows(rows), columns(columns),
                                               map(rows, std::vector<ServerCell *>(columns)), entityId(1) {}
 
-std::stack<coordenada_t> ServerMap::A_star(
-        coordenada_t start, coordenada_t end) {
-    Navigator navigator(map);
+std::stack<coordenada_t> ServerMap::A_star(coordenada_t start, coordenada_t end, int entityType) {
+    Navigator navigator(map, entityType);
     return navigator.A_star(start, end);
 }
 
@@ -54,7 +53,7 @@ void ServerMap::reposition(int playerId, int id, coordenada_t goal, bool userMov
                 if (userMoved)
                     players.at(playerId).getUnit(id)->setTarget(0, 0);
                 original = players.at(playerId).getUnit(id)->getPosition();
-                std::stack<coordenada_t> path = A_star(original, goal);
+                std::stack<coordenada_t> path = A_star(original, goal, entityType);
                 players.at(playerId).getUnit(id)->setPath(path);
                 players.at(playerId).getUnit(id)->relocate();
                 break;
@@ -66,11 +65,11 @@ void ServerMap::reposition(int playerId, int id, coordenada_t goal, bool userMov
             case VEHICLE:
             case VEHICLE_HARVESTER: {
                 original = players.at(playerId).getHarvester(id)->getPosition();
-                std::stack<coordenada_t> path = A_star(original, goal);
+                std::stack<coordenada_t> path = A_star(original, goal, entityType);
                 if (userMoved)
                     players.at(playerId).getHarvester(id)->setWorkingPosition(goal);
                 players.at(playerId).getHarvester(id)->setPath(path);
-                players.at(playerId).getHarvester(id)->relocate();
+//                players.at(playerId).getHarvester(id)->relocate();
                 break;
             }
             default:
@@ -157,23 +156,25 @@ void ServerMap::updateHarvestersStatus() {
                             }
                         } else {
                             reposition(playerId, harvesterId, position, false);
-                            harvester->relocate();
+//                            harvester->relocate();
                         }
                     }
                 } else if (harvester->isFull() && !harvester->isUnloading()) {
-                    harvester->setUnloading(true);
                     coordenada_t current = harvester->getPosition();
                     int closestId = player.getClosestRefineryId(current);
                     if (closestId != 0) {
+                        harvester->setUnloading(true);
                         harvester->setRefinery(closestId);
                         reposition(playerId, harvesterId,
                                    player.getRefinery(harvester->getRefinery())->getPosition(), false);
-                        harvester->relocate();
+//                        harvester->relocate();
                     }
                 } else if (!harvester->isEmpty() && harvester->isUnloading()) {
                     auto refinery = player.getRefinery(harvester->getRefinery());
                     unsigned int money = harvester->unload(refinery);
                     player.addMoney(money);
+                    if (harvester->isEmpty())
+                        harvester->setUnloading(false);
                 }
             } else {
                 coordenada_t next = harvester->getNextPosition();

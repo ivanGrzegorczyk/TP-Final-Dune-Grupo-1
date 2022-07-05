@@ -79,7 +79,7 @@ void Player::addBuilding(
         }
         case BUILDING_REFINERY: {
             std::cout << "Crea una refineria" << std::endl;
-            buildings.insert(std::pair<int, std::shared_ptr<Building>> (
+            refineries.insert(std::pair<int, std::shared_ptr<Refinery>> (
                     buildingId, new Refinery(buildingId, position)));
             break;
         }
@@ -123,6 +123,10 @@ void Player::addUnitData(Snapshot &snapshot) {
 
 void Player::addBuildingData(Snapshot &snapshot) {
     for (auto const& [buildingId, building] : buildings) {
+        auto _building = building->copy();
+        snapshot.addBuilding(playerId, _building);
+    }
+    for (auto const& [buildingId, building] : refineries) {
         auto _building = building->copy();
         snapshot.addBuilding(playerId, _building);
     }
@@ -220,6 +224,7 @@ int Player::getClosestRefineryId(const coordenada_t &position) {
     double distance = INFINITY;
 
     for (auto & [refineryId, refinery] : refineries) {
+        std::cout << "Hay una refineria" << std::endl;
         coordenada_t current = refinery->getPosition();
         auto _distance = calculateDistance(position, current);
         if (_distance < distance && !refinery->isFull()) {

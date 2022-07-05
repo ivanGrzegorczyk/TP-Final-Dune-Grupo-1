@@ -20,7 +20,7 @@ private:
 
 public:
     Navigator() = delete;
-    explicit Navigator(std::vector<std::vector<ServerCell *>> &map);
+    explicit Navigator(std::vector<std::vector<ServerCell *>> &map, int entityType);
 
     std::stack<coordenada_t> A_star(coordenada_t start, coordenada_t end);
 };
