@@ -62,7 +62,8 @@ public:
     std::shared_ptr<BuildingType> getBuildingType(int type);
     void updateBuilding(int playerId, int buildingId,  std::shared_ptr<BuildingType> type, coordenada_t coord);
     void updateUnits(int player, int type, int characterId, coordenada_t coord);
-    void addTerrain(coordenada_t coord, Rect destination, int terrainId);
+    void updateTerrain(coordenada_t coord, int sand_level = 0);
+    void addTerrain(coordenada_t coord, int terrainId);
 
     void updateVehicles(int player, int type, int vehicleId, coordenada_t coord);
 };

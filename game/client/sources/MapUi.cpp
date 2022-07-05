@@ -93,8 +93,6 @@ void MapUi::selectUnits(SDL_Event event, int playerId) {
 
     }
 }
-//// CONFLICTS
-
 
 // TODO use map instead of find if
 std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
@@ -222,6 +220,13 @@ void MapUi::updateBuilding(int player, int buildingId, std::shared_ptr<BuildingT
                     size)))) ;
 }
 
+void MapUi::updateTerrain(coordenada_t coord, int sand_level) {
+    int width = this->terrain.first.first;
+    int height = this->terrain.first.second;
+    int index = coord.second * height + coord.first;
+    map.at(index).sand = sand_level;
+}
+
 Point MapUi::fromCell(coordenada_t coord) {
     return Point(coord.first * LENGTH_TILE, coord.second * LENGTH_TILE);
 }
@@ -232,16 +237,11 @@ void MapUi::receiveMap(std::shared_ptr<Protocol> protocol) {
 
 void MapUi::draw() {
     int k = 0;
-    Rect dst;
-    dst.SetX(0) = dst.SetY(0);
-    dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
     for(int j = 0; j < this->terrain.first.first; j++) {
         for (int i = 0; i < this->terrain.first.second; i++) {
-            coordenada_t coord(i, j);
-            dst.SetX(j * LENGTH_TILE);
-            dst.SetY(i * LENGTH_TILE);
+            coordenada_t coord(j,i);
             uint8_t type = this->terrain.second.at(k);
-            addTerrain(coord, dst, type);
+            addTerrain(coord, type);
             k++;
         }
    }
@@ -271,12 +271,15 @@ void MapUi::render() {
 }
 
 
-void MapUi::addTerrain(coordenada_t coord, Rect destination, int terrainId) {
-   // Rect rockRect(100, 220, 8, 8);
+void MapUi::addTerrain(coordenada_t coord, int terrainId) {
+    Point location = fromCell(coord);
+    Point size = Point(LENGTH_TILE,LENGTH_TILE);
+    Rect dst(location, size);
     SDL2pp::Texture &r =  repository.getTileOf(terrainId);
     Rect rockRect(0,0,16,16);
-    CeldaUi cell(r, coord, destination, rockRect);
-    map.push_back(cell);
+    CeldaUi cell(r, coord, dst, rockRect);
+    map.push_back(std::move(cell));
+    std::cout << "cell coord:" << coord.first << "," << coord.second << std::endl;
 }
 
 
