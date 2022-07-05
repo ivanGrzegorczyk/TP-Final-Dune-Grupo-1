@@ -76,30 +76,51 @@ Response* Protocol::recvResponse() {
 React to responses sent by the server
 */
 void Protocol::createResponse(uint8_t &eventType, int player, Response* response) {
-    Event *event;
+    Event *event = nullptr;
     int entityType; int entityId;
     int posX; int posY;
-    this->receiveEntityInfo(entityType, entityId, posX, posY);
-    coordenada_t coord({posX, posY});
-    if(eventType == UNIT) {
-        uint8_t att;
-        uint16_t idTarget;
-        skt.recvall(&att, sizeof(att));
-        skt.recvall(&idTarget, sizeof(idTarget));
+    uint16_t amount;
+    if(eventType == UNIT || eventType == BUILDING || eventType == VEHICLE) {
+        this->receiveEntityInfo(entityType, entityId, posX, posY);
+        coordenada_t coord({posX, posY});
+        if(eventType == UNIT) {
+            uint8_t att;
+            uint16_t idTarget;
+            skt.recvall(&att, sizeof(att));
+            skt.recvall(&idTarget, sizeof(idTarget));
 
-        std::cout << "ataque id: " << unsigned (att) <<std::endl;
+            event = new UpdateUnit(player, entityType, entityId, coord);
+                //break;
+        }
+        if(eventType == BUILDING) {
+            event = new UpdateBuilding(player, entityType, entityId, coord);
+                //break;
+        }
+        if(eventType == VEHICLE) {
+                event = new UpdateVehicle(player ,entityType, entityId, coord);
+        }
+    } else if (eventType == SPICE) {
+        std::cout << "spice!" << std::endl;
+        skt.recvall(&amount, sizeof(amount));
+        amount = ntohs(amount);
+        for (int i = 0; i < amount; i++) {
+            uint16_t position_x;
+            uint16_t position_y;
+            uint8_t soil;
 
-        event = new UpdateUnit(player, entityType, entityId, coord);
-            //break;
+            skt.recvall(&position_x, sizeof(position_x));
+            skt.recvall(&position_x, sizeof(position_y));
+            skt.recvall(&position_x, sizeof(soil));
+
+            position_x = ntohs(position_x);
+            position_y = ntohs(position_y);
+
+            std::cout << unsigned (position_x) << " ";
+            std::cout << unsigned (position_y) << " ";
+            std::cout << unsigned (soil) << " | ";
+        }
     }
-    if(eventType == BUILDING) {
-        event = new UpdateBuilding(player, entityType, entityId, coord);
-            //break;
-    }
-    if(eventType == VEHICLE) {
-            event = new UpdateVehicle(player ,entityType, entityId, coord);
-    }
-    response->add(event);
+    if(event != nullptr) response->add(event);
 }
 
 void Protocol::deserializeEvents(uint16_t playerId, Response* response) {
