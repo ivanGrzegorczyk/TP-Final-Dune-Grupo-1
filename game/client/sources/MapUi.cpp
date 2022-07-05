@@ -187,12 +187,10 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
 void MapUi::updateVehicles(int player, int type, int vehicleId, coordenada_t coord) {
     if(players.find(player) == players.end()) {
         players.insert(player);
-        if(vehicles.find(vehicleId) != vehicles.end()) {
-            vehicles[vehicleId]->setPosition(coord);
-        } else {
-            auto* vehicle = new VehicleUi(rdr, player, vehicleId, coord, type, repository);
-            vehicles.emplace(vehicleId, vehicle);
-        }
+    }
+
+    if(vehicles.find(vehicleId) != vehicles.end()) {
+        vehicles[vehicleId]->setPosition(coord);
     } else {
         auto* vehicle = new VehicleUi(rdr, player, vehicleId, coord, type, repository);
         vehicles.emplace(vehicleId, vehicle);
