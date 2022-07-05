@@ -1,6 +1,6 @@
 #include "server/headers/model/Snapshot.h"
 
-const std::vector<int> & Snapshot::getPlayers() {
+const std::map<int, int> & Snapshot::getPlayers() {
     return players;
 }
 
@@ -24,8 +24,8 @@ const std::map<coordenada_t, int> &Snapshot::getTerrainData() {
     return spice_cells;
 }
 
-void Snapshot::addPlayer(const int playerId) {
-    players.push_back(playerId);
+void Snapshot::addPlayer(const int playerId, int money) {
+    players[playerId] = money;
 }
 
 void Snapshot::addUnit(int playerId, const std::shared_ptr<Unit> &unit) {

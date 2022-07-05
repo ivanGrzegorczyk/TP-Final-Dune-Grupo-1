@@ -237,3 +237,7 @@ std::shared_ptr<Refinery> Player::getRefinery(int refineryId) {
 void Player::addMoney(unsigned int _money) {
     money += _money;
 }
+
+int Player::getMoney() const {
+    return money;
+}

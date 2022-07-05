@@ -10,7 +10,7 @@
 
 class Snapshot {
 private:
-    std::vector<int> players;
+    std::map<int, int> players;
     std::map<int, std::vector<std::shared_ptr<Unit>>> units;
     std::map<int, std::vector<std::shared_ptr<Building>>> buildings;
     std::map<int, std::vector<std::shared_ptr<Vehicle>>> vehicles;
@@ -18,7 +18,7 @@ private:
     std::map<coordenada_t, int> spice_cells;
 
 public:
-    const std::vector<int> & getPlayers();
+    const std::map<int, int> & getPlayers();
 
     const std::vector<std::shared_ptr<Unit>> & getUnits(int playerId);
 
@@ -28,7 +28,7 @@ public:
 
     const std::vector<std::shared_ptr<Unit>> & getDeadUnits(int playerId);
 
-    void addPlayer(int playerId);
+    void addPlayer(int playerId, int money);
 
     void addUnit(int playerId, const std::shared_ptr<Unit> &unit);
 
