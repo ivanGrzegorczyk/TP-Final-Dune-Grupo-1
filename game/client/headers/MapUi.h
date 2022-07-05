@@ -55,9 +55,8 @@ public:
     void update(Response *response);
     void receiveMap(std::shared_ptr<Protocol> protocol);
     void render();
-    Request* handleEvent(SDL_Event event, int playerId);
+    std::vector<Request*> handleEvent(SDL_Event event, int playerId);
     std::vector<Request*> moveCharacter(int x, int y, int playerId);
-    Request* damageBetween(int entity1, int entity2);
 
     std::shared_ptr<BuildingType> selectedBuilding();
     std::shared_ptr<BuildingType> getBuildingType(int type);
