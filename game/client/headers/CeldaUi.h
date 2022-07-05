@@ -11,7 +11,9 @@ private:
     Rect rectangle;
     Rect area;
 public:
-    //CeldaUi();
+    int sand;
+    CeldaUi(CeldaUi&&) = default;
+    CeldaUi& operator = (CeldaUi&&) = default;
     CeldaUi(Texture &texture, std::pair<int, int> coord, Rect dst, Rect area);
     void render(Renderer &render);
 };
