@@ -8,13 +8,14 @@ typedef std::pair<int, int> coordenada_t;
 // CONSTANTES DESPUES VAN EN EL YAML
 #define INVALID_ENTITY_ID 0
 
-#define EVENTS 3
+#define EVENTS 4
 //tipo de respuestas
 #define BUILDING 50
 #define VEHICLE 60
 #define ATTACK 70
 #define UNIT 80
 #define DEAD 90
+#define SPICE 100
 
 //units
 #define UNIT_LIGHT_INFANTRY 10
@@ -70,6 +71,7 @@ typedef std::pair<int, int> coordenada_t;
 #define CREATE_BUILDING_EVENT 2
 #define CREATE_UNIT_EVENT 3
 #define ATTACKING_EVENT 4
+#define CREATE_VEHICLE_EVENT 5
 
 //light infantry data
 #define LIGHT_INFANTRY_RANGE 3
@@ -149,6 +151,8 @@ typedef std::pair<int, int> coordenada_t;
 #define TERRAIN_ROCKS 2
 #define TERRAIN_TOPS 3
 #define TERRAIN_CLIFFS 4
+#define TERRAIN_SPICE_LOW 5
+#define TERRAIN_SPICE_HIGH 6
 
 //houses
 #define HOUSE_ATREIDES 0

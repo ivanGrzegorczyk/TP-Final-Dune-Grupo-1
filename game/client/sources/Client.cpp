@@ -1,5 +1,4 @@
 #include <thread>
-#include <utility>
 #include <sstream>
 #include "SDL2pp/SDL2pp.hh"
 #include "../headers/Client.h"

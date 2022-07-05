@@ -10,3 +10,4 @@ unsigned int CliffsCell::harvest() {
     throw std::runtime_error("Cannot harvest on rocks");
 }
 
+

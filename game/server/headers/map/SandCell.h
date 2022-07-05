@@ -13,6 +13,10 @@ public:
     unsigned int harvest() override;
 
     ~SandCell() override = default;
+
+    bool harvestable() override;
+
+    int getSpice() override;
 };
 
 #endif  // SANDCELL_H_

@@ -5,13 +5,13 @@
 #include "../headers/MoveQuery.h"
 #include "../headers/AttackRequest.h"
 #include "../headers/CreateLightInfantry.h"
+#include "client/headers/VehicleUi.h"
+#include "client/headers/CreateHarvester.h"
 
 
-MapUi::MapUi(Renderer &renderer) : 
-        terrainRepo(renderer),
-        rdr(renderer), 
-        ground (renderer, Surface(DATA_PATH "/d2k_BLOXBASE.bmp")),
-        harvester(Texture(renderer, Surface(DATA_PATH "/harvester.png"))),
+MapUi::MapUi(Renderer &renderer) :
+        repository(renderer),
+        rdr(renderer),
         building_types(factory.createBuildingTypes(rdr)),
         gui(Rect(500,0,100,200), building_types, factory.createUnitTypes(rdr)),
         map_center({0,0}) {
@@ -52,6 +52,10 @@ std::vector<Request*> MapUi::handleEvent(SDL_Event event, int playerId) {
             case SDLK_SPACE:
                 map_center.first = mouse_x;
                 map_center.second = mouse_y;
+                break;
+            case SDLK_h:
+               requests.push_back(new CreateHarvester(cell_x, cell_y));
+               break;
         } 
     } else if(event.type == SDL_MOUSEBUTTONUP) {
         if(event.button.button ==  SDL_BUTTON_RIGHT) {
@@ -79,9 +83,16 @@ void MapUi::selectUnits(SDL_Event event, int playerId) {
             }
         }
     }
-}
-//// CONFLICTS
 
+    for (auto const& vehicle : vehicles) {
+
+            if(vehicle.second->contains(event.button.x, event.button.y)) {
+                std::cout << "selecting..." << std::endl;
+                vehicle.second->setSelected(true);
+            }
+
+    }
+}
 
 // TODO use map instead of find if
 std::shared_ptr<BuildingType> MapUi::getBuildingType(int type) {
@@ -108,7 +119,8 @@ std::vector<Request*> MapUi::moveCharacter(int x, int y, int playerId) { //(x, y
            id = unit.second->getId();
         }
     }
-
+    bool applies_to_unit;
+    Request *request;
     for (auto const& unit : units) {
         Request *request;
         bool applies_to_unit;
@@ -125,6 +137,15 @@ std::vector<Request*> MapUi::moveCharacter(int x, int y, int playerId) { //(x, y
 
         if(applies_to_unit) {
             requests.emplace_back(request);
+        }
+    }
+
+    for (auto const& vehicle : vehicles) {
+        applies_to_unit = vehicle.second->walkEvent(x, y);
+        request = new MoveQuery(vehicle.second->getId(),coordenada_t({x,y}));
+        if(applies_to_unit) {
+            requests.emplace_back(request);
+            //break;
         }
     }
     return requests;
@@ -155,11 +176,27 @@ void MapUi::updateUnits(int player, int type, int characterId, coordenada_t coor
         (*found).second->setPosition(coord);
         units.insert(*found);
     } else {
-        character* c = new character(rdr, player, characterId, coord, type);
-        auto pair = std::make_pair<int, std::shared_ptr<character >>  ((int)characterId, (std::shared_ptr<character>) std::shared_ptr<character>(c));
+        character* c = new character(rdr, player, characterId, coord, type, repository);
+        auto pair = std::make_pair<int, std::shared_ptr<character >>
+        ((int)characterId, (std::shared_ptr<character>) std::shared_ptr<character>(c));
         units.insert(pair);
     }
 }
+
+void MapUi::updateVehicles(int player, int type, int vehicleId, coordenada_t coord) {
+    if(players.find(player) == players.end()) {
+        players.insert(player);
+    }
+
+    if(vehicles.find(vehicleId) != vehicles.end()) {
+        vehicles[vehicleId]->setPosition(coord);
+    } else {
+        auto* vehicle = new VehicleUi(rdr, player, vehicleId, coord, type, repository);
+        vehicles.emplace(vehicleId, vehicle);
+    }
+}
+
+
 
 /*
     Create new building on map
@@ -180,6 +217,13 @@ void MapUi::updateBuilding(int player, int buildingId, std::shared_ptr<BuildingT
                     size)))) ;
 }
 
+void MapUi::updateTerrain(coordenada_t coord, int sand_level) {
+    int width = this->terrain.first.first;
+    int height = this->terrain.first.second;
+    int index = coord.second * height + coord.first;
+    map.at(index).sand = sand_level;
+}
+
 Point MapUi::fromCell(coordenada_t coord) {
     return Point(coord.first * LENGTH_TILE, coord.second * LENGTH_TILE);
 }
@@ -190,16 +234,11 @@ void MapUi::receiveMap(std::shared_ptr<Protocol> protocol) {
 
 void MapUi::draw() {
     int k = 0;
-    Rect dst;
-    dst.SetX(0) = dst.SetY(0);
-    dst.SetW(LENGTH_TILE) = dst.SetH(LENGTH_TILE);
     for(int j = 0; j < this->terrain.first.first; j++) {
         for (int i = 0; i < this->terrain.first.second; i++) {
-            coordenada_t coord(i, j);
-            dst.SetX(j * LENGTH_TILE);
-            dst.SetY(i * LENGTH_TILE);
+            coordenada_t coord(j,i);
             uint8_t type = this->terrain.second.at(k);
-            addTerrain(coord, dst, type);
+            addTerrain(coord, type);
             k++;
         }
    }
@@ -209,6 +248,7 @@ void MapUi::draw() {
 
 void MapUi::render() {
     rdr.Clear();
+    //updateVehicles(1, VEHICLE_HARVESTER, 10, coordenada_t{0 ,0});
     for(auto& tile : map) {
         tile.render(rdr);
     }
@@ -218,22 +258,25 @@ void MapUi::render() {
     for(auto const& b : buildings) {
         b.second->render();
     }
+
+    for(auto const& b : vehicles) {
+        b.second->render();
+    }
     // render gui
     gui.render(rdr);
     rdr.Present();
 }
 
 
-void MapUi::addTerrain(coordenada_t coord, Rect destination, int terrainId) {
-   // Rect rockRect(100, 220, 8, 8);
-   try {
-        SDL2pp::Texture &r =  terrainRepo.getTileOf(terrainId);
-        Rect rockRect(0,0,16,16);
-        CeldaUi cell(r, coord, destination, rockRect);
-        map.push_back(cell);
-   } catch(std::exception e) {
-       std::cout << "terrain error:" << e.what() << std::endl;
-   }
+void MapUi::addTerrain(coordenada_t coord, int terrainId) {
+    Point location = fromCell(coord);
+    Point size = Point(LENGTH_TILE,LENGTH_TILE);
+    Rect dst(location, size);
+    SDL2pp::Texture &r =  repository.getTileOf(terrainId);
+    Rect rockRect(0,0,16,16);
+    CeldaUi cell(r, coord, dst, rockRect);
+    map.push_back(std::move(cell));
+    std::cout << "cell coord:" << coord.first << "," << coord.second << std::endl;
 }
 
 

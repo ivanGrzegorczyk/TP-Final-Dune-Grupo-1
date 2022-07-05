@@ -2,11 +2,16 @@
 #define REFINERY_H_
 
 #include "Building.h"
+#include "common/headers/Chronometer.h"
+
+#define UNLOAD_TIME 1000000  // Tiempo que tarda en descargar MAX_UNLOADED
+#define MAX_UNLOADED 40
 
 class Refinery : public Building {
 private:
-    unsigned int capacity;
-    unsigned int spice;
+    int capacity;
+    int spice;
+    Chronometer chronometer;
 
 public:
     Refinery(int id, coordenada_t coord);
@@ -15,7 +20,14 @@ public:
 
     std::shared_ptr<Building> copy() override;
 
-    unsigned int getSpice() const;
+    int getSpice() const;
+
+    bool isFull() const;
+
+    // Retorna el excedente
+    unsigned int load(int &harvesterSpice);
+
+    int getCapacity() const;
 };
 
 #endif  // REFINERY_H_

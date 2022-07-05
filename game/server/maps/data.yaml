@@ -2140,14 +2140,14 @@ map:
         - 6
         - 4
     - terrain: sand
-      seed: 0
+      seed: 100
       buildings:
         []
       pos:
         - 6
         - 5
     - terrain: sand
-      seed: 0
+      seed: 50
       buildings:
         []
       pos:
@@ -2189,28 +2189,28 @@ map:
         - 6
         - 11
     - terrain: sand
-      seed: 0
+      seed: 150
       buildings:
         []
       pos:
         - 6
         - 12
     - terrain: sand
-      seed: 0
+      seed: 40
       buildings:
         []
       pos:
         - 6
         - 13
     - terrain: sand
-      seed: 0
+      seed: 35
       buildings:
         []
       pos:
         - 6
         - 14
     - terrain: sand
-      seed: 0
+      seed: 84
       buildings:
         []
       pos:
@@ -2490,7 +2490,7 @@ map:
         - 7
         - 4
     - terrain: sand
-      seed: 0
+      seed: 143
       buildings:
         []
       pos:
@@ -2504,7 +2504,7 @@ map:
         - 7
         - 6
     - terrain: sand
-      seed: 0
+      seed: 170
       buildings:
         []
       pos:
@@ -2539,14 +2539,14 @@ map:
         - 7
         - 11
     - terrain: sand
-      seed: 0
+      seed: 52
       buildings:
         []
       pos:
         - 7
         - 12
     - terrain: sand
-      seed: 0
+      seed: 64
       buildings:
         []
       pos:

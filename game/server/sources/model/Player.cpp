@@ -42,6 +42,18 @@ void Player::addUnit(int unitId, int type, coordenada_t position) {
     }
 }
 
+void Player::addVehicle(int vehicleId, int type, coordenada_t position) {
+    switch (type) {
+        case VEHICLE_HARVESTER: {
+            harvesters.insert(std::pair<int, std::shared_ptr<Harvester>> (
+                    vehicleId, new Harvester(vehicleId, position)));
+            break;
+        }
+        default:
+            throw std::runtime_error("Unknown vehicle");
+    }
+}
+
 void Player::addBuilding(
         int buildingId, int buildingType, coordenada_t position) {
     switch (buildingType) {
@@ -66,6 +78,7 @@ void Player::addBuilding(
             break;
         }
         case BUILDING_REFINERY: {
+            std::cout << "Crea una refineria" << std::endl;
             buildings.insert(std::pair<int, std::shared_ptr<Building>> (
                     buildingId, new Refinery(buildingId, position)));
             break;
@@ -116,7 +129,7 @@ void Player::addBuildingData(Snapshot &snapshot) {
 }
 
 void Player::addVehicleData(Snapshot &snapshot) {
-    for (auto const& [vehicleId, vehicle] : vehicles) {
+    for (auto const& [vehicleId, vehicle] : harvesters) {
         auto _vehicle = vehicle->copy();
         snapshot.addVehicle(playerId, _vehicle);
     }
@@ -132,6 +145,14 @@ void Player::addDeadUnitData(Snapshot &snapshot) {
 
 std::map<int, std::shared_ptr<Unit>> *Player::getUnits() {
     return &units;
+}
+
+std::map<int, std::shared_ptr<Harvester>>* Player::getHarvesters() {
+    return &harvesters;
+}
+
+std::map<int, std::shared_ptr<Refinery>>* Player::getRefineries() {
+    return &refineries;
 }
 
 int Player::getClosestUnitId(coordenada_t position, unsigned int range) {
@@ -177,4 +198,47 @@ void Player::unitAttackReset() {
     for (auto & [unitId, unit] : units) {
         unit->stopAttacking();
     }
+}
+
+int Player::getEntityType(int entityId) {
+    if (units.find(entityId) != units.end())
+        return UNIT;
+    else if (vehicles.find(entityId) != vehicles.end())
+        return VEHICLE;
+    else if (harvesters.find(entityId) != harvesters.end())
+        return VEHICLE_HARVESTER;
+    else
+        return 0;
+}
+
+std::shared_ptr<Harvester> Player::getHarvester(int harvesterId) {
+    return harvesters.at(harvesterId);
+}
+
+int Player::getClosestRefineryId(const coordenada_t &position) {
+    int closest = 0;
+    double distance = INFINITY;
+
+    for (auto & [refineryId, refinery] : refineries) {
+        coordenada_t current = refinery->getPosition();
+        auto _distance = calculateDistance(position, current);
+        if (_distance < distance && !refinery->isFull()) {
+            distance = _distance;
+            closest = refineryId;
+        }
+    }
+
+    return closest;
+}
+
+std::shared_ptr<Refinery> Player::getRefinery(int refineryId) {
+    return refineries.at(refineryId);
+}
+
+void Player::addMoney(unsigned int _money) {
+    money += _money;
+}
+
+int Player::getMoney() const {
+    return money;
 }

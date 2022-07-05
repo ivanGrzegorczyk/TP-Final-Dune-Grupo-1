@@ -65,6 +65,7 @@ void Server::acceptClients() {
             Socket peer = protocol.accept();
             std::cout << "Acepta un cliente" << std::endl;
             auto *client = new ThClient(std::move(peer), protectedQueue, nextPlayerId, map.getRows(), map.getColumns(), terrain);
+            map.buildConstructionCenter(nextPlayerId);
             client->start();
             clients.push(client);
             clients.clean();
@@ -88,6 +89,7 @@ void Server::manageEvents() {
         event = protectedQueue.pop();
     }
     map.updateUnitsPosition();
+    map.updateHarvestersStatus();
     map.unitCheck();
     Snapshot snapshot = createSnapshot();
     map.unitAttackReset();

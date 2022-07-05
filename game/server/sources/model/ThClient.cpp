@@ -6,6 +6,7 @@
 #include "server/headers/events/SpawnUnitEvent.h"
 #include "server/headers/events/CreateBuildingEvent.h"
 #include "server/headers/events/AttackEnemyEvent.h"
+#include "server/headers/events/SpawnVehicleEvent.h"
 
 ThClient::ThClient(Socket &&peer, ProtectedQueue<ServerEvent *> &protectedQueue, int id, int rows, int columns, std::vector<uint8_t> &terrain):
         protectedQueue(protectedQueue), keep_talking(true), is_running(true),
@@ -52,6 +53,11 @@ void ThClient::manageCommand(int command) {
         }
         case ATTACKING_EVENT: {
             attackEnemy();
+            break;
+        }
+        case CREATE_VEHICLE_EVENT: {
+            spawnVehicle();
+            break;
         }
         default: {
             throw std::runtime_error("Unknown command: " + std::to_string(command));
@@ -68,6 +74,14 @@ void ThClient::repositionUnit() {
     coordenada_t goal;
     protocol.getRelocationData(unitId, goal);
     ServerEvent *event = new RepositionEvent(playerId, unitId, goal);
+    protectedQueue.push(event);
+}
+
+void ThClient::spawnVehicle() {
+    uint16_t vehicle;
+    coordenada_t position;
+    protocol.getEntityData(vehicle, position);
+    ServerEvent *event = new SpawnVehicleEvent(playerId, vehicle, position);
     protectedQueue.push(event);
 }
 

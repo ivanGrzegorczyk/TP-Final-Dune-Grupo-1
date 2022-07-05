@@ -15,6 +15,7 @@ class ServerProtocol {
 private:
     Socket socket;
     std::atomic<bool> socket_closed;
+    bool tiburoncin_de_la_salada;
 
     void sendUnitData(std::vector<std::shared_ptr<Unit>> &units);
     void sendBuildingData(std::vector<std::shared_ptr<Building>> &buildings);
@@ -53,6 +54,8 @@ public:
     void sendTerrain(int y_size, int x_size, std::vector<uint8_t> &terrain);
 
     void getAttackingData(int &id, int &unitId);
+
+    void sendTerrainData(std::map<coordenada_t, int> &terrina_data);
 };
 
 #endif  // SERVERPROTOCOL_H_

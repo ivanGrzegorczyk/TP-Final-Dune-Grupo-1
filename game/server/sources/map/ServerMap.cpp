@@ -34,21 +34,50 @@ void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
     entityId++;
 }
 
-void ServerMap::reposition(int playerId, int unitId, coordenada_t goal, bool userMoved) {
+void ServerMap::spawnVehicle(int playerId, int type, coordenada_t position) {
+    if (!validPosition(position))
+        return;
+
+    players[playerId].addVehicle(entityId, type, position);
+    map[position.first][position.second]->occupied = true;
+    entityId++;
+}
+
+void ServerMap::reposition(int playerId, int id, coordenada_t goal, bool userMoved) {
     try {
-        if (players.at(playerId).getUnit(unitId)->getPosition() == goal) {
-            std::cout << "Ya esta en esa posicion" << std::endl;
-            return;
+        auto entityType = players.at(playerId).getEntityType(id);
+
+        coordenada_t original;
+
+        switch (entityType) {
+            case UNIT: {
+                if (userMoved)
+                    players.at(playerId).getUnit(id)->setTarget(0, 0);
+                original = players.at(playerId).getUnit(id)->getPosition();
+                std::stack<coordenada_t> path = A_star(original, goal);
+                players.at(playerId).getUnit(id)->setPath(path);
+                players.at(playerId).getUnit(id)->relocate();
+                break;
+            }
+//            case VEHICLE: {
+////                original = players.at(playerId).getVehicle(entityId)->getPosition();
+//                break;
+//            }
+            case VEHICLE:
+            case VEHICLE_HARVESTER: {
+                original = players.at(playerId).getHarvester(id)->getPosition();
+                std::stack<coordenada_t> path = A_star(original, goal);
+                if (userMoved)
+                    players.at(playerId).getHarvester(id)->setWorkingPosition(goal);
+                players.at(playerId).getHarvester(id)->setPath(path);
+                players.at(playerId).getHarvester(id)->relocate();
+                break;
+            }
+            default:
+                throw std::exception();
         }
-
-        std::stack<coordenada_t> path = A_star(
-                players.at(playerId).getUnit(unitId)->getPosition(), goal);
-        players.at(playerId).getUnit(unitId)->setPath(path);
-
-        if (userMoved)
-            players.at(playerId).getUnit(unitId)->setTarget(0, 0);
     } catch(const std::exception &e) {
-        std::cout << "No existe la unidad" << std::endl;
+        std::cout << "Error al reposicionar" << std::endl;
     }
 }
 
@@ -104,8 +133,59 @@ void ServerMap::updateUnitsPosition() {
                 }
             coordenada_t free = unit->relocate();
             map[unit->getPosition().first][unit->getPosition().second]->occupied = true;
-            if (free.first != -1 && free.second != -1) {
+            if (validPosition(free)) {
                 map[free.first][free.second]->occupied = false;
+            }
+        }
+    }
+}
+
+void ServerMap::updateHarvestersStatus() {
+    for (auto & [playerId, player] : players) {
+        auto harvesters = player.getHarvesters();
+        for (auto &[harvesterId, harvester]: *harvesters) {
+            if (harvester->isStill()) {
+                if (!harvester->isFull() && !harvester->isUnloading()) {
+                    coordenada_t position = harvester->getWorkingPosition();
+                    if (validPosition(position)) {
+                        if (harvester->getPosition() == position) {
+                            if (map[position.first][position.second]->harvestable()) {
+                                harvester->harvest(map[position.first][position.second]);
+                            } else {
+                                coordenada_t newPosition = findClosestHarvestableCell(harvester->getPosition());
+                                harvester->setWorkingPosition(newPosition);
+                            }
+                        } else {
+                            reposition(playerId, harvesterId, position, false);
+                            harvester->relocate();
+                        }
+                    }
+                } else if (harvester->isFull() && !harvester->isUnloading()) {
+                    harvester->setUnloading(true);
+                    coordenada_t current = harvester->getPosition();
+                    int closestId = player.getClosestRefineryId(current);
+                    if (closestId != 0) {
+                        harvester->setRefinery(closestId);
+                        reposition(playerId, harvesterId,
+                                   player.getRefinery(harvester->getRefinery())->getPosition(), false);
+                        harvester->relocate();
+                    }
+                } else if (!harvester->isEmpty() && harvester->isUnloading()) {
+                    auto refinery = player.getRefinery(harvester->getRefinery());
+                    unsigned int money = harvester->unload(refinery);
+                    player.addMoney(money);
+                }
+            } else {
+                coordenada_t next = harvester->getNextPosition();
+                if(next.first >= 0 && next.second >= 0)
+                    if(map[next.first][next.second]->occupied) {
+                        reposition(playerId, harvesterId, harvester->getGoal(), false);
+                    }
+                coordenada_t free = harvester->relocate();
+                map[harvester->getPosition().first][harvester->getPosition().second]->occupied = true;
+                if (validPosition(free)) {
+                    map[free.first][free.second]->occupied = false;
+                }
             }
         }
     }
@@ -156,16 +236,16 @@ void ServerMap::unitCheck() {
 
 void ServerMap::addSnapshotData(Snapshot &snapshot) {
     for (auto & [playerId, player] : players) {
-        snapshot.addPlayer(playerId);
+        snapshot.addPlayer(playerId, player.getMoney());
         player.addUnitData(snapshot);
         player.addBuildingData(snapshot);
         player.addVehicleData(snapshot);
         player.addDeadUnitData(snapshot);
     }
+    addTerrainData(snapshot);
 }
 
 void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
-    std::cout << "Inicializa el terrainnn" << std::endl;
     std::ifstream file(MAPS_PATH "data.yaml");
     YAML::Node config = YAML::Load(file);
     rows = config["map"]["rows"].as<int>();
@@ -190,7 +270,17 @@ void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
         if (_terrain == YAML_SAND) {
             auto spice = cell["seed"].as<unsigned int>();
             map[row][column] = new SandCell({row, column}, spice);
-            terrain.push_back(TERRAIN_SAND);
+            
+            if (spice > 0 && spice < 50) {
+                spice_cells.emplace_back(row, column);
+                terrain.push_back(TERRAIN_SAND);
+            } else if (spice > 50) {
+               spice_cells.emplace_back(row, column);
+                terrain.push_back(TERRAIN_SAND);
+            } else {
+                terrain.push_back(TERRAIN_SAND);
+            }
+            
         } else if (_terrain == YAML_DUNE) {
             map[row][column] = new DunesCell({row, column});
             terrain.push_back(TERRAIN_DUNES);
@@ -262,5 +352,61 @@ int ServerMap::findPlayerByUnitId(int unitId) {
 void ServerMap::unitAttackReset() {
     for (auto & [playerId, player] : players) {
         player.unitAttackReset();
+    }
+}
+
+void ServerMap::buildConstructionCenter(int playerId) {
+    players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
+
+    if (!construction_centers.empty()) {
+        coordenada_t position = construction_centers.front();
+        // No lo pongo en en el metodo createBuilding para que si juega eldipa no se ponga
+        // 18 centros de construccion y gane siempre
+        build(playerId, position, BUILDING_CONSTRUCTION_CENTER, 3, 3);
+        construction_centers.pop();
+    } else {
+        throw std::runtime_error("Game is full");
+    }
+}
+
+coordenada_t ServerMap::findClosestHarvestableCell(coordenada_t position) {
+    std::vector<coordenada_t> valid_positions;
+    for (int i = -5; i <= 5; i++) {
+        for (int j = -5; j <= 5; j++) {
+            coordenada_t aux(position.first + i, position.second + j);
+            if (validPosition(aux)) {
+                if (map[aux.first][aux.second]->harvestable()) {
+                    valid_positions.push_back(aux);
+                }
+            }
+        }
+    }
+
+    coordenada_t closest(-1, -1);
+    double distance = INFINITY;
+
+    for (auto & coord : valid_positions) {
+        auto _distance = calculateDistance(position, coord);
+        if (_distance < distance) {
+            distance = _distance;
+            closest = coord;
+        }
+    }
+
+    return std::move(closest);
+}
+
+double ServerMap::calculateDistance(coordenada_t unit1, coordenada_t unit2) {
+    int x1 = unit1.first, y1 = unit1.second;
+    int x2 = unit2.first, y2 = unit2.second;
+
+    return std::sqrt(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2) * 1.0);
+}
+
+void ServerMap::addTerrainData(Snapshot &snapshot) {
+    for (auto coord : spice_cells) {
+        if (map[coord.first][coord.second]->harvestable()) {
+            snapshot.addHarvestZone(coord, map[coord.first][coord.second]->getSpice());
+        }
     }
 }

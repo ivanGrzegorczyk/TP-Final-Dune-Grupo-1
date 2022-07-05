@@ -6,6 +6,7 @@ houses:
   - Ordos
 units:
   - name: Infantería ligera
+    texture: "harvester.png"
     required: 
       - Cuartel
     house: [Harkonnen, Atreides, Ordos]
@@ -17,6 +18,20 @@ units:
     life_points: 50
 
   - name: Sardaukar
+    texture: "harvester.png"
+    required:
+      - Cuartel
+      - Palacio
+    house: [Harkonnen]
+    weapon: [Rifle de Asalto, Lanza Misiles]
+    range: 3
+    speed: 16 # km h
+    training_time: 1 # minutes
+    cost: 50
+    life_points: 50
+  
+  - name: Cosechadora
+    texture: "harvester.png"
     required:
       - Cuartel
       - Palacio
@@ -31,7 +46,7 @@ units:
 buildings:
   - id: 21
     name: Centro de Construcción
-    texture: "brick.png"
+    texture: "constructioncenter.png"
     energy: 500
     cost: 800
     dimensions:
@@ -41,7 +56,7 @@ buildings:
     features: {}
   - id: 22
     name: Fábrica Ligera
-    texture: "Barracks.png"
+    texture: "heavyfactory.png"
     energy: 100
     cost: 200
     dimensions:
@@ -52,7 +67,7 @@ buildings:
       capacity: 1000
   - id: 23
     name: Fábrica pesada
-    texture: "brick.png"
+    texture: "heavyfactory.png"
     energy: 100
     cost: 200
     dimensions:
@@ -63,7 +78,7 @@ buildings:
       capacity: 1000
   - id: 24
     name: Trampa de aire
-    texture: "crate.png"
+    texture: "windtrap.png"
     energy: 100
     cost: 200
     dimensions:
@@ -74,7 +89,7 @@ buildings:
       capacity: 1000
   - id: 25
     name: Refinería
-    texture: "Barracks.png"
+    texture: "refinery.png"
     energy: 100
     cost: 200
     dimensions:
@@ -85,7 +100,7 @@ buildings:
       capacity: 1000
   - id: 26
     name: Silo
-    texture: "crate.png"
+    texture: "Barracks.png"
     energy: 100
     cost: 200
     dimensions:
@@ -107,7 +122,7 @@ buildings:
       capacity: 1000
   - id: 28
     name: Palacio
-    texture: "Barracks.png"
+    texture: "palace.png"
     energy: 100
     cost: 200
     dimensions:

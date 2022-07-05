@@ -39,6 +39,8 @@ public:
     ThClient(const ThClient&) = delete;
 
     ThClient& operator=(const ThClient&) = delete;
+
+    void spawnVehicle();
 };
 
 #endif  // THCLIENT_H_
