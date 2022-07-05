@@ -5,7 +5,8 @@ houses:
   - Atreides
   - Ordos
 units:
-  - name: Infantería ligera
+  - id: 10
+    name: Infantería ligera
     texture: "harvester.png"
     required: 
       - Cuartel
@@ -17,7 +18,8 @@ units:
     cost: 50
     life_points: 50
 
-  - name: Sardaukar
+  - id: 13
+    name: Sardaukar
     texture: "harvester.png"
     required:
       - Cuartel
@@ -30,7 +32,8 @@ units:
     cost: 50
     life_points: 50
   
-  - name: Cosechadora
+  - id: 20
+    name: Cosechadora
     texture: "harvester.png"
     required:
       - Cuartel

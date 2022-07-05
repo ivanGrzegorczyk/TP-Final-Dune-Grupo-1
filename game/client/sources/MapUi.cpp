@@ -42,7 +42,7 @@ std::vector<Request*> MapUi::handleEvent(SDL_Event event, int playerId) {
     } else if(event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
             case SDLK_a:
-                requests.push_back(new CreateUnit(cell_x, cell_y, currentUnit()));
+                requests.push_back(new CreateUnit(cell_x, cell_y, gui.getUnitType()));
                 break;
             case SDLK_b:
                 id = (uint16_t)(gui.getBuildingToBuild()->code());

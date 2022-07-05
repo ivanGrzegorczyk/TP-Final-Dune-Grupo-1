@@ -35,7 +35,7 @@ std::vector<std::shared_ptr<UnitType>>  BuildingFactory::createUnitTypes(Rendere
         Texture texture(render, surface);
         std::string name (unit["name"].as<std::string>());
         // TODO everything has a barrack id
-        int id = 257;
+        int id = unit["id"].as<int>();
         std::cout << texture_name << ":" << id << std::endl;
         std::shared_ptr<UnitType> type(new UnitType(name,id,3,4,3,3,3, std::move(texture)));
         unit_types.push_back(type);

@@ -22,6 +22,7 @@ GUI::GUI(Rect area,
     menu2_area = Rect(menu1_area.GetBottomLeft(),area.GetSize());
     menu2_area.SetH((int)(area.GetH() * PORTION_2));
     setBuildingToBuild(building_types[1]);
+    selected_unit = unit_types[0];
     update();
 }
 
@@ -118,7 +119,7 @@ void GUI::drawBuildingButtons(std::vector<std::shared_ptr<BuildingType>> buildin
 }
 
 int GUI::getUnitType() {
-    return UNIT_LIGHT_INFANTRY;
+    return selected_unit->_id;
 }
 
 void GUI::drawUnitsButtons(std::vector<std::shared_ptr<UnitType>> units) {
