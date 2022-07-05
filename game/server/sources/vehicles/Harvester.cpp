@@ -5,7 +5,7 @@
 Harvester::Harvester(int id, coordenada_t coord) :
         Vehicle(id, HARVESTER_HP, HARVESTER_RANGE,
                 HARVESTER_SPEED, VEHICLE_HARVESTER,
-                HARVESTER_COST, coord), spice(160),
+                HARVESTER_COST, coord), spice(0),
                 unloading(false), refinery(0),
                 working_position(-1, -1){}
 

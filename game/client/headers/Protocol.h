@@ -39,7 +39,7 @@ public:
     void shutdown();
     void close();
 
-    void deserializeEvents(uint16_t playerId, Response *response);
+    void deserializeEvents(uint16_t playerId, Response *response, uint16_t money);
 };
 
 
