@@ -49,4 +49,6 @@ void Snapshot::addHarvestZone(coordenada_t &position, int spice) {
         spice_cells.insert(std::pair<coordenada_t, int> (position, TERRAIN_SPICE_LOW));
     else if (spice > 50)
         spice_cells.insert(std::pair<coordenada_t, int> (position, TERRAIN_SPICE_HIGH));
+    else
+        spice_cells.insert(std::pair<coordenada_t, int> (position, TERRAIN_SAND));
 }
