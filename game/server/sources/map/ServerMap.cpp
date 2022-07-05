@@ -345,8 +345,10 @@ void ServerMap::build(int playerId, coordenada_t &position, int buildingType, in
         }
     }
 
-    if (aux == size_x * size_y) {
-        players[playerId].addBuilding(entityId, buildingType, position);
+    bool done = players[playerId].addBuilding(entityId, buildingType, position);
+    if (!done)
+        std::cout << "No tiene guita" << std::endl;
+    if (done) {
         for (int i = 0; i < size_y; i++) {
             for (int j = 0; j < size_x; j++) {
                 map[x + i][y + j]->occupied = true;
