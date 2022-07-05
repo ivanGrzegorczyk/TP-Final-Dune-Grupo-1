@@ -150,7 +150,8 @@ typedef std::pair<int, int> coordenada_t;
 #define TERRAIN_ROCKS 2
 #define TERRAIN_TOPS 3
 #define TERRAIN_CLIFFS 4
-#define TERRAIN_SPICE 5
+#define TERRAIN_SPICE_LOW 5
+#define TERRAIN_SPICE_HIGH 6
 
 //houses
 #define HOUSE_ATREIDES 0
