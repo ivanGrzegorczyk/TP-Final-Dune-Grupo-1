@@ -88,7 +88,7 @@ void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
         sendBuildingData(buildings);
         sendVehicleData(vehicles);
 //        sendDeadUnitsData(dead_units);
-        //sendTerrainData(terrain_data);
+        sendTerrainData(terrain_data);
     }
     std::cout << std::endl;
 }
@@ -262,11 +262,11 @@ void ServerProtocol::sendTerrainData(std::map<coordenada_t, int> &terrina_data) 
 
         position_x = htons(position_x);
         position_y = htons(position_y);
-        /*
+        
         socket.sendall(&position_x, sizeof(position_x));
         socket.sendall(&position_y, sizeof(position_y));
         socket.sendall(&soil, sizeof(soil));
-        */
+        
     }
 }
 

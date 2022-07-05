@@ -21,8 +21,6 @@ void Protocol::send(int command, const std::vector<uint16_t>& vector) {
     uint8_t cmd = command;
     skt.sendall(&cmd, sizeof(cmd));
     for(uint16_t data : vector) {
-        std::cout << "data en protocol: " << data << std::endl;
-
         aux = htons(data);
         skt.sendall(&aux, sizeof(aux));
     }
@@ -100,10 +98,12 @@ void Protocol::createResponse(uint8_t &eventType, int player, Response* response
                 event = new UpdateVehicle(player ,entityType, entityId, coord);
         }
     } else if (eventType == SPICE) {
-        std::cout << "spice!" << std::endl;
         skt.recvall(&amount, sizeof(amount));
+        // get amount of spice cells
         amount = ntohs(amount);
+        // for each spice cell
         for (int i = 0; i < amount; i++) {
+            // get position and soil level
             uint16_t position_x;
             uint16_t position_y;
             uint8_t soil;
@@ -114,10 +114,6 @@ void Protocol::createResponse(uint8_t &eventType, int player, Response* response
 
             position_x = ntohs(position_x);
             position_y = ntohs(position_y);
-
-            std::cout << unsigned (position_x) << " ";
-            std::cout << unsigned (position_y) << " ";
-            std::cout << unsigned (soil) << " | ";
         }
     }
     if(event != nullptr) response->add(event);
