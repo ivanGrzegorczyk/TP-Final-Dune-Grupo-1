@@ -26,13 +26,17 @@ void ServerMap::spawnUnit(int playerId, int type, int buildingId) {
     if (players.find(playerId) == players.end()) {
         players.insert(std::pair<int, Player> (playerId, Player(playerId, 0)));
     }
-    if (players[playerId].getEntityType(buildingId) != BUILDING)
-        return;
-    coordenada_t position = players[playerId].getBuilding(buildingId)->getPosition();
-    position.second -= 1;
-    if (players[playerId].addUnit(entityId, type, position)) {
-        map[position.first][position.second]->occupied = true;
-        entityId++;
+
+    // TODO: Usar este dato para manejar el tiempo que tardan en aparecer las unidades
+    int amount = players[playerId].checkSpawn(type);
+
+    if (amount > 0) {
+        coordenada_t position = players[playerId].getBuilding(buildingId)->getPosition();
+        position.second -= 1;
+        if (players[playerId].addUnit(entityId, type, position)) {
+            map[position.first][position.second]->occupied = true;
+            entityId++;
+        }
     }
 }
 

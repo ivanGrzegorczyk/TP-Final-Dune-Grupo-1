@@ -76,6 +76,8 @@ public:
     int getMoney() const;
 
     bool checkForBuilding(coordenada_t &position);
+
+    int checkSpawn(int type);
 };
 
 #endif  // PLAYER_H_

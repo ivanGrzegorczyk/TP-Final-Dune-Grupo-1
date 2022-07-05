@@ -302,3 +302,36 @@ bool Player::checkForBuilding(coordenada_t &position) {
     }
     return false;
 }
+
+int Player::checkSpawn(int type) {
+    int ret = 0;
+    switch (type) {
+        case UNIT_LIGHT_INFANTRY:
+        case UNIT_HEAVY_INFANTRY: {
+            for (const auto & [id, building] : buildings) {
+                if (building->getType() == BUILDING_BARRACKS)
+                    ret++;
+            }
+            break;
+        }
+        case UNIT_FREMEN:
+        case UNIT_SARDAUKAR:{
+            bool palace = false;
+            for (const auto & [id, building] : buildings) {
+                if (building->getType() == BUILDING_BARRACKS) {
+                    ret++;
+                } else if (building->getType() == BUILDING_PALACE) {
+                    palace = true;
+                }
+            }
+            if (!palace)
+                ret = 0;
+            break;
+        }
+
+        default:
+            throw std::runtime_error("Unknown unit");
+    }
+
+    return ret;
+}
