@@ -57,7 +57,7 @@ std::pair<coordenada_t, std::vector<uint8_t>> Protocol::receiveTerrain() {
 }
 
 Response* Protocol::recvResponse() {
-    uint16_t players; uint16_t idPlayer;
+    uint16_t players, idPlayer, money;
     skt.recvall(&players, sizeof(players));
     players = ntohs(players);
     if(players == 0) {
@@ -66,8 +66,13 @@ Response* Protocol::recvResponse() {
     auto* response = new Response();
     for(int p = 0; p < players ; p++) {
         skt.recvall(&idPlayer, sizeof(idPlayer));
+        skt.recvall(&money, sizeof(money));
+
+        idPlayer = ntohs(idPlayer);
+        money = ntohs(money);
+
          for(int e = 0; e < EVENTS; e++) {
-             this->deserializeEvents(idPlayer, response);
+             this->deserializeEvents(idPlayer, response, money);
          }
     }
     return response;
@@ -106,7 +111,7 @@ void Protocol::createResponse(uint8_t &eventType, int player, Response* response
     if(event != nullptr) response->add(event);
 }
 
-void Protocol::deserializeEvents(uint16_t playerId, Response* response) {
+void Protocol::deserializeEvents(uint16_t playerId, Response* response, uint16_t money) {
     uint8_t eventType;
     uint16_t amount;
 
@@ -130,7 +135,6 @@ void Protocol::deserializeEvents(uint16_t playerId, Response* response) {
         }
     } else {
         skt.recvall(&amount, sizeof(amount));
-        playerId = ntohs(playerId);
         amount = ntohs(amount);
 
         for(int j = 0; j < amount; j++) {
