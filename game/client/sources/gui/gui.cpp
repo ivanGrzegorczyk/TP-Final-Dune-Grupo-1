@@ -59,6 +59,15 @@ void GUI::render(Renderer &rdr) {
     render_menu(rdr);
     rdr.SetDrawColor(255,0,0,255);
     rdr.DrawRect(area);
+    try {
+        SDLTTF sdl_ttf;
+        Font font("Vera.ttf", 20); // SDL_ttf font
+        Texture text(rdr, font.RenderText_Solid("Hello, world!",
+                SDL_Color{255, 255, 255, 255}));
+        rdr.Copy(text, NullOpt, Rect(Point(menu2_area.GetX(), menu2_area.GetY()), text.GetSize()));
+    } catch(std::exception& e) {
+        std::cout << "text error" << e.what() << std::endl;
+    } 
 }
 
 void GUI::render_menu(Renderer &rdr) {

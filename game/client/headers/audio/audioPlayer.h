@@ -10,7 +10,6 @@ class AudioPlayer {
         Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
         Chunk sound(DATA_PATH "/test.wav"); 
         mixer.PlayChannel(-1, sound);
-        SDL_Delay(1000);
     }
 };
 #endif
