@@ -78,11 +78,13 @@ void ServerProtocol::sendSnapshot(Snapshot &snapshot) {
         std::vector<std::shared_ptr<Building>> buildings = snapshot.getBuildings(playerId);
         std::vector<std::shared_ptr<Vehicle>> vehicles = snapshot.getVehicles(playerId);
         std::vector<std::shared_ptr<Unit>> dead_units = snapshot.getDeadUnits(playerId);
+        std::map<coordenada_t, int> terrain_data = snapshot.getTerrainData();
 
         sendUnitData(units);
         sendBuildingData(buildings);
         sendVehicleData(vehicles);
 //        sendDeadUnitsData(dead_units);
+        sendTerrainData(terrain_data);
     }
     std::cout << std::endl;
 }
@@ -231,6 +233,31 @@ void ServerProtocol::sendDeadUnitsData(std::vector<std::shared_ptr<Unit>> &dead_
         socket.sendall(&type, sizeof(type));
         socket.sendall(&position_x, sizeof(position_x));
         socket.sendall(&position_y, sizeof(position_y));
+    }
+}
+
+void ServerProtocol::sendTerrainData(std::map<coordenada_t, int> &terrina_data) {
+    uint8_t eventType = SPICE;
+    if (tiburoncin_de_la_salada)
+        std::cout << unsigned (eventType) << " ";
+    socket.sendall(&eventType, sizeof(eventType));
+    uint16_t amount = terrina_data.size();
+    if (tiburoncin_de_la_salada)
+        std::cout << unsigned (amount) << " | ";
+    amount = htons(amount);
+    socket.sendall(&amount, sizeof(amount));
+
+    for (const auto & [coord, ground] : terrina_data) {
+        uint16_t position_x = coord.second;
+        uint16_t position_y = coord.first;
+        uint8_t soil = ground;
+
+        std::cout << unsigned (position_x) << " ";
+        std::cout << unsigned (position_y) << " ";
+        std::cout << unsigned (soil) << " | ";
+
+        position_x = htons(position_x);
+        position_y = htons(position_y);
     }
 }
 

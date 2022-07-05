@@ -242,6 +242,7 @@ void ServerMap::addSnapshotData(Snapshot &snapshot) {
         player.addVehicleData(snapshot);
         player.addDeadUnitData(snapshot);
     }
+    addTerrainData(snapshot);
 }
 
 void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
@@ -269,12 +270,15 @@ void ServerMap::initializeTerrain(std::vector<uint8_t> &terrain) {
         if (_terrain == YAML_SAND) {
             auto spice = cell["seed"].as<unsigned int>();
             map[row][column] = new SandCell({row, column}, spice);
-            if (spice > 0 && spice < 50)
+            if (spice > 0 && spice < 50) {
+                spice_cells.emplace_back(row, column);
                 terrain.push_back(TERRAIN_SPICE_LOW);
-            else if (spice > 50)
+            } else if (spice > 50) {
+                spice_cells.emplace_back(row, column);
                 terrain.push_back(TERRAIN_SPICE_HIGH);
-            else
+            } else {
                 terrain.push_back(TERRAIN_SAND);
+            }
         } else if (_terrain == YAML_DUNE) {
             map[row][column] = new DunesCell({row, column});
             terrain.push_back(TERRAIN_DUNES);
@@ -395,4 +399,12 @@ double ServerMap::calculateDistance(coordenada_t unit1, coordenada_t unit2) {
     int x2 = unit2.first, y2 = unit2.second;
 
     return std::sqrt(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2) * 1.0);
+}
+
+void ServerMap::addTerrainData(Snapshot &snapshot) {
+    for (auto coord : spice_cells) {
+        if (map[coord.first][coord.second]->harvestable()) {
+            snapshot.addHarvestZone(coord, map[coord.first][coord.second]->getSpice());
+        }
+    }
 }

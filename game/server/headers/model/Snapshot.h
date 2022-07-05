@@ -15,6 +15,7 @@ private:
     std::map<int, std::vector<std::shared_ptr<Building>>> buildings;
     std::map<int, std::vector<std::shared_ptr<Vehicle>>> vehicles;
     std::map<int, std::vector<std::shared_ptr<Unit>>> dead_units;
+    std::map<coordenada_t, int> spice_cells;
 
 public:
     const std::vector<int> & getPlayers();
@@ -36,6 +37,10 @@ public:
     void addVehicle(int playerId, const std::shared_ptr<Vehicle> &vehicle);
 
     void addDeadUnit(int playerId, const std::shared_ptr<Unit> &dead_unit);
+
+    void addHarvestZone(coordenada_t &position, int spice);
+
+    const std::map<coordenada_t, int> & getTerrainData();
 };
 
 #endif  // SNAPSHOT_H_

@@ -20,6 +20,7 @@ private:
     std::vector<std::vector<ServerCell *>> map;
     int entityId;
     std::queue<coordenada_t> construction_centers;
+    std::vector<coordenada_t> spice_cells;
 
     std::stack<coordenada_t> A_star(coordenada_t start, coordenada_t end);
 
@@ -65,6 +66,8 @@ public:
     coordenada_t findClosestHarvestableCell(coordenada_t position);
 
     double calculateDistance(coordenada_t unit1, coordenada_t unit2);
+
+    void addTerrainData(Snapshot &snapshot);
 };
 
 #endif  // SERVERMAP_H_

@@ -54,6 +54,8 @@ public:
     void sendTerrain(int y_size, int x_size, std::vector<uint8_t> &terrain);
 
     void getAttackingData(int &id, int &unitId);
+
+    void sendTerrainData(std::map<coordenada_t, int> &terrina_data);
 };
 
 #endif  // SERVERPROTOCOL_H_
