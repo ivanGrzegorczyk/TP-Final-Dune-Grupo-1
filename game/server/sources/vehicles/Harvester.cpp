@@ -18,7 +18,6 @@ Harvester::Harvester(int id, int spice, coordenada_t coord) :
 
 void Harvester::harvest(ServerCell *cell) {
     try {
-        std::cout << "especia: " << spice << std::endl;
         if (spice < MAX_SPICE) {
             spice += cell->harvest();
             if (spice > 200)

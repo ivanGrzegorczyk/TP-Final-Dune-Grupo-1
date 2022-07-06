@@ -13,6 +13,8 @@
 #define YAML_TOP "mountain"
 #define YAML_CLIFF "cliff"
 
+#define BUILDING_DISTANCE 5
+
 ServerMap::ServerMap(int rows, int columns) : rows(rows), columns(columns),
                                               map(rows, std::vector<ServerCell *>(columns)), entityId(1) {}
 
@@ -335,8 +337,8 @@ void ServerMap::build(int playerId, coordenada_t &position, int buildingType, in
         }
     }
 
-    for (int i = -5; i < 5 + size_y; i++) {
-        for (int j = -5; j < 5 + size_x; j++) {
+    for (int i = -BUILDING_DISTANCE; i < BUILDING_DISTANCE + size_y; i++) {
+        for (int j = -BUILDING_DISTANCE; j < BUILDING_DISTANCE + size_x; j++) {
             if ( (x + i) >= 0 && (y + j) >= 0 && (x + i) < rows && (y + j) < columns) {
                 for (auto & [id, player] : players) {
                     coordenada_t location(x + i, y + j);
@@ -394,8 +396,8 @@ void ServerMap::buildConstructionCenter(int playerId) {
 
 coordenada_t ServerMap::findClosestHarvestableCell(coordenada_t position) {
     std::vector<coordenada_t> valid_positions;
-    for (int i = -5; i <= 5; i++) {
-        for (int j = -5; j <= 5; j++) {
+    for (int i = -BUILDING_DISTANCE; i <= BUILDING_DISTANCE; i++) {
+        for (int j = -BUILDING_DISTANCE; j <= BUILDING_DISTANCE; j++) {
             coordenada_t aux(position.first + i, position.second + j);
             if (validPosition(aux)) {
                 if (map[aux.first][aux.second]->harvestable()) {

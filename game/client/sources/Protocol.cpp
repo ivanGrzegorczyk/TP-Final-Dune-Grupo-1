@@ -66,10 +66,11 @@ Response* Protocol::recvResponse() {
     auto* response = new Response();
     for(int p = 0; p < players ; p++) {
         skt.recvall(&idPlayer, sizeof(idPlayer));
-        skt.recvall(&money, sizeof(money));
+        uint16_t money16;
+        skt.recvall(&money16, sizeof(money16));
 
         idPlayer = ntohs(idPlayer);
-        money = ntohs(money);
+        money = ntohs(money16);
 
          for(int e = 0; e < EVENTS; e++) {
              this->deserializeEvents(idPlayer, response, money);
