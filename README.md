@@ -41,3 +41,7 @@ La tecla B corresponde a crear un edificio, la H a una cosechadora, la A a una u
 #### Menú
 Un menú en la esquina superior derecha muestra los distintos tipos de edificios que se pueden crear.
 Al hacer click izquierdo a uno de estos, la tecla *b* generará el edificio seleccionado. Este edificio tiene colisión determinada por el servidor tal que las unidades no pisan sobre él.
+
+## Diagramas
+![diagrama de hilos server](https://user-images.githubusercontent.com/56945900/177440787-c762daf5-f6e0-4c95-93e8-c25be83587e3.png)
+
