@@ -101,11 +101,9 @@ void Protocol::createResponse(uint8_t &eventType, int player, Response* response
             skt.recvall(&idTarget, sizeof(idTarget));
 
             event = new UpdateUnit(player, entityType, entityId, coord);
-                //break;
         }
         if(eventType == BUILDING) {
             event = new UpdateBuilding(player, entityType, entityId, coord);
-                //break;
         }
         if(eventType == VEHICLE) {
                 event = new UpdateVehicle(player ,entityType, entityId, coord);

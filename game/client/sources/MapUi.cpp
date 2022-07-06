@@ -7,6 +7,7 @@
 #include "../headers/CreateLightInfantry.h"
 #include "client/headers/VehicleUi.h"
 #include "client/headers/CreateHarvester.h"
+#include "client/headers/CreateHeavyInfantry.h"
 
 
 MapUi::MapUi(Renderer &renderer) :
@@ -46,6 +47,9 @@ std::vector<Request*> MapUi::handleEvent(SDL_Event event, int playerId) {
                 requests.push_back(new CreateLightInfantry(cell_x, cell_y));
                 break;
             case SDLK_b:
+                requests.push_back(new CreateHeavyInfantry(cell_x, cell_y));
+                break;
+            case SDLK_c:
                 id = (uint16_t)(gui.getBuildingToBuild()->code());
                 requests.push_back(new CreateBuilding(cell_x, cell_y, id));
                 break;
