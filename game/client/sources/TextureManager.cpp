@@ -8,7 +8,7 @@ void TextureManager::loadTile() {
     textures.insert(std::pair(UNIT_LIGHT_INFANTRY,  SDL2pp::Texture
     (render, Surface(DATA_PATH "/00114a2a.bmp").SetColorKey(true, 0))));
     textures.insert(std::pair(UNIT_HEAVY_INFANTRY,  SDL2pp::Texture
-    (render, Surface(DATA_PATH "/crate.png").SetColorKey(true, 0))));
+    (render, Surface(DATA_PATH "/0006fc86.bmp").SetColorKey(true, 0))));
     textures.insert(std::pair(VEHICLE_HARVESTER,  SDL2pp::Texture
             (render, Surface(DATA_PATH "/harvester.png").SetColorKey(true, 0))));
     ground.insert(std::pair(TERRAIN_ROCKS,  SDL2pp::Texture (render, DATA_PATH "/rock1.png")));
