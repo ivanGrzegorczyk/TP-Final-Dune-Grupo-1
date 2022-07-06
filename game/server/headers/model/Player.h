@@ -32,9 +32,9 @@ public:
 
     std::shared_ptr<Unit> & getUnit(int unitId);
 
-    void addUnit(int unitId, int type, coordenada_t position);
+    bool addUnit(int unitId, int type, coordenada_t position);
 
-    void addBuilding(int buildingId, int buildingType, coordenada_t position);
+    bool addBuilding(int buildingId, int buildingType, coordenada_t position);
 
     std::shared_ptr<Building> getBuilding(int buildingId);
 
@@ -69,7 +69,7 @@ public:
 
     std::shared_ptr<Refinery> getRefinery(int refineryId);
 
-    void addVehicle(int vehicleId, int type, coordenada_t position);
+    bool addVehicle(int vehicleId, int type, coordenada_t position);
 
     void addMoney(int _money);
 

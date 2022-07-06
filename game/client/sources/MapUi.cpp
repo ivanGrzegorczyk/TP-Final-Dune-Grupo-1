@@ -43,11 +43,9 @@ std::vector<Request*> MapUi::handleEvent(SDL_Event event, int playerId) {
     } else if(event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
             case SDLK_a:
-                //audioPlayer.play();
                 requests.push_back(new CreateLightInfantry(cell_x, cell_y));
                 break;
             case SDLK_b:
-                //audioPlayer.play();
                 id = (uint16_t)(gui.getBuildingToBuild()->code());
                 requests.push_back(new CreateBuilding(cell_x, cell_y, id));
                 break;

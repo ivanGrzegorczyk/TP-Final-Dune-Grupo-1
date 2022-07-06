@@ -28,18 +28,20 @@ void ServerMap::spawnUnit(int playerId, int type, coordenada_t position) {
     if (!validPosition(position))
         return;
 
-    players[playerId].addUnit(entityId, type, position);
-    map[position.first][position.second]->occupied = true;
-    entityId++;
+    if (players[playerId].addUnit(entityId, type, position)) {
+        map[position.first][position.second]->occupied = true;
+        entityId++;
+    }
 }
 
 void ServerMap::spawnVehicle(int playerId, int type, coordenada_t position) {
     if (!validPosition(position))
         return;
 
-    players[playerId].addVehicle(entityId, type, position);
-    map[position.first][position.second]->occupied = true;
-    entityId++;
+    if (players[playerId].addVehicle(entityId, type, position)) {
+        map[position.first][position.second]->occupied = true;
+        entityId++;
+    }
 }
 
 void ServerMap::reposition(int playerId, int id, coordenada_t goal, bool userMoved) {
@@ -345,8 +347,8 @@ void ServerMap::build(int playerId, coordenada_t &position, int buildingType, in
         }
     }
 
-    if (aux == size_x * size_y) {
-        players[playerId].addBuilding(entityId, buildingType, position);
+    bool done = players[playerId].addBuilding(entityId, buildingType, position);
+    if (done) {
         for (int i = 0; i < size_y; i++) {
             for (int j = 0; j < size_x; j++) {
                 map[x + i][y + j]->occupied = true;

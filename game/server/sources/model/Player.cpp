@@ -13,94 +13,144 @@
 #include "server/headers/units/Sardaukar.h"
 #include "server/headers/buildings/ConstructionCenter.h"
 
-Player::Player(int id, int house) : playerId(id), house(house), money(0) {}
+Player::Player(int id, int house) : playerId(id), house(house), money(1000) {}
 
-void Player::addUnit(int unitId, int type, coordenada_t position) {
+bool Player::addUnit(int unitId, int type, coordenada_t position) {
     switch (type) {
         case UNIT_LIGHT_INFANTRY: {
-            units.insert(std::pair<int, std::shared_ptr<Unit>> (
-                    unitId, new LightInfantry(unitId, position)));
+            if (money >= LIGHT_INFANTRY_COST) {
+                units.insert(std::pair<int, std::shared_ptr<Unit>> (
+                        unitId, new LightInfantry(unitId, position)));
+                money -= LIGHT_INFANTRY_COST;
+                return true;
+            }
             break;
         }
         case UNIT_HEAVY_INFANTRY: {
-            units.insert(std::pair<int, std::shared_ptr<Unit>> (
-                    unitId, new HeavyInfantry(unitId, position)));
+            if (money >= HEAVY_INFANTRY_COST) {
+                units.insert(std::pair<int, std::shared_ptr<Unit>>(
+                        unitId, new HeavyInfantry(unitId, position)));
+                money -= HEAVY_INFANTRY_COST;
+                return true;
+            }
             break;
         }
         case UNIT_FREMEN: {
-            units.insert(std::pair<int, std::shared_ptr<Unit>> (
-                    unitId, new Fremen(unitId, position)));
+            if (money >= FREMEN_COST) {
+                units.insert(std::pair<int, std::shared_ptr<Unit>>(
+                        unitId, new Fremen(unitId, position)));
+                money -= FREMEN_COST;
+                return true;
+            }
             break;
         }
         case UNIT_SARDAUKAR: {
-            units.insert(std::pair<int, std::shared_ptr<Unit>> (
-                    unitId, new Sardaukar(unitId, position)));
+            if (money >= SARDAUKAR_COST) {
+                units.insert(std::pair<int, std::shared_ptr<Unit>>(
+                        unitId, new Sardaukar(unitId, position)));
+                money -= SARDAUKAR_COST;
+                return true;
+            }
             break;
         }
         default:
             throw std::runtime_error("Unknown unit");
     }
+    return false;
 }
 
-void Player::addVehicle(int vehicleId, int type, coordenada_t position) {
+bool Player::addVehicle(int vehicleId, int type, coordenada_t position) {
     switch (type) {
         case VEHICLE_HARVESTER: {
-            harvesters.insert(std::pair<int, std::shared_ptr<Harvester>> (
-                    vehicleId, new Harvester(vehicleId, position)));
+            if (money >= HARVESTER_COST) {
+                harvesters.insert(std::pair<int, std::shared_ptr<Harvester>>(
+                        vehicleId, new Harvester(vehicleId, position)));
+                money -= VEHICLE_HARVESTER;
+                return true;
+            }
             break;
         }
         default:
             throw std::runtime_error("Unknown vehicle");
     }
+    return false;
 }
 
-void Player::addBuilding(
+bool Player::addBuilding(
         int buildingId, int buildingType, coordenada_t position) {
     switch (buildingType) {
         case BUILDING_CONSTRUCTION_CENTER: {
             buildings.insert(std::pair<int, std::shared_ptr<Building>> (
                     buildingId, new ConstructionCenter(buildingId, position)));
-            break;
+            return true;
         }
         case BUILDING_LIGHT_FACTORY: {
-            buildings.insert(std::pair<int, std::shared_ptr<Building>> (
-                    buildingId, new LightFactory(buildingId, position)));
+            if (money >= LIGHT_FACTORY_COST) {
+                buildings.insert(std::pair<int, std::shared_ptr<Building>>(
+                        buildingId, new LightFactory(buildingId, position)));
+                money -= LIGHT_FACTORY_COST;
+                return true;
+            }
             break;
         }
         case BUILDING_AIR_TRAP: {
-            buildings.insert(std::pair<int, std::shared_ptr<Building>> (
-                    buildingId, new AirTrap(buildingId, position)));
+            if (money >= AIR_TRAP_COST) {
+                buildings.insert(std::pair<int, std::shared_ptr<Building>>(
+                        buildingId, new AirTrap(buildingId, position)));
+                money -= AIR_TRAP_COST;
+                return true;
+            }
             break;
         }
         case BUILDING_HEAVY_FACTORY: {
-            buildings.insert(std::pair<int, std::shared_ptr<Building>> (
-                    buildingId, new HeavyFactory(buildingId, position)));
+            if (money >= HEAVY_FACTORY_COST) {
+                buildings.insert(std::pair<int, std::shared_ptr<Building>>(
+                        buildingId, new HeavyFactory(buildingId, position)));
+                money -= HEAVY_FACTORY_COST;
+                return true;
+            }
             break;
         }
         case BUILDING_REFINERY: {
-            std::cout << "Crea una refineria" << std::endl;
-            refineries.insert(std::pair<int, std::shared_ptr<Refinery>> (
-                    buildingId, new Refinery(buildingId, position)));
+            if (money >= REFINERY_COST) {
+                refineries.insert(std::pair<int, std::shared_ptr<Refinery>>(
+                        buildingId, new Refinery(buildingId, position)));
+                money -= REFINERY_COST;
+                return true;
+            }
             break;
         }
         case BUILDING_SILO: {
-            buildings.insert(std::pair<int, std::shared_ptr<Building>> (
-                    buildingId, new Silo(buildingId, position)));
+            if (money >= SILO_COST) {
+                buildings.insert(std::pair<int, std::shared_ptr<Building>>(
+                        buildingId, new Silo(buildingId, position)));
+                money -= SILO_COST;
+                return true;
+            }
             break;
         }
         case BUILDING_BARRACKS: {
-            buildings.insert(std::pair<int, std::shared_ptr<Building>> (
-                    buildingId, new Barracks(buildingId, position)));
+            if (money >= BARRACKS_COST) {
+                buildings.insert(std::pair<int, std::shared_ptr<Building>>(
+                        buildingId, new Barracks(buildingId, position)));
+                money -= BARRACKS_COST;
+                return true;
+            }
             break;
         }
         case BUILDING_PALACE: {
-            buildings.insert(std::pair<int, std::shared_ptr<Building>> (
-                    buildingId, new Palace(buildingId, position)));
+            if (money >= PALACE_COST) {
+                buildings.insert(std::pair<int, std::shared_ptr<Building>> (
+                        buildingId, new Palace(buildingId, position)));
+                money -= PALACE_COST;
+                return true;
+            }
             break;
         }
         default:
             throw std::runtime_error("Unkonwn building");
     }
+    return false;
 }
 
 std::shared_ptr<Unit> &Player::getUnit(int unitId) {
