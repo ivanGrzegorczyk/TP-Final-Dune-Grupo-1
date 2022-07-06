@@ -79,6 +79,7 @@ void Client::update(ProtectedQueue<Response*>& recvQueue) {
         this->mapUi.update(current);
         delete current;
     }
+    mapUi.money = protocol->getMoney();
 }
 
 void Client::renderer() {

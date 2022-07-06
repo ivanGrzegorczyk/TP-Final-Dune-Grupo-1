@@ -48,6 +48,7 @@ private:
     bool pressed = false;
     AudioPlayer audioPlayer;
 public:
+    int money;
     explicit MapUi(Renderer& renderer);
     ~MapUi();
     void draw();

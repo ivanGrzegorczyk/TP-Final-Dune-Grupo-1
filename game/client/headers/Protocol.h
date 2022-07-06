@@ -14,6 +14,7 @@
 class Protocol {
 private:
     int id;
+    int money;
     Socket skt;
     void _fillVector(std::vector<uint8_t> &vector, int x, int y);
 
@@ -24,7 +25,7 @@ public:
     void createBuilding(int clientId, int buildingId, coordenada_t coord);
 
     int receiveId();
-
+    int getMoney();
     void createUnidadLigera(int id);
 
     Response* recvResponse();

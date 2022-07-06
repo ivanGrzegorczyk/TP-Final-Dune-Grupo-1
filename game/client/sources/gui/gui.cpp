@@ -62,7 +62,7 @@ void GUI::render(Renderer &rdr) {
     try {
         SDLTTF sdl_ttf;
         Font font("Vera.ttf", 20); // SDL_ttf font
-        Texture text(rdr, font.RenderText_Solid("Hello, world!",
+        Texture text(rdr, font.RenderText_Solid(std::to_string(money),
                 SDL_Color{255, 255, 255, 255}));
         rdr.Copy(text, NullOpt, Rect(Point(menu2_area.GetX(), menu2_area.GetY()), text.GetSize()));
     } catch(std::exception& e) {

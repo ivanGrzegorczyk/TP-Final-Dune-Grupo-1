@@ -270,6 +270,7 @@ void MapUi::render() {
     }
     // render gui
     gui.render(rdr);
+    gui.money = money;
     rdr.Present();
 }
 

@@ -22,6 +22,7 @@ private:
     std::shared_ptr<BuildingType> selected;
     std::shared_ptr<UnitType> selected_unit;
 public:
+    int money;
     GUI(Rect area, 
         std::vector<std::shared_ptr<BuildingType>> building_types,
         std::vector<std::shared_ptr<UnitType>> unit_types) ;

@@ -57,7 +57,7 @@ std::pair<coordenada_t, std::vector<uint8_t>> Protocol::receiveTerrain() {
 }
 
 Response* Protocol::recvResponse() {
-    uint16_t players, idPlayer, money;
+    uint16_t players, idPlayer;
     skt.recvall(&players, sizeof(players));
     players = ntohs(players);
     if(players == 0) {
@@ -76,6 +76,10 @@ Response* Protocol::recvResponse() {
          }
     }
     return response;
+}
+
+int Protocol::getMoney() {
+    return money;
 }
 
 /*
