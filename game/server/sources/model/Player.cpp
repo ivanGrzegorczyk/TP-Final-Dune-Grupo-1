@@ -15,43 +15,65 @@
 
 Player::Player(int id, int house) : playerId(id), house(house), money(1000) {}
 
-void Player::addUnit(int unitId, int type, coordenada_t position) {
+bool Player::addUnit(int unitId, int type, coordenada_t position) {
     switch (type) {
         case UNIT_LIGHT_INFANTRY: {
-            units.insert(std::pair<int, std::shared_ptr<Unit>> (
-                    unitId, new LightInfantry(unitId, position)));
+            if (money >= LIGHT_INFANTRY_COST) {
+                units.insert(std::pair<int, std::shared_ptr<Unit>> (
+                        unitId, new LightInfantry(unitId, position)));
+                money -= LIGHT_INFANTRY_COST;
+                return true;
+            }
             break;
         }
         case UNIT_HEAVY_INFANTRY: {
-            units.insert(std::pair<int, std::shared_ptr<Unit>> (
-                    unitId, new HeavyInfantry(unitId, position)));
+            if (money >= HEAVY_INFANTRY_COST) {
+                units.insert(std::pair<int, std::shared_ptr<Unit>>(
+                        unitId, new HeavyInfantry(unitId, position)));
+                money -= HEAVY_INFANTRY_COST;
+                return true;
+            }
             break;
         }
         case UNIT_FREMEN: {
-            units.insert(std::pair<int, std::shared_ptr<Unit>> (
-                    unitId, new Fremen(unitId, position)));
+            if (money >= FREMEN_COST) {
+                units.insert(std::pair<int, std::shared_ptr<Unit>>(
+                        unitId, new Fremen(unitId, position)));
+                money -= FREMEN_COST;
+                return true;
+            }
             break;
         }
         case UNIT_SARDAUKAR: {
-            units.insert(std::pair<int, std::shared_ptr<Unit>> (
-                    unitId, new Sardaukar(unitId, position)));
+            if (money >= SARDAUKAR_COST) {
+                units.insert(std::pair<int, std::shared_ptr<Unit>>(
+                        unitId, new Sardaukar(unitId, position)));
+                money -= SARDAUKAR_COST;
+                return true;
+            }
             break;
         }
         default:
             throw std::runtime_error("Unknown unit");
     }
+    return false;
 }
 
-void Player::addVehicle(int vehicleId, int type, coordenada_t position) {
+bool Player::addVehicle(int vehicleId, int type, coordenada_t position) {
     switch (type) {
         case VEHICLE_HARVESTER: {
-            harvesters.insert(std::pair<int, std::shared_ptr<Harvester>> (
-                    vehicleId, new Harvester(vehicleId, position)));
+            if (money >= HARVESTER_COST) {
+                harvesters.insert(std::pair<int, std::shared_ptr<Harvester>>(
+                        vehicleId, new Harvester(vehicleId, position)));
+                money -= VEHICLE_HARVESTER;
+                return true;
+            }
             break;
         }
         default:
             throw std::runtime_error("Unknown vehicle");
     }
+    return false;
 }
 
 bool Player::addBuilding(
@@ -61,7 +83,6 @@ bool Player::addBuilding(
             buildings.insert(std::pair<int, std::shared_ptr<Building>> (
                     buildingId, new ConstructionCenter(buildingId, position)));
             return true;
-            break;
         }
         case BUILDING_LIGHT_FACTORY: {
             if (money >= LIGHT_FACTORY_COST) {
